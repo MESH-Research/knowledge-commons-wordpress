@@ -14,3 +14,4 @@ humcore/fix_no_doi.php: Fix DOI creation failure for an otherwise complete depos
 humcore/fix_tax_ids.php: One time data migration to add group, subject and keyword ID values to deposits post meta.
 humcore/load_test_deposits.php: Add deposits from a commons production copy to a solr/fedora test system.
 
+humcore/DUPLICATES.md: Notes on duplicate deposit cleanup.
