@@ -9,6 +9,7 @@ A place for one-off or sensitive scripts used in data migration. Please organize
  - humcore/fix_content_mime_type.php: Fix incorrect mimeType on a fedora resource object.
  - humcore/fix_deposit_counts.php: One time data migration to rename and merge deposit download counters.
  - humcore/fix_fileloc1.php: One time data migration to rename deposit upload file locations.
+ - humcore/fix_fileloc_and_size.php: Part of a 4 step process to replace a file for a given file in Fedora.
  - humcore/fix_filetype.php: Fix incorrect filetype (mimetype) in deposit post meta.
  - humcore/fix_no_doi.php: Fix DOI creation failure for an otherwise complete deposit.
  - humcore/fix_tax_ids.php: One time data migration to add group, subject and keyword ID values to deposits post meta.
