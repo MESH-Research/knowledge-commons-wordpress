@@ -28,11 +28,12 @@
 		$nextPids[] = $post_metadata['files'][0]['pid'];
 		echo var_export( $nextPids, true );
 
-		// Check to see if this deposit has alreasdy been created.
+		// Check to see if this deposit has already been created.
 		$fStatus = $fedora_api->validate( array(
 			'pid' => $nextPids[0],
 		) );
 		if ( ! is_wp_error( $fStatus ) ) {
+                        echo 'Valid pid ' . $nextPids[0] . "\n\r";
 			continue;
 		} else if ( 404 !== $fStatus->get_error_code() ) {
 			echo 'Error validating ' . $nextPids[0] . ' - ' . $fStatus->get_error_message();
@@ -246,7 +247,7 @@
 
 		echo 'Test deposit fedora/solr/wp writes complete.';
 		echo "\n\r";
-sleep (30); // Trying to keep katana from throwing up.
+sleep (60); // Trying to keep katana from throwing up.
 	}
 
 	exit();
