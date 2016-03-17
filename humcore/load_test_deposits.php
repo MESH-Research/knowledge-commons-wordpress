@@ -3,12 +3,16 @@
 // Add deposits from a commons production copy to a solr/fedora test system.
 // The pids in the test system start at 3000 to avoid collision with production pids. We'll need to increase that periodically.
 // Currently the katana/sorjuana test system is only partially loaded due to a recurring memory error in solr.
+//
+// Sorjuana now loaded with deposits up thru mla:543
 
         $query_args = array(
+//                'include'        => 9040, // 8187,
+                'offset'         => 230,
                 'post_parent'    => 0,
                 'post_type'      => 'humcore_deposit',
                 'post_status'    => 'publish',
-                'posts_per_page' => 45,
+                'posts_per_page' => 10,
 		'order'          => 'ASC',
                 'order_by'       => 'ID',
         );
@@ -131,6 +135,7 @@
                                 $sResult = $solr_client->create_humcore_extract( $renamed_file, $metadata );
                         }
                 } catch ( Exception $e ) {
+echo "catch", var_export($e,true);
                         if ( '500' == $e->getCode() && strpos( $e->getMessage(), 'TikaException' ) ) {
                                 try {
                                         $sResult = $solr_client->create_humcore_document( '', $metadata );
@@ -140,7 +145,7 @@
                                         continue;
                                 }
                         } else {
-                                echo __( 'An error occurred while depositing your file!', 'humcore_domain' );
+                                echo __( 'A solr error occurred while depositing your file!', 'humcore_domain' );
                                 continue;
                         }
                 }
@@ -247,7 +252,7 @@
 
 		echo 'Test deposit fedora/solr/wp writes complete.';
 		echo "\n\r";
-sleep (60); // Trying to keep katana from throwing up.
+sleep (15); // Trying to keep katana from throwing up.
 	}
 
 	exit();
