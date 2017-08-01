@@ -69,29 +69,17 @@ sync_files() {
 # depends on all_networks_wp.bash
 activate_plugins() {
   # password-protected is special. deactivate at site, then network, then site again for full effect
-  #$ssh "\
-  #  ./all_networks_wp.bash plugin deactivate\
-  #    password-protected\
-  #    ;\
-  #  ./all_networks_wp.bash plugin deactivate --network\
-  #    password-protected\
-  #    wordpress-mu-domain-mapping\
-  #    ;\
-  #  ./all_networks_wp.bash plugin deactivate\
-  #    password-protected\
-  #    ;\
-  #  ./all_networks_wp.bash plugin activate --network\
-  #    debug-bar\
-  #    debug-bar-actions-and-filters-addon\
-  #    wordpress-debug-bar-template-trace\
-  #    simply-show-ids\
-  #"
   $ssh "\
+    ./all_networks_wp.bash plugin deactivate\
+      password-protected\
+      ;\
     ./all_networks_wp.bash plugin deactivate --network\
       password-protected\
       wordpress-mu-domain-mapping\
-  "
-  $ssh "\
+      ;\
+    ./all_networks_wp.bash plugin deactivate\
+      password-protected\
+      ;\
     ./all_networks_wp.bash plugin activate --network\
       debug-bar\
       debug-bar-actions-and-filters-addon\
