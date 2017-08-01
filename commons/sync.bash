@@ -87,6 +87,11 @@ activate_plugins() {
   #    simply-show-ids\
   #"
   $ssh "\
+    ./all_networks_wp.bash plugin deactivate --network\
+      password-protected\
+      wordpress-mu-domain-mapping\
+  "
+  $ssh "\
     ./all_networks_wp.bash plugin activate --network\
       debug-bar\
       debug-bar-actions-and-filters-addon\
