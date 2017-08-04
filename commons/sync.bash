@@ -1,27 +1,16 @@
 #!/bin/bash
 set -ex
 
-# run this on the host, NOT the vagrant guest.
+# THINGS THIS SCRIPT DOES NOT DO WHICH YOU'LL NEED TO DO MANUALLY (ONCE):
 #
-# things this script does not do which you'll need to do manually (once):
+# 1. set up keys to be able to ssh to remote & vagrant machines
 #
-# set up keys to be able to ssh to remote & vagrant machines
-# for vagrant -> remote ssh, either set up those keys as well or use ssh-agent. for sudo to use ssh-agent, add:
-# Defaults    env_keep+=SSH_AUTH_SOCK
-# to /etc/sudoers (visudo) on $vagrant_hostname
-# otherwise rsync won't be able to ssh to the remote host using the agent on your guest
+# 2. add the following to /etc/sudoers on the instance this script runs on (use `sudo visudo` to edit)
+#   Defaults    env_keep+=SSH_AUTH_SOCK
+# (otherwise rsync won't be able to ssh to the remote host using the agent on your guest)
 # see http://serverfault.com/questions/107187/ssh-agent-forwarding-and-sudo-to-another-user
-#
-# change domains in config/environments/all.php
-# -define( 'COOKIEHASH', md5( 'alpha.hcommons.org' ) );
-# -define( 'COOKIE_DOMAIN', 'alpha.hcommons.org' );
-# +define( 'COOKIEHASH', md5( 'mustache.vagrant.dev' ) );
-# +define( 'COOKIE_DOMAIN', 'mustache.vagrant.dev' );
-#
-# ensure .env has the right db name & credentials
 
-
-sync_db() {
+dump_remote_db() {
   # --lock-tables=false may result in inconsistent dump, but prevents bringing production down while dumping
   ssh $remote_user@$remote_hostname "mysqldump\
     -u$db_user\
@@ -32,9 +21,13 @@ sync_db() {
     --no-create-db\
     --quick\
     > $dump_path/$dump_name"
+}
 
+copy_dump() {
   $ssh "rsync -azhP --remove-source-files $remote_user@$remote_hostname:$dump_path/$dump_name $project_path/"
+}
 
+import_dump() {
   $ssh "mysql < $project_path/$dump_name"
 
   # disable most emails (until a wp action changes them back)
@@ -51,9 +44,7 @@ sync_db() {
       --path=/srv/www/commons/current/web/wp\
       '$prod_domain' '$dev_domain' > /dev/null"
 
-  $ssh "\
-    ./all_networks_wp.bash --network cache flush
-  "
+  $ssh "./all_networks_wp.bash --network cache flush"
 }
 
 sync_files() {
@@ -93,11 +84,12 @@ activate_plugins() {
 
 
 OPTIND=1
-while getopts "h?Sdfp" opt; do
+while getopts "h?Sdlfp" opt; do
   case "$opt" in
     h|\?) echo "i should probably write help output sometime. until then, read the source"; exit 0;;
     S) S=1;; # sync from staging rather than production
     d) d=1;; # dump & import database
+    l) l=1;; # import database from most recent dump
     f) f=1;; # rsync files
     p) p=1;; # (de)activate plugins
   esac
@@ -140,15 +132,18 @@ ssh="ssh -o ForwardAgent=yes $vagrant_hostname"
 wp="sudo -u www-data wp"
 
 # if no options were passed, do everything
-if [[ -z "$r$d$f$p" ]]
+if [[ -z "$r$d$l$f$p" ]]
 then
-  sync_db
-  sync_files
+  sync_files & # fork this since it doesn't depend on anything else, proceed while it's running
+  dump_remote_db
+  copy_dump
+  import_dump
   activate_plugins
   exit
 fi
 
 # otherwise just do what was asked
-if [[ -n "$d" ]]; then sync_db; fi
+if [[ -n "$d" ]]; then dump_remote_db; copy_dump; import_dump; fi
+if [[ -n "$l" ]]; then import_dump; fi
 if [[ -n "$f" ]]; then sync_files; fi
 if [[ -n "$p" ]]; then activate_plugins; fi
