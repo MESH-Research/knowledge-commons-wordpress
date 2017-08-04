@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # THINGS THIS SCRIPT DOES NOT DO WHICH YOU'LL NEED TO DO MANUALLY (ONCE):
 #
@@ -84,7 +84,7 @@ activate_plugins() {
 
 
 OPTIND=1
-while getopts "h?Sdlfp" opt; do
+while getopts "h?Sdlfpv" opt; do
   case "$opt" in
     h|\?) echo "i should probably write help output sometime. until then, read the source"; exit 0;;
     S) S=1;; # sync from staging rather than production
