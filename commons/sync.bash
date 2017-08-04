@@ -82,6 +82,13 @@ activate_plugins() {
   "
 }
 
+# echo env variable values
+# $1 name of .env variable
+# $2 server from which to fetch value
+_get_env_var() {
+  local line=$(ssh $remote_user@$2 "grep '^$1' /srv/www/commons/current/.env")
+  echo $line | awk -F '=' '{print $2}' | tr -d '"'
+}
 
 OPTIND=1
 while getopts "h?Sdlfpv" opt; do
@@ -92,43 +99,33 @@ while getopts "h?Sdlfpv" opt; do
     l) l=1;; # import database from most recent dump
     f) f=1;; # rsync files
     p) p=1;; # (de)activate plugins
+    v) v=1;; # enable verbose output
   esac
 done
 shift $((OPTIND-1))
 if [ "$1" = -- ]; then shift; fi
 
-
-# TODO use .env http://stackoverflow.com/questions/19331497/set-environment-variables-from-file
+[[ -n "$v" ]] && set -x
 
 if [[ -n "$S" ]]
 then
   remote_hostname=hcommons-dev.org
-  db_host=hcommons-dev-wordpress.cyongorao4kh.us-east-1.rds.amazonaws.com
-  db_pass=sANQ8NF5DkgSsIT7SskbxO
-  db_user=hcommons_dev
 else
   remote_hostname=hcommons.org
-  db_host=hcommons-prod-wordpress.cyongorao4kh.us-east-1.rds.amazonaws.com
-  db_pass=hAXzDgVuWsrWSdIOZqvDse
-  db_user=hcdb
 fi
 
+remote_user=ubuntu
 vagrant_hostname=$(hostname -s)
 project_path=/srv/www/commons/current
-remote_user=ubuntu
-dump_path=/tmp
-dev_domain=$vagrant_hostname.mlacommons.org # TODO dynamic
+dev_domain=$vagrant_hostname.mlacommons.org
 prod_domain=$remote_hostname
-db_name=hcommons
-#dump_name=${db_name}_$(date +%Y%m%dT%H%M%S).sql
+db_name=$(_get_env_var DB_NAME $remote_hostname)
+db_host=$(_get_env_var DB_HOST $remote_hostname)
+db_pass=$(_get_env_var DB_PASS $remote_hostname)
+db_user=$(_get_env_var DB_USER $remote_hostname)
+dump_path=/tmp
 dump_name=${db_name}_latest.sql
-
-# TODO switch depending on whether we're running  vagrant/virtualbox or just connecting locally
-#ssh="vagrant ssh $vagrant_hostname -c"
 ssh="ssh -o ForwardAgent=yes $vagrant_hostname"
-
-# TODO standardize...
-#wp="$project_path/vendor/wp-cli/wp-cli/bin/wp"
 wp="sudo -u www-data wp"
 
 # if no options were passed, do everything
