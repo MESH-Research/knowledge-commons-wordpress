@@ -72,7 +72,7 @@ sync_files() {
 
 # depends on all_networks_wp.bash
 activate_plugins() {
-  echo "activating plugins..."
+  echo "(de)activating plugins..."
 
   # password-protected is special. deactivate at site, then network, then site again for full effect
   ~/all_networks_wp.bash plugin deactivate\
