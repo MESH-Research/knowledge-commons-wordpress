@@ -43,14 +43,18 @@ import_dump() {
 
   mysql < $project_path/$dump_name
 
+  echo "replacing user emails..."
+
   # disable most emails (until a wp action changes them back)
   mysql $db_name -e "update wp_users set user_email=replace(user_email,'@','@sign');"
 
+  echo "replacing domains..."
+
   $wp search-replace\
-    --url='$prod_domain'\
+    --url="$prod_domain"\
     --all-tables\
     --path=/srv/www/commons/current/web/wp\
-    '$prod_domain' '$dev_domain' > /dev/null
+    "$prod_domain" "$dev_domain" > /dev/null
 
   ~/all_networks_wp.bash --network cache flush
 }
