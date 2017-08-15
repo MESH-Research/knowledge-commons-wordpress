@@ -48,9 +48,12 @@ import_dump() {
 }
 
 sync_files() {
-  local rsync_opts="-azhP --delete"
+  local rsync_opts="-azh --delete"
   local uploads_path=$project_path/web/app/uploads
   local blogsdir_path=$project_path/web/app/blogs.dir
+
+  # turn up verbosity if requested
+  [[ -n "$v" ]] && rsync_opts="$rsync_opts -P"
 
   $ssh "\
     sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$uploads_path/ $uploads_path &&\
