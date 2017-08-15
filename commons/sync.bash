@@ -52,7 +52,7 @@ import_dump() {
     --path=/srv/www/commons/current/web/wp\
     '$prod_domain' '$dev_domain' > /dev/null
 
-  ./all_networks_wp.bash --network cache flush
+  ~/all_networks_wp.bash --network cache flush
 }
 
 sync_files() {
@@ -75,17 +75,17 @@ activate_plugins() {
   echo "activating plugins..."
 
   # password-protected is special. deactivate at site, then network, then site again for full effect
-  ./all_networks_wp.bash plugin deactivate\
+  ~/all_networks_wp.bash plugin deactivate\
     password-protected
 
-  ./all_networks_wp.bash plugin deactivate --network\
+  ~/all_networks_wp.bash plugin deactivate --network\
     password-protected\
     wordpress-mu-domain-mapping
 
-  ./all_networks_wp.bash plugin deactivate\
+  ~/all_networks_wp.bash plugin deactivate\
     password-protected
 
-  ./all_networks_wp.bash plugin activate --network\
+  ~/all_networks_wp.bash plugin activate --network\
     debug-bar\
     debug-bar-actions-and-filters-addon\
     wordpress-debug-bar-template-trace\
