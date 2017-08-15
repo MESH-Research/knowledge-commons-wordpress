@@ -46,11 +46,7 @@ import_dump() {
   # disable most emails (until a wp action changes them back)
   mysql $db_name -e "update wp_users set user_email=replace(user_email,'@','@sign');"
 
-  # TODO create this on vagrant if not exists. or find a better way, this is a hack anyway
-  pre_php=/tmp/__pre.php; [[ -e "$pre_php" ]] || echo "<?php error_reporting( 0 ); define( 'WP_DEBUG', false );" > "$pre_php"
-
   $wp search-replace\
-    --require='$pre_php'\
     --url='$prod_domain'\
     --all-tables\
     --path=/srv/www/commons/current/web/wp\
