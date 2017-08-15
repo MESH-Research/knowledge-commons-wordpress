@@ -56,6 +56,15 @@ import_dump() {
     --path=/srv/www/commons/current/web/wp\
     "$prod_domain" "$dev_domain" > /dev/null
 
+  # if any prod domains are in the object cache, cache flush command might fail since wp-cli can't find the site(s)
+  mv /{srv/www/commons/current/web/app,tmp}/object-cache.php
+  ~/all_networks_wp.bash --network cache flush
+
+  # restore object-cache.php and try once more
+  mv /{tmp,srv/www/commons/current/web/app}/object-cache.php
+  ~/all_networks_wp.bash --network cache flush
+
+  # run cache flush a second time to ensure all networks are initialized after restoring object-cache.php
   ~/all_networks_wp.bash --network cache flush
 }
 
