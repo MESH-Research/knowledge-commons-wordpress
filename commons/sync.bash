@@ -3,7 +3,7 @@ set -e
 
 # THINGS THIS SCRIPT DOES NOT DO WHICH YOU'LL NEED TO DO MANUALLY (ONCE):
 #
-# 1. set up keys to be able to ssh to remote & vagrant machines
+# 1. set up ssh config/keys to be able to ssh $remote_user@$remote_hostname (use ssh-agent with ForwardAgent yes)
 #
 # 2. add the following to /etc/sudoers on the instance this script runs on (use `sudo visudo` to edit)
 #   Defaults    env_keep+=SSH_AUTH_SOCK
@@ -24,27 +24,26 @@ dump_remote_db() {
 }
 
 copy_dump() {
-  $ssh "rsync -azhP --remove-source-files $remote_user@$remote_hostname:$dump_path/$dump_name $project_path/"
+  rsync -azhP --remove-source-files $remote_user@$remote_hostname:$dump_path/$dump_name $project_path/
 }
 
 import_dump() {
-  $ssh "mysql < $project_path/$dump_name"
+  mysql < $project_path/$dump_name
 
   # disable most emails (until a wp action changes them back)
-  $ssh "mysql $db_name -e 'update wp_users set user_email=replace(user_email,'@','@sign');'"
+  mysql $db_name -e "update wp_users set user_email=replace(user_email,'@','@sign');"
 
   # TODO create this on vagrant if not exists. or find a better way, this is a hack anyway
   pre_php=/tmp/__pre.php; [[ -e "$pre_php" ]] || echo "<?php error_reporting( 0 ); define( 'WP_DEBUG', false );" > "$pre_php"
-  $ssh "\
-    touch '$pre_php' &&\
-    $wp search-replace\
-      --require='$pre_php'\
-      --url='$prod_domain'\
-      --all-tables\
-      --path=/srv/www/commons/current/web/wp\
-      '$prod_domain' '$dev_domain' > /dev/null"
 
-  $ssh "./all_networks_wp.bash --network cache flush"
+  $wp search-replace\
+    --require='$pre_php'\
+    --url='$prod_domain'\
+    --all-tables\
+    --path=/srv/www/commons/current/web/wp\
+    '$prod_domain' '$dev_domain' > /dev/null
+
+  ./all_networks_wp.bash --network cache flush
 }
 
 sync_files() {
@@ -55,34 +54,33 @@ sync_files() {
   # turn up verbosity if requested
   [[ -n "$v" ]] && rsync_opts="$rsync_opts -P"
 
-  $ssh "\
-    sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$uploads_path/ $uploads_path &&\
-    sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$blogsdir_path/ $blogsdir_path" || :
+  (
+    sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$uploads_path/ $uploads_path
+    sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$blogsdir_path/ $blogsdir_path
+  ) || :
 }
 
 # depends on all_networks_wp.bash
 activate_plugins() {
   # password-protected is special. deactivate at site, then network, then site again for full effect
-  $ssh "\
-    ./all_networks_wp.bash plugin deactivate\
-      password-protected\
-      ;\
-    ./all_networks_wp.bash plugin deactivate --network\
-      password-protected\
-      wordpress-mu-domain-mapping\
-      ;\
-    ./all_networks_wp.bash plugin deactivate\
-      password-protected\
-      ;\
-    ./all_networks_wp.bash plugin activate --network\
-      debug-bar\
-      debug-bar-actions-and-filters-addon\
-      wordpress-debug-bar-template-trace\
-      simply-show-ids\
-      debug-bar-elasticpress\
-      buddypress-body-classes\
-      user-switching\
-  "
+  ./all_networks_wp.bash plugin deactivate\
+    password-protected
+
+  ./all_networks_wp.bash plugin deactivate --network\
+    password-protected\
+    wordpress-mu-domain-mapping
+
+  ./all_networks_wp.bash plugin deactivate\
+    password-protected
+
+  ./all_networks_wp.bash plugin activate --network\
+    debug-bar\
+    debug-bar-actions-and-filters-addon\
+    wordpress-debug-bar-template-trace\
+    simply-show-ids\
+    debug-bar-elasticpress\
+    buddypress-body-classes\
+    user-switching
 }
 
 # echo env variable values
@@ -128,7 +126,6 @@ db_pass=$(_get_env_var DB_PASS $remote_hostname)
 db_user=$(_get_env_var DB_USER $remote_hostname)
 dump_path=/tmp
 dump_name=${db_name}_latest.sql
-ssh="ssh -o ForwardAgent=yes $vagrant_hostname"
 wp="sudo -u www-data wp"
 
 # if no options were passed, do everything
