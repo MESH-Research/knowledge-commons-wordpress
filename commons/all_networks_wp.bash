@@ -1,6 +1,5 @@
 #!/bin/bash
 #set -ex
-set -x
 
 domain=$(hostname)
 networks=("ajs" "aseees" "caa" "mla")
