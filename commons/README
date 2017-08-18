@@ -8,6 +8,8 @@ ln -s dev-scripts/commons/all_networks_wp.bash all_networks_wp.bash
 
 sync.bash usage:
 
+If this is the first time you've used it, read the source of sync.bash - there are a few setup steps required, detailed in a comment at the top of the file.
+
 Sync database & files from production, and activate dev-related plugins (equal to -dfp):
 ~/sync.bash
 

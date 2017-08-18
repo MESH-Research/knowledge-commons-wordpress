@@ -3,7 +3,9 @@ set -e
 
 # THINGS THIS SCRIPT DOES NOT DO WHICH YOU'LL NEED TO DO MANUALLY (ONCE):
 #
-# 0. make sure your dev machine hostname matches the wordpress main domain e.g. `sudo hostname rumi.mlacommons.org`
+# 0. make sure your dev machine hostname matches the wordpress main domain e.g. `rumi.mlacommons.org`
+# there are multiple steps required for this change to be permanent, follow aws instructions below
+# see https://aws.amazon.com/premiumsupport/knowledge-center/linux-static-hostname/
 #
 # 1. set up ssh config/keys to be able to ssh $remote_user@$remote_hostname (use ssh-agent with ForwardAgent yes)
 #
