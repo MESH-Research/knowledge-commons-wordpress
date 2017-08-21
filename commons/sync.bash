@@ -37,13 +37,13 @@ copy_dump() {
   # turn up verbosity if requested
   [[ -n "$v" ]] && rsync_opts="$rsync_opts -P"
 
-  rsync $rsync_opts $remote_user@$remote_hostname:$dump_path/$dump_name $project_path/
+  rsync $rsync_opts $remote_user@$remote_hostname:$dump_path/$dump_name $dump_path/
 }
 
 import_dump() {
   echo "importing dump..."
 
-  mysql < $project_path/$dump_name
+  mysql < $dump_path/$dump_name
 
   echo "replacing user emails..."
 
