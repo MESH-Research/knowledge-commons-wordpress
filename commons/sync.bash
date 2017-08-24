@@ -68,6 +68,9 @@ import_dump() {
 
   # run cache flush a second time to ensure all networks are initialized after restoring object-cache.php
   ~/all_networks_wp.bash --network cache flush > /dev/null
+
+  # also restart apache to clear shib sessions
+  sudo service apache2 restart
 }
 
 sync_files() {
