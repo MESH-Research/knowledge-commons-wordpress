@@ -25,7 +25,6 @@ dump_remote_db() {
     exit 1
   fi
 
-  exit 0
   # --lock-tables=false may result in inconsistent dump, but prevents bringing production down while dumping
   ssh $remote_user@$remote_hostname "mysqldump\
     -u$db_user\
