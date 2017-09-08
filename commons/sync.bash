@@ -17,6 +17,15 @@ set -e
 dump_remote_db() {
   echo "dumping remote db..."
 
+  # to avoid collision/overload, check for an existing dumpfile & bail if found
+  local in_progress=$(ssh $remote_user@$remote_hostname "[[ -e $dump_path/$dump_name ]] && echo 1")
+  if [[ -n "$in_progress" ]]
+  then
+    echo "Another mysqldump is in progress, please try again later."
+    exit 1
+  fi
+
+  exit 0
   # --lock-tables=false may result in inconsistent dump, but prevents bringing production down while dumping
   ssh $remote_user@$remote_hostname "mysqldump\
     -u$db_user\
