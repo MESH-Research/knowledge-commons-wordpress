@@ -13,7 +13,7 @@ set -ex
 
 sed -i '7d;8d;9d;11d' composer.lock
 
-$(git log --grep='composer require' -1 --format=%B)
+$(git log --all --grep='composer require' -1 --format=%B)
 
 git add composer.lock
 
