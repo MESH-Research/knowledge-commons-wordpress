@@ -23,7 +23,11 @@ then
 	version=$(grep '^Version:' style.css | awk '{print $2}')
 	type=theme
 else
-	echo "plugins not yet supported, sorry"
+	author=$(grep '^Author:' *php | awk '{print $2}')
+	name=$(grep '^Plugin Name:' *php | awk '{print $3}' | tr '[:upper:]' '[:lower:]')
+	version=$(grep '^Version:' *php | awk '{print $2}')
+	type=plugin
+	echo 'plugin support still experimental, check for correct parsing before continuing'
 	exit 1
 fi
 
