@@ -11,10 +11,19 @@
 
 set -ex
 
+# back up composer.lock just in case
+cp -v {,/tmp/}composer.lock
+
+# remove conflict markers
 sed -i '7d;8d;9d;11d' composer.lock
 
+# run the most recent composer require again
 $(git log --all --grep='composer require' -1 --format=%B)
 
+# stage resulting composer.lock with updated hash
 git add composer.lock
+
+# display diff for review
+git diff --staged
 
 echo 'if all looks good, run git commit now to finish the merge'
