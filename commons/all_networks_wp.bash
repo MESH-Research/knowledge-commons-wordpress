@@ -7,9 +7,6 @@ networks=("ajs" "aseees" "caa" "mla")
 path="/srv/www/commons/current/web/wp"
 pre_php=/tmp/__pre.php; [[ -e "$pre_php" ]] || echo "<?php error_reporting( 0 ); define( 'WP_DEBUG', false );" > "$pre_php"
 
-# TODO standardize
-wp="/srv/www/commons/current/vendor/wp-cli/wp-cli/bin/wp"
-
 # show help & bail if no arguments passed
 if [[ -z "$*" ]]
 then
@@ -19,10 +16,10 @@ then
 fi
 
 # first the main network
-sudo -u www-data $wp --require="$pre_php" --url="$domain" --path="$path" $*
+sudo -u www-data wp --require="$pre_php" --url="$domain" --path="$path" $*
 
 # now the rest
 for slug in "${networks[@]}"
 do
-        sudo -u www-data $wp --require="$pre_php" --url="$slug.$domain" --path="$path" $*
+        sudo -u www-data wp --require="$pre_php" --url="$slug.$domain" --path="$path" $*
 done
