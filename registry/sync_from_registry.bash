@@ -59,7 +59,7 @@ edit_dump() {
   # RDS. TODO change prod to use the hostname
   sed -i "s#10\.101\.11\.248#hcommons-dev-registry.cyongorao4kh.us-east-1.rds.amazonaws.com#g" "$dump_path/$dump_name"
   # hc-idp TODO can't this use the hostname too?
-  sed -i "s#ldap://10\.101\.11\.210#ldap://10.98.11.68#g" "$dump_path/$dump_name"
+  sed -i "s#ldap://10\.101\.11\.210#ldap://10.98.11.98#g" "$dump_path/$dump_name"
 
   # idp scopes
   # TODO update these to match domains
