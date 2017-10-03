@@ -45,6 +45,7 @@ dump_db() {
 
 copy_dump() {
   rsync -zhP $remote_user@$remote_hostname:$dump_path/$dump_name $dump_path/$dump_name
+  rsync -zhP $remote_user@$remote_hostname:$dump_path/registry_slapcat_latest.out $dump_path/registry_slapcat_latest.out
 }
 
 # TODO should use variables here rather than hardcode
