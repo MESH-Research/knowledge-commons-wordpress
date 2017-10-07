@@ -97,7 +97,7 @@ clean_up() {
 
 clear_comanage_cache() {
   (
-    cd /var/www/comanage-registry-mla-fork/app
+    cd /var/www/comanage-registry/app
     sudo sudo -u www-data ./Console/cake cache
   )
 }
@@ -128,9 +128,9 @@ dump_path=/tmp
 #dump_db
 #dump_slap
 #dump_idpolr_slap
-start_prod_services
+#start_prod_services
 
-copy_dump
+#copy_dump
 #edit_dump
 #
 #stop_dev_services
