@@ -23,10 +23,6 @@ start_dev_services() {
     sudo /etc/init.d/tomcat6 start
 }
 
-dump_slap() {
-  ssh $remote_user@$remote_hostname "sudo slapcat -n 1 > $dump_path/idpolr_slapcat_latest.out"
-}
-
 # TODO we should do this from a stored backup rather than live sync.
 dump_db() {
   # --lock-tables=false may result in inconsistent dump, but prevents bringing production down while dumping
@@ -59,6 +55,20 @@ import_dump() {
   mysql --max_allowed_packet=100M -u$dev_db_user -p$dev_db_pass -h$dev_db_host $dev_db_name < "$dump_path/$dump_name"
 }
 
+grouper_cleanup() {
+  sudo /etc/init.d/grouper_loader stop
+
+  cd /opt/grouper/grouper.apiBinary-2.2.2
+  #Remove any unresolved Grouper subjects
+  sudo -u tomcat6 MEM_MAX=2048m ./bin/gsh.sh -usdu -all -delete
+  #Remove any bad memberships
+  sudo -u tomcat6 MEM_MAX=2048m ./bin/gsh.sh -findbadmemberships -all
+  #Run a full bulk synchronization
+  sudo -u tomcat6 MEM_MAX=2048m ./bin/gsh.sh -psp -bulkSync
+
+  sudo /etc/init.d/grouper_loader start
+}
+
 clean_up() {
   ssh $remote_user@$remote_hostname "rm -v $dump_path/$dump_name"
   rm -v $dump_path/$dump_name
@@ -83,19 +93,19 @@ dump_name=grouper_latest.sql
 dump_path=/tmp
 
 
-
-
 #stop_prod_services
 #dump_db
-##dump_slap # this is actually for idpolr i think, not prod grouper - leave disabled
-start_prod_services
+#start_prod_services
 
-copy_dump
+#copy_dump
 #edit_dump
-#
+
 #stop_dev_services
 #import_dump
 
 #start_dev_services
+
+#echo "This step may run for a long time."
+#grouper_cleanup
 
 #clean_up
