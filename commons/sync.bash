@@ -107,14 +107,14 @@ activate_plugins() {
 
   # password-protected is special. deactivate at site, then network, then site again for full effect
   ~/all_networks_wp.bash plugin deactivate\
-    password-protected
+    password-protected || :
 
   ~/all_networks_wp.bash plugin deactivate --network\
     password-protected\
-    wordpress-mu-domain-mapping
+    wordpress-mu-domain-mapping || :
 
   ~/all_networks_wp.bash plugin deactivate\
-    password-protected
+    password-protected || :
 
   ~/all_networks_wp.bash plugin activate --network\
     debug-bar\
@@ -123,7 +123,7 @@ activate_plugins() {
     simply-show-ids\
     debug-bar-elasticpress\
     buddypress-body-classes\
-    user-switching
+    user-switching || :
 }
 
 # echo env variable values
