@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 domain=$(hostname)
 networks=("" "ajs" "aseees" "caa" "mla" "up")
@@ -22,6 +22,20 @@ do
 		url="$slug.$domain"
 	fi
 
+	wp="sudo -u www-data wp --require=$pre_php --url=$url --path=$path"
+
+	echo $wp
 	json='{"from_email":"'$from_email'","from_name":"'$from_name'","password":"'$password'","enable_sparkpost":true,"sending_method":"api","enable_tracking":true}'
-        sudo -u www-data wp --require="$pre_php" --url="$url" --path="$path" option update --format=json sp_settings "$json"
+        $wp option update --format=json sp_settings "$json"
+
+
+	# also update bp-reply-by-email options to match
+	$wp option get bp-rbe || \
+		$wp option add bp-rbe '{"mode":"inbound","key":"5a00895941b8d","inbound-provider":"sparkpost","inbound-domain":"reply.hcommons-dev.org","keepalive":"15"}' --format='json'
+
+	$wp option patch insert bp-rbe inbound-provider sparkpost || \
+		$wp option patch update bp-rbe inbound-provider sparkpost
+
+        $wp option patch insert bp-rbe inbound-domain reply.hcommons-dev.org || \
+		$wp option patch update bp-rbe inbound-domain reply.hcommons-dev.org
 done
