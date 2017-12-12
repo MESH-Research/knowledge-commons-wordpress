@@ -30,12 +30,15 @@ do
 
 
 	# also update bp-reply-by-email options to match
+
+	inbound_domain="$(if [[ -z "$slug" ]]; then echo 'reply.hcommons-dev.org'; else echo "reply.$slug.hcommons-dev.org"; fi)"
+
 	$wp option get bp-rbe || \
-		$wp option add bp-rbe '{"mode":"inbound","key":"5a00895941b8d","inbound-provider":"sparkpost","inbound-domain":"reply.hcommons-dev.org","keepalive":"15"}' --format='json'
+		$wp option add bp-rbe '{"mode":"inbound","key":"5a00895941b8d","inbound-provider":"sparkpost","inbound-domain":"'$inbound_domain'","keepalive":"15"}' --format='json'
 
 	$wp option patch insert bp-rbe inbound-provider sparkpost || \
 		$wp option patch update bp-rbe inbound-provider sparkpost
 
-        $wp option patch insert bp-rbe inbound-domain reply.hcommons-dev.org || \
-		$wp option patch update bp-rbe inbound-domain reply.hcommons-dev.org
+        $wp option patch insert bp-rbe inbound-domain $inbound_domain || \
+		$wp option patch update bp-rbe inbound-domain $inbound_domain
 done
