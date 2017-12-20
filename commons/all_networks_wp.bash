@@ -5,7 +5,11 @@ domain=$(hostname)
 networks=("ajs" "aseees" "caa" "mla")
 #networks=("ajs" "aseees" "caa" "mla" "up")
 path="/srv/www/commons/current/web/wp"
-pre_php=/tmp/__pre.php; [[ -e "$pre_php" ]] || echo "<?php error_reporting( 0 ); define( 'WP_DEBUG', false );" > "$pre_php"
+pre_php=/tmp/__pre.php
+if [[ ! -e "$pre_php" ]]
+then
+        echo "<?php error_reporting( 0 );define( 'WP_DEBUG', false );date_default_timezone_set( 'America/New_York' );" > $pre_php
+fi
 
 # show help & bail if no arguments passed
 if [[ -z "$*" ]]
