@@ -128,6 +128,8 @@ activate_plugins() {
     debug-bar-remote-requests\
     debug-bar-shortcodes\
     debug-bar-sidebars-widgets\
+    debug-bar-slow-actions\
+    debug-bar-taxonomies\
     debug-bar-transients\
     wordpress-debug-bar-template-trace\
     simply-show-ids\
