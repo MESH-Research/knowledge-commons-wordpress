@@ -119,9 +119,17 @@ activate_plugins() {
   ~/all_networks_wp.bash plugin activate --network\
     debug-bar\
     debug-bar-actions-and-filters-addon\
+    debug-bar-console\
+    debug-bar-constants\
+    debug-bar-cron\
+    debug-bar-elasticpress\
+    debug-bar-list-dependencies\
+    debug-bar-post-types\
+    debug-bar-remote-requests\
+    debug-bar-shortcodes\
+    debug-bar-transients\
     wordpress-debug-bar-template-trace\
     simply-show-ids\
-    debug-bar-elasticpress\
     buddypress-body-classes\
     user-switching || :
 }
