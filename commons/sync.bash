@@ -18,7 +18,7 @@ dump_remote_db() {
   echo "dumping remote db..."
 
   # to avoid collision/overload, check for an existing dumpfile & bail if found
-  local in_progress=$(ssh $remote_user@$remote_hostname "[[ -e $dump_path/$dump_name ]] && echo 1")
+  local in_progress=$(ssh $remote_user@$remote_hostname "[[ -e $remote_dump_path/$dump_name ]] && echo 1")
   if [[ -n "$in_progress" ]]
   then
     echo "Another mysqldump is in progress, please try again later."
@@ -34,7 +34,7 @@ dump_remote_db() {
     --lock-tables=false\
     --no-create-db\
     --quick\
-    > $dump_path/$dump_name"
+    > $remote_dump_path/$dump_name"
 }
 
 copy_dump() {
@@ -45,7 +45,7 @@ copy_dump() {
   # turn up verbosity if requested
   [[ -n "$v" ]] && rsync_opts="$rsync_opts -P"
 
-  rsync $rsync_opts $remote_user@$remote_hostname:$dump_path/$dump_name $dump_path/
+  rsync $rsync_opts $remote_user@$remote_hostname:$remote_dump_path/$dump_name $dump_path/
 }
 
 import_dump() {
@@ -177,6 +177,7 @@ db_name=$(_get_env_var DB_NAME $remote_hostname)
 db_host=$(_get_env_var DB_HOST $remote_hostname)
 db_pass=$(_get_env_var DB_PASS $remote_hostname)
 db_user=$(_get_env_var DB_USER $remote_hostname)
+remote_dump_path=/mnt/efs-logs
 dump_path=/tmp
 dump_name=${db_name}_latest.sql
 wp="sudo -u www-data wp"
