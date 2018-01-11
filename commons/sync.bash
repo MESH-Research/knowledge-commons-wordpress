@@ -137,6 +137,33 @@ activate_plugins() {
     user-switching || :
 }
 
+print_help() {
+  local script=$(basename $0)
+
+  cat <<END
+$0 syncs WordPress database & media files to this machine from production or staging.
+
+If you haven't already, read and follow these steps to ensure everything works as intended:
+  https://github.com/mlaa/dev-scripts/blob/master/commons/sync.bash#L4
+
+Note that sync.bash depends on all_networks_wp.bash to flush cache & deal with plugins.
+
+Options
+  -d sync database (overwrites local database)
+  -f sync files (rsync media files, deleting extraneous files)
+  -p activate debug plugins
+  -l re-import an existing database dump already on this machine
+  -S sync from stage instead of production (this works with -d and -f as well)
+  -v turn up verbosity
+
+Examples
+  $0      # Sync database & files from production and activate dev-related plugins (equal to -dfp)
+  $0 -d   # Sync database only from production
+  $0 -df  # Sync database & files from production
+  $0 -Sdf # Sync database & files from staging
+END
+}
+
 # echo env variable values
 # $1 name of .env variable
 # $2 server from which to fetch value
@@ -148,7 +175,7 @@ _get_env_var() {
 OPTIND=1
 while getopts "h?Sdlfpv" opt; do
   case "$opt" in
-    h|\?) echo "i should probably write help output sometime. until then, read the source"; exit 0;;
+    h|\?) print_help; exit 0;;
     S) S=1;; # sync from staging rather than production
     d) d=1;; # dump & import database
     l) l=1;; # import database from most recent dump
