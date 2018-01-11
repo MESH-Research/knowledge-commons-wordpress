@@ -146,7 +146,7 @@ $0 syncs WordPress database & media files to this machine from production or sta
 If you haven't already, read and follow these steps to ensure everything works as intended:
   https://github.com/mlaa/dev-scripts/blob/master/commons/sync.bash#L4
 
-Note that sync.bash depends on all_networks_wp.bash to flush cache & deal with plugins.
+Note that $0 depends on all_networks_wp.bash to flush cache & deal with plugins.
 
 Options
   -d sync database (overwrites local database)
