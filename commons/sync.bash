@@ -138,8 +138,6 @@ activate_plugins() {
 }
 
 print_help() {
-  local script=$(basename $0)
-
   cat <<END
 $0 syncs WordPress database & media files to this machine from production or staging.
 
