@@ -23,5 +23,5 @@ cmd="composer require $package:dev-$branch#${ref:0:7}"
 
 $cmd
 git add composer.{json,lock}
-git diff --staged
+git --no-pager diff --staged
 git commit -m "$cmd"
