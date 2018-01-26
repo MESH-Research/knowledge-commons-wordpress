@@ -10,7 +10,7 @@ pre_php=/tmp/__pre.php; [[ -e "$pre_php" ]] || echo "<?php error_reporting( 0 );
 # $1 name of .env variable
 # $2 server from which to fetch value
 _get_env_var() {
-  local line=$(ssh $remote_user@$2 "grep '^$1' /srv/www/commons/current/.env")
+  local line=$(grep "^$1" /srv/www/commons/current/.env)
   echo $line | awk -F '=' '{print $2}' | tr -d '"'
 }
 
@@ -54,7 +54,11 @@ do
 
 	env_twitter_username=$(_get_env_var TWITTER_USERNAME)
 
-	$wp option get mashsb_settings || \
+	option_found=$($wp option get mashsb_settings)
+
+        if [[ "mashsharer_hashtag" != "$option_found" ]]
+	then
 		$wp option patch update mashsb_settings mashsharer_hashtag $env_twitter_username
+	fi
 
 done
