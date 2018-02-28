@@ -6,6 +6,6 @@ set -ex
 
 for username in $*
 do
-  user_email="$(wp --url=$(hostname) user get --field=user_email $username)"
-  wp --url=$(hostname) user update $username --user_email=${user_email/sign}
+  user_email="$(wp --path=/srv/www/commons/current/web/wp --url=$(hostname) user get --field=user_email $username)"
+  wp --path=/srv/www/commons/current/web/wp --url=$(hostname) user update $username --user_email=${user_email/sign}
 done
