@@ -15,7 +15,9 @@ set -ex
 cp -v {,/tmp/}composer.lock
 
 # remove conflict markers
-sed -i '7d;8d;9d;11d' composer.lock
+#sed -i '7d;8d;9d;11d' composer.lock
+git reset composer.lock
+git checkout composer.lock
 
 # run the most recent composer require again
 $(git log --all --grep='composer require' -1 --format=%B)
