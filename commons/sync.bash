@@ -92,6 +92,7 @@ sync_files() {
   local rsync_opts="-azh --delete"
   local uploads_path=$project_path/web/app/uploads
   local blogsdir_path=$project_path/web/app/blogs.dir
+  local more_uploads_path=$project_path/../shared
 
   # turn up verbosity if requested
   [[ -n "$v" ]] && rsync_opts="$rsync_opts -P"
@@ -99,6 +100,7 @@ sync_files() {
   # fork these since they don't depend on anything else
   sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$uploads_path/ $uploads_path &
   sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$blogsdir_path/ $blogsdir_path &
+  sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$more_uploads_path/ $more_uploads_path &
 }
 
 # depends on all_networks_wp.bash
