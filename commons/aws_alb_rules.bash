@@ -15,6 +15,7 @@ priority=20
 
 for listener_arn in $hcommons_dev_alb_80_listener_arn $hcommons_dev_alb_443_listener_arn
 do
+	# create rule for this instance
 	for host in \
 		rumi.mlacommons.org \
 		'*.rumi.mlacommons.org' \
@@ -32,4 +33,7 @@ do
 
 		priority=$((priority+1))
 	done
+
+	# describe existing rules
+	# aws elbv2 describe-rules --listener-arn $listener_arn
 done
