@@ -98,9 +98,10 @@ sync_files() {
   [[ -n "$v" ]] && rsync_opts="$rsync_opts -P"
 
   # fork these since they don't depend on anything else
-  sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$uploads_path/ $uploads_path &
-  sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$blogsdir_path/ $blogsdir_path &
-  sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$more_uploads_path/ $more_uploads_path &
+  # TODO no longer forking due to performance concerns on prod server
+  sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$uploads_path/ $uploads_path
+  sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$blogsdir_path/ $blogsdir_path
+  sudo rsync $rsync_opts --rsync-path='sudo rsync' $remote_user@$remote_hostname:$more_uploads_path/ $more_uploads_path
 }
 
 # depends on all_networks_wp.bash
