@@ -87,7 +87,7 @@ import_dump() {
 }
 
 sync_files() {
-  echo "syncing files (continues in the background while the script proceeds)..."
+  echo "syncing files..."
 
   local rsync_opts="-azh --delete"
   local uploads_path=$project_path/web/app/uploads
