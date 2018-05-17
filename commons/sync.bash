@@ -158,10 +158,11 @@ Options
   -v turn up verbosity
 
 Examples
-  $0      # Sync database & files from production and activate dev-related plugins (equal to -dfp)
+  $0      # Sync database & files from production (equal to -df)
   $0 -d   # Sync database only from production
   $0 -df  # Sync database & files from production
   $0 -Sdf # Sync database & files from staging
+  $0 -p   # Activate debug plugins
 END
 }
 
