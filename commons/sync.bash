@@ -217,7 +217,6 @@ then
   dump_remote_db
   copy_dump
   import_dump
-  activate_plugins
   exit
 fi
 
