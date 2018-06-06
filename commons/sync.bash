@@ -193,7 +193,7 @@ if [ "$1" = -- ]; then shift; fi
 
 if [[ -n "$S" ]]
 then
-  remote_hostname=hcommons-dev.org
+  remote_hostname=10.98.11.85
 else
   remote_hostname=hcommons.org
 fi
