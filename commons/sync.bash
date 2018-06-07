@@ -199,6 +199,14 @@ else
 fi
 
 remote_user=ubuntu
+
+# test connect to $remote_hostname
+if ! ssh -q $remote_user@$remote_hostname exit
+then
+  echo "Unable to ssh $remote_user@$remote_hostname, exiting."
+  exit 1
+fi
+
 project_path=/srv/www/commons/current
 dev_domain="$(hostname)"
 prod_domain=$remote_hostname
