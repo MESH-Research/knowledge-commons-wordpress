@@ -193,9 +193,9 @@ if [ "$1" = -- ]; then shift; fi
 
 if [[ -n "$S" ]]
 then
-  remote_hostname=10.98.11.85
+  remote_hostname=10.98.11.85 # hcommons-dev.org
 else
-  remote_hostname=hcommons.org
+  remote_hostname=10.100.11.140 # hcommons.org
 fi
 
 remote_user=ubuntu
