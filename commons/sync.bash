@@ -209,7 +209,7 @@ fi
 
 project_path=/srv/www/commons/current
 dev_domain="$(hostname)"
-prod_domain=$remote_hostname
+prod_domain=hcommons.org
 db_name=$(_get_env_var DB_NAME $remote_hostname)
 db_host=$(_get_env_var DB_HOST $remote_hostname)
 db_pass=$(_get_env_var DB_PASS $remote_hostname)
