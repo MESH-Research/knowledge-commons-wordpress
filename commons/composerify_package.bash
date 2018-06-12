@@ -62,4 +62,4 @@ zip -qr $zipped *
 s3cmd sync $zipped s3://mla-backup/commons/packages/
 
 # output composer require command for copy/pasting
-echo composer require $author/$name
+echo "aws s3 sync s3://mla-backup/commons/packages /tmp/wordpress-packages --only-show-errors --delete && composer require $author/$name"
