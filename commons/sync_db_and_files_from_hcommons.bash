@@ -91,7 +91,7 @@ sync_db() {
   # disable most emails (until a wp action changes them back)
   mysql -u$dev_db_user -p$dev_db_pass -h$dev_db_host $dev_db_name -e "update wp_users set user_email=replace(user_email,'@','@sign') where ID not in (1,1937,4381);"
   # fix whitelisted emails
-  bash ~/dev-scripts/commons/restore_user_emails.bash adonlon lfulgencio nalonso eknappe rwms
+  bash ~/dev-scripts/commons/restore_user_emails.bash adonlon nalonso eknappe rwms
 
   # handle sparkpost/bp-rbe settings
   bash /home/ubuntu/dev-scripts/commons/set_sp_settings_dev.bash
@@ -130,6 +130,7 @@ if [ "$1" = -- ]; then shift; fi
 # if no options were passed, do everything
 if [[ -z "$r$d$f$p" ]]
 then
+  bash ~/dev-scripts/commons/slackpost_commons_dev.bash 'hcommons-dev.org sync starting'
   sync_db
   sync_files
   #activate_plugins
