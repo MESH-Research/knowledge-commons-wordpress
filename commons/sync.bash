@@ -194,8 +194,10 @@ if [ "$1" = -- ]; then shift; fi
 if [[ -n "$S" ]]
 then
   remote_hostname=10.98.11.85 # hcommons-dev.org
+  prod_domain=hcommons-dev.org
 else
   remote_hostname=10.100.11.140 # hcommons.org
+  prod_domain=hcommons.org
 fi
 
 remote_user=ubuntu
@@ -209,7 +211,6 @@ fi
 
 project_path=/srv/www/commons/current
 dev_domain="$(hostname)"
-prod_domain=hcommons.org
 db_name=$(_get_env_var DB_NAME $remote_hostname)
 db_host=$(_get_env_var DB_HOST $remote_hostname)
 db_pass=$(_get_env_var DB_PASS $remote_hostname)
