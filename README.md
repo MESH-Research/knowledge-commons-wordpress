@@ -34,4 +34,4 @@ pick your project folder:
 `$ sceptre create-stack dev ec2`
 
 
-*note:* Cloudformation scripts are setup to work with [Sceptre](https://sceptre.cloudreach.com/latest/docs/get_started.html)
+*note:* Cloudformation scripts are setup to work with [Sceptre](https://github.com/cloudreach/sceptre)
