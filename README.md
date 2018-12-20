@@ -2,22 +2,6 @@
 
 A place for one-off or sensitive scripts used in data migration. Please organize scripts in subfolders corresponding package, plugin, or function. Add to the inventory in the README.
 
-## CloudFormation Install
-
-`$ pip install sceptre`
-
-`$ git clone git@github.com:mlaa/dev-scripts.git`
-
-`$ cd dev-scripts/aws/cloudformation`
-
-pick your project folder: 
-`$ cd hc`
-
-`$ sceptre create-stack dev ec2`
-
-
-*note:* Cloudformation scripts are setup to work with [Sceptre](https://sceptre.cloudreach.com/latest/docs/get_started.html)
-
 ## Inventory
 
  - commons/friends-to-followers.php: convert friends in `wp_bp_friends` to followers. edit `HTTP_HOST` in the code before use.
@@ -35,3 +19,19 @@ pick your project folder:
  - humcore/DUPLICATES.md: Notes on duplicate deposit cleanup.
 
  - mla-academic-interests/insert_academic_interests.php: Create sample values for the Academic Interests taxonomy.
+ 
+## CloudFormation Install
+
+`$ pip install sceptre`
+
+`$ git clone git@github.com:mlaa/dev-scripts.git`
+
+`$ cd dev-scripts/aws/cloudformation`
+
+pick your project folder: 
+`$ cd hc`
+
+`$ sceptre create-stack dev ec2`
+
+
+*note:* Cloudformation scripts are setup to work with [Sceptre](https://sceptre.cloudreach.com/latest/docs/get_started.html)
