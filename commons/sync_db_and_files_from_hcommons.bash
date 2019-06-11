@@ -155,7 +155,7 @@ if [[ -z "$r$d$e$f$p" ]]
 then
   bash ~/dev-scripts/commons/slackpost_commons_dev.bash "$(hostname) sync starting"
   setup_data
-  export_db
+  #export_db
   sync_db
   sync_files
   #activate_plugins
