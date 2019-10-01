@@ -83,12 +83,12 @@ sync_db() {
     --path=/srv/www/commons/current/web/wp\
     "@$dev_domain" "@$prod_domain"
 
-  # update domain mapping
-  sudo -u www-data wp search-replace\
-    --url="$dev_domain"\
-    --all-tables\
-    --path=/srv/www/commons/current/web/wp\
-    "style.mla.org" "style.mla-dev.org"
+#  # update domain mapping
+#  sudo -u www-data wp search-replace\
+#    --url="$dev_domain"\
+#    --all-tables\
+#    --path=/srv/www/commons/current/web/wp\
+#    "style.mla.org" "style.mla-dev.org"
 
   sudo -u www-data wp search-replace\
     --url="$dev_domain"\
@@ -114,7 +114,9 @@ sync_db() {
   mysql -u$dev_db_user -p$dev_db_pass -h$dev_db_host $dev_db_name -e "update wp_users set user_email=replace(user_email,'@','@sign') where ID not in (1,4381);"
   # fix whitelisted emails
   bash ~/dev-scripts/commons/restore_user_emails.bash adonlon nalonso eknappe jbetancourt
+}
 
+sync_settings() {
   # handle sparkpost/bp-rbe settings
   bash /home/ubuntu/dev-scripts/commons/set_sp_settings_dev.bash
 }
@@ -157,9 +159,11 @@ then
   setup_data
   #export_db
   sync_db
+  sync_settings
   sync_files
   #activate_plugins
   bash ~/dev-scripts/commons/slackpost_commons_dev.bash "$(hostname) sync finished"
+  echo "deactivate the shibboleth plugin if this is a simplesaml install!"
   exit
 fi
 
