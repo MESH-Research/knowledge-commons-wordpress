@@ -2,8 +2,7 @@
 #set -ex
 
 domain=$(hostname)
-networks=("ajs" "aseees" "caa" "mla" "msu" "up")
-#networks=("ajs" "aseees" "caa" "mla" "up")
+networks=("ajs" "arlisna" "aseees" "caa" "mla" "msu" "sah" "up")
 path="/srv/www/commons/current/web/wp"
 pre_php=/tmp/__pre.php; [[ -e "$pre_php" ]] || echo "<?php error_reporting( 0 ); define( 'WP_DEBUG', false );" > "$pre_php"
 
