@@ -3,7 +3,6 @@
 
 domain=$(hostname)
 networks=("ajs" "arlisna" "aseees" "caa" "mla" "msu" "sah" "up")
-#networks=("ajs" "aseees" "caa" "mla" "up")
 path="/srv/www/commons/current/web/wp"
 pre_php=/tmp/__pre.php; [[ -e "$pre_php" ]] || echo "<?php error_reporting( 0 ); define( 'WP_DEBUG', false );" > "$pre_php"
 
