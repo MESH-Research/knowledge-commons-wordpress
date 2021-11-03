@@ -77,13 +77,16 @@ def get_repo_info( dir ) :
 		'uncommitted' : False,
 		'untracked'   : False
 	}
-	git_status = subprocess.run(
-		['git', 'status'],
-		stdout=subprocess.PIPE,
-		stderr=subprocess.DEVNULL,
-		cwd=dir,
-		universal_newlines=True
-	).stdout
+	try :
+		git_status = subprocess.run(
+			['git', 'status'],
+			stdout=subprocess.PIPE,
+			stderr=subprocess.DEVNULL,
+			cwd=dir,
+			universal_newlines=True
+		).stdout
+	except FileNotFoundError :
+		return result_dict
 	branch_regex = re.compile( 'On branch (.*)')
 	match = branch_regex.search( git_status )
 	if match is None :
