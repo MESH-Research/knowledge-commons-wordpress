@@ -112,10 +112,11 @@ def get_repo_info( dir ) :
 	if git_status.find( 'nothing to commit, working tree clean' ) > -1 :
 		result_dict['uncommitted'] = False
 		result_dict['untracked'] = False
-	elif git_status.find( 'Changes to be committed' ) > -1 or git_status.find( 'Changes not staged for commit') > -1 :
-		result_dict['uncommitted'] = True
-	elif git_status.find( 'Untracked files' ) > 1 :
-		result_dict['untracked'] = True
+	else:
+		if git_status.find( 'Changes to be committed' ) > -1 or git_status.find( 'Changes not staged for commit') > -1 :
+			result_dict['uncommitted'] = True
+		if git_status.find( 'Untracked files' ) > 1 :
+			result_dict['untracked'] = True
 
 	return result_dict
 
