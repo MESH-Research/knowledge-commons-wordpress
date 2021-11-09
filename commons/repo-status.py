@@ -15,7 +15,6 @@ REPOS = {
 	'bp-block-member'                     : '/srv/www/commons/current/web/app/plugins/bp-block-member',
 	'bp-event-organiser'                  : '/srv/www/commons/current/web/app/plugins/bp-event-organiser',
 	'bp-group-documents'                  : '/srv/www/commons/current/web/app/plugins/bp-group-documents',
-	'bp-mpo-activity-filter'              : '/srv/www/commons/current/web/app/plugins/bp-mpo-activity-filter',
 	'bp-reply-by-email'                   : '/srv/www/commons/current/web/app/plugins/bp-reply-by-email',
 	'buddypress-docs-minor-edit'          : '/srv/www/commons/current/web/app/plugins/buddypress-docs-minor-edit',
 	'buddypress-group-email-subscription' : '/srv/www/commons/current/web/app/plugins/buddypress-group-email-subscription',
