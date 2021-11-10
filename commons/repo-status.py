@@ -18,7 +18,6 @@ REPOS = {
 	'buddypress-docs-minor-edit'          : '/srv/www/commons/current/web/app/plugins/buddypress-docs-minor-edit',
 	'buddypress-group-email-subscription' : '/srv/www/commons/current/web/app/plugins/buddypress-group-email-subscription',
 	'buddypress-messages-spam-blocker'    : '/srv/www/commons/current/web/app/plugins/buddypress-messages-spam-blocker',
-	'bwp-google-xml-sitemaps'             : '/srv/www/commons/current/web/app/plugins/bwp-google-xml-sitemaps',
 	'cbox-mla-blog'                       : '/srv/www/commons/current/web/app/themes/cbox-mla-blog',
 	'commentpress-mla'                    : '/srv/www/commons/current/web/app/themes/commentpress-mla',
 	'commentpress-mla-digitalpedagogy'    : '/srv/www/commons/current/web/app/themes/commentpress-mla-digitalpedagogy',
