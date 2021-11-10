@@ -40,12 +40,9 @@ REPOS = {
 	'mla-admin-bar'                       : '/srv/www/commons/current/web/app/plugins/mla-admin-bar',
 	'mla-allowed-tags'                    : '/srv/www/commons/current/web/app/plugins/mla-allowed-tags',
 	'mla-login-bar'                       : '/srv/www/commons/current/web/app/plugins/mla-login-bar',
-	'password-protected'                  : '/srv/www/commons/current/web/app/plugins/password-protected',
 	'plugin-monitor'                      : '/srv/www/commons/current/web/app/plugins/plugin-monitor',
-	'shibboleth'                          : '/srv/www/commons/current/web/app/plugins/shibboleth',
 	'sparkpost-bp-mailer'                 : '/srv/www/commons/current/web/app/plugins/sparkpost-bp-mailer',
 	'wordpress-sparkpost'                 : '/srv/www/commons/current/web/app/plugins/wordpress-sparkpost',
-	'wp-saml-auth'                        : '/srv/www/commons/current/web/app/mu-plugins/wp-saml-auth',
 	'zotpress'                            : '/srv/www/commons/current/web/app/plugins/zotpress'
 }
 
