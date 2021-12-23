@@ -5,14 +5,13 @@
  * Syntax: wp eval-file delete-sites.php <csvfile.csv> [-dry-run]
  */
 
-function parse_file() {
-	global $argv;
+function parse_file( $args) {
 	$site_data = [];
-	if ( ! isset( $argv[3] ) ) {
+	if ( ! isset( $args[0] ) ) {
 		return $site_data;
 	}
 	
-	$handle = fopen( $argv[3], 'r' );
+	$handle = fopen( $args[0], 'r' );
 	if ( ! $handle ) {
 		return $site_data;
 	}
@@ -38,12 +37,11 @@ function fix_base_domain ( $domain ) {
 	return $fixed_domain;
 }
 
-global $argv;
-$dry_run = ( isset( $argv[4] ) && $argv[4] === '-dry-run' );
+$dry_run = ( isset( $args[1] ) && $args[1] === '-dry-run' );
 if ( $dry_run ) {
 	echo "***Dry Run***\n";
 }
-$site_data = parse_file();
+$site_data = parse_file( $args );
 foreach ( $site_data as $site_row ) {
 	if ( ! str_ends_with( $site_row[2], '.org' ) ) {
 		echo "Skipping {$site_row[2]}\n";
@@ -56,6 +54,8 @@ foreach ( $site_data as $site_row ) {
 	$blog_id = get_blog_id_from_url( $blog_url );
 	echo "Deleting $blog_url with ID $blog_id on network ID {$network->id}\n";
 	if ( ! $dry_run ) {
+		// wpfail2ban has a hook on deleted_blog that throws an error.
+		remove_all_actions( 'deleted_blog' );
 		wp_delete_site( $blog_id );
 	}
 }
