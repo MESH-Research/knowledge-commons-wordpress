@@ -72,6 +72,13 @@ def get_repo_info( dir ) :
 		'untracked'   : False
 	}
 	try :
+		subprocess.run(
+			['git', 'fetch'],
+			stdout=subprocess.PIPE,
+			stderr=subprocess.DEVNULL,
+			cwd=dir,
+			universal_newlines=True
+		)
 		git_status = subprocess.run(
 			['git', 'status'],
 			stdout=subprocess.PIPE,
