@@ -22,6 +22,7 @@ if ( count( $args ) < 3 ) {
 	show_help();
 }
 
+$excluded_network_slugs = [];
 if ( count( $args ) === 4 ) {
 	$split_args = explode( '=', $args[3] );
 	if ( $split_args[0] !== 'exclude' ) {
@@ -116,14 +117,16 @@ foreach ( $networks as $network ) {
 			}
 		}
 
-		if ( $add_to_recipient_list ) {
+		$email = get_blog_option( $site->blog_id, 'admin_email' );
+
+		if ( $add_to_recipient_list && $email ) {
 			$recipient_count += 1;
 			$row = [
 				get_blog_option( $site->blog_id, 'admin_email' ),
 				get_blog_option( $site->blog_id, 'blogname' ),
 				'hc@hcommons.org',
 				'',
-				"{{\"site\": \"{$site->domain}\"}}",
+				"{\"site\": \"{$site->domain}\"}",
 				''
 			];
 			fputcsv( $outputfile, $row );
