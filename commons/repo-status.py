@@ -42,8 +42,7 @@ REPOS = {
 	'mla-login-bar'                       : '/srv/www/commons/current/web/app/plugins/mla-login-bar',
 	'plugin-monitor'                      : '/srv/www/commons/current/web/app/plugins/plugin-monitor',
 	'sparkpost-bp-mailer'                 : '/srv/www/commons/current/web/app/plugins/sparkpost-bp-mailer',
-	'wordpress-sparkpost'                 : '/srv/www/commons/current/web/app/plugins/wordpress-sparkpost',
-	'zotpress'                            : '/srv/www/commons/current/web/app/plugins/zotpress'
+	'wordpress-sparkpost'                 : '/srv/www/commons/current/web/app/plugins/wordpress-sparkpost'
 }
 
 def get_repo_info( dir ) :
