@@ -8,10 +8,10 @@
 global $wpdb;
 
 // Are we really doing this?
-$dry_run = true;
+$dry_run = false;
 
-$old_domain = 'msu.msucommons-dev.org';
-$new_domain = 'commons-dev.meshresearch.net';
+$old_domain = 'msu.hcommons.org';
+$new_domain = 'commons.msu.edu';
 $network_id = 7; // Just for MSU Network sites
 
 $network = get_network( $network_id );
