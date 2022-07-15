@@ -68,6 +68,7 @@ def get_repo_info( dir ) :
 		'branch'      : 'None',
 		'remote'      : 'None',
 		'status'      : 'None',
+		'diff_main'   : False,
 		'uncommitted' : False,
 		'untracked'   : False
 	}
@@ -81,6 +82,13 @@ def get_repo_info( dir ) :
 		)
 		git_status = subprocess.run(
 			['git', 'status'],
+			stdout=subprocess.PIPE,
+			stderr=subprocess.DEVNULL,
+			cwd=dir,
+			universal_newlines=True
+		).stdout
+		git_diff_main = subprocess.run(
+			['git', 'diff', 'origin/main'],
 			stdout=subprocess.PIPE,
 			stderr=subprocess.DEVNULL,
 			cwd=dir,
@@ -119,6 +127,9 @@ def get_repo_info( dir ) :
 		if git_status.find( 'Untracked files' ) > 1 :
 			result_dict['untracked'] = True
 
+	if len( git_diff_main ) > 0 :
+		result_dict['diff_main'] = True
+
 	return result_dict
 
 def make_repo_table( repo_dict ) :
@@ -145,15 +156,16 @@ def print_repo_table( repo_table ) :
 	Args:
 		repo_table: Array of dicts containing repository info
 	'''
-	print ( '{:37} {:13} {:15} {:8} {:5} {:5}'.format( 'Name', 'Branch', 'Remote', 'Status', 'UC', 'UT' ) )
-	print ( '{:37} {:13} {:15} {:8} {:5} {:5}'.format( '----', '------', '------', '------', '--', '--' ) )
+	print ( '{:37} {:13} {:15} {:8} {:9} {:5} {:5}'.format( 'Name', 'Branch', 'Remote', 'Status', 'Diff Main','UC', 'UT' ) )
+	print ( '{:37} {:13} {:15} {:8} {:9} {:5} {:5}'.format( '----', '------', '------', '------', '---------','--', '--' ) )
 	for row in repo_table :
-		print ( '{:37.37} {:13.13} {:15.15} {:8.8} {:5.5} {:5.5}'.format( 
+		print ( '{:37.37} {:13.13} {:15.15} {:8.8} {:9.9} {:5.5} {:5.5}'.format( 
 			row['name'],
 			row['branch'],
 			row['remote'],
 			row['status'],
-			str( row['uncommitted']),
+			str( row['diff_main'] ),
+			str( row['uncommitted'] ),
 			str( row['untracked'] )
 		) )
 

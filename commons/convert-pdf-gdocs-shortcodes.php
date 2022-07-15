@@ -10,9 +10,10 @@
 // Run mla separately
 $all_network_slugs      = [ 'hc', 'ajs', 'arlisna', 'aseees', 'caa', 'msu', 'up', 'mla' ];
 $included_network_slugs = [ 'hc', 'ajs', 'arlisna', 'aseees', 'caa', 'msu', 'up' ];
+# $included_network_slugs = [ 'mla' ];
 
 $replace_docs  = True;
-$replace_pdfjs = True;
+$replace_pdfjs = False;
 $dry_run       = False;
 
 $pdfjs_pattern = '/\[pdfjs-viewer.*url="(\S*)".*\]/';
