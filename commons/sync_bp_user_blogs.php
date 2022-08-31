@@ -14,18 +14,16 @@
  *
  * @see https://github.com/MESH-Research/hc-admin-docs-support/issues/310
  *
- * Note: bp_blogs_record_existing_blogs() rebuilds everything from scratch, so
- * the script takes some time and there is a risk of unintended consequences.
- * Should always run on dev first and test before running on prod.
- *
  * Usage: wp eval-file sync_bp_user_blogs.php
  */
 
 /**
  * This function calls bp_blogs_record_existing_blogs() to rebuild the wp_bp_user_blogs table.
- * 
  */
 function buddypress_repair() {
+	
+	// It appears that the bp_blogs_record_exisiting blogs function only works on
+	// a per-network basis, so need to iterate through each network. 
 	foreach ( get_networks() as $network ) {
 		echo "Recording blogs for network id {$network->id}...\n";
 		$blogs = get_sites(
@@ -38,6 +36,7 @@ function buddypress_repair() {
 
 		echo "Recording membership for " . count( $blogs ) . " sites.\n";
 		
+		// Passing blog_ids explicitly so that the user_blogs table is not truncated.
 		$success = bp_blogs_record_existing_blogs(
 			[
 				'limit'    => 99999,
