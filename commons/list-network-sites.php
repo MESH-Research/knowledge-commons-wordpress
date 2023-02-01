@@ -13,7 +13,7 @@ function main() {
 	$networks = get_networks( [ 'domain' => $domain ] );
 	$sites = get_sites( ['network_id' => $networks[0]->id] );
 	foreach ( $sites as $site ) {
-		echo "{$site->domain}\n";
+		echo "{$site->domain} - {$site->id}\n";
 	}
 
 }
