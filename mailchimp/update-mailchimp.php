@@ -27,16 +27,20 @@ function get_recent_users( $weeks ) {
 		FROM $wpdb->users
 		LEFT JOIN $wpdb->usermeta AS s ON s.user_id = $wpdb->users.ID AND s.meta_key = 'session_tokens'
 		LEFT JOIN $wpdb->usermeta AS a ON a.user_id = $wpdb->users.ID AND a.meta_key = 'last_activity'
-		WHERE UNIX_TIMESTAMP( STR_TO_DATE( a.meta_value, '%Y-%m-%d %H:%i:%s' ) ) > $cutoff_time
-		OR CAST( 
-			REGEXP_SUBSTR(
-				REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+;}}' ),
-				'[0-9]+'
-			)
-		AS UNSIGNED ) > $cutoff_time;"
+		WHERE (
+			UNIX_TIMESTAMP( STR_TO_DATE( a.meta_value, '%Y-%m-%d %H:%i:%s' ) ) > $cutoff_time
+			OR CAST( 
+				REGEXP_SUBSTR(
+					REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+;}}' ),
+					'[0-9]+'
+				)
+			AS UNSIGNED ) > $cutoff_time
+		)
+		AND deleted = 0
+		AND spam =0;"
 	);
 
-	echo "There were " . count( $users ) . " users found within the last " . RECENT_WEEKS . " weeks. \n";
+	echo "There were " . count( $users ) . " users found within the last " . $weeks . " weeks. \n";
 
 	return $users;
 }
