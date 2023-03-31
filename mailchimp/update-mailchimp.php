@@ -21,14 +21,16 @@ function get_recent_users( $weeks ) {
 
 	$cutoff_time = time() - ( $weeks * WEEK_IN_SECONDS );
 
+	$bp_activity_table = buddypress()->members->table_name_last_activity;
+
 	// Get all users who have logged in or have activity within $weeks weeks.
 	$users = $wpdb->get_results(
-		"SELECT ID, user_email, s.meta_value AS session_tokens, a.meta_value AS last_activity 
-		FROM $wpdb->users
-		LEFT JOIN $wpdb->usermeta AS s ON s.user_id = $wpdb->users.ID AND s.meta_key = 'session_tokens'
-		LEFT JOIN $wpdb->usermeta AS a ON a.user_id = $wpdb->users.ID AND a.meta_key = 'last_activity'
+		"SELECT u.ID, u.user_email, s.meta_value AS session_tokens, a.date_recorded AS last_activity 
+		FROM $wpdb->users AS u
+		LEFT JOIN $wpdb->usermeta AS s ON s.user_id = u.ID AND s.meta_key = 'session_tokens'
+		LEFT JOIN $bp_activity_table AS a ON a.user_id = u.ID AND a.type = 'last_activity'
 		WHERE (
-			UNIX_TIMESTAMP( STR_TO_DATE( a.meta_value, '%Y-%m-%d %H:%i:%s' ) ) > $cutoff_time
+			UNIX_TIMESTAMP( STR_TO_DATE( a.date_recorded, '%Y-%m-%d %H:%i:%s' ) ) > $cutoff_time
 			OR CAST( 
 				REGEXP_SUBSTR(
 					REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+;}}' ),
@@ -36,8 +38,8 @@ function get_recent_users( $weeks ) {
 				)
 			AS UNSIGNED ) > $cutoff_time
 		)
-		AND deleted = 0
-		AND spam =0;"
+		AND u.deleted = 0
+		AND u.spam =0;"
 	);
 
 	echo "There were " . count( $users ) . " users found within the last " . $weeks . " weeks. \n";
