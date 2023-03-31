@@ -2,7 +2,7 @@
 /**
  * Updates MailChimp email list with current users.
  *
- * Usage: wp eval-file /home/ubuntu/dev-scripts/mailchimp/update-mailchimp.php
+ * Usage: wp eval-file update-mailchimp.php [weeks] [export]
  */
 
 require_once( __DIR__ . '/vendor/autoload.php');
@@ -11,17 +11,17 @@ const API_KEY = '7ec2ee0ed5617b202d903aee9b68a535-us9';
 const DC = 'us9';
 const LIST_ID = 'f34666534c';
 
-const RECENT_WEEKS = 26;
+const RECENT_WEEKS = 50;
 
 /**
- * Query the database for users who have logged in or have activity within RECENT_WEEKS weeks.
+ * Query the database for users who have logged in or have activity within $weeks weeks.
  */
-function get_recent_users() {
+function get_recent_users( $weeks ) {
 	global $wpdb;
 
-	$cutoff_time = time() - ( RECENT_WEEKS * WEEK_IN_SECONDS );
+	$cutoff_time = time() - ( $weeks * WEEK_IN_SECONDS );
 
-	// Get all users who have logged in or have activity within RECENT_WEEKS weeks.
+	// Get all users who have logged in or have activity within $weeks weeks.
 	$users = $wpdb->get_results(
 		"SELECT ID, user_email, s.meta_value AS session_tokens, a.meta_value AS last_activity 
 		FROM $wpdb->users
@@ -42,10 +42,23 @@ function get_recent_users() {
 }
 
 /**
+ * Export users to CSV.
+ * 
+ * @param array $users Array of users.
+ */
+function export_users_as_csv( $users ) {
+	$csv = fopen( 'recent-users.csv', 'w' );
+	fputcsv( $csv, [ 'ID', 'Email', 'Session Tokens', 'Last Activity' ] );
+	foreach ( $users as $user ) {
+		fputcsv( $csv, [ $user->ID, $user->user_email, $user->session_tokens, $user->last_activity ] );
+	}
+	fclose( $csv );
+}
+
+/**
  * Update MailChimp email list with current users.
  */
-function update_mailchimp() {
-	$recent_users = get_recent_users();
+function update_mailchimp( $recent_users ) {
 
 	$mc = new MailchimpMarketing\ApiClient();
 	$mc->setConfig([
@@ -102,5 +115,15 @@ function update_mailchimp() {
 	}
 }
 
-get_recent_users();
-//update_mailchimp();
+if ( $args ) {
+	$weeks = $args[0];
+} else {
+	$weeks = RECENT_WEEKS;
+}
+
+$recent_users = get_recent_users( $weeks );
+// update_mailchimp( $recent_users );
+
+if ( count( $args ) > 1 && 'export' === $args[1] ) {
+	export_users_as_csv( $recent_users );
+}
