@@ -11,7 +11,7 @@ const API_KEY = '7ec2ee0ed5617b202d903aee9b68a535-us9';
 const DC = 'us9';
 const LIST_ID = 'f34666534c';
 
-const RECENT_WEEKS = 200;
+const RECENT_WEEKS = 26;
 
 /**
  * Query the database for users who have logged in or have activity within RECENT_WEEKS weeks.
@@ -30,12 +30,13 @@ function get_recent_users() {
 		WHERE UNIX_TIMESTAMP( STR_TO_DATE( a.meta_value, '%Y-%m-%d %H:%i:%s' ) ) > $cutoff_time
 		OR CAST( 
 			REGEXP_SUBSTR(
-				REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+' ),
+				REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+;}}' ),
 				'[0-9]+'
 			)
-		AS UNSIGNED ) > $cutoff_time
-		LIMIT 10;"
+		AS UNSIGNED ) > $cutoff_time;"
 	);
+
+	echo "There were " . count( $users ) . " users found within the last " . RECENT_WEEKS . " weeks. \n";
 
 	return $users;
 }
@@ -101,4 +102,5 @@ function update_mailchimp() {
 	}
 }
 
-update_mailchimp();
+get_recent_users();
+//update_mailchimp();
