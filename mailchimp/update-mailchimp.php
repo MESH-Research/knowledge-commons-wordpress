@@ -14,7 +14,7 @@ const DC = 'us9';
 const LIST_ID = 'ab124b16b0'; //commons-active
 
 const RECENT_WEEKS = 50;
-const MAX_USERS = 20;
+const MAX_USERS = 0;
 
 /**
  * Main function.
