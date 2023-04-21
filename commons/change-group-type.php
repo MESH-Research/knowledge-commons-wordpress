@@ -13,7 +13,11 @@ function main( $args ) {
 
 	$old_type = get_group_type( $group_id );
 
-	echo $old_type;
+	echo "Changing group $group_id from $old_type to $new_type." . PHP_EOL;
+
+	update_group_type( $group_id, $new_type );
+
+	echo "New group type: " . get_group_type( $group_id ) . PHP_EOL;
 }
 
 /**
@@ -42,6 +46,7 @@ function parse_args( $args ) {
  * Update a group's type.
  */
 function update_group_type( $group_id, $new_type ) {
+	bp_groups_set_group_type( $group_id, $new_type );
 }
 
 /**
