@@ -19,9 +19,7 @@ const MAX_USERS = 20;
 /**
  * Main function.
  */
-function main() {
-	global $args;
-
+function main( $args ) {
 	log_entry( 'Beginning MailChimp update.' );
 
 	if ( $args ) {
@@ -118,18 +116,24 @@ function update_mailchimp( $recent_users, $list_id = LIST_ID ) {
 			|| 'subscribed' !== $current_members[ $user->user_email ]->status
 		) {
 			[ $first_name, $last_name ] = get_first_and_last_name( $user->display_name );
-			$response = $mc->lists->setListMember( 
-				$list_id,
-				md5( $user->user_email ),
-				[
-					'email_address' => $user->user_email,
-					'status' => 'subscribed',
-					'merge_fields' => [
-						'FNAME' => $first_name,
-						'LNAME' => $last_name,
-					],
-				]
-			);
+			try {
+				$response = $mc->lists->setListMember( 
+					$list_id,
+					md5( $user->user_email ),
+					[
+						'email_address' => $user->user_email,
+						'status' => 'subscribed',
+						'merge_fields' => [
+							'FNAME' => $first_name,
+							'LNAME' => $last_name,
+						],
+					]
+				);
+			} catch ( Exception $e ) {
+				log_entry( 'Error adding ' . $user->user_email . ' to list.' );
+				log_entry( $e->getMessage() );
+				continue;
+			}
 			if ( 'subscribed' !== $response->status ) {
 				log_entry( 'Error adding ' . $user->user_email . ' to list.' );
 				log_entry( print_r( $response, true ) );
@@ -145,7 +149,13 @@ function update_mailchimp( $recent_users, $list_id = LIST_ID ) {
 	// Remove users who are no longer active.
 	foreach ( $current_members as $email => $member ) {
 		if ( 'subscribed' === $member->status ) {
-			$response = $mc->lists->deleteListMember( $list_id, $email );
+			try {
+				$response = $mc->lists->deleteListMember( $list_id, $email );
+			} catch ( Exception $e ) {
+				log_entry( 'Error removing ' . $email . ' from list.' );
+				log_entry( $e->getMessage() );
+				continue;
+			}
 			if ( $response->status ) {
 				log_entry( 'Error removing ' . $email . ' from list.' );
 				log_entry( print_r( $response, true ) );
@@ -230,33 +240,4 @@ function log_entry( $message ) {
 	error_log( date( 'Y-m-d H:i:s' ) . " $message\n", 3, LOGFILE );
 }
 
-/**
- * Test get_current_list_members().
- */
-function test_get_current_list_members() {
-	$mc = mailchimp_connect();
-
-	$mc->lists->setListMember( 
-		LIST_ID,
-		md5( 'thickemi@msu.edu' ),
-		[
-			'email_address' => 'thickemi@msu.edu',
-			'status' => 'subscribed',
-		] 
-	);
-
-	$members = get_current_list_members( $mc, LIST_ID );
-	echo count( $members ) . " members found. \n";
-}
-
-/**
- * Test get_recent_users().
- */
-function test_get_recent_users() {
-	$users = get_recent_users( 50, 50 );
-	echo count( $users ) . " users found. \n";
-}
-
-//test_get_current_list_members();
-//test_get_recent_users();
-main();
+main( $args );
