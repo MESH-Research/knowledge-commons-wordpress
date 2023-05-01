@@ -71,6 +71,19 @@ def get_repo_info( dir ) :
 		'uncommitted' : False,
 		'untracked'   : False
 	}
+	try:
+		git_present = subprocess.run(
+			['ls', '.git'],
+			stdout=subprocess.PIPE,
+			stderr=subprocess.DEVNULL,
+			cwd=dir,
+			universal_newlines=True
+		).stdout
+	except FileNotFoundError:
+		return result_dict
+	if git_present.find( 'cannot access' ) > -1:
+		return result_dict
+	
 	try :
 		subprocess.run(
 			['git', 'fetch'],
