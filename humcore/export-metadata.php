@@ -50,6 +50,10 @@ function get_base_sites() {
  */
 function get_deposit_metadata( $blog_id, $domain ) {
 	global $wpdb;
+
+	if ( $blog_id === 1 ) {
+		$blog_id = '';
+	}
 	
 	$result = $wpdb->get_results(
 		$wpdb->prepare(
