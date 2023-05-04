@@ -52,17 +52,17 @@ function get_deposit_metadata( $blog_id, $domain ) {
 	global $wpdb;
 
 	if ( intval( $blog_id ) === 1 ) {
-		$blog_id = '';
+		$blog_prefix = '';
 	} else {
-		$blog_id = $blog_id . '_';
+		$blog_prefix = $blog_id . '_';
 	}
 	
 	$result = $wpdb->get_results(
 		$wpdb->prepare(
 			"
 			SELECT d.meta_value AS metadata, f.meta_value AS filedata
-			FROM {$wpdb->base_prefix}{$blog_id}postmeta as d
-			LEFT JOIN {$wpdb->base_prefix}{$blog_id}postmeta as f
+			FROM {$wpdb->base_prefix}{$blog_prefix}postmeta as d
+			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}postmeta as f
 			ON d.post_id = f.post_id
 			WHERE d.meta_key = '_deposit_metadata' AND f.meta_key = '_deposit_file_metadata'
 			LIMIT %d
@@ -128,6 +128,11 @@ function write_to_csv( $metadata, $filename ) {
 	$fp = fopen( $filename, 'w' );
 	fputcsv( $fp, array_keys( $metadata[0] ) );
 	foreach ( $metadata as $row ) {
+		foreach ( $row as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$row[$key] = implode(';', $value );
+			}
+		}
 		fputcsv( $fp, $row );
 	}
 	fclose( $fp );
