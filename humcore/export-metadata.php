@@ -1,7 +1,5 @@
 <?php
 
-use Elementor\Core\Files\File_Types\Json;
-
 /**
  * Exports metadata from WordPress into CSV file.
  * 
