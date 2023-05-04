@@ -53,14 +53,16 @@ function get_deposit_metadata( $blog_id, $domain ) {
 
 	if ( intval( $blog_id ) === 1 ) {
 		$blog_id = '';
+	} else {
+		$blog_id = $blog_id . '_';
 	}
 	
 	$result = $wpdb->get_results(
 		$wpdb->prepare(
 			"
 			SELECT d.meta_value AS metadata, f.meta_value AS filedata
-			FROM {$wpdb->base_prefix}{$blog_id}_postmeta as d
-			LEFT JOIN {$wpdb->base_prefix}{$blog_id}_postmeta as f
+			FROM {$wpdb->base_prefix}{$blog_id}postmeta as d
+			LEFT JOIN {$wpdb->base_prefix}{$blog_id}postmeta as f
 			ON d.post_id = f.post_id
 			WHERE d.meta_key = '_deposit_metadata' AND f.meta_key = '_deposit_file_metadata'
 			LIMIT %d
