@@ -122,6 +122,19 @@ function regularize_metadata( $metadata ) {
 }
 
 /**
+ * Recursively implodes an array.
+ * 
+ * @param array $field The array to implode.
+ */
+function recursive_implode( $field, $delimiter = ';' ) {
+	if ( is_array( $field ) ) {
+		return implode( $delimiter, array_map( 'recursive_implode', $field ) );
+	} else {
+		return $field;
+	}
+}
+
+/**
  * Writes the metadata to a CSV file.
  */
 function write_to_csv( $metadata, $filename ) {
@@ -129,9 +142,7 @@ function write_to_csv( $metadata, $filename ) {
 	fputcsv( $fp, array_keys( $metadata[0] ) );
 	foreach ( $metadata as $row ) {
 		foreach ( $row as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$row[$key] = implode(';', $value );
-			}
+			$row[$key] = recursive_implode( $value, ';' );
 		}
 		fputcsv( $fp, $row );
 	}
