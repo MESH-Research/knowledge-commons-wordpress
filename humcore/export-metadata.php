@@ -128,7 +128,11 @@ function regularize_metadata( $metadata ) {
  */
 function recursive_implode( $field, $delimiter = ';' ) {
 	if ( is_array( $field ) ) {
-		return implode( $delimiter, array_map( 'recursive_implode', $field, '|' ) );
+		return implode( $delimiter, array_map( 
+			function( $field ) {
+				return recursive_implode( $field, '|' );
+			},
+			$field ) );
 	} else {
 		return $field;
 	}
