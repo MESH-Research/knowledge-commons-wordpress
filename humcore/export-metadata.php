@@ -6,7 +6,7 @@
  * Usage wp eval-file export-metadata.php [outputfilename]
  */
 
-const MAX_ROWS = 999999999;
+const MAX_ROWS = 99999999;
 
 function main( $args ) {
 	$base_sites = get_base_sites();
@@ -54,14 +54,18 @@ function get_deposit_metadata( $blog_id, $domain ) {
 	} else {
 		$blog_prefix = $blog_id . '_';
 	}
-	
+
 	$result = $wpdb->get_results(
 		$wpdb->prepare(
 			"
-			SELECT d.meta_value AS metadata, f.meta_value AS filedata
+			SELECT DISTINCT u.user_login AS submitter_login, u.user_email AS submitter_email, d.meta_value AS metadata, f.meta_value AS filedata
 			FROM {$wpdb->base_prefix}{$blog_prefix}postmeta as d
 			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}postmeta as f
 			ON d.post_id = f.post_id
+			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}posts as p
+			ON d.post_id = p.ID
+			LEFT JOIN {$wpdb->base_prefix}users as u
+			ON p.post_author = u.ID
 			WHERE d.meta_key = '_deposit_metadata' AND f.meta_key = '_deposit_file_metadata'
 			LIMIT %d
 			",
@@ -82,7 +86,14 @@ function get_deposit_metadata( $blog_id, $domain ) {
 		} else {
 			$deposit_file_metadata = [];
 		}
-		$metadata[] = array_merge( $deposit_metadata, $deposit_file_metadata );
+		$metadata[] = array_merge( 
+			[ 
+				'submitter_login' => $row->submitter_login, 
+				'submitter_email' => $row->submitter_email 
+			], 
+			$deposit_metadata, 
+			$deposit_file_metadata
+		);
 	}
 
 	return $metadata;
@@ -120,23 +131,6 @@ function regularize_metadata( $metadata ) {
 }
 
 /**
- * Recursively implodes an array.
- * 
- * @param array $field The array to implode.
- */
-function recursive_implode( $field, $delimiter = ';' ) {
-	if ( is_array( $field ) ) {
-		return implode( $delimiter, array_map( 
-			function( $field ) {
-				return recursive_implode( $field, '|' );
-			},
-			$field ) );
-	} else {
-		return $field;
-	}
-}
-
-/**
  * Writes the metadata to a CSV file.
  */
 function write_to_csv( $metadata, $filename ) {
@@ -144,7 +138,11 @@ function write_to_csv( $metadata, $filename ) {
 	fputcsv( $fp, array_keys( $metadata[0] ) );
 	foreach ( $metadata as $row ) {
 		foreach ( $row as $key => $value ) {
-			$row[$key] = recursive_implode( $value, ';' );
+			if ( is_array( $value ) ) {
+				$value = json_encode( $value );
+			}
+			$value = str_replace( [ "\n", "\r" ], [ "\\n", "\\r" ], $value );
+			$row[$key] = $value;
 		}
 		fputcsv( $fp, $row );
 	}
