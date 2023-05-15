@@ -138,10 +138,18 @@ function write_to_csv( $metadata, $filename ) {
 	fputcsv( $fp, array_keys( $metadata[0] ) );
 	foreach ( $metadata as $row ) {
 		foreach ( $row as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$value = json_encode( $value );
+			if ( ! is_array( $value ) && strpos( $value, 'hc:43939' ) !== false ) {
+				xdebug_break();
 			}
-			$value = str_replace( [ "\n", "\r" ], [ "\\n", "\\r" ], $value );
+			if ( is_array( $value ) ) {
+				array_walk( $value, function( &$value, $key ) {
+					$value = str_replace( '\"', '"', $value );
+				} );
+				$value = json_encode( $value );
+			} elseif ( is_string( $value ) ) {
+				$value = str_replace( '\"', '""', $value );
+			}
+			$value = str_replace( [ "\n", "\r" ], [ "\\n", "" ], $value );
 			$row[$key] = $value;
 		}
 		fputcsv( $fp, $row );
