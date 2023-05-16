@@ -3,12 +3,13 @@
 /**
  * Exports metadata from WordPress into CSV file.
  * 
- * Usage wp eval-file export-metadata.php [outputfilename]
+ * Usage wp eval-file export-metadata.php [csv|json] [outputfilename] 
  */
 
 const MAX_ROWS = 99999999;
 
 function main( $args ) {
+	$mode = $args[0];
 	$base_sites = get_base_sites();
 	$combined_metadata = [];
 	foreach ( $base_sites as $base_site ) {
@@ -16,7 +17,13 @@ function main( $args ) {
 		$combined_metadata = array_merge( $combined_metadata, $metadata );
 	}
 	$regularized_metadata = regularize_metadata( $combined_metadata );
-	write_to_csv( $regularized_metadata, $args[0] );
+	if ( $mode ===  'csv' ) {
+		write_to_csv( $regularized_metadata, $args[1] );
+	} elseif ( $mode === 'json' ) {
+		write_to_json( $regularized_metadata, $args[1] );
+	} else {
+		echo "Invalid mode: $mode\n";
+	}
 }
 
 /**
@@ -154,6 +161,12 @@ function write_to_csv( $metadata, $filename ) {
 		}
 		fputcsv( $fp, $row );
 	}
+	fclose( $fp );
+}
+
+function write_to_json( $metadata, $filename ) {
+	$fp = fopen( $filename, 'w' );
+	fwrite( $fp, json_encode( $metadata ) );
 	fclose( $fp );
 }
 
