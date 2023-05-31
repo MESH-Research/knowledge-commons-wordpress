@@ -16,6 +16,8 @@ const LIST_ID = 'ab124b16b0'; //commons-active
 const RECENT_WEEKS = 50;
 const MAX_USERS = 0;
 
+const DRY_RUN = false;
+
 /**
  * Main function.
  */
@@ -34,8 +36,10 @@ function main( $args ) {
 
 	log_entry( 'Found ' . count( $recent_users ) . ' recent users.' );
 	
-	update_mailchimp( $recent_users );
-
+	if ( ! DRY_RUN ) {
+		update_mailchimp( $recent_users );
+	}
+	
 	if ( count( $args ) > 1 && 'export' === $args[1] ) {
 		export_users_as_csv( $recent_users );
 	}
@@ -53,33 +57,54 @@ function get_recent_users( $weeks, $max_users = 0 ) {
 	global $wpdb;
 
 	$cutoff_time = time() - ( $weeks * WEEK_IN_SECONDS );
+	
+	// Only include HASTAC users who have been active since 9/22/2022 (HASTAC import date)
+	$hastac_cutoff_time = mktime( 0, 0, 0, 9, 22, 2022 );
+
+	if ( $cutoff_time > $hastac_cutoff_time ) {
+		$hastac_cutoff_time = $cutoff_time;
+	}
 
 	$bp_activity_table = buddypress()->members->table_name_last_activity;
 
-	// Get all users who have logged in or have activity within $weeks weeks and have not opted-out of the newsletter.
-	$users = $wpdb->get_results(
-		"SELECT u.ID, u.user_email, u.display_name, s.meta_value AS session_tokens, a.date_recorded AS last_activity 
-		FROM $wpdb->users AS u
-		LEFT JOIN $wpdb->usermeta AS s ON s.user_id = u.ID AND s.meta_key = 'session_tokens'
-		LEFT JOIN $wpdb->usermeta AS n ON n.user_id = u.ID AND n.meta_key = 'newsletter_optin'
-		LEFT JOIN $bp_activity_table AS a ON a.user_id = u.ID AND a.type = 'last_activity'
-		WHERE (
-			UNIX_TIMESTAMP( STR_TO_DATE( a.date_recorded, '%Y-%m-%d %H:%i:%s' ) ) > $cutoff_time
-			OR CAST( 
-				REGEXP_SUBSTR(
-					REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+;}}' ),
-					'[0-9]+'
+	$sql = "SELECT u.ID, u.user_email, u.display_name, s.meta_value AS session_tokens, a.date_recorded AS last_activity 
+			FROM $wpdb->users AS u
+			LEFT JOIN $wpdb->usermeta AS s ON s.user_id = u.ID AND s.meta_key = 'session_tokens'
+			LEFT JOIN $wpdb->usermeta AS n ON n.user_id = u.ID AND n.meta_key = 'newsletter_optin'
+			LEFT JOIN $bp_activity_table AS a ON a.user_id = u.ID AND a.type = 'last_activity'
+			LEFT JOIN wp_1000360_term_relationships as r ON u.ID = r.object_id
+			LEFT JOIN wp_1000360_term_taxonomy as t ON r.term_taxonomy_id = t.term_taxonomy_id
+			LEFT JOIN wp_1000360_terms as m ON t.term_id = m.term_id
+			WHERE (
+				m.name = 'hastac' AND (
+					UNIX_TIMESTAMP( STR_TO_DATE( a.date_recorded, '%Y-%m-%d %H:%i:%s' ) ) > $hastac_cutoff_time
+					OR CAST( 
+						REGEXP_SUBSTR(
+							REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+;}}' ),
+							'[0-9]+'
+						)
+					AS UNSIGNED ) > $hastac_cutoff_time
 				)
-			AS UNSIGNED ) > $cutoff_time
-		)
-		AND n.meta_value <> 'no'
-		AND u.deleted = 0
-		AND u.spam = 0;"
-	);
-
+				OR m.name <> 'hastac' AND (
+					UNIX_TIMESTAMP( STR_TO_DATE( a.date_recorded, '%Y-%m-%d %H:%i:%s' ) ) > $cutoff_time
+					OR CAST( 
+						REGEXP_SUBSTR(
+							REGEXP_SUBSTR( s.meta_value, '\"login\";i:[0-9]+;}}' ),
+							'[0-9]+'
+						)
+					AS UNSIGNED ) > $cutoff_time
+				)
+			)
+			AND n.meta_value <> 'no'
+			AND u.deleted = 0
+			AND u.spam = 0";
+	
 	if ( $max_users ) {
-		$users = array_slice( $users, 0, $max_users );
+		$sql .= " LIMIT $max_users";
 	}
+
+	// Get all users who have logged in or have activity within $weeks weeks and have not opted-out of the newsletter.
+	$users = $wpdb->get_results( $sql );
 
 	return $users;
 }
