@@ -11,19 +11,25 @@ use MESHResearch\KCScripts\CommandLine as CommandLine;
 function main() {
 	$args = CommandLine\parse_command_line_args();
 	
-	if ( isset( $args['branch'] ) ) {
-		$target_branch = $args['branch'];
+	if ( isset( $args['local-branch'] ) ) {
+		$local_branch = $args['local-branch'];
 	} else {
-		$target_branch = 'legacy';
+		$local_branch = 'legacy';
 	}
 
-	echo "Target branch: $target_branch\n";
+	if ( isset( $args['remote-branch'] ) ) {
+		$remote_branch = $args['remote-branch'];
+	} else {
+		$remote_branch = null;
+	}
+
+	echo "Local branch: $local_branch\n";
 
 	$current_branch = current_local_branch();
 	$current_directory = getcwd();
 	$project_root = get_project_root();
 
-	`git checkout -B $target_branch`;
+	`git checkout -B $local_branch`;
 	chdir( $project_root );
 
 	echo "Updating remotes...\n";
@@ -31,11 +37,11 @@ function main() {
 
 	if ( isset( $args['subtree'] ) ) {
 		$subtree = $args['subtree'];
-		pull_subtree( $subtree );
+		pull_subtree( $subtree, $remote_branch );
 	} else {
 		$subtrees = get_subtrees();
 		foreach ( $subtrees as $subtree ) {
-			pull_subtree( $subtree );
+			pull_subtree( $subtree, $remote_branch );
 		}
 	}
 	
@@ -43,9 +49,9 @@ function main() {
 	`cd $current_directory`;
 }
 
-function pull_subtree( string $subtree ) {
+function pull_subtree( string $subtree, string $remote_branch = null) {
 	$remote = remote_for_subtree( $subtree );
-	$branch = remote_default_branch( $remote );
+	$branch = $remote_branch ? $remote_branch : remote_default_branch( $remote );
 	echo "Pulling $subtree from $remote $branch...\n";
 	`git subtree pull --prefix=$subtree $remote $branch --squash`;
 }
