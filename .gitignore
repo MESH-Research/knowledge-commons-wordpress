@@ -23,8 +23,8 @@ site/web/wp/*
 log/
 tmp/
 
-# ignore environment files
-.env
+# don't check in generated secrets.env
+secrets.env
 
 # ignore SAML private keys
 saml.crt
