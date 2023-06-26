@@ -1,6 +1,6 @@
 <?php
 
-namespace MESHResearch\KCScripts\GitSubtrees;
+namespace MESHResearch\KCScripts;
 
 /**
  * Queries Git log for subtree directories and returns as an array.
