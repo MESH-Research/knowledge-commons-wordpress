@@ -342,6 +342,12 @@ Config::define('CORE_DATACITE_PASSWORD', getenv('CORE_DATACITE_PASSWORD'));
 Config::define('CORE_DATACITE_PROXY', getenv('CORE_DATACITE_PROXY'));
 Config::define('CORE_DATACITE_PREFIX', getenv('CORE_DATACITE_PREFIX'));
 
+/**
+ * WP_Saml_Auth
+ */
+ Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD') );
+ Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN') );
+
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
 if (file_exists($env_config)) {
