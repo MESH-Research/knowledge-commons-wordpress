@@ -75,7 +75,7 @@ $config = [
      * also as the technical contact in generated metadata.
      */
     'technicalcontact_name' => 'Humanities Commons',
-    'technicalcontact_email' => 'admin@hcommons.org',
+    'technicalcontact_email' => getenv( 'ADMIN_EMAIL'),
 
     /*
      * (Optional) The method by which email is delivered.  Defaults to mail which utilizes the
@@ -132,7 +132,7 @@ $config = [
      * A possible way to generate a random salt is by running the following command from a unix shell:
      * LC_CTYPE=C tr -c -d '0123456789abcdefghijklmnopqrstuvwxyz' </dev/urandom | dd bs=32 count=1 2>/dev/null;echo
      */
-    'secretsalt' => 's4zre5e54iuits0lenecy9iyr8qb4oqr',
+    'secretsalt' => getenv( 'SAML_SECRETSALT' ),
 
     /*
      * This password must be kept secret, and modified from the default value 123.
@@ -140,7 +140,7 @@ $config = [
      * metadata listing and diagnostics pages.
      * You can also put a hash here; run "bin/pwgen.php" to generate one.
      */
-    'auth.adminpassword' => '25I0uzEWUBFT8SJrxRZQwr',
+    'auth.adminpassword' => getenv( 'SAML_AUTH_ADMINPASSWORD' ),
 
     /*
      * Set this options to true if you want to require administrator password to access the web interface
