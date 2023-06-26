@@ -28,6 +28,9 @@ services:
       database: wordpress
     volume:
       - database:/var/lib/mysql
+env_file:
+  - .lando/secrets-default.env
+  - .lando/secrets.env
 config:
   config:
     vhosts: config/local/nginx/nginx.conf
