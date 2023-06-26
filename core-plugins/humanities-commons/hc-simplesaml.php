@@ -503,10 +503,10 @@ if ( class_exists( 'WP_SAML_Auth' ) ) {
 function hcommons_wpsa_filter_option( $value, string $option_name ) {
 	$defaults = array(
 		'connection_type'        => 'simplesamlphp',
-		'simplesamlphp_autoload' => '/app/simplesamlphp/vendor/simplesamlphp/simplesamlphp/lib/_autoload.php',
+		'simplesamlphp_autoload' => WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD,
 		'auth_source'            => 'default-sp',
 		'auto_provision'         => true,
-		'permit_wp_login'        => false,
+		'permit_wp_login'        => WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN,
 		'get_user_by'            => 'login',
 		'user_login_attribute'   => 'employeeNumber',
 		'user_email_attribute'   => 'mail',
