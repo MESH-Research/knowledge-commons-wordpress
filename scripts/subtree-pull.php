@@ -1,12 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-namespace MESHResearch\KCScripts\GitSubtrees;
+namespace MESHResearch\KCScripts;
 
 require_once __DIR__ . '/lib/command-line.php';
-require_once __DIR__ . '/lib/git_subtree.php';
-
-use MESHResearch\KCScripts\CommandLine as CommandLine;
+require_once __DIR__ . '/lib/git.php';
 
 function main() {
 	$args = CommandLine\parse_command_line_args();

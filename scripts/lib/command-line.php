@@ -1,6 +1,6 @@
 <?php
 
-namespace MESHResearch\KCScripts\CommandLine;
+namespace MESHResearch\KCScripts;
 
 function parse_command_line_args( array $args = null) : array {
 	global $argv;
