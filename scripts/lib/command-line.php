@@ -22,3 +22,22 @@ function parse_command_line_args( array $args = null) : array {
 	
 	return $parsed_args;
 }
+
+function parse_wp_cli_args( array $args = null ) : array {
+	if ( $args === null ) {
+		return [];
+	}
+
+	$parsed_args = [];
+	foreach ( $args as $arg ) {
+		if ( preg_match( '/^--(.*)=(.*)$/', $arg, $matches ) ) {
+			$parsed_args[ $matches[1] ] = $matches[2];
+		} elseif ( preg_match( '/^--(.*)$/', $arg, $matches ) ) {
+			$parsed_args[ $matches[1] ] = true;
+		} else {
+			$parsed_args[] = $arg;
+		}
+	}
+
+	return $parsed_args;
+}
