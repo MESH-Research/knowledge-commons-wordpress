@@ -8,6 +8,7 @@ services:
       image: knowledge-commons/wordpress:8.1
       environment:
         XDEBUG_MODE:
+        XDEBUG_CONFIG:
     build_as_root:
       - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
       - rm -f site/web/phpinfo.php && ln -s /app/config/local/php/phpinfo.php site/web/phpinfo.php
