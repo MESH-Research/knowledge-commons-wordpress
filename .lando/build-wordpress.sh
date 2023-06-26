@@ -12,8 +12,4 @@ echo "Installing Composer dependencies..."
 cd /app
 composer update
 
-echo "Installing Composer dependencies for SimpleSAMLphp..."
-cd /app/simplesamlphp
-composer update
-
 echo "Finished running WordPress build script."
