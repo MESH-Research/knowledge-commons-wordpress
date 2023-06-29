@@ -7,7 +7,7 @@ require_once __DIR__ . '/lib/command-line.php';
 require_once __DIR__ . '/lib/git.php';
 
 function main() {
-	$args = CommandLine\parse_command_line_args();
+	$args = parse_command_line_args();
 
 	if ( isset( $args['remote-branch'] ) ) {
 		$target_branch = $args['remote-branch'];
