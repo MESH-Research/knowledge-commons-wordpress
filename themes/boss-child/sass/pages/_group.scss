@@ -1,0 +1,562 @@
+.bbp-topic-details .bbp-forum-data .post-num,
+.bbp-forum-details .bbp-forum-data .post-num,
+#bbpress-forums li.bbp-header,
+#bbpress-forums li.bbp-footer {
+  color: black;
+}
+
+#topic-form-toggle {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+h1.entry-title.main-title.search-title-results {
+    font-size: 40px;
+}
+
+#topic-form-toggle {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+body.bbp-search #item-body {
+  display: none;
+}
+
+.page-right-sidebar .site-content {
+  height: 100%;
+}
+
+#bbp-search-results
+.bbp-forum-title h3,
+#bbp-search-results .bbp-reply-title h3,
+#bbp-search-results .bbp-topic-title h3 {
+  display: block;
+  margin: 3px 44px 0 0;
+}
+
+body.bbp-search .entry-content {
+    padding: unset;
+}
+
+span.bbp-topic-post-title {
+  font-size: 15px;
+}
+
+#buddypress input#group_member_search {
+    width: unset;
+}
+
+#search-group-admin div.bbp-search-form {
+  float: left;
+  margin: 10px;
+}
+
+button#add {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  font-size: 14px;
+}
+
+#bbpress-forums div.bbp-the-content-wrapper textarea.bbp-the-content {
+  border: 1px solid #ececec;
+}
+
+.bbp-forum-details {
+    padding: 5px 10px;
+}
+
+.bbp-pagination {
+    padding: 5px 5px 5px 5px;
+}
+
+.bbp-pagination-count {
+   margin-top: 0px;
+}
+
+.bbp-type-select {
+   display: inline-block;
+}
+
+.bbp-status-select {
+  float: right;
+  margin-right: 150px;
+}
+
+#bbpress-forums fieldset.bbp-form p {
+  margin: 0 0 10px;
+}
+#bbpress-forums fieldset.bbp-form input {
+  margin: 0 0 0px;
+}
+
+#bbpress-forums div.bbp-the-content-wrapper {
+  margin-bottom: 10px;
+}
+
+#buddypress div#item-nav {
+  margin: 0;
+}
+
+.bbp-on-search-form {
+  float:right;
+  margin:10px;
+}
+
+#bbpress-forums div.bbp-search-form {
+  float: right;
+  margin: 10px;
+}
+
+#buddypress div#item-nav .item-list-tabs ul li a {
+  text-transform: none;
+  font-weight: unset;
+
+  &:hover {
+    text-decoration: unset;
+  }
+}
+
+
+#buddypress div#item-nav .item-list-tabs > ul > li.current {
+  font-weight: 600;
+}
+
+#buddypress div#item-nav .item-list-tabs > ul > li:not(.hideshow):hover {
+  color: $link-color-hover;
+  text-decoration: unset;
+}
+
+body:not(.boxed) #buddypress div#item-nav .item-list-tabs ul {
+  padding: 0;
+}
+
+body:not(.boxed) #item-nav .item-list-tabs ul,
+body:not(.boxed) #item-nav .item-list-tabs .hideshow ul:before {
+  background-color: $menu-panel-background-color;
+}
+
+#bbpress-forums li.bbp-header,
+#bbpress-forums li.bbp-footer {
+  border-color: $menu-panel-background-color;
+  background-color: $menu-panel-background-color;
+}
+
+#bbpress-forums {
+  h2,h3,h4,h5,h6 {
+   clear:none;
+  }
+
+  .post-num {
+    border-width: 1px;
+    font-weight: unset;
+  }
+
+  li.bbp-header,
+  li.bbp-footer {
+    text-transform: none;
+  }
+
+  .mce-panel {
+    border-color: $menu-panel-background-color;
+    border-style: solid;
+    border-width: 0 1px 1px;
+  }
+
+  #crosspost-groups {
+    margin-top: 1em;
+  }
+
+  #bbp_topic_title,
+  #bbp_topic_tags {
+    width: 100%;
+  }
+
+  .topic-form {
+    display:none;
+  }
+
+}
+
+li.bbp-forum-info a.bbp-forum-title,
+li.bbp-topic-title a.bbp-topic-permalink {
+  text-transform: none;
+}
+
+// hide activity updates
+#members-dir-list .update {
+  display: none;
+}
+
+/* resolve conflict between boss & buddypress-group-email-subscriptions: always hide options by default (toggled w/js) */
+.item-list li .action .action-wrap .group-subscription-options {
+  display: none;
+}
+
+#group-create-body .left-menu,
+#send-invite-form .left-menu {
+  display: none;
+}
+
+// minor position fix for numbers in circles
+// affects both header & group subnav...
+.header-account-login .pop #dashboard-links .menupop a span,
+.header-account-login .pop ul > li > .ab-sub-wrapper > ul li a span,
+#buddypress div#item-nav .item-list-tabs ul li a span {
+  line-height: 18px;
+  text-align: center;
+}
+
+// these have explicit colors set by the parent. unset
+.entry-buddypress-content #group-create-body h4 {
+  color: unset;
+}
+
+#buddypress #create-group-form {
+  #groupblog-details {
+    input[type="text"] {
+      margin: 5px;
+    }
+
+    label {
+      display: inline;
+    }
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  .buddyboss-select {
+    vertical-align: middle;
+  }
+}
+
+#buddypress {
+  #bp-group-documents-form {
+    .bp-group-documents-featured-label {
+      display: inline-block;
+    }
+  }
+
+  div.admin-links {
+    background-color: #fff;
+    padding: 0.5em;
+  }
+
+}
+
+.bbp-topics-front ul.super-sticky div.bbp-topic-title-content:before,
+.bbp-topics ul.super-sticky div.bbp-topic-title-content:before,
+.bbp-topics ul.sticky div.bbp-topic-title-content:before,
+.bbp-forum-content ul.sticky:before {
+  color: unset;
+}
+
+// there are enough buttons here to wrap onto multiple lines on most screens, add some vertical space so they don't get cramped
+.group-admin #buddypress div#subnav.item-list-tabs ul li {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+// docs overrides
+.site .doc-title, .site .directory-title:not(.empty) {
+  background-color: $menu-panel-background-color;
+  color: #006ccc;
+}
+.site .doc-title .breadcrumb-current, h2.directory-title .breadcrumb-current {
+  border-color: $menu-panel-color;
+}
+.site #buddypress .plus-or-minus {
+  background-color: $button-background-color;
+}
+
+.groups.single-item .secondary-inner img.avatar {
+  background-color: inherit;
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+#admins-list li {
+
+  & .small {
+
+    & .button {
+        background-color: transparent !important;
+        color: $link-color !important;
+        font-size: 12px;
+        display: inline-block;
+        border-radius: 0;
+        padding: 0 10px 0 0;
+        box-shadow: none;
+        width: auto;
+        font-family: proxima-nova;
+        margin-right: 10px;
+
+        &:hover {
+        	color: $link-color-hover;
+        	text-decoration: underline;
+        }
+
+      }
+
+      &:hover {
+        box-shadow: none;
+
+      }
+
+  }
+
+}
+
+.bp-widget {
+	h4 {
+		color: unset !important;
+	}
+}
+
+.invite-anyone #invite-anyone-invite-list {
+  .avatar {
+    border-radius: 50%;
+    width: 70px !important;
+    height: 70px !important;
+  }
+  h4 {
+    margin: 0 0 25px;
+  }
+}
+
+#bbpress-forums > .bbp-replies #subscription-toggle {
+  color: black;
+}
+#bbpress-forums > .bbp-replies #subscription-toggle a,
+#bbpress-forums > .bbp-replies #favorite-toggle a,
+#bbpress-forums > .bbp-replies #subscription-toggle a:hover,
+#bbpress-forums > .bbp-replies #favorite-toggle a:hover {
+  color: $link-color;
+}
+
+// docs and group email subs do not play nice. just hide the email options on docs pages for now
+.bp-docs .group-subscription-div,
+.bp-docs .group-subscription-options {
+  display: none;
+}
+
+#buddypress form#group-settings-form ul#members-list {
+  overflow: unset;
+}
+
+#members-list li {
+
+  & .small {
+
+    & .button {
+        background-color: transparent !important;
+        color: $link-color !important;
+        font-size: 12px;
+        display: inline-block;
+        border-radius: 0;
+        padding: 0 10px 0 0;
+        box-shadow: none;
+        width: auto;
+        font-family: proxima-nova;
+        margin-right: 10px;
+        border-right: 1px solid rgba(0,0,0,0.11);
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+      }
+
+      &:hover {
+        color: $link-color-hover;
+        box-shadow: none;
+
+      }
+
+  }
+
+  & .ass_manage_members_links {
+
+    font-family: proxima-nova;
+
+    & a {
+      color: $link-color !important;
+      cursor: pointer;
+      padding: 0 5px !important;
+      margin-right: 0 !important;
+      border-right: none !important;
+
+    }
+
+  }
+
+}
+
+#bbpress-forums ul.bbp-lead-topic,
+#bbpress-forums ul.bbp-topics,
+#bbpress-forums ul.bbp-forums,
+#bbpress-forums ul.bbp-replies {
+  font-size: 14px;
+
+  p {
+    margin-bottom: 1em;
+  }
+}
+
+/* make invite-anyone member list items consistent with directory & other listings */
+.invite-anyone #invite-anyone-invite-list {
+  h4 {
+    font-family: $font-family-body;
+    font-weight: normal;
+    margin: 14px 0 0;
+  }
+
+  .activity {
+    font-style: italic;
+    color: rgba(0,0,0,.4);
+  }
+}
+
+// this is only valid on hc. overridden to show in that network only.
+body:not(.role-admin) .send-invitations-by-email-wrap {
+  display: none;
+}
+
+// make "leave group" button less prominent on mobile by styling as link rather than button
+.mobile .group-single #buddypress #item-header-cover #item-buttons a.leave-group {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: $link-color;
+  padding: 0;
+}
+
+#bbpress-forums {
+  text-align: center;
+
+  .bbp-template-notice {
+    margin: 10px auto;
+    display: inline-block;
+  }
+}
+
+.doctable .title-cell>a {
+    color: #006ccc;
+}
+
+.site #buddypress table.doctable tr th {
+    color: #006ccc;
+}
+
+.directory-title a {
+    color: #006ccc;
+}
+
+.site #buddypress #doc-attachments-ul li {
+  display:block;
+}
+
+.site #buddypress #doc-attachments-ul li:nth-child(even) {
+  background: #ececec;
+}
+
+.toggle-content {
+  overflow: unset !important;
+}
+
+.title-cell {
+    min-width: 250px !important;
+}
+
+.genericon-document {
+  display:none !important;
+}
+
+#bp-docs-all-docs li:nth-child(1) {
+  display:none;
+}
+
+#bbp-post-preview {
+  resize: both;
+  overflow: auto;
+  min-height: 15em;
+}
+
+#bbp-post-preview-wrapper label {
+  font-weight: bold;
+}
+
+.events #wp-word-count {
+    display: none;
+}
+
+.badge-admin-only {
+    background-color: #eb5a46;
+    border-radius: 3px;
+    color: #fff;
+    padding: 2px;
+    margin-right: 3px;
+    font-size: 12px;
+}
+
+table.group-nav-settings {
+    width: 50% !important;
+}
+
+.group-nav-settings .title {
+    margin: 14px 0 28px 0;
+    font-size: 18px !important;
+    color: #4dcadd;
+    font-weight: 400 !important;
+}
+
+.item-list-tabs ul li span.disabled-nav {
+  background-color: #ececec;
+  color: #999;
+  font-size: inherit;
+  padding: 18px 18px;
+  display: block;
+  white-space: nowrap;
+
+      &:hover {
+        border-color: unset;
+    }
+}
+
+.group-nav-settings span {
+  display:none;
+}
+
+#group-landing-page-select span {
+  display:none;
+}
+#buddypress div#item-nav .item-list-tabs ul li a {
+  color: #217E8C;
+}
+
+#buddypress div#item-nav .item-list-tabs ul li.current > a,
+#buddypress div#item-nav .item-list-tabs ul li:hover > a {
+  color: #217E8C;
+}
+
+
+#buddypress div#item-nav .item-list-tabs > ul > li.current,
+#buddypress div#item-nav .item-list-tabs > ul > li:not(.hideshow):hover {
+  border-color: #217E8C;
+}
+
+#buddypress div#item-nav .item-list-tabs > ul > li.disabled-group-nav:hover {
+  border-bottom: none;
+}
+
+
+
+#wp-admin-bar-my-account-buddypress span.wp-admin-bar-arrow { 
+  background-color: #FFFFFF;
+}
+
