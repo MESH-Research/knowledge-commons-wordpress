@@ -17,7 +17,7 @@ function get_subtrees() : array {
 
 function remote_default_branch( string $remote ) : string {
 	$default_branch = `git remote show $remote | grep "HEAD branch" | cut -d ":" -f2 | tr -d ' '`;
-	if ( $default_branch === '' ) {
+	if ( ! $default_branch ) {
 		throw new Exception( 'Could not determine default branch for remote ' . $remote );
 	}
 	return trim( $default_branch );
