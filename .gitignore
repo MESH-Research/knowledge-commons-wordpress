@@ -34,3 +34,6 @@ saml.pem
 
 # ignore vscode settings
 .vscode
+
+# ignore temp directories
+kc-scripts-*/
