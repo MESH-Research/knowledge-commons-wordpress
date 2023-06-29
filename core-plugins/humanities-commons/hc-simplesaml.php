@@ -385,69 +385,6 @@ function hcommons_set_shibboleth_based_user_meta( $user ) {
 add_action( 'wp_saml_auth_existing_user_authenticated', 'hcommons_set_shibboleth_based_user_meta' );
 
 /**
- * ensure invite-anyone correctly sets up notifications after user registers
- */
-function hcommons_invite_anyone_activate_user( $user ) {
-	$meta_key = 'hcommons_invite_anyone_activate_user_done';
-
-	if (
-		! empty( $user->user_email ) &&
-		! get_user_meta( $user->ID, $meta_key ) &&
-		function_exists( 'invite_anyone_activate_user' )
-	) {
-		invite_anyone_activate_user( $user->ID, null, null );
-		update_user_meta( $user->ID, $meta_key, true );
-	}
-}
-// TODO hopefully no longer necessary - test & confirm
-//add_action( 'wp_saml_auth_existing_user_authenticated', array( $this, 'hcommons_invite_anyone_activate_user' ) );
-
-/**
- * Check the user's membership to this network prior to login and if valid return the role.
- *
- * @param string $user_role
- * @return string $user_role Role or null.
- */
-function hcommons_check_user_site_membership( $user_role ) {
-
-	$username = $_SERVER['HTTP_EMPLOYEENUMBER'];
-
-	$user = get_user_by( 'login', $username );
-
-	$global_super_admins = array();
-	if ( defined( 'GLOBAL_SUPER_ADMINS' ) ) {
-		$global_super_admin_list = constant( 'GLOBAL_SUPER_ADMINS' );
-		$global_super_admins = explode( ',', $global_super_admin_list );
-	}
-
-	$memberships = Humanities_Commons::hcommons_get_user_memberships();
-	$member_societies = (array)$memberships['societies'];
-	if ( ! in_array( Humanities_Commons::$society_id, $member_societies ) && ! in_array( $user->user_login, $global_super_admins ) ) {
-		hcommons_write_error_log( 'info', '****CHECK_USER_SITE_MEMBERSHIP_FAIL****-' . var_export( $memberships['societies'], true ) .
-			var_export( Humanities_Commons::$society_id, true ) . var_export( $user, true ) );
-		return '';
-	}
-
-	//Check for existing user role, we don't want to overwrite role assignments made in WP.
-	global $wp_roles;
-	$user_role_set = false;
-	foreach ( $wp_roles->roles as $role_key=>$role_name ) {
-		if ( false === strpos( $role_key, 'bbp_' ) ) {
-			$user_role_set = user_can( $user, $role_key );
-		}
-		if ( $user_role_set ) {
-			$user_role = $role_key;
-			break;
-		}
-	}
-	hcommons_write_error_log( 'info', '****CHECK_USER_SITE_MEMBERSHIP****-' . var_export( $user_role, true ) . var_export( $user_role_set, true ) . var_export( $user->user_login, true ) );
-
-	return $user_role;
-
-}
-//add_filter( 'shibboleth_user_role', array( $this, 'hcommons_check_user_site_membership' ) );
-
-/**
  * Filter shibboleth_session_active to set class variable
  *
  * @param bool $active
