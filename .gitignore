@@ -37,3 +37,6 @@ saml.pem
 
 # ignore temp directories
 kc-scripts-*/
+
+# ignore macos files
+.DS_Store
