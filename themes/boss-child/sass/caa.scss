@@ -1,0 +1,12 @@
+@import 'variables';
+
+$font-family-body: "Myriad Pro", proxima-nova, Verdana, sans-serif;
+$font-family-header: $font-family-body;
+
+$button-background-color: #0072BC;
+$button-color: white;
+
+$link-color: #9F248F;
+$link-color-hover: #9F248F;
+
+@import 'global';
