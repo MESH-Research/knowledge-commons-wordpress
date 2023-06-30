@@ -1,5 +1,5 @@
 {
-    "name": "ubuntu/mailchimp",
+    "name": "mesh-research/mailchimp",
     "description": "Sync Commons active users with MailChimp",
     "type": "project",
     "license": "MIT",
