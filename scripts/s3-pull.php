@@ -3,18 +3,7 @@
 /**
  * Interact with AWS S3 kcommons-dev-content bucket.
  * 
- * Usage: ./s3-pull.php [prefix] [options]
- * 	--import-prefix=<prefix>		Import db and uploads from <prefix>.
- *  [prefix]						Alias for --import-prefix.
- * 	--get-prefix=<prefix>			Download all files from <prefix>.
- * 	--list-prefixes					List all prefixes in bucket.
- * 	--destination-dir=<dir>			Download files to <dir>. Applies only to --get-prefix.
- *  --just-db						Only import the database. Applies only to --import-prefix.
- *  --just-uploads					Only import the uploads. Applies only to --import-prefix.
- *  --backup-uploads				Move uploads folder to uploads-old before extracting new uploads dir.
- * 									Applies only to --import-prefix.
- *
- * If not options are passed, --list-prefixes is assumed.
+ * Run ./s3-pull.php --help for usage.
  */
 
 namespace MESHResearch\KCScripts;
@@ -42,6 +31,11 @@ function main() : void {
 
 	if ( count( $args ) === 0 || isset( $args['list-prefixes'] ) ) {
 		list_prefixes( $client );
+		echo "\n\n Note: For help, run ./s3-pull.php --help\n";
+	} elseif ( isset( $args['help'] ) ) {
+		show_help();
+	} elseif ( isset( $args['show-summary'] ) ) {
+		show_summary( $client, $args['show-summary'], 'summary.txt' );
 	} elseif ( isset( $args['get-prefix'] ) ) {
 		if ( isset( $args['destination-dir'] ) ) {
 			$destination = $args['destination-dir'];
@@ -58,6 +52,31 @@ function main() : void {
 			backup_uploads: isset( $args['backup-uploads'] ) 
 		);
 	}
+}
+
+function show_help() {
+	echo "Interact with AWS S3 kcommons-dev-content bucket.\n\n";
+
+	echo "Usage: ./s3-pull.php [prefix] [options]\n\n";
+
+	echo "Examples:\n";
+	echo "  ./s3-pull.php --list-prefixes\n";
+	echo "  ./s3-pull.php --import-prefix=hcdev-base-sites --backup-uploads\n";
+	echo "  ./s3-pull.php --show-summary=hcdev-base-sites\n\n";
+
+	echo "  --import-prefix=<prefix>        Import db and uploads from <prefix>.\n";
+	echo "  [prefix]                        Alias for --import-prefix.\n";
+	echo "  --get-prefix=<prefix>           Download all files from <prefix>.\n";
+	echo "  --list-prefixes                 List all prefixes in bucket.\n";
+	echo "  --destination-dir=<dir>         Download files to <dir>. Applies only to --get-prefix.\n";
+	echo "  --just-db                       Only import the database. Applies only to --import-prefix.\n";
+	echo "  --just-uploads                  Only import the uploads. Applies only to --import-prefix.\n";
+	echo "  --backup-uploads                Move uploads folder to uploads-old before extracting new uploads dir.\n";
+	echo "                                  Applies only to --import-prefix.\n";
+	echo "  --show-summary=<prefix>         Show summary.txt from <prefix>.\n";
+	echo "  --help                          Show this help message.\n\n";
+
+	echo "If no options are passed, --list-prefixes is assumed.\n";
 }
 
 function list_prefixes( S3Client $client ) {
@@ -85,6 +104,16 @@ function list_prefixes( S3Client $client ) {
 				$content['LastModified'] 
 			);
 		}
+	}
+}
+
+function show_summary( S3Client $client, string $prefix, string $summary_file ) : void {
+	$result = $client->getObject( [
+		'Bucket' => BUCKET,
+		'Key' => trailingslashit( $prefix ) . $summary_file,
+	] );
+	if ( $result['Body'] ) {
+		echo $result['Body'];
 	}
 }
 
@@ -191,7 +220,9 @@ function list_from_prefix( S3Client $client, string $prefix ) {
 		return [];
 	}
 
-	array_shift( $result['Contents'] ); // Remove the prefix itself (first element).
+	if ( $result['Contents'][0]['Key'] === $prefix ) {
+		array_shift( $result['Contents'] ); // Remove the prefix itself (first element).
+	}
 
 	$objects = array_map( function( $object ) {
 		return [
