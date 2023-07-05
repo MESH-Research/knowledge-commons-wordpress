@@ -106,7 +106,12 @@ class BuddyBossLoginWidget extends WP_Widget
   }
  
 }
-add_action( 'widgets_init', create_function('', 'return register_widget("BuddyBossLoginWidget");') );
+add_action( 
+  'widgets_init', 
+  function () {
+    register_widget( 'BuddyBossLoginWidget' );
+  }
+);
 
 
 /**
@@ -268,5 +273,9 @@ class BuddyBossRecentPosts extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', create_function('', 'return register_widget("BuddyBossRecentPosts");') );
+add_action( 'widgets_init', 
+  function() {
+    register_widget( 'BuddyBossRecentPosts' );
+  }
+);
 
