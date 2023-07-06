@@ -1,0 +1,60 @@
+production:
+  default-base-site-plugins:
+    - bbpress
+    - bp-attachment-xprofile-field-type
+    - buddypress-group-email-subscription
+    - bp-multiple-forum-post
+    - buddypress-sitewide-activity-widget
+    - elasticpress
+    - elasticpress-buddypress/elasticpress-buddypress
+    - elementor
+    - gd-bbpress-attachments
+    - hc-custom
+    - hc-member-profiles
+    - hc-notifications
+    - hc-suggestions
+    - humcore
+    - invite-anyone
+    - mashsharer
+    - mla-allowed-tags
+    - multisite-custom-css
+    - ninja-forms
+    - siteorigin-panels
+    - typekit-fonts-for-wordpress
+    - formassembly-web-forms
+    - wp-hide-dashboard
+    - wp-to-twitter
+    - zotpress
+  default-network-plugins:
+    - akismet
+    - beehive-analytics
+    - black-studio-tinymce-widget
+    - bp-group-documents
+    - bp-lotsa-feeds
+    - bp-mpo-activity-filter
+    - bp-block-member
+    - buddypress
+    - buddypress-docs
+    - buddypress-docs-minor-edit
+    - buddypress-restrict-group-creation
+    - classic-editor
+    - classic-widgets
+    - commons-in-a-box
+    - disable-password-reset-extended
+    - event-organiser
+    - hc-styles
+    - humanities-commons
+    - mla-academic-interests
+    - more-privacy-options
+    - multisite-plugin-manager
+    - redis-cache
+    - so-widgets-bundle
+    - wordpress-sparkpost
+    - sparkpost-bp-mailer
+    - user-switching
+    - wp-piwik
+    - wp-accessibility
+    - wp-multi-network
+  default-base-theme:
+    - boss-child
+
