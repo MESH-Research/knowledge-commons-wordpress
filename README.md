@@ -27,3 +27,7 @@ To work on the Commons site, you will probably need to import content. This is r
 3. Run `scripts/get-local-secrets.php` to install local secrets for connecting to IDMS dev stack, Fedora, etc.
 4. Run `scripts/s3-pull.php` to see available content exports.
 5. Run `scripts/s3-pull.php <prefix>` to import content.
+
+## Developer Documentation
+
+For further [developer documentation](docs/README.md), see the `docs/` directory.

@@ -1,6 +1,6 @@
 # Knowledge Commons Scripts
 
-This directory contains scripts to facilitate the development and maintenance of the Knowledge Commons site.
+The directory contains scripts to facilitate the development and maintenance of the Knowledge Commons site.
 
 ## Directory
 
