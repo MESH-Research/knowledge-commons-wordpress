@@ -11,3 +11,4 @@ The `docs` directory contains developer-oriented public documentation specific t
 - [Developer guidelines](developer-guidelines.md)
 - [Scripts reference](scripts.md)
 - [Working with Git subtrees](subtrees.md)
+- [Working with user content](user-content.md)
