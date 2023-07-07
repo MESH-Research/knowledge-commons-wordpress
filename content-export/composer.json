@@ -1,0 +1,16 @@
+{
+    "name": "mesh-research/content-export",
+    "description": "Export Commons content for local-dev",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Thicke",
+            "email": "thickemi@msu.edu"
+        }
+    ],
+    "require": {
+        "aws/aws-sdk-php": "^3.275",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
