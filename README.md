@@ -9,7 +9,6 @@ Note: These instructions and many helper scripts assume you are running a Linux-
 1. [Docker](https://www.docker.com/get-started/) (Necessary for running site locally.)
 2. [Lando](https://lando.dev/download/) (Necessary for running site locally.)
    - Set your local machine to trust the [Lando Certificate Authority](https://lando.dev/blog/2020/03/20/5-things-to-do-after-you-install-lando.html).
-3. [PHP 8.2+](https://www.php.net/manual/en/install.php) & [Composer](https://getcomposer.org/doc/00-intro.md) (Necessary for running scripts on host.)
 
 ### Run the site locally
 
@@ -22,11 +21,15 @@ Note: These instructions and many helper scripts assume you are running a Linux-
 
 To work on the Commons site, you will probably need to import content. This is restricted to authorized Commons developers as it involves connecting to live services and having access to users data.
 
-1. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-2. [Configure AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html#cli-authentication-user-configure.title) (You will need to obtain credentials from another developer.)
-3. Run `scripts/get-local-secrets.php` to install local secrets for connecting to IDMS dev stack, Fedora, etc.
-4. Run `scripts/s3-pull.php` to see available content exports.
-5. Run `scripts/s3-pull.php <prefix>` to import content.
+1. Configure AWS CLI: `lando aws configure`
+   1. AWS Access Key ID: (get from another developer)
+   2. AWS Secrete Access Key: (get from another developer)
+   3. Default region name: us-east-1
+   4. Default output format: json
+2. Run `lando get-local-secrets` to install local secrets for connecting to IDMS dev stack, Fedora, etc.
+3. Run `lando s3-pull` to see available content exports.
+4. Run `lando s3-pull <prefix>` to import content.
+5. Run `lando restart` to relaunch the local site.
 
 ## Developer Documentation
 

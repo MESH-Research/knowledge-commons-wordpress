@@ -40,3 +40,16 @@ tooling:
     service: appserver
     description: Runs WP-CLI commands
     cmd: wp
+  aws:
+    service: appserver
+    description: Runs AWS CLI commands
+    cmd: aws
+  get-local-secrets:
+    service: appserver
+    description: Gets local secrets from AWS Secrets Manager
+    cmd: /app/scripts/get-local-secrets.php
+  s3-pull:
+    service: appserver
+    description: Pulls content from S3
+    cmd: /app/scripts/s3-pull.php
+  
