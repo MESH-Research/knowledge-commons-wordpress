@@ -40,3 +40,11 @@ function container_path_from_host_path( string $host_path ) : string {
 	$container_path = '/app' . str_replace( $project_root, '', $host_path );
 	return $container_path;
 }
+
+function file_put_contents_new_directory( string $path, string $contents ) : int {
+	$directory = dirname( $path );
+	if ( ! file_exists( $directory ) ) {
+		mkdir( $directory, 0777, true );
+	}
+	return file_put_contents( $path, $contents );
+}
