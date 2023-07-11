@@ -178,7 +178,12 @@ function db_import( S3Client $client, string $temp_directory, string $key ) : vo
 	echo "Importing $key...\n";
 	$import_path = 
 		trailingslashit( container_path_from_host_path( $temp_directory ) ) . filename_from_key( $key );
-	$output = `lando db-import $import_path 2>&1`;
+	if ( false === getenv( 'LANDO_APP_NAME' ) ) {
+		$output = `lando db-import $import_path 2>&1`;
+	} else {
+		$output = `/helpers/sql-import.sh $import_path 2>&1`;
+	}
+	
 	echo $output;
 	echo "Finished importing $key.\n";
 }

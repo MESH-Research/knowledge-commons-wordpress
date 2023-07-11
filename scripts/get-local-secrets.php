@@ -13,6 +13,7 @@ namespace MESHResearch\KCScripts;
 
 require_once __DIR__ . '/lib/composer-autoload.php';
 require_once __DIR__ . '/lib/git.php';
+require_once __DIR__ . '/lib/filesystem.php';
 
 use Aws\SecretsManager\SecretsManagerClient;
 
@@ -51,8 +52,8 @@ function write_secrets_to_env( array $secrets, string $filename ) : void {
 	}
 	$contents = implode( "\n", $lines );
 
-	$project_root = get_project_root() . '/';
-	file_put_contents( $project_root . $filename, $contents );
+	$path = trailingslashit( $project_root ) . $filename;
+	file_put_contents_new_directory( $path, $contents );
 }
 
 function write_saml_certs( SecretsManagerClient $client ) : void {
@@ -69,8 +70,8 @@ function write_saml_certs( SecretsManagerClient $client ) : void {
 	}
 
 	$project_root = get_project_root() . '/';
-	file_put_contents( $project_root . SAML_PEM_FILE, $saml_pem_value['SecretString'] );
-	file_put_contents( $project_root . SAML_CRT_FILE, $saml_crt_value['SecretString'] );
+	file_put_contents_new_directory( $project_root . SAML_PEM_FILE, $saml_pem_value['SecretString'] );
+	file_put_contents_new_directory( $project_root . SAML_CRT_FILE, $saml_crt_value['SecretString'] );
 }
 
 main();
