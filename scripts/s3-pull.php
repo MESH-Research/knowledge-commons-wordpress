@@ -13,6 +13,7 @@ require_once __DIR__ . '/lib/command-line.php';
 require_once __DIR__ . '/lib/filesystem.php';
 require_once __DIR__ . '/lib/aws.php';
 require_once __DIR__ . '/lib/git.php';
+require_once __DIR__ . '/lib/lando.php';
 
 use Aws\S3\S3Client;
 
@@ -45,11 +46,12 @@ function main() : void {
 		get_all_from_prefix( $client, $args['get-prefix'], $destination );
 	} elseif ( isset( $args['import-prefix'] ) ) {
 		import_content_from_prefix( 
-			client:         $client, 
-			prefix:         $args['import-prefix'],
-			just_db:        isset( $args['just-db'] ),
-			just_uploads:   isset( $args['just-uploads'] ),
-			backup_uploads: isset( $args['backup-uploads'] ) 
+			client:          $client, 
+			prefix:          $args['import-prefix'],
+			just_db:         isset( $args['just-db'] ),
+			just_uploads:    isset( $args['just-uploads'] ),
+			backup_uploads:  isset( $args['backup-uploads'] ),
+			keep_temp_files: isset( $args['keep-temp-files'] )
 		);
 	}
 }
@@ -73,6 +75,7 @@ function show_help() {
 	echo "  --just-uploads                  Only import the uploads. Applies only to --import-prefix.\n";
 	echo "  --backup-uploads                Move uploads folder to uploads-old before extracting new uploads dir.\n";
 	echo "                                  Applies only to --import-prefix.\n";
+	echo "  --keep-temp-files               Keep temporary files. Applies only to --import-prefix.\n";
 	echo "  --show-summary=<prefix>         Show summary.txt from <prefix>.\n";
 	echo "  --help                          Show this help message.\n\n";
 
@@ -122,7 +125,8 @@ function import_content_from_prefix(
 		string $prefix,
 		bool $just_db = false,
 		bool $just_uploads = false,
-		bool $backup_uploads = false
+		bool $backup_uploads = false,
+		bool $keep_temp_files = false
 	) {
 	echo "Importing content from $prefix...\n";
 	$objects = list_from_prefix( $client, $prefix );
@@ -163,8 +167,12 @@ function import_content_from_prefix(
 		echo "No uploads archive file found.\n";
 	}
 
-	echo "Deleting temp directory $temp_directory\n";
-	`rm -rf $temp_directory`;
+	if ( ! $keep_temp_files ) {
+		echo "Deleting temp directory $temp_directory\n";
+		`rm -rf $temp_directory`;
+	} else {
+		echo "Keeping temp directory $temp_directory\n";
+	}
 }
 
 function db_import( S3Client $client, string $temp_directory, string $key ) : void {
@@ -179,11 +187,19 @@ function db_import( S3Client $client, string $temp_directory, string $key ) : vo
 	$import_path = 
 		trailingslashit( container_path_from_host_path( $temp_directory ) ) . filename_from_key( $key );
 	if ( false === getenv( 'LANDO_APP_NAME' ) ) {
-		$output = `lando db-import $import_path 2>&1`;
+		echo "Running db import from host: $import_path\n";
+		$command = "lando db-import $import_path 2>&1";
 	} else {
-		$output = `/helpers/sql-import.sh $import_path 2>&1`;
+		echo "Running db import from Lando container: $import_path\n";
+		$info = get_lando_info();
+		$database = $info['database']['creds']['database'];
+		$host = $info['database']['internal_connection']['host'];
+		$user = $info['database']['creds']['user'];
+		$password = $info['database']['creds']['password'];
+		$command = "mysql -h $host -u $user -p$password $database < $import_path 2>&1 | grep -v 'Warning: Using a password'";
 	}
-	
+	// echo "Running db import: $command\n";
+	$output = `$command`;
 	echo $output;
 	echo "Finished importing $key.\n";
 }
