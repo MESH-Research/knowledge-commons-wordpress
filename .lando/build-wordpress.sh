@@ -10,6 +10,7 @@ chown www-data:www-data /tmp/xdebug.log
 
 echo "Installing Composer dependencies..."
 cd /app
+rm -rf vendor/
 composer update
 
 echo "Finished running WordPress build script."
