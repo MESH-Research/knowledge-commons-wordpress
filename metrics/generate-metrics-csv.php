@@ -99,7 +99,7 @@ function general_metrics() {
 			$categorized_users['all'][] = $user->ID;
 		}
 
-		if ( ! in_array( $user->ID, $categorized_users[ $user->member_type ] ) ) {
+		if ( is_array( $categorized_users[ $user->member_type ] ) || ! in_array( $user->ID, $categorized_users[ $user->member_type ] ) ) {
 			$categorized_users[ $user->member_type ][] = $user->ID;
 		}
 
