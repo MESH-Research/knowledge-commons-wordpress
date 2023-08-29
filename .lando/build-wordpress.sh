@@ -15,6 +15,7 @@ rm -rf /app/site/web/app/mu-plugins/*
 
 echo "Installing Composer dependencies..."
 cd /app
+rm -rf vendor/
 composer update
 
 echo "Relinking Commons plugins & themes..."
