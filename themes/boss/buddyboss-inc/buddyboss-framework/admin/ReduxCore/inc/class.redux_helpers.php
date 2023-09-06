@@ -225,6 +225,8 @@
             }
 
             public static function isParentTheme( $file ) {
+                //Force true as this function fails with lando setup and we know the theme is the Parent.
+                return true;
                 $file = self::cleanFilePath( $file );
                 $dir  = self::cleanFilePath( get_template_directory() );
 
