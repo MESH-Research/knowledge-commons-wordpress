@@ -63,6 +63,8 @@ add_action( 'wp_enqueue_scripts', 'boss_child_theme_enqueue_style', 200 );
  * Enqueues scripts for child theme front-end.
  */
 function boss_child_theme_enqueue_script() {
+        global $bp;
+
         $jtime = filemtime( get_theme_file_path() . '/js/boss-child.js' );
 	wp_enqueue_script( 'boss-child-custom', get_stylesheet_directory_uri() . '/js/boss-child.js', [], $jtime );
 
