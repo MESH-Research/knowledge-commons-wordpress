@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6c107b3785f888362176b1dfc0ae5be",
+    "content-hash": "9aea12d5ad245f35c939329cfa20cbd2",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -5807,15 +5807,15 @@
         },
         {
             "name": "wpackagist-plugin/buddypress",
-            "version": "10.6.2",
+            "version": "10.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/buddypress/",
-                "reference": "tags/10.6.2"
+                "reference": "tags/10.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/buddypress.10.6.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/buddypress.10.6.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
