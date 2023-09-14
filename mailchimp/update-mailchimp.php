@@ -287,28 +287,46 @@ function update_mailchimp( $recent_users, $list_id = LIST_ID ) {
 	$added_users = [];
 
 	foreach ( $recent_users as $user ) {
+		if ( isset( $current_members[ $user->user_email ] ) ) {
+			$current_member = $current_members[ $user->user_email ];
+		} else {
+			$current_member = null;
+		}
 		if ( 
-			! isset( $current_members[ $user->user_email ] ) 
+			is_null( $current_member ) 
 			|| 'subscribed' !== $current_members[ $user->user_email ]->status
 		) {
 			[ $first_name, $last_name ] = get_first_and_last_name( $user->display_name );
 			if ( ! $user->member_type ) {
 				$user->member_type = [ 'hc' ];
 			}
+			$request_parameters = [
+				'email_address' => $user->user_email,
+				'status' => 'subscribed',
+				'merge_fields' => [
+					'FNAME' => $first_name,
+					'LNAME' => $last_name,
+				],
+				'tags' => $user->member_type,
+				'interests' => [
+					'ab124b16b0' => true, // Newsletter
+				],
+			];
+
 			try {
-				$response = $mc->lists->setListMember( 
-					$list_id,
-					md5( $user->user_email ),
-					[
-						'email_address' => $user->user_email,
-						'status' => 'subscribed',
-						'merge_fields' => [
-							'FNAME' => $first_name,
-							'LNAME' => $last_name,
-						],
-						'tags' => $user->member_type,
-					]
-				);
+				if ( $current_member ) {
+					$response = $mc->lists->updateListMember( 
+						$list_id,
+						md5( $user->user_email ),
+						$request_parameters
+					);
+				} else {
+					$response = $mc->lists->setListMember( 
+						$list_id,
+						md5( $user->user_email ),
+						$request_parameters
+					);
+				}
 			} catch ( Exception $e ) {
 				log_entry( 'Error adding ' . $user->user_email . ' to list.' );
 				log_entry( $e->getMessage() );
@@ -330,6 +348,7 @@ function update_mailchimp( $recent_users, $list_id = LIST_ID ) {
 	$removed_users = [];
 
 	// Remove users who are no longer active.
+	// This is "archiving" the member, not permanently deleting them.
 	foreach ( $current_members as $email => $member ) {
 		if ( 'subscribed' === $member->status ) {
 			try {
