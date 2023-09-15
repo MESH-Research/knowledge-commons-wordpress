@@ -55,7 +55,8 @@ function main( $args ) {
 	
 	$default_args = [
 		'export-uploads'              => true,              // Export uploads folders.
-		'export-sites'                => true,              // Export user sites.	
+		'export-sites'                => true,              // Export user sites.
+		'full-export'                 => false,             // Export all content.	
 		'skip-content-generation'     => false,             // Skip generating content and just upload existing files to S3.
 		'exclude-humcore-uploads'     => true,              // Exclude HumCORE uploads.
 		'exclude-group-documents'     => true,              // Exclude group documents.
@@ -85,6 +86,16 @@ function main( $args ) {
 	if ( ! $args['skip-content-generation'] ) {
 		$site_ids    = site_ids( $args['user-sites'] );
 		$table_names = get_table_names_for_dump( $site_ids );
+
+		if ( $args['full-export'] ) {
+			echo "Full export enabled.\n";
+			$args['exclude-humcore-uploads'] = false;
+			$args['exclude-group-documents'] = false;
+			$args['exclude-profile-attachments'] = false;
+			$args['exclude-bp-attachments'] = false;
+			$table_names = [];
+			$site_ids = [];
+		}
 	
 		echo "Generating database export...\n";
 		echo "Database Export File: " . $args['db-export-file'] . "\n";
@@ -176,6 +187,8 @@ function show_help() {
 	echo "                              (Default: true)\n\n";
 	echo "  export-sites                Export user sites.\n";
 	echo "                              (Default: true)\n\n";
+	echo "  full-export                 Export all content.\n";
+	echo "							    (Default: false)\n\n";
 	echo "  skip-content-generation     Skip generating content and just upload existing files to S3.\n";
 	echo "                              (Default: false)\n\n";
 	echo "  exclude-humcore-uploads     Exclude HumCORE uploads.\n";
@@ -368,7 +381,13 @@ function generate_uploads_archive(
 	if ( $exclude_bp_attachments ) {
 		$exclude_clauses .= " --exclude='bp_attachments'";
 	}
-	$command = "tar --exclude='sites' $exclude_clauses -cf $tar_file_path -C " . UPLOADS_PARENT_DIRECTORY . " " . UPLOADS_DIRECTORY;
+	if ( is_array( $site_ids ) && count( $site_ids ) > 0 ) {
+		$site_exclude_clause = " --exclude='sites'";
+	} else {
+		$site_ids = [];
+		$site_exclude_clause = "";
+	}
+	$command = "tar $site_exclude_clause $exclude_clauses -cf $tar_file_path -C " . UPLOADS_PARENT_DIRECTORY . " " . UPLOADS_DIRECTORY;
 	echo $command . "\n";
 	$result = exec( $command );
 	foreach ( $site_ids as $site_id ) {
