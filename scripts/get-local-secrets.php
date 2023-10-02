@@ -52,7 +52,9 @@ function write_secrets_to_env( array $secrets, string $filename ) : void {
 	}
 	$contents = implode( "\n", $lines );
 
-	$path = trailingslashit( $project_root ) . $filename;
+	$path = trailingslashit( get_project_root() ) . $filename;
+  
+  echo "Writing secrets to $path...\n";
 	file_put_contents_new_directory( $path, $contents );
 }
 
@@ -70,6 +72,8 @@ function write_saml_certs( SecretsManagerClient $client ) : void {
 	}
 
 	$project_root = get_project_root() . '/';
+  
+  echo "Writing SAML certs...\n";
 	file_put_contents_new_directory( $project_root . SAML_PEM_FILE, $saml_pem_value['SecretString'] );
 	file_put_contents_new_directory( $project_root . SAML_CRT_FILE, $saml_crt_value['SecretString'] );
 }
