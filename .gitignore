@@ -31,6 +31,7 @@ saml.crt
 saml.pem
 
 .nohup.out
+nohup.out
 
 # ignore vscode settings
 .vscode
@@ -40,3 +41,4 @@ kc-scripts-*/
 
 # ignore macos files
 .DS_Store
+._*

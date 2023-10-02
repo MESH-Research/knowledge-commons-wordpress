@@ -14,7 +14,7 @@ Note: These instructions and many helper scripts assume you are running a Linux-
 
 1. Clone this repository: `git clone https://github.com/MESH-Research/knowledge-commons-wordpress.git`
 2. Change to the repository directory
-3. Run `lando start`
+3. Run `lando rebuild -y`
 4. Visit https://commons-wordpress.lndo.site/
 
 ### Importing Commons Data
