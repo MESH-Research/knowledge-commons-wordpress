@@ -31,6 +31,7 @@ saml.crt
 saml.pem
 
 .nohup.out
+nohup.out
 
 # ignore vscode settings
 .vscode
