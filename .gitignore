@@ -35,8 +35,12 @@ saml.pem
 # ignore vscode settings
 .vscode
 
+# don't ignore vscode xdebug settings
+!.vscode/launch.json
+
 # ignore temp directories
 kc-scripts-*/
 
 # ignore macos files
 .DS_Store
+._*
