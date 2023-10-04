@@ -34,7 +34,7 @@ saml.pem
 nohup.out
 
 # ignore vscode settings
-.vscode
+.vscode/*
 
 # don't ignore vscode xdebug settings
 !.vscode/launch.json
