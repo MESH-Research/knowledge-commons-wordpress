@@ -39,9 +39,6 @@ nohup.out
 # don't ignore vscode xdebug settings
 !.vscode/launch.json
 
-# don't ignore vscode xdebug settings
-!.vscode/launch.json
-
 # ignore temp directories
 kc-scripts-*/
 
