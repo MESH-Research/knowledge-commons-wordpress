@@ -35,49 +35,104 @@
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
     "wpackagist-theme/twentytwentythree": "^1.0",
+
+
     "wpackagist-plugin/akismet":"^5.1",
     "wpackagist-plugin/anthologize":"^0.8.0",
+ 
     "wpackagist-plugin/bbpress":"^2.6.9",
     "wpackagist-plugin/beehive-analytics":"^3.4.5",
+
     "wpackagist-plugin/bp-blog-avatar":"^1.0",
     "wpackagist-plugin/bp-lotsa-feeds":"^1.0",
     "wpackagist-plugin/bp-mpo-activity-filter":"^1.3.2",
-    "wpackagist-plugin/buddymeet":"^2.1.0",
+
     "wpackagist-plugin/buddypress":"^10.6.0",
     "wpackagist-plugin/buddypress-docs":"^2.1.6",
     "wpackagist-plugin/bp-multiple-forum-post":"^1.0.0",
     "wpackagist-plugin/buddypress-restrict-group-creation":"^1.1.2",
     "wpackagist-plugin/buddypress-sitewide-activity-widget":"^1.3.5",
+
+
     "wpackagist-plugin/commentarysandbox":"^2.2",
     "wpackagist-plugin/commons-in-a-box":"^1.3.2",
     "wpackagist-plugin/disable-password-reset-extended":"^1.0",
+
     "wpackagist-plugin/edit-flow":"^0.9.6",
     "wpackagist-plugin/elasticpress":"^4.2.0",
+
     "wpackagist-plugin/elementor":"^3.6.6",
-    "wpackagist-plugin/email-posts-to-subscribers":"^6.2",
+
+
+
+
     "wpackagist-plugin/event-organiser":"^3.12.0",
+
+
+
     "wpackagist-plugin/fd-footnotes":"^1.36",
     "wpackagist-plugin/feedwordpress":"^2022.0222",
+
     "wpackagist-plugin/gd-bbpress-attachments":"^4.3.1",
+
+
     "wpackagist-plugin/google-sitemap-generator":"^4.1.5",
     "wpackagist-plugin/health-check":"^1.4.5",
     "wpackagist-plugin/invite-anyone":"^1.4.2",
     "wpackagist-plugin/issuem":"^2.8.7",
     "wpackagist-plugin/jetpack":"^12.2",
+    "wpackagist-plugin/jquery-hover-footnotes":"^1.4",
+    "wpackagist-plugin/knight-lab-timelinejs":"^3.8.18.0",
+
+    "wpackagist-plugin/mashsharer":"^3.8.1",
     "wpackagist-plugin/mathml-block":"^1.2.1",
+
+    "wpackagist-plugin/metronet-tag-manager":"^1.5.4",
+    "wpackagist-plugin/more-privacy-options":"^4.6",
+
     "wpackagist-plugin/multisite-plugin-manager":"^3.1.6",
+
+    "wpackagist-plugin/newsletter":"^7.3.9",
+    "wpackagist-plugin/newsletters-lite":"^4.7.9.6",
     "wpackagist-plugin/ninja-forms":"^3.6.16",
+    "wpackagist-plugin/options-framework":"^1.8.5",
+
     "wpackagist-plugin/participants-database":"^2.1.5",
+    "wpackagist-plugin/password-protected":"^2.5.3",
+
+
+    "wpackagist-plugin/post-types-order":"^2.0",
     "wpackagist-plugin/pressforward":"^5.2.9",
+    "wpackagist-plugin/printfriendly":"^5.2.4",
+
+    "wpackagist-plugin/redirection":"^5.2.3",
     "wpackagist-plugin/redis-cache":"^2.0.26",
-    "wpackagist-plugin/so-widgets-bundle":"^1.36.0",
+
+    "wpackagist-plugin/shareadraft":"^1.5",
+
+
+
+
+
+
+    "wpackagist-plugin/redux-framework":"^4.3.14",
+    "wpackagist-plugin/typekit-fonts-for-wordpress":"^1.9.0",
+
+
+    "wpackagist-plugin/woosidebars":"^1.4.6",
     "wpackagist-plugin/wordpress-importer":"^0.8",
+
+    "wpackagist-plugin/formassembly-web-forms":"^2.0.5",
+    "wpackagist-plugin/wp-markdown":"^1.6.1",
     "wpackagist-plugin/wp-piwik":"^1.0.27",
     "wpackagist-plugin/wp-accessibility":"^2.0",
+
+
     "wpackagist-plugin/wp-google-maps":"^9.0.0",
     "wpackagist-plugin/wp-graphql":"^1.14.3",
     "wpackagist-plugin/wp-job-manager":"^1.36.1",
     "wpackagist-plugin/wp-multi-network":"^2.5.0",
+
     "wpackagist-plugin/zotpress":"^7.3.1.2",
     "wpackagist-theme/armando": "^2.0",
     "wpackagist-theme/astra": "^4.1",
