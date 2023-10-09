@@ -81,55 +81,58 @@
     "wpackagist-plugin/invite-anyone":"^1.4.2",
     "wpackagist-plugin/issuem":"^2.8.7",
     "wpackagist-plugin/jetpack":"^12.2",
-    "wpackagist-plugin/jquery-hover-footnotes":"^1.4",
-    "wpackagist-plugin/knight-lab-timelinejs":"^3.8.18.0",
 
-    "wpackagist-plugin/mashsharer":"^3.8.1",
+
+
+
+
     "wpackagist-plugin/mathml-block":"^1.2.1",
 
-    "wpackagist-plugin/metronet-tag-manager":"^1.5.4",
-    "wpackagist-plugin/more-privacy-options":"^4.6",
+
+
 
     "wpackagist-plugin/multisite-plugin-manager":"^3.1.6",
 
-    "wpackagist-plugin/newsletter":"^7.3.9",
-    "wpackagist-plugin/newsletters-lite":"^4.7.9.6",
+
+
     "wpackagist-plugin/ninja-forms":"^3.6.16",
-    "wpackagist-plugin/options-framework":"^1.8.5",
+
 
     "wpackagist-plugin/participants-database":"^2.1.5",
-    "wpackagist-plugin/password-protected":"^2.5.3",
 
 
-    "wpackagist-plugin/post-types-order":"^2.0",
+
+
     "wpackagist-plugin/pressforward":"^5.2.9",
-    "wpackagist-plugin/printfriendly":"^5.2.4",
 
-    "wpackagist-plugin/redirection":"^5.2.3",
+
+
     "wpackagist-plugin/redis-cache":"^2.0.26",
 
-    "wpackagist-plugin/shareadraft":"^1.5",
 
 
 
 
 
 
-    "wpackagist-plugin/redux-framework":"^4.3.14",
-    "wpackagist-plugin/typekit-fonts-for-wordpress":"^1.9.0",
 
 
-    "wpackagist-plugin/woosidebars":"^1.4.6",
+
+
+
+
     "wpackagist-plugin/wordpress-importer":"^0.8",
 
-    "wpackagist-plugin/formassembly-web-forms":"^2.0.5",
-    "wpackagist-plugin/wp-markdown":"^1.6.1",
+
+
     "wpackagist-plugin/wp-piwik":"^1.0.27",
+
     "wpackagist-plugin/wp-accessibility":"^2.0",
 
 
-    "wpackagist-plugin/wp-google-maps":"^9.0.0",
+
     "wpackagist-plugin/wp-graphql":"^1.14.3",
+
     "wpackagist-plugin/wp-job-manager":"^1.36.1",
     "wpackagist-plugin/wp-multi-network":"^2.5.0",
 
