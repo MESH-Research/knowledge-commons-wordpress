@@ -52,4 +52,20 @@ tooling:
     service: appserver
     description: Pulls content from S3
     cmd: /app/scripts/s3-pull.php
+  install-go-search-replace:
+    service: appserver
+    description: Installs go-search-replace
+    cmd: /app/scripts/install-go-search-replace.sh
+    user: root
+  search-replace [old] [new] [file]:
+    service: appserver
+    description: Replaces $1 with $2 in $3. Must have run install-go-search-replace first.
+    cmd: /app/scripts/search-replace.sh
+    user: root
+  db-import:
+    service: appserver
+    description: Imports database from .sql file.
+    user: root
+    cmd: /app/scripts/db-import.php 
+
   
