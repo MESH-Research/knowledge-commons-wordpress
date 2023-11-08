@@ -2,11 +2,11 @@
 /**
  * Script to generate an inventory of plugins or themes.
  * 
- * Usage: wp eval-file plugin-theme-inventory.php mode={plugin|theme} out={filename} in={filename} [format={csv|md}]
+ * Usage: wp eval-file plugin-theme-inventory.php mode={plugin|theme} out={filename} in={filename} [format={csv|md|composer}]
  *     - mode    whether to generate inventory for plugins or themes
  *     - out     output filename
  *     - in      existing markdown inventory to be merged with new data
- *     - format  whether to generate CSV of data (default) or mardownk inventory template
+ *     - format  whether to generate CSV of data (default), markdown inventory template, or Composer requirements.
  */
 
 define( 'COMMAND_LINE_SYNTAX_ERROR', 1 );
@@ -23,19 +23,6 @@ define( 'COMMAND_LINE_SYNTAX_ERROR', 1 );
 		throw new Exception( "'mode' argument is required.", COMMAND_LINE_SYNTAX_ERROR );
 	}
 
-	$output_filename = $parsed_args['out'];
-	if ( ! $output_filename ) {
-		throw new Exception( "'out' argument is required.", COMMAND_LINE_SYNTAX_ERROR );
-	}
-
-	if ( $mode === 'plugin' ) {
-		$inventory_data = generate_plugin_data();
-	} elseif ( $mode === 'theme' ) {
-		$inventory_data = generate_theme_data();
-	} else {
-		throw new Exception( "'mode' argument must be either 'plugin' or 'theme'", COMMAND_LINE_SYNTAX_ERROR );
-	}
-
 	if ( array_key_exists( 'in', $parsed_args ) ) {
 		$input_filename = $parsed_args['in'];
 	} else {
@@ -46,16 +33,35 @@ define( 'COMMAND_LINE_SYNTAX_ERROR', 1 );
 	if ( array_key_exists( 'format', $parsed_args ) ) {
 		if ( $parsed_args['format'] === 'md' ) {
 			$format = 'md';
+		} elseif ( $parsed_args['format'] === 'composer' ) {
+			$format = 'composer';
 		}
 	} elseif ( substr_compare( $parsed_args['out'], '.md', -3 ) === 0 ) {
 		$format = 'md';
 	}
 
+	$output_filename = $parsed_args['out'];
+	if ( ! $output_filename && $format !== 'composer' ) {
+		throw new Exception( "'out' argument is required for CSV or Markdown output.", COMMAND_LINE_SYNTAX_ERROR );
+	}
+
+	if ( $mode === 'plugin' ) {
+		$inventory_data = generate_plugin_data();
+	} elseif ( $mode === 'theme' ) {
+		$inventory_data = generate_theme_data();
+	} else {
+		throw new Exception( "'mode' argument must be either 'plugin' or 'theme'", COMMAND_LINE_SYNTAX_ERROR );
+	}
+
+
 	if ( $format === 'csv' ) {
 		write_to_csv( $inventory_data, $output_filename );
 	} elseif ( $format === 'md' ) {
 		write_to_md( $inventory_data, $mode, $output_filename, $input_filename );
-	} else {
+	} elseif ( $format === 'composer' ) {
+		echo_composer_requirements( $inventory_data, $mode );
+	} 
+	else {
 		throw new Exception( "Unrecognized output format." );
 	}
 
@@ -208,6 +214,108 @@ function generate_plugin_data() {
 	return $plugin_data;
 }
 
+function generate_theme_data() {
+	$theme_data = [];
+	$themes = wp_get_themes(
+		[
+			'errors' => null,
+			'allowed' => null,
+			'blog_id' => 0,
+		]
+	);
+
+	foreach ( $themes as $theme_slug => $theme ) {
+		if ( $theme_slug == 'commentpress-mla' ) {
+			xdebug_break();
+		}
+		// Get the basic data.
+		
+		$theme_data[ $theme_slug ] = [
+			'name'                => $theme->name,
+			'url'                 => $theme->get( 'ThemeURI' ),
+			'version'             => $theme->version,
+			'description'         => $theme->description,
+			'author'              => $theme->get( 'Author' ),
+			'author-url'          => $theme->get( 'AuthorURI' ),
+			'update-version'      => '',
+			'update-version-date' => '',
+			'update-version-wp'   => '',
+			'update-version-php'  => '',
+			'wp-url'              => '',
+			'network-allowed'     => [],
+			'base-site-active'    => [],
+			'site-active'         => [],
+		];
+
+		// Get data from wp.org API.
+
+		try {
+			$remote_data = get_theme_remote_data( $theme_slug );
+		}
+		catch ( Exception $e ) {
+			if ( $e->getCode() !== 404 ) {
+				throw $e;
+			}
+			$remote_data = [];
+		}
+
+		if ( $remote_data ) {
+			$theme_data[ $theme_slug ]['update-version']      = $remote_data['version'];
+			$theme_data[ $theme_slug ]['update-version-date'] = $remote_data['last_updated'];
+			$theme_data[ $theme_slug ]['update-version-wp']   = $remote_data['requires'];
+			$theme_data[ $theme_slug ]['update-version-php']  = $remote_data['requires_php'];
+			if ( strpos( $remote_data['homepage'], 'wordpress.org/themes' ) !== false ) {
+				$wordpress_org_url = $remote_data['homepage'];
+			} else {
+				$wordpress_org_url = "https://wordpress.org/themes/{$theme_slug}/";
+			}
+			$theme_data[ $theme_slug ]['wp-url']              = $wordpress_org_url;
+		}
+	}
+
+	// Get data about usage of themes on sites.
+
+	foreach ( get_networks() as $network ) {
+		switch_to_network( $network->id, true );
+
+		// Get network allowed themes.
+		$allowed_themes = wp_get_themes(
+			[
+				'allowed' => 'network',
+			]
+		);
+		foreach( array_keys( $allowed_themes ) as $allowed_theme_slug ) {
+			$theme_data[ $allowed_theme_slug ]['network-allowed'][] = get_network_slug( $network->domain );
+		}
+
+		// Get base site active theme.
+		$base_site_id = get_main_site_id( $network->id );
+		switch_to_blog( $base_site_id );
+		$base_site_theme = wp_get_theme();
+		$theme_data[ $base_site_theme->get_stylesheet() ]['base-site-active'][] = get_network_slug( $network->domain );
+		restore_current_blog();
+
+		// Get site active themes.
+		$sites = get_sites(
+			[
+				'network_id' => $network->id,
+			]
+		);
+		foreach ( $sites as $site ) {
+			switch_to_blog( $site->blog_id );
+			if ( $site->blog_id === $base_site_id ) {
+				continue;
+			}
+			$site_theme = wp_get_theme();
+			$theme_data[ $site_theme->get_stylesheet() ]['site-active'][] = $site->domain;
+			restore_current_blog();
+		}
+		restore_current_network();
+	}
+
+	return $theme_data;
+}
+
 /**
  * Connects to WordPress.org plugin API to retrieve plugin data.
  *
@@ -226,6 +334,26 @@ function get_plugin_remote_data( $plugin_slug ) {
 	}
 	$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
 	return $plugin_data;
+}
+
+/**
+ * Connects to WordPress.org theme API to retrieve theme data.
+ * 
+ * @param string $theme_slug Slug for the theme. Eg. 'twentyseventeen'
+ */
+function get_theme_remote_data( $theme_slug ) {
+	print( "Querying WordPress theme API for $theme_slug.\n" );
+	$info_url = "https://api.wordpress.org/themes/info/1.2/?action=theme_information&request[slug]=$theme_slug";
+	$response = wp_remote_get( $info_url );
+	if ( is_wp_error( $response ) ) {
+		throw new Exception( "Error retrieving data from WordPress theme api for $theme_slug" );
+	}
+	$response_code = wp_remote_retrieve_response_code( $response );
+	if ( $response_code !== 200 ) {
+		throw new Exception( "No response from WordPress theme api for $theme_slug", $response_code );
+	}
+	$theme_data = json_decode( wp_remote_retrieve_body( $response ), true );
+	return $theme_data;
 }
 
 /**
@@ -275,6 +403,30 @@ function write_to_csv( $data, $output_filename ) {
 		fputcsv( $sheet, array_merge( [ $slug ], $row ) );
 	}
 	fclose( $sheet );
+}
+
+/**
+ * Echoes plugin or theme data to stdout in Composer require format.
+ *
+ * @param Array $data Associative array of data to be written, where keys are column names.
+ */
+function echo_composer_requirements( $data, $type = 'plugin' ) {
+	foreach ( $data as $slug => &$row ) {
+		// Skip plugins that don't have a WP.org URL.
+		if ( ! $row['wp-url'] ) {
+			continue;
+		}
+		$requirement = "\"wpackagist-$type/$slug\"";
+		if ( $row['version'] ) {
+			$requirement .= ": \"^{$row['version']}\"";
+		} else {
+			$requirement .= ": \"*\"";
+		}
+		if ( $slug !== array_key_last( $data) ) {
+			$requirement .= ',';
+		}
+		echo "$requirement\n";
+	}
 }
 
 /**
@@ -656,7 +808,7 @@ function show_help() {
 		- mode    whether to generate inventory for plugins or themes
 		- out     output filename
 		- in      existing markdown inventory to be merged with new data
-		- format  whether to generate CSV of data (default) or mardown inventory template
+		- format  whether to generate CSV of data (default), mardown inventory template, or Composer requirements
 	EOD;
 	print( $help );
 }
