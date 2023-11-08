@@ -431,7 +431,7 @@ function echo_composer_requirements( $data, $type = 'plugin' ) {
  *
  * @param mixed $value A value that might be an array.
  */
-function value_to_string( $value, $separator = ';' ) {
+function value_to_string( $value, $separator = '; ' ) {
 	if ( ! is_array( $value ) ) {
 		return $value;
 	}
