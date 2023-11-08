@@ -225,9 +225,6 @@ function generate_theme_data() {
 	);
 
 	foreach ( $themes as $theme_slug => $theme ) {
-		if ( $theme_slug == 'commentpress-mla' ) {
-			xdebug_break();
-		}
 		// Get the basic data.
 		
 		$theme_data[ $theme_slug ] = [
