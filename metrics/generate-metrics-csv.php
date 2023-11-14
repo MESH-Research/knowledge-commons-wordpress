@@ -159,6 +159,9 @@ function group_metrics() {
 		}
 	}
 
+	echo( implode( "\n", $group_deposit_counts ) );
+	exit;
+
 	$total_groups = count( $groups );
 
 	$group_metrics = [
@@ -232,5 +235,7 @@ function get_group_deposit_count( $group_id, $group_name ) {
 	}
 	return intval( humcore_get_deposit_count() );
 }
+
+group_metrics();
 
 main( $args );
