@@ -25,9 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function hcommons_write_error_log( $error_type, $error_message, $info = null ) {
 	$info_text = $info ? ': ' . serialize( $info ) : '';
-	$message = '[' . date( 'Y-m-d H:i:s' ) . '] ' . $error_message . $info_text . "\n";
-	$destination = WP_LOGS_DIR ? WP_LOGS_DIR : WP_CONTENT_DIR . '/logs/';
-	error_log( $message, 3, $destination . 'hcommons_error.log' );
+	$message = '[' . strtoupper($error_type) . '] ' . $error_message . $info_text . "\n";
+	error_log( $message );
 }
 
 require_once ( dirname( __FILE__ ) . '/society-settings.php' );
