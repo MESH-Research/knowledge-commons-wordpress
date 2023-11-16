@@ -191,6 +191,18 @@ Config::define('WP_REDIS_HOST', getenv('WP_REDIS_HOST')); // redis-cache
  */
 Config::define('EP_HOST', getenv('EP_HOST'));
 
+/** 
+ * S3-Uploads 
+ */
+Config::define('S3_UPLOADS_BUCKET', getenv('S3_UPLOADS_BUCKET'));
+Config::define('S3_UPLOADS_KEY', getenv('S3_UPLOADS_KEY'));
+Config::define('S3_UPLOADS_SECRET', getenv('S3_UPLOADS_SECRET'));
+Config::define('S3_UPLOADS_AUTOENABLE', getenv('S3_UPLOADS_AUTOENABLE'));
+Config::define('S3_UPLOADS_OBJECT_ACL', getenv('S3_UPLOADS_OBJECT_ACL'));
+Config::define('S3_UPLOADS_BUCKET_URL', getenv('S3_UPLOADS_BUCKET_URL'));
+Config::define('S3_UPLOADS_USE_LOCAL', getenv('S3_UPLOADS_USE_LOCAL'));
+Config::define('S3_UPLOADS_REGION', getenv('S3_UPLOADS_REGION'));
+
 /**
  * Humanities Commons
  */
