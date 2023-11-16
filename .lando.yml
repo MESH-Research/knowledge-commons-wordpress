@@ -35,6 +35,11 @@ env_file:
 config:
   config:
     vhosts: config/local/nginx/nginx.conf
+proxy:
+  appserver_nginx:
+    - commons-wordpress.lndo.site
+    - "*.commons-wordpress.lndo.site"
+    - "*.*.commons-wordpress.lndo.site"
 tooling:
   wp:
     service: appserver
