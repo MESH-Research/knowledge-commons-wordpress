@@ -325,7 +325,7 @@ $config = [
      * - %msg: the message to be logged.
      *
      */
-    //'logging.format' => '%date{%b %d %H:%M:%S} %process %level %stat[%trackid] %msg',
+    'logging.format' => '%process %level %stat[%trackid] %msg',
 
     /*
      * Choose which facility should be used when logging with syslog.
