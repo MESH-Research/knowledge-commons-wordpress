@@ -129,6 +129,8 @@ function general_metrics() {
 function group_metrics() {
 	global $wpdb;
 
+	$min_group_membership = 2;
+
 	$sql = "SELECT 	g.id,
 					g.name,
 					COUNT(DISTINCT m.id) AS member_count,
@@ -149,30 +151,70 @@ function group_metrics() {
 	$group_member_counts = [];
 	$group_post_counts = [];
 	$group_deposit_counts = [];
-	$groups_with_blog = 0;
+	$blog_post_counts = [];
+	$blog_post_counts_greater_than_2 = [];
+	$blog_comment_counts = [];
+	$blog_comment_counts_greater_than_2 = [];
+	$greater_than_two_post_groups = 0;
 	foreach ( $groups as $group ) {
+		if ( $group->member_count < $min_group_membership ) {
+			continue;
+		}
 		$group_member_counts[] = intval( $group->member_count );
 		$group_post_counts[] = intval( $group->post_count );
 		$group_deposit_counts[] = get_group_deposit_count( $group->id, $group->name );
-		if ( $group->groupblog_id ) {
-			$groups_with_blog++;
+
+		$groupblog_id = groups_get_groupmeta($group->id, 'groupblog_blog_id');
+		if ( $groupblog_id ) {
+			$posts_table = $wpdb->get_blog_prefix( $groupblog_id ) . 'posts';
+			$query = "
+				SELECT COUNT(*)
+				FROM $posts_table 
+				WHERE ( post_type = 'post' OR post_type = 'page' )
+				      AND post_status = 'publish' 
+					  AND post_author != 0
+			";
+			$blog_posts = intval( $wpdb->get_var( $query ) );
+			$blog_post_counts[] = $blog_posts;
+			if ( $blog_posts >= 2 ) {
+				$blog_post_counts_greater_than_2[] = $blog_posts;
+				$greater_than_two_post_groups++;
+			}
+
+			$comments_table = $wpdb->get_blog_prefix( $groupblog_id ) . 'comments';
+			$query = "
+				SELECT COUNT(*)
+				FROM $comments_table 
+				WHERE comment_approved = 1
+			";
+			$blog_comments = intval( $wpdb->get_var( $query ) );
+			$blog_comment_counts[] = $blog_comments;
+			if ( $blog_posts >= 2 ) {
+				$blog_comment_counts_greater_than_2[] = $blog_comments;
+			}
+
 		}
 	}
-
-	echo( implode( "\n", $group_deposit_counts ) );
-	exit;
 
 	$total_groups = count( $groups );
 
 	$group_metrics = [
-		'total_groups'                 => $total_groups,
-		'median_group_members'         => median( $group_member_counts ),
-		'average_group_members'        => array_sum( $group_member_counts ) / $total_groups,
-		'median_group_post_counts'     => median( $group_post_counts ),
-		'average_group_post_counts'    => array_sum( $group_post_counts ) / $total_groups,
-		'median_group_deposit_counts'  => median( $group_deposit_counts ),
-		'average_group_deposit_counts' => array_sum( $group_deposit_counts ) / $total_groups,
-		'groups_with_blog'             => $groups_with_blog,
+		'total_groups'                               => $total_groups,
+		'greater_than_two_post_groups'               => $greater_than_two_post_groups,
+		'median_group_members'                       => median( $group_member_counts ),
+		'average_group_members'                      => array_sum( $group_member_counts ) / $total_groups,
+		'median_group_post_counts'                   => median( $group_post_counts ),
+		'average_group_post_counts'                  => array_sum( $group_post_counts ) / $total_groups,
+		'median_group_deposit_counts'                => median( $group_deposit_counts ),
+		'average_group_deposit_counts'               => array_sum( $group_deposit_counts ) / $total_groups,
+		'median_blog_post_counts'                    => median( $blog_post_counts ),
+		'average_blog_post_counts'                   => array_sum( $blog_post_counts ) / $total_groups,
+		'median_blog_comment_counts'                 => median( $blog_comment_counts ),
+		'average_blog_comment_counts'                => array_sum( $blog_comment_counts ) / $total_groups,
+		'median_blog_post_counts_greater_than_2'     => median( $blog_post_counts_greater_than_2 ),
+		'average_blog_post_counts_greater_than_2'    => array_sum( $blog_post_counts_greater_than_2 ) / $greater_than_two_post_groups,
+		'median_blog_comment_counts_greater_than_2'  => median( $blog_comment_counts_greater_than_2 ),
+		'average_blog_comment_counts_greater_than_2' => array_sum( $blog_comment_counts_greater_than_2 ) / $greater_than_two_post_groups,
 	];
 
 	return $group_metrics;
@@ -235,7 +277,5 @@ function get_group_deposit_count( $group_id, $group_name ) {
 	}
 	return intval( humcore_get_deposit_count() );
 }
-
-group_metrics();
 
 main( $args );
