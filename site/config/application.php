@@ -202,6 +202,7 @@ Config::define('S3_UPLOADS_OBJECT_ACL', getenv('S3_UPLOADS_OBJECT_ACL'));
 Config::define('S3_UPLOADS_BUCKET_URL', getenv('S3_UPLOADS_BUCKET_URL'));
 Config::define('S3_UPLOADS_USE_LOCAL', getenv('S3_UPLOADS_USE_LOCAL'));
 Config::define('S3_UPLOADS_REGION', getenv('S3_UPLOADS_REGION'));
+Config::define('HC_UPLOADS_BASE_URL', getenv('HC_UPLOADS_BASE_URL'));
 
 /**
  * Humanities Commons
@@ -359,6 +360,13 @@ Config::define('CORE_DATACITE_PREFIX', getenv('CORE_DATACITE_PREFIX'));
  */
  Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD') );
  Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN') );
+
+/**
+ * Docker error logging.
+ */
+ini_set( 'log_errors', 'on' );
+ini_set( 'error_log', 'php://stderr' );
+ini_set( 'error_reporting', E_ERROR | E_WARNING | E_PARSE );
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 

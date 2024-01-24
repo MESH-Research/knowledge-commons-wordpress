@@ -26,6 +26,7 @@
 
 	<?php
 	global $rtl;
+	
 	$logo	 = ( boss_get_option( 'logo_switch' ) && boss_get_option( 'boss_logo', 'id' ) ) ? '1' : '0';
 	$inputs	 = ( boss_get_option( 'boss_inputs' ) ) ? '1' : '0';
 	$boxed	 = boss_get_option( 'boss_layout_style' );

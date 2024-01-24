@@ -452,6 +452,7 @@ function hcommons_wpsa_filter_option( $value, string $option_name ) {
 		'last_name_attribute'    => 'sn',
 		'default_role'           => get_option( 'default_role' ),
 	);
+	hcommons_write_error_log( 'info', '****FILTER_OPTION****-'.var_export( $defaults, true ) );
 	$value    = isset( $defaults[ $option_name ] ) ? $defaults[ $option_name ] : $value;
 	return $value;
 }
@@ -534,6 +535,7 @@ function hcommons_set_env_saml_attributes() {
  * Automatically log in to WordPress with an existing SimpleSAML session.
  */
 function hcommons_auto_login() {
+	hcommons_write_error_log( 'info', 'hcommons_auto_login');
 	if ( defined( 'WP_CLI' ) && constant( 'WP_CLI' ) ) {
 		return;
 	}
