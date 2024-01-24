@@ -10,9 +10,6 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /u
 RUN chmod a+x /usr/local/bin/wp-cli.phar && \
 	mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
-RUN apk update && apk add git mysql mysql-client py3-pip py-cryptography mandoc
-
-RUN pip install --upgrade pip && \
-	pip install awscli
+RUN apk update && apk add git mysql mysql-client py3-pip py-cryptography mandoc aws-cli
 
 EXPOSE 9000

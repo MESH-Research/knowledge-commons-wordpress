@@ -1,1 +1,1 @@
-/app/config/local/php/phpinfo.php
+/app/scripts/build-scripts/phpinfo.php

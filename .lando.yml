@@ -11,8 +11,8 @@ services:
         XDEBUG_CONFIG:
     build_as_root:
       - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
-      - rm -f site/web/phpinfo.php && ln -s /app/config/local/php/phpinfo.php site/web/phpinfo.php
-      - /app/.lando/build-wordpress.sh
+      - rm -f site/web/phpinfo.php && ln -s /app/scripts/build-scripts/phpinfo.php site/web/phpinfo.php
+      - /app/scripts/build-scripts/build-wordpress-lando.sh
       - cd /app/core-plugins/humcore/ && composer update
     config:
       php: config/local/php/php.ini
@@ -27,14 +27,13 @@ services:
       user: wordpress
       password: wordpress
       database: wordpress
-    volume:
-      - database:/var/lib/mysql
 env_file:
   - .lando/secrets-default.env
   - .lando/secrets.env
 config:
   config:
     vhosts: config/local/nginx/nginx.conf
+  webroot: ./site/web
 proxy:
   appserver_nginx:
     - commons-wordpress.lndo.site
