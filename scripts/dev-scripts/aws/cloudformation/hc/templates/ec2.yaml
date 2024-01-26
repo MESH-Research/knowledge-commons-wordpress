@@ -1,0 +1,103 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: HC Dev/Staging instance
+Parameters:
+  Name:
+    Description: Name of the instance e.g. <name>.mlacommons.org
+    Type: String
+    Default: hc-dev-cloudformation
+  VPC:
+    Description: VPC ID
+    Type: AWS::EC2::VPC::Id
+    Default: vpc-21c0c947
+  InstanceType:
+    Description: Amazon EC2 instance type
+    Type: String
+    Default: t2.small
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+    Default: mla
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      SubnetId: subnet-2e495175
+      SecurityGroupIds:
+        - sg-e0ba979f
+        - sg-ed29979c
+        - sg-de61fbaf
+        - sg-e0cbb891
+        - sg-0eb69b71
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: '32'
+      Volumes:
+        - Device: /dev/sdf
+          VolumeId: !Ref SharedVolume
+
+      InstanceType: !Ref 'InstanceType'
+      KeyName: !Ref 'KeyName'
+      ImageId: ami-0f9cf087c1f27d9b1
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ''
+            - - hcommons-dev-
+              - !Ref 'Name'
+        - Key: tao:COSTCENTER
+          Value: hcommons
+        - Key: tao:BACKUP
+          Value: DAILY
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -x
+          sudo apt update -y
+          sudo apt install python-pip -y
+          sudo mkfs -t ext4 /dev/xvdf
+          sudo mkdir -p /srv/www/commons/shared/
+          sudo mount /dev/xvdf /srv/www/commons/shared
+          sudo cp /etc/fstab /etc/fstab.orig
+          sudo su root
+          echo '/dev/xvdf  /srv/www/commons/shared/  ext4  defaults,discard  0 0' >> /etc/fstab
+          chown ubuntu:www-data -R /srv/www/commons/shared/
+  SharedVolume:
+    Type: AWS::EC2::Volume
+    DeletionPolicy: Snapshot
+    Properties:
+      AvailabilityZone: us-east-1a
+      Size: 64
+
+  InstanceTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Join
+        - ''
+        - - hcd-
+          - !Ref 'Name'
+          - -tg
+      Port: '80'
+      Protocol: HTTP
+      Targets:
+        - Id: !Ref 'EC2Instance'
+          Port: '80'
+      VpcId: !Ref 'VPC'
+  MyEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref 'EC2Instance'
+      Domain: vpc
+Outputs:
+  InstanceId:
+    Description: InstanceId of the newly created EC2 instance
+    Value: !Ref 'EC2Instance'
+  PublicDNS:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !GetAtt 'EC2Instance.PublicDnsName'
+  PublicIP:
+    Description: Public IP address of the newly created EC2 instance
+    Value: !GetAtt 'EC2Instance.PublicIp'
+  PrivateIP:
+    Description: Private IP address of the newly created EC2 instance
+    Value: !GetAtt 'EC2Instance.PrivateIp'
