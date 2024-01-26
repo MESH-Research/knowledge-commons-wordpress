@@ -1,0 +1,16 @@
+{
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://packagist.org"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "4.*",
+        "fabianobn/slick": "v1.8.*"
+    },
+    "scripts": {
+        "post-install-cmd": "bash build.sh",
+        "post-update-cmd": "bash build.sh"
+    }
+}
