@@ -1,0 +1,15 @@
+{
+    "name": "mesh-research/mailchimp",
+    "description": "Sync Commons active users with MailChimp",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Thicke",
+            "email": "thickemi@msu.edu"
+        }
+    ],
+    "require": {
+        "mailchimp/marketing": "*"
+    }
+}

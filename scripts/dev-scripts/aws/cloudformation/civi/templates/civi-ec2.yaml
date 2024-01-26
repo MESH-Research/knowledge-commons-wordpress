@@ -1,0 +1,292 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CiviCRM-DEV php7
+Parameters:
+  InstanceType:
+    Description: WebServer EC2 instance type
+    Type: String
+    Default: t2.small
+    AllowedValues:
+      - t1.micro
+      - t2.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+      - m1.small
+      - m1.medium
+      - m1.large
+      - m1.xlarge
+      - m2.xlarge
+      - m2.2xlarge
+      - m2.4xlarge
+      - m3.medium
+      - m3.large
+      - m3.xlarge
+      - m3.2xlarge
+      - m4.large
+      - m4.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+      - m4.10xlarge
+      - c1.medium
+      - c1.xlarge
+      - c3.large
+      - c3.xlarge
+      - c3.2xlarge
+      - c3.4xlarge
+      - c3.8xlarge
+      - c4.large
+      - c4.xlarge
+      - c4.2xlarge
+      - c4.4xlarge
+      - c4.8xlarge
+      - g2.2xlarge
+      - g2.8xlarge
+      - r3.large
+      - r3.xlarge
+      - r3.2xlarge
+      - r3.4xlarge
+      - r3.8xlarge
+      - i2.xlarge
+      - i2.2xlarge
+      - i2.4xlarge
+      - i2.8xlarge
+      - d2.xlarge
+      - d2.2xlarge
+      - d2.4xlarge
+      - d2.8xlarge
+      - hi1.4xlarge
+      - hs1.8xlarge
+      - cr1.8xlarge
+      - cc2.8xlarge
+      - cg1.4xlarge
+    ConstraintDescription: must be a valid EC2 instance type.
+  myVPC:
+    Description: Id of my VPC
+    Type: String
+    Default: vpc-1ea49679
+  Subnet:
+    Description: Please enter your VPC Subnet ID, ONLY FOR MAIN NODE
+    Type: String
+    Default: subnet-38f53915
+    AllowedPattern: '[\x20-\x7E]*'
+    ConstraintDescription: can contain only ASCII characters.
+  Security:
+    Description: Please enter your VPC SecurityGroup ID
+    Type: String
+    Default: sg-3ee4cd41
+    AllowedPattern: '[\x20-\x7E]*'
+    ConstraintDescription: can contain only ASCII characters.
+  DBName:
+    Default: mlawp
+    Description: The WordPress database name
+    Type: String
+    MinLength: '1'
+    MaxLength: '64'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: must begin with a letter and contain only alphanumeric
+      characters.
+  DBUser:
+    NoEcho: 'false'
+    Description: The WordPress database admin account username
+    Type: String
+    MinLength: '1'
+    MaxLength: '16'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: must begin with a letter and contain only alphanumeric
+      characters.
+  DBPassword:
+    NoEcho: 'true'
+    Description: The WordPress database admin account password
+    Type: String
+    MinLength: '8'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters.
+  DBRootPassword:
+    NoEcho: 'true'
+    Description: MySQL root password
+    Type: String
+    MinLength: '8'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters.
+  Number:
+    Description: Please choose a number ie CiviCRM-DEV
+    Type: String
+    MinLength: '1'
+    MaxLength: '3'
+    AllowedPattern: '[0-9]*'
+    ConstraintDescription: can contain only ASCII characters.
+  appurl:
+    Description: This will be the application URL
+    Type: String
+    MinLength: '3'
+    MaxLength: '41'
+    AllowedPattern: '[\x20-\x7E]*'
+    ConstraintDescription: can contain only ASCII characters.
+  disk:
+    Description: Please enter your root disk size
+    Type: String
+    Default: '30'
+    AllowedPattern: '[\x20-\x7E]*'
+    ConstraintDescription: can contain only ASCII characters.
+Mappings:
+  AWSRegionAMIEC2:
+    us-east-1:
+      Ubuntu16: ami-d15a75c7
+    us-west-2:
+      Ubuntu16: ami-746aba14
+    us-west-1:
+      Ubuntu16: ami-a9a8e4c9
+    eu-west-1:
+      Ubuntu16: ami-844e0bf7
+    eu-central-1:
+      Ubuntu16: ami-a9a557c6
+    ap-northeast-1:
+      Ubuntu16: ami-d82efcb9
+    ap-southeast-1:
+      Ubuntu16: ami-d554f1b6
+    ap-southeast-2:
+      Ubuntu16: ami-0bc1f168
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          packages:
+            apt:
+              apache2: []
+              php7.0: []
+              mariadb-server: []
+              php7.0-mysql: []
+          sources:
+            /var/www/html: http://wordpress.org/latest.tar.gz
+          files:
+            /tmp/setup.mysql:
+              content: !Join
+                - ''
+                - - 'CREATE DATABASE '
+                  - !Ref 'DBName'
+                  - ";\n"
+                  - CREATE USER '
+                  - !Ref 'DBUser'
+                  - '''@''localhost'' IDENTIFIED BY '''
+                  - !Ref 'DBPassword'
+                  - "';\n"
+                  - 'GRANT ALL ON '
+                  - !Ref 'DBName'
+                  - .* TO '
+                  - !Ref 'DBUser'
+                  - "'@'localhost';\n"
+                  - "FLUSH PRIVILEGES;\n"
+              mode: '000700'
+              owner: root
+              group: root
+            /etc/apache2/sites-enabled/crm-dev.conf:
+              content: !Join
+                - ''
+                - - "<VirtualHost *:80>\n"
+                  - "    ServerAdmin nick@tgix.com\n"
+                  - '    ServerName    '
+                  - !Ref 'appurl'
+                  - "\n"
+                  - "    DocumentRoot /var/www/html/wordpress\n"
+                  - "    ErrorLog ${APACHE_LOG_DIR}/error.log\n"
+                  - "    CustomLog ${APACHE_LOG_DIR}/access.log combined\n"
+                  - </VirtualHost>
+            /tmp/create-wp-config:
+              content: !Join
+                - ''
+                - - "#!/bin/bash -xe\n"
+                  - "cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n"
+                  - sed -i "s/'database_name_here'/'
+                  - !Ref 'DBName'
+                  - "'/g\" wp-config.php\n"
+                  - sed -i "s/'username_here'/'
+                  - !Ref 'DBUser'
+                  - "'/g\" wp-config.php\n"
+                  - sed -i "s/'password_here'/'
+                  - !Ref 'DBPassword'
+                  - "'/g\" wp-config.php\n"
+              mode: '000700'
+              owner: root
+              group: root
+          services:
+            sysvinit:
+              apache2:
+                enabled: 'true'
+                ensureRunning: 'true'
+              mysql:
+                enabled: 'true'
+                ensureRunning: 'true'
+          commands:
+            '02_create_database':
+              command: !Join
+                - ''
+                - - mysql -u root --password='
+                  - !Ref 'DBRootPassword'
+                  - ''' < /tmp/setup.mysql'
+            '01_set_mysql_root_password':
+              command: !Join
+                - ''
+                - - mysqladmin -u root password '
+                  - !Ref 'DBRootPassword'
+                  - ''''
+      AWS::CloudFormation::Designer:
+        id: 55191c73-b496-4e01-884a-7650ed192da3
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Join
+            - '-'
+            - - CiviCRM-DEV
+              - !Ref 'Number'
+        - Key: tao:BACKUP
+          Value: DAILY
+        - Key: tao:COSTCENTER
+          Value: civi
+      SubnetId: !Ref 'Subnet'
+      SecurityGroupIds:
+        - !Ref 'Security'
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: !Ref 'disk'
+      InstanceType: !Ref 'InstanceType'
+      KeyName: CiviCRM
+      ImageId: !FindInMap
+        - AWSRegionAMIEC2
+        - !Ref 'AWS::Region'
+        - Ubuntu16
+      UserData: !Base64
+        Fn::Join:
+          - ''
+          - - "#!/bin/bash -x\n"
+            - "apt-get update -y\n"
+            - "apt-get install -y python-pip\n"
+            - "apt-get install -y libapache2-mod-php7.0\n"
+            - "a2enmod php7.0\n"
+            - "mkdir aws-cfn-bootstrap-latest\n"
+            - "pip install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz\n"
+            - 'cfn-init --resource EC2Instance --stack '
+            - !Ref 'AWS::StackName'
+            - ' --region '
+            - !Ref 'AWS::Region'
+  MyEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref 'EC2Instance'
+      Domain: vpc
+Metadata:
+  AWS::CloudFormation::Designer:
+    55191c73-b496-4e01-884a-7650ed192da3:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 280
+        y: 170
+      z: 1
+      embeds: []
