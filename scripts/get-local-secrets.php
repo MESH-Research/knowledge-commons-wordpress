@@ -48,7 +48,7 @@ function get_local_env( string $secret_id, SecretsManagerClient $client ) : arra
 function write_secrets_to_env( array $secrets, string $filename ) : void {
 	$lines = [];
 	foreach ( $secrets as $key => $value ) {
-		$lines[] = "$key = \"$value\"";
+		$lines[] = "$key = \'$value\'";
 	}
 	$contents = implode( "\n", $lines );
 
