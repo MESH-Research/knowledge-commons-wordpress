@@ -96,3 +96,4 @@ function hc_custom_hide_request_membership_tab( $string ) {
 }
 
 add_filter( 'bp_get_options_nav_request-membership', 'hc_custom_hide_request_membership_tab' );
+
