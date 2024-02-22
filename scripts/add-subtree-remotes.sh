@@ -1,0 +1,25 @@
+#!/bin/sh
+git remote add bp-attachment-xprofile-field-type-legacy https://github.com/MESH-Research/bp-attachment-xprofile-field-type.git
+git remote add bp-block-member-legacy https://github.com/MESH-Research/bp-block-member.git
+git remote add bp-event-organizer-legacy https://github.com/MESH-Research/bp-event-organiser.git
+git remote add bp-group-documents-legacy https://github.com/MESH-Research/bp-group-documents
+git remote add buddypress-docs-minor-edit-legacy https://github.com/MESH-Research/buddypress-docs-minor-edit.git
+git remote add buddypress-followers-legacy https://github.com/MESH-Research/buddypress-followers.git
+git remote add buddypress-group-email-subscription-legacy https://github.com/MESH-Research/buddypress-group-email-subscription.git
+git remote add buddypress-messages-spam-blocker-legacy https://github.com/MESH-Research/buddypress-messages-spam-blocker
+git remote add elasticpress-buddypress-legacy https://github.com/MESH-Research/elasticpress-buddypress.git
+git remote add hc-custom-legacy https://github.com/MESH-Research/hc-custom.git
+git remote add hc-member-profiles-legacy https://github.com/MESH-Research/hc-member-profiles.git
+git remote add hc-notifications-legacy https://github.com/MESH-Research/hc-notifications.git
+git remote add hc-styles-legacy https://github.com/MESH-Research/hc-styles.git
+git remote add hc-suggestions-legacy https://github.com/MESH-Research/hc-suggestions.git
+git remote add humanities-commons-legacy https://github.com/MESH-Research/humanities-commons.git
+git remote add humcore-legacy https://github.com/MESH-Research/humcore.git
+git remote add idpsamlmdattributes-legacy https://github.com/MESH-Research/simplesamlphp-module-idpsamlmdattributes.git
+git remote add mla-academic-interests-legacy https://github.com/MESH-Research/mla-academic-interests.git
+git remote add mla-allowed-tags-legacy https://github.com/MESH-Research/mla-allowed-tags.git
+git remote add sparkpost-bp-mailer-legacy https://github.com/MESH-Research/sparkpost-bp-mailer.git
+git remote add tainacan-legacy https://github.com/MESH-Research/tainacan.git
+git remote add wordpress-sparkpost-legacy https://github.com/MESH-Research/wordpress-sparkpost.git
+git remote add dev-scripts-legacy https://github.com/MESH-Research/dev-scripts.git
+git remote add boss-child-legacy https://github.com/MESH-Research/boss-child.git
