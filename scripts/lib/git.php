@@ -53,7 +53,7 @@ function get_diff_for_subtree( string $subtree_prefix ) {
 	$local_branch = current_local_branch();
 	`git fetch $remote $default_branch 2>&1 > /dev/null`;
 	echo "Getting diff for $subtree_prefix...\n";
-	$diff = `git --no-pager diff $remote/$default_branch $local_branch:$subtree_prefix 2>/dev/null`;
+	$diff = `git --no-pager diff --name-only $remote/$default_branch $local_branch:$subtree_prefix 2>/dev/null`;
 	echo $diff;
 }
 
