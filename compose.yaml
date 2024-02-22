@@ -1,0 +1,21 @@
+# Cloud deployment WordPress stack
+
+services:
+  appserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.php-fpm
+    volumes:
+      - commons-app:/app
+  appserver-nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+      - commons-app:/app
+    ports:
+      - 8080:80
+    links:
+      - appserver
+volumes:
+  commons-app:

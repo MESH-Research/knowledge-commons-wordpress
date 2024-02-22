@@ -1,0 +1,1 @@
+../dev-scripts/commons/all_networks_wp.bash

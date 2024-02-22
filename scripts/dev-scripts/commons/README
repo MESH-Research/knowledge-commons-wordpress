@@ -1,0 +1,31 @@
+Recommended install:
+
+cd
+git clone git@github.com:mlaa/dev-scripts.git
+ln -s dev-scripts/commons/sync.bash sync.bash
+ln -s dev-scripts/commons/all_networks_wp.bash all_networks_wp.bash
+
+
+sync.bash usage:
+
+If this is the first time you've used it, read the source of sync.bash - there are a few setup steps required, detailed in a comment at the top of the file.
+
+Sync database & files from production, and activate dev-related plugins (equal to -dfp):
+~/sync.bash
+
+Same as above, but sync from stage (this works with -d and -f as well):
+~/sync.bash -S
+
+Sync database only from production:
+~/sync.bash -d
+
+Sync files only from production:
+~/sync.bash -f
+
+Import a local existing database dump without doing anything in production:
+~/sync.bash -l
+
+Activate some dev-related plugins & deactivate a couple that you probably don't want (like password-protected):
+~/sync.bash -p
+
+Note that sync.bash depends on all_networks_wp.bash to flush cache & deal with plugins.

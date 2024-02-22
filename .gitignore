@@ -1,11 +1,50 @@
-*.log
-*.bak
-.htaccess
-release/
-src/blocks/build
-.DS_Store
-node_modules
-*.code-workspace
-.vscode/
-.pytest_cache/
+# ignore node dependency directories
+node_modules/
+
+# ignore composer dependency directories
 vendor/
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# ignore uploads archive
+*.tar.gz
+
+# ignore sites directories
+site/web/app/mu-plugins/*
+site/web/app/plugins/*
+site/web/app/themes/*
+site/web/app/uploads/*
+site/web/wp/*
+
+#ignore temporary and logging directories
+log/
+tmp/
+
+# don't check in generated secrets.env
+secrets.env
+
+# ignore SAML private keys
+saml.crt
+saml.pem
+
+.nohup.out
+nohup.out
+
+# ignore vscode settings
+.vscode/*
+
+# don't ignore vscode xdebug settings
+!.vscode/launch.json
+
+# ignore temp directories
+kc-scripts-*/
+
+# ignore macos files
+.DS_Store
+._*
+
+# ignore local composer exec
+composer.phar 

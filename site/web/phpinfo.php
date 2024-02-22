@@ -1,0 +1,1 @@
+/app/scripts/build-scripts/phpinfo.php
