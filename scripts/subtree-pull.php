@@ -27,10 +27,7 @@ function main() {
 	$current_directory = getcwd();
 	$project_root = get_project_root();
 
-	`git branch $local_branch 2>&1 > /dev/null`;
-	echo "Checking out $local_branch...\n";
-	`git checkout $local_branch`;
-	echo "Now on branch: " . current_local_branch() . "\n";
+	`git checkout -B $local_branch 2>&1 > /dev/null`;
 
 	chdir( $project_root );
 
