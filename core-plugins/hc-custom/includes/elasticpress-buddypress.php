@@ -235,21 +235,18 @@ function hcommons_filter_ep_bp_fallback_post_type_facet_selection( $post_types )
 add_filter( 'ep_bp_fallback_post_type_facet_selection', 'hcommons_filter_ep_bp_fallback_post_type_facet_selection' );
 
 /**
- * Make deposits indexable.
+ * Make deposits indexable and remove topic and reply from indexables.
  *
  * @param array $post_types Indexable post types.
  * @return array
  */
 function hcommons_filter_ep_indexable_post_types( $post_types ) {
-	return array_unique(
-		array_merge(
-			$post_types, [
-				'humcore_deposit' => 'humcore_deposit',
-			]
-		)
-	);
+	unset( $post_types['topic'] );
+	unset( $post_types['reply'] );
+	$post_types['humcore_deposit'] = 'humcore_deposit';
+	return array_unique( $post_types );
 }
-add_filter( 'ep_indexable_post_types', 'hcommons_filter_ep_indexable_post_types' );
+add_filter( 'ep_indexable_post_types', 'hcommons_filter_ep_indexable_post_types', 99, 1 );
 
 /**
  * Filter humcore permalinks (for elasticpress results).
