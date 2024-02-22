@@ -47,6 +47,16 @@ function diff_exists_for_subtree( string $subtree_prefix) : bool {
 	return (bool) $diff;
 }
 
+function get_diff_for_subtree( string $subtree_prefix ) {
+	$remote = remote_for_subtree( $subtree_prefix );
+	$default_branch = remote_default_branch( $remote );
+	$local_branch = current_local_branch();
+	`git fetch $remote $default_branch 2>&1 > /dev/null`;
+	echo "Getting diff for $subtree_prefix...\n";
+	$diff = `git --no-pager diff $remote/$default_branch $local_branch:$subtree_prefix 2>/dev/null`;
+	echo $diff;
+}
+
 function last_commit_time( string $remote, string $branch ) : string {
 	$last_commit_time = `git --no-pager log -1 --format=%cd --date=short $remote/$branch`;
 	if ( ! $last_commit_time ) {
