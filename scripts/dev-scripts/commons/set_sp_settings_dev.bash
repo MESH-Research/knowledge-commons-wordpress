@@ -14,9 +14,6 @@ _get_env_var() {
   echo $line | awk -F '=' '{print $2}' | tr -d '"'
 }
 
-# sparkpost api token
-password="a5f9421a85cb0373cc8e3d080b01c7a1dbe41149"
-
 for slug in "${networks[@]}"
 do
         if [[ "" == "$slug" ]]
