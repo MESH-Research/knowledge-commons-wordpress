@@ -1,0 +1,63 @@
+[remote "humanities-commons-legacy"]
+	url = https://github.com/MESH-Research/humanities-commons.git
+	fetch = +refs/heads/*:refs/remotes/humanities-commons-legacy/*
+[remote "hc-custom-legacy"]
+	url = https://github.com/MESH-Research/hc-custom.git
+	fetch = +refs/heads/*:refs/remotes/hc-custom-legacy/*
+[remote "hc-member-profiles-legacy"]
+	url = https://github.com/MESH-Research/hc-member-profiles.git
+	fetch = +refs/heads/*:refs/remotes/hc-member-profiles-legacy/*
+[remote "hc-styles-legacy"]
+	url = https://github.com/MESH-Research/hc-styles.git
+	fetch = +refs/heads/*:refs/remotes/hc-styles-legacy/*
+[remote "humcore-legacy"]
+	url = https://github.com/MESH-Research/humcore.git
+	fetch = +refs/heads/*:refs/remotes/humcore-legacy/*
+[remote "bp-attachment-xprofile-field-type-legacy"]
+	url = https://github.com/MESH-Research/bp-attachment-xprofile-field-type.git
+	fetch = +refs/heads/*:refs/remotes/bp-attachment-xprofile-field-type-legacy/*
+[remote "buddypress-docs-minor-edit-legacy"]
+	url = https://github.com/MESH-Research/buddypress-docs-minor-edit.git
+	fetch = +refs/heads/*:refs/remotes/buddypress-docs-minor-edit-legacy/*
+[remote "elasticpress-buddypress-legacy"]
+	url = https://github.com/MESH-Research/elasticpress-buddypress.git
+	fetch = +refs/heads/*:refs/remotes/elasticpress-buddypress-legacy/*
+[remote "hc-notifications-legacy"]
+	url = https://github.com/MESH-Research/hc-notifications.git
+	fetch = +refs/heads/*:refs/remotes/hc-notifications-legacy/*
+[remote "hc-suggestions-legacy"]
+	url = https://github.com/MESH-Research/hc-suggestions.git
+	fetch = +refs/heads/*:refs/remotes/hc-suggestions-legacy/*
+[remote "mla-academic-interests-legacy"]
+	url = https://github.com/MESH-Research/mla-academic-interests.git
+	fetch = +refs/heads/*:refs/remotes/mla-academic-interests-legacy/*
+[remote "mla-allowed-tags-legacy"]
+	url = https://github.com/MESH-Research/mla-allowed-tags.git
+	fetch = +refs/heads/*:refs/remotes/mla-allowed-tags-legacy/*
+[remote "sparkpost-bp-mailer-legacy"]
+	url = https://github.com/MESH-Research/sparkpost-bp-mailer.git
+	fetch = +refs/heads/*:refs/remotes/sparkpost-bp-mailer-legacy/*
+[remote "wordpress-sparkpost-legacy"]
+	url = https://github.com/MESH-Research/wordpress-sparkpost.git
+	fetch = +refs/heads/*:refs/remotes/wordpress-sparkpost/*
+[remote "bp-block-member-legacy"]
+	url = https://github.com/MESH-Research/bp-block-member.git
+	fetch = +refs/heads/*:refs/remotes/bp-block-member/*
+[remote "bp-event-organizer-legacy"]
+	url = https://github.com/MESH-Research/bp-event-organiser.git
+	fetch = +refs/heads/*:refs/remotes/bp-event-organizer-legacy/*
+[remote "bp-group-documents-legacy"]
+	url = https://github.com/MESH-Research/bp-group-documents
+	fetch = +refs/heads/*:refs/remotes/bp-group-documents-legacy/*
+[remote "buddypress-followers-legacy"]
+	url = https://github.com/MESH-Research/buddypress-followers.git
+	fetch = +refs/heads/*:refs/remotes/buddypress-followers-legacy/*
+[remote "buddypress-group-email-subscription-legacy"]
+	url = https://github.com/MESH-Research/buddypress-group-email-subscription.git
+	fetch = +refs/heads/*:refs/remotes/buddypress-group-email-subscription-legacy/*
+[remote "buddypress-messages-spam-blocker-legacy"]
+	url = https://github.com/MESH-Research/buddypress-messages-spam-blocker
+	fetch = +refs/heads/*:refs/remotes/buddypress-messages-spam-blocker-legacy/*
+[remote "tainacan-legacy"]
+	url = https://github.com/MESH-Research/tainacan.git
+	fetch = +refs/heads/*:refs/remotes/tainacan-legacy/*

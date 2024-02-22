@@ -1,0 +1,24 @@
+{
+  "name": "dahd-tainacan-theme",
+  "version": "1.0.3",
+  "description": "This is just a light fork of the default Tainacan theme, with some modifications made to suit the Digital Art History Directory.",
+  "main": "index.js",
+  "scripts": {
+    "build": "sh build.sh",
+    "sass": "sh compile-sass.sh",
+    "watch": "npx sass --watch assets/scss/style.scss style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonathanReeve/dahd-tainacan-theme.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonathanReeve/dahd-tainacan-theme/issues"
+  },
+  "homepage": "https://github.com/JonathanReeve/dahd-tainacan-theme#readme",
+  "devDependencies": {
+    "sass": "^1.35.1"
+  }
+}

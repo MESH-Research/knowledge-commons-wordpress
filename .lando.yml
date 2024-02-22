@@ -1,0 +1,83 @@
+name: commons-wordpress
+recipe: lemp
+services:
+  appserver:
+    type: php:custom
+    overrides:
+      image: lando-wordpress-php:latest
+      pull_policy: never
+      environment:
+        XDEBUG_MODE:
+        XDEBUG_CONFIG:
+    build_as_root:
+      - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
+      - rm -f site/web/phpinfo.php && ln -s /app/scripts/build-scripts/phpinfo.php site/web/phpinfo.php
+      - /app/scripts/build-scripts/build-wordpress-lando.sh
+      - cd /app/core-plugins/humcore/ && composer update
+    config:
+      php: config/local/php/php.ini
+  database:
+    type: mariadb
+    portforward: 3306
+    creds:
+      user: wordpress
+      password: wordpress
+      database: wordpress
+  cron:
+    api: 3
+    type: lando
+    app_mount: disabled
+    services:
+      image: lando-wordpress-cron:latest
+      pull_policy: never
+      command: "crond -f"
+    build_as_root:
+      - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
+  appserver_nginx:
+    scanner:
+      okCodes:
+        - 500
+env_file:
+  - .lando/secrets-default.env
+  - .lando/secrets.env
+config:
+  config:
+    vhosts: config/local/nginx/nginx.conf
+  webroot: ./site/web
+proxy:
+  appserver_nginx:
+    - commons-wordpress.lndo.site
+    - "*.commons-wordpress.lndo.site"
+    - "*.*.commons-wordpress.lndo.site"
+tooling:
+  wp:
+    service: appserver
+    description: Runs WP-CLI commands
+    cmd: wp
+  aws:
+    service: appserver
+    description: Runs AWS CLI commands
+    cmd: aws
+  get-local-secrets:
+    service: appserver
+    description: Gets local secrets from AWS Secrets Manager
+    cmd: /app/scripts/get-local-secrets.php
+  s3-pull:
+    service: appserver
+    description: Pulls content from S3
+    cmd: /app/scripts/s3-pull.php
+  install-go-search-replace:
+    service: appserver
+    description: Installs go-search-replace
+    cmd: /app/scripts/install-go-search-replace.sh
+    user: root
+  search-replace [old] [new] [file]:
+    service: appserver
+    description: Replaces $1 with $2 in $3. Must have run install-go-search-replace first.
+    cmd: /app/scripts/search-replace.sh
+    user: root
+  db-import:
+    service: appserver
+    description: Imports database from .sql file.
+    user: root
+    cmd: /app/scripts/db-import.php 

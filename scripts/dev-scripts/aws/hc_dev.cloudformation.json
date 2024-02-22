@@ -1,0 +1,119 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "HC Dev/Staging instance",
+  "Parameters": {
+    "Name": {
+      "Description": "Name of the instance e.g. <name>.mlacommons.org",
+      "Type" : "String",
+      "Default": "hc-dev-cloudformation"
+    },
+    "VPC" : {
+      "Description": "VPC ID",
+      "Type" : "AWS::EC2::VPC::Id",
+      "Default": "vpc-21c0c947"
+    },
+    "InstanceType": {
+      "Description": "Amazon EC2 instance type",
+      "Type": "String",
+      "Default": "t2.small"
+    },
+    "KeyName": {
+      "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription" : "must be the name of an existing EC2 KeyPair.",
+      "Default": "mla-rwilliams"
+    }
+  },
+  "Resources": {
+    "EC2Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SubnetId": "subnet-2e495175",
+        "SecurityGroupIds": [
+          "sg-e0ba979f",
+          "sg-ed29979c",
+          "sg-de61fbaf",
+          "sg-e0cbb891",
+          "sg-0eb69b71"
+        ],
+        "BlockDeviceMappings": [{
+          "DeviceName": "/dev/sda1",
+          "Ebs": {
+            "VolumeSize": "64"
+          }
+        }],
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "ImageId": "ami-920b10ed",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "hcommons-dev-",
+                  { "Ref" : "Name" }
+                ]
+              ]
+            }
+          },
+          {
+            "Key": "tao:COSTCENTER",
+            "Value": "HCOMMONS"
+          },
+          {
+            "Key": "tao:BACKUP",
+            "Value": "DAILY"
+          }
+        ]
+      }
+    },
+    "InstanceTargetGroup": {
+      "Type" : "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties" : {
+        "Name" : {
+          "Fn::Join" : [
+            "",
+            [
+              "hcd-",
+              { "Ref" : "Name" },
+              "-tg"
+            ]
+          ]
+        },
+        "Port": "80",
+        "Protocol": "HTTP",
+        "Targets" : [
+          {
+            "Id": { "Ref" : "EC2Instance" },
+            "Port": "80"
+          }
+        ],
+        "VpcId": { "Ref" : "VPC" }
+      }
+    }
+  },
+  "Outputs" : {
+    "InstanceId" : {
+      "Description" : "InstanceId of the newly created EC2 instance",
+      "Value" : { "Ref" : "EC2Instance" }
+    },
+    "PublicDNS" : {
+      "Description" : "Public DNSName of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "EC2Instance", "PublicDnsName" ] }
+    },
+    "PublicIP" : {
+      "Description" : "Public IP address of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "EC2Instance", "PublicIp" ] }
+    },
+    "PrivateIP" : {
+      "Description" : "Private IP address of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "EC2Instance", "PrivateIp" ] }
+    }
+  }
+}
