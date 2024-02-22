@@ -4,8 +4,16 @@
 namespace MESHResearch\KCScripts;
 
 require_once __DIR__ . '/lib/git.php';
+require_once __DIR__ . '/lib/command-line.php';
 
 function main() {
+	$args = parse_command_line_args();
+
+	if ( isset( $args['subtree'] ) ) {
+		get_diff_for_subtree( $args['subtree'] );
+		return;
+	}
+
 	echo "Updating remotes...\n";
 	`git remote update 2>&1 > /dev/null`;
 	echo "Getting subtrees...\n";
