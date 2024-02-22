@@ -5,13 +5,15 @@
  * Usage: wp eval-file profile-updates.php
  */
 
+Namespace MESHResearch\KCScripts;
+
 function main() {
-	$users = get_userdata();
+	$users = get_all_users();
 	$updates = get_profile_updates();
 	output_csv($users, $updates);
 }
 
-function get_userdata() {
+function get_all_users() {
 	global $wpdb;
 
 	$sql = "SELECT ID, user_login, user_registered FROM $wpdb->users WHERE spam = 0 AND deleted = 0";
