@@ -3,7 +3,7 @@ echo "Running WordPress build script..."
 
 echo "Installing Xdebug..."
 apk add --no-cache $PHPIZE_DEPS
-pecl install xdebug-3.1.6
+pecl install xdebug
 docker-php-ext-enable xdebug
 
 echo "Resetting plugins & themes directories..."
