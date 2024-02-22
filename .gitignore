@@ -45,3 +45,6 @@ kc-scripts-*/
 # ignore macos files
 .DS_Store
 ._*
+
+# ignore local composer exec
+composer.phar 
