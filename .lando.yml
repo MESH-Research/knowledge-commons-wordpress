@@ -4,8 +4,8 @@ services:
   appserver:
     type: php:custom
     overrides:
-      build: .
-      image: knowledge-commons/wordpress:8.1
+      image: lando-wordpress-php:latest
+      pull_policy: never
       environment:
         XDEBUG_MODE:
         XDEBUG_CONFIG:
@@ -16,10 +16,6 @@ services:
       - cd /app/core-plugins/humcore/ && composer update
     config:
       php: config/local/php/php.ini
-  appserver_nginx:
-    scanner:
-      okCodes:
-        - 500
   database:
     type: mariadb
     portforward: 3306
@@ -27,6 +23,20 @@ services:
       user: wordpress
       password: wordpress
       database: wordpress
+  cron:
+    api: 3
+    type: lando
+    app_mount: disabled
+    services:
+      image: lando-wordpress-cron:latest
+      pull_policy: never
+      command: "crond -f"
+    build_as_root:
+      - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
+  appserver_nginx:
+    scanner:
+      okCodes:
+        - 500
 env_file:
   - .lando/secrets-default.env
   - .lando/secrets.env
@@ -71,5 +81,3 @@ tooling:
     description: Imports database from .sql file.
     user: root
     cmd: /app/scripts/db-import.php 
-
-  
