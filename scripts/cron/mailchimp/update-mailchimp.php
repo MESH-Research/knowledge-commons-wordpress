@@ -43,6 +43,13 @@ function main( $args ) {
 	log_entry( 'Found ' . count( $recent_users ) . ' recent users.' );
 
 	$dry_run = array_key_exists( 'dry-run', $args ) && $args['dry-run'];
+
+	$disable_mailchimp = getenv( 'DISABLE_MAILCHIMP' );
+	if ( $disable_mailchimp === 'true' ) {
+		log_entry( 'MailChimp updates are disabled by environment variable.' );
+		$dry_run = true;
+	}	
+
 	if ( ! $dry_run ) {
 		$updated_users = update_mailchimp( $recent_users );
 	}

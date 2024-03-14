@@ -17,6 +17,7 @@ site/web/app/mu-plugins/*
 site/web/app/plugins/*
 site/web/app/themes/*
 site/web/app/uploads/*
+site/web/app/upgrade/*
 site/web/wp/*
 
 #ignore temporary and logging directories

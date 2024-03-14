@@ -25,7 +25,7 @@ function hc_replace_media_url( $url ) {
 	
 	return $url;
 }
-add_filter( 'wp_get_attachment_url', 'hc_replace_media_url', 10, 1 );
+//add_filter( 'wp_get_attachment_url', 'hc_replace_media_url', 10, 1 );
 
 function hc_replace_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
 	foreach ( $sources as $key => $source ) {
@@ -33,4 +33,4 @@ function hc_replace_srcset( $sources, $size_array, $image_src, $image_meta, $att
 	}
 	return $sources;
 }
-add_filter( 'wp_calculate_image_srcset', 'hc_replace_srcset', 10, 5 );
+//add_filter( 'wp_calculate_image_srcset', 'hc_replace_srcset', 10, 5 );

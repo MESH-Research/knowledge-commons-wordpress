@@ -2,18 +2,10 @@
     "family": "commons-wordpress-staging",
     "containerDefinitions": [
         {
-            "name": "php",
-            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-php:latest",
+            "name": "app",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-app:latest",
             "cpu": 0,
-            "portMappings": [
-                {
-                    "name": "php-80-tcp",
-                    "containerPort": 80,
-                    "hostPort": 0,
-                    "protocol": "tcp",
-                    "appProtocol": "http"
-                }
-            ],
+            "portMappings": [],
             "essential": true,
             "environment": [],
             "mountPoints": [
@@ -26,444 +18,72 @@
             "volumesFrom": [],
             "secrets": [
                 {
-                    "name": "CORE_DATACITE_PROXY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PROXY::"
-                },
-                {
-                    "name": "CORE_DATACITE_PREFIX",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PREFIX::"
-                },
-                {
-                    "name": "CORE_DATACITE_PROTOCOL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PROTOCOL::"
-                },
-                {
-                    "name": "CORE_DATACITE_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_HOST::"
-                },
-                {
-                    "name": "CORE_DATACITE_PATH",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PATH::"
-                },
-                {
-                    "name": "CORE_DATACITE_PORT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PORT::"
-                },
-                {
-                    "name": "CORE_HUMCORE_TEMP_DIR",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_TEMP_DIR::"
-                },
-                {
-                    "name": "CORE_OAI_PROTOCOL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PROTOCOL::"
-                },
-                {
-                    "name": "CORE_SOLR_PORT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PORT::"
-                },
-                {
-                    "name": "CORE_FEDORA_PROTOCOL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PROTOCOL::"
-                },
-                {
-                    "name": "CORE_OAI_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_HOST::"
-                },
-                {
-                    "name": "CORE_SOLR_PROTOCOL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PROTOCOL::"
-                },
-                {
-                    "name": "CORE_HTTP_DEBUG",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HTTP_DEBUG::"
-                },
-                {
-                    "name": "CORE_ERROR_LOG",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_ERROR_LOG::"
-                },
-                {
-                    "name": "CORE_OAI_PORT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PORT::"
-                },
-                {
-                    "name": "CORE_SOLR_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_HOST::"
-                },
-                {
-                    "name": "CORE_SOLR_CORE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_CORE::"
-                },
-                {
-                    "name": "CORE_HUMCORE_COLLECTION_PID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_COLLECTION_PID::"
-                },
-                {
-                    "name": "CORE_FEDORA_PORT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PORT::"
-                },
-                {
-                    "name": "CORE_HUMCORE_NAMESPACE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_NAMESPACE::"
-                },
-                {
-                    "name": "CORE_FEDORA_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_HOST::"
-                },
-                {
-                    "name": "CBOX_AUTH_API_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_URL::"
-                },
-                {
-                    "name": "CORE_OAI_PATH",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PATH::"
-                },
-                {
-                    "name": "CORE_SOLR_PATH",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PATH::"
-                },
-                {
-                    "name": "CORE_FEDORA_PATH",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PATH::"
-                },
-                {
-                    "name": "WP_DOMAIN",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_DOMAIN::"
-                },
-                {
-                    "name": "WP_SITEURL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
-                },
-                {
-                    "name": "WP_LOGS_DIR",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_LOGS_DIR::"
-                },
-                {
-                    "name": "WP_ENV",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_ENV::"
-                },
-                {
-                    "name": "WP_HOME",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_HOME::"
-                },
-                {
-                    "name": "DB_NAME",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DB_NAME::"
-                },
-                {
-                    "name": "HC_SITE_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_SITE_ID::"
-                },
-                {
-                    "name": "AJS_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AJS_SITE_URL::"
-                },
-                {
-                    "name": "ARLISNA_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_SITE_URL::"
-                },
-                {
-                    "name": "ASEEES_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ASEEES_SITE_URL::"
-                },
-                {
-                    "name": "CAA_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CAA_SITE_URL::"
-                },
-                {
-                    "name": "HC_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_SITE_URL::"
-                },
-                {
-                    "name": "MLA_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_SITE_URL::"
-                },
-                {
-                    "name": "MSU_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_SITE_URL::"
-                },
-                {
-                    "name": "SAH_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_SITE_URL::"
-                },
-                {
-                    "name": "UP_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_SITE_URL::"
-                },
-                {
-                    "name": "HASTAC_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_SITE_URL::"
-                },
-                {
-                    "name": "DHRI_SITE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_SITE_URL::"
-                },
-                {
-                    "name": "MSU_MAPPED_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_MAPPED_URL::"
-                },
-                {
-                    "name": "REGISTRY_SERVER_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SERVER_URL::"
-                },
-                {
-                    "name": "SATOSA_SERVER_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SATOSA_SERVER_URL::"
-                },
-                {
-                    "name": "AJS_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AJS_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "ARLISNA_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "ASEEES_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ASEEES_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "CAA_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CAA_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "HC_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "MLA_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "MSU_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "SAH_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "UP_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "HASTAC_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "HASTAC_OPEN_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_OPEN_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "DHRI_ENROLLMENT_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ENROLLMENT_URL::"
-                },
-                {
-                    "name": "AJS_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AJS_ACCOUNT_LINK_URL::"
+                    "name": "ADMIN_EMAIL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ADMIN_EMAIL::"
                 },
                 {
                     "name": "ARLISNA_ACCOUNT_LINK_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_ACCOUNT_LINK_URL::"
                 },
                 {
-                    "name": "ASEEES_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ASEEES_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "CAA_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CAA_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "HC_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "MLA_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "MSU_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "UP_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "HASTAC_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "DHRI_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "AJS_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AJS_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "ASEEES_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ASEEES_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "CAA_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CAA_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "HC_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "MLA_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "UP_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "HASTAC_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "DHRI_ORCID_USER_ACCOUNT_LINK_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ORCID_USER_ACCOUNT_LINK_URL::"
-                },
-                {
-                    "name": "LOGIN_PATH",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGIN_PATH::"
-                },
-                {
-                    "name": "GOOGLE_IDENTITY_PROVIDER",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_IDENTITY_PROVIDER::"
-                },
-                {
-                    "name": "TWITTER_IDENTITY_PROVIDER",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:TWITTER_IDENTITY_PROVIDER::"
-                },
-                {
-                    "name": "HC_IDENTITY_PROVIDER",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_IDENTITY_PROVIDER::"
-                },
-                {
-                    "name": "MLA_IDENTITY_PROVIDER",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_IDENTITY_PROVIDER::"
-                },
-                {
-                    "name": "GOOGLE_LOGIN_METHOD_SCOPE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_LOGIN_METHOD_SCOPE::"
-                },
-                {
-                    "name": "HC_LOGIN_METHOD_SCOPE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_LOGIN_METHOD_SCOPE::"
-                },
-                {
-                    "name": "MLA_LOGIN_METHOD_SCOPE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_LOGIN_METHOD_SCOPE::"
-                },
-                {
-                    "name": "TWITTER_LOGIN_METHOD_SCOPE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:TWITTER_LOGIN_METHOD_SCOPE::"
-                },
-                {
-                    "name": "AJS_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AJS_ROOT_BLOG_ID::"
+                    "name": "ARLISNA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_ENROLLMENT_URL::"
                 },
                 {
                     "name": "ARLISNA_ROOT_BLOG_ID",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_ROOT_BLOG_ID::"
                 },
                 {
-                    "name": "ASEEES_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ASEEES_ROOT_BLOG_ID::"
+                    "name": "ARLISNA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_SITE_URL::"
                 },
                 {
-                    "name": "CAA_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CAA_ROOT_BLOG_ID::"
+                    "name": "AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AUTH_KEY::"
                 },
                 {
-                    "name": "HC_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ROOT_BLOG_ID::"
+                    "name": "AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AUTH_SALT::"
                 },
                 {
-                    "name": "MLA_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ROOT_BLOG_ID::"
-                },
-                {
-                    "name": "MSU_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ROOT_BLOG_ID::"
-                },
-                {
-                    "name": "UP_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ROOT_BLOG_ID::"
-                },
-                {
-                    "name": "HASTAC_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ROOT_BLOG_ID::"
-                },
-                {
-                    "name": "DHRI_ROOT_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ROOT_BLOG_ID::"
-                },
-                {
-                    "name": "GLOBAL_SUPER_ADMINS",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GLOBAL_SUPER_ADMINS::"
-                },
-                {
-                    "name": "COMANAGE_API_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_URL::"
-                },
-                {
-                    "name": "GOOGLE_IDP_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_IDP_URL::"
-                },
-                {
-                    "name": "TWITTER_IDP_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:TWITTER_IDP_URL::"
-                },
-                {
-                    "name": "MLA_IDP_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_IDP_URL::"
-                },
-                {
-                    "name": "HC_IDP_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_IDP_URL::"
-                },
-                {
-                    "name": "REGISTRY_SP_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SP_URL::"
-                },
-                {
-                    "name": "WP_CACHE_KEY_SALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_CACHE_KEY_SALT::"
-                },
-                {
-                    "name": "EP_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:EP_HOST::"
-                },
-                {
-                    "name": "REDIS_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REDIS_HOST::"
-                },
-                {
-                    "name": "WP_REDIS_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_REDIS_HOST::"
-                },
-                {
-                    "name": "TWITTER_USERNAME",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:TWITTER_USERNAME::"
-                },
-                {
-                    "name": "FACEBOOK_APP_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:FACEBOOK_APP_ID::"
+                    "name": "BPGES_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BPGES_DEBUG::"
                 },
                 {
                     "name": "BPGES_DEBUG_LOG_PATH",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BPGES_DEBUG_LOG_PATH::"
                 },
                 {
-                    "name": "BPGES_DEBUG",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BPGES_DEBUG::"
+                    "name": "BP_RBE_SPARKPOST_WEBHOOK_TOKEN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BP_RBE_SPARKPOST_WEBHOOK_TOKEN::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_KEY::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_SECRET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_SECRET::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_PASSWORD::"
+                },
+                {
+                    "name": "COMANAGE_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_USERNAME::"
+                },
+                {
+                    "name": "CORE_DATACITE_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_HOST::"
                 },
                 {
                     "name": "CORE_DATACITE_LOGIN",
@@ -474,80 +94,108 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PASSWORD::"
                 },
                 {
-                    "name": "SECURE_AUTH_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_KEY::"
+                    "name": "CORE_DATACITE_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PATH::"
                 },
                 {
-                    "name": "LOGGED_IN_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGGED_IN_KEY::"
+                    "name": "CORE_DATACITE_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PORT::"
                 },
                 {
-                    "name": "CBOX_AUTH_API_SECRET",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_SECRET::"
+                    "name": "CORE_DATACITE_PREFIX",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PREFIX::"
                 },
                 {
-                    "name": "SECURE_AUTH_SALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_SALT::"
+                    "name": "CORE_DATACITE_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PROTOCOL::"
                 },
                 {
-                    "name": "WPCOM_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WPCOM_API_KEY::"
+                    "name": "CORE_DATACITE_PROXY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PROXY::"
                 },
                 {
-                    "name": "CBOX_AUTH_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_KEY::"
-                },
-                {
-                    "name": "NONCE_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:NONCE_KEY::"
-                },
-                {
-                    "name": "LOGGED_IN_SALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGGED_IN_SALT::"
+                    "name": "CORE_FEDORA_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_HOST::"
                 },
                 {
                     "name": "CORE_FEDORA_LOGIN",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_LOGIN::"
                 },
                 {
-                    "name": "AUTH_SALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AUTH_SALT::"
-                },
-                {
-                    "name": "NONCE_SALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:NONCE_SALT::"
-                },
-                {
-                    "name": "AUTH_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AUTH_KEY::"
-                },
-                {
                     "name": "CORE_FEDORA_PASSWORD",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PASSWORD::"
                 },
                 {
-                    "name": "ADMIN_EMAIL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ADMIN_EMAIL::"
+                    "name": "CORE_FEDORA_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PATH::"
                 },
                 {
-                    "name": "GLOBAL_SMTP_FROM",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GLOBAL_SMTP_FROM::"
+                    "name": "CORE_FEDORA_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PORT::"
                 },
                 {
-                    "name": "COMANAGE_API_USERNAME",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_USERNAME::"
+                    "name": "CORE_FEDORA_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PROTOCOL::"
                 },
                 {
-                    "name": "COMANAGE_API_PASSWORD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_PASSWORD::"
+                    "name": "CORE_HTTP_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HTTP_DEBUG::"
                 },
                 {
-                    "name": "BP_RBE_SPARKPOST_WEBHOOK_TOKEN",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BP_RBE_SPARKPOST_WEBHOOK_TOKEN::"
+                    "name": "CORE_HUMCORE_COLLECTION_PID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_COLLECTION_PID::"
+                },
+                {
+                    "name": "CORE_HUMCORE_NAMESPACE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_NAMESPACE::"
+                },
+                {
+                    "name": "CORE_HUMCORE_TEMP_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_TEMP_DIR::"
+                },
+                {
+                    "name": "CORE_OAI_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_HOST::"
+                },
+                {
+                    "name": "CORE_OAI_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PATH::"
+                },
+                {
+                    "name": "CORE_OAI_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PORT::"
+                },
+                {
+                    "name": "CORE_OAI_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_SOLR_CORE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_CORE::"
+                },
+                {
+                    "name": "CORE_SOLR_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_HOST::"
+                },
+                {
+                    "name": "CORE_SOLR_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PATH::"
+                },
+                {
+                    "name": "CORE_SOLR_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PORT::"
+                },
+                {
+                    "name": "CORE_SOLR_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PROTOCOL::"
                 },
                 {
                     "name": "DB_HOST",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DB_HOST::"
+                },
+                {
+                    "name": "DB_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DB_NAME::"
                 },
                 {
                     "name": "DB_PASSWORD",
@@ -558,36 +206,304 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:username::"
                 },
                 {
-                    "name": "S3_UPLOADS_SECRET",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_SECRET::"
+                    "name": "DHRI_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ACCOUNT_LINK_URL::"
                 },
                 {
-                    "name": "S3_UPLOADS_BUCKET",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET::"
+                    "name": "DHRI_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ENROLLMENT_URL::"
                 },
                 {
-                    "name": "S3_UPLOADS_REGION",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_REGION::"
+                    "name": "DHRI_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ORCID_USER_ACCOUNT_LINK_URL::"
                 },
                 {
-                    "name": "S3_UPLOADS_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_KEY::"
+                    "name": "DHRI_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "DHRI_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_SITE_URL::"
+                },
+                {
+                    "name": "EP_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:EP_HOST::"
+                },
+                {
+                    "name": "GLOBAL_SMTP_FROM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GLOBAL_SMTP_FROM::"
+                },
+                {
+                    "name": "GLOBAL_SUPER_ADMINS",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GLOBAL_SUPER_ADMINS::"
+                },
+                {
+                    "name": "GOOGLE_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "GOOGLE_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_IDP_URL::"
+                },
+                {
+                    "name": "GOOGLE_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HASTAC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HASTAC_OPEN_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_OPEN_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HASTAC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HASTAC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_SITE_URL::"
+                },
+                {
+                    "name": "HC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HC_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "HC_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_IDP_URL::"
+                },
+                {
+                    "name": "HC_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HC_SITE_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_SITE_ID::"
+                },
+                {
+                    "name": "HC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_SITE_URL::"
+                },
+                {
+                    "name": "HC_UPLOADS_BASE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_UPLOADS_BASE_URL::"
+                },
+                {
+                    "name": "LOGGED_IN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGGED_IN_KEY::"
+                },
+                {
+                    "name": "LOGGED_IN_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGGED_IN_SALT::"
+                },
+                {
+                    "name": "LOGIN_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGIN_PATH::"
+                },
+                {
+                    "name": "MLA_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MLA_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "MLA_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_IDP_URL::"
+                },
+                {
+                    "name": "MLA_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "MLA_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MLA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_SITE_URL::"
+                },
+                {
+                    "name": "MSU_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MSU_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MSU_MAPPED_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_MAPPED_URL::"
+                },
+                {
+                    "name": "MSU_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MSU_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_SITE_URL::"
+                },
+                {
+                    "name": "NONCE_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:NONCE_KEY::"
+                },
+                {
+                    "name": "NONCE_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:NONCE_SALT::"
+                },
+                {
+                    "name": "REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REDIS_HOST::"
+                },
+                {
+                    "name": "REGISTRY_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SERVER_URL::"
+                },
+                {
+                    "name": "REGISTRY_SP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SP_URL::"
                 },
                 {
                     "name": "S3_UPLOADS_AUTOENABLE",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_AUTOENABLE::"
                 },
                 {
+                    "name": "S3_UPLOADS_BUCKET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET::"
+                },
+                {
                     "name": "S3_UPLOADS_BUCKET_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET_URL::"
+                },
+                {
+                    "name": "S3_UPLOADS_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_KEY::"
                 },
                 {
                     "name": "S3_UPLOADS_OBJECT_ACL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_OBJECT_ACL::"
                 },
                 {
+                    "name": "S3_UPLOADS_REGION",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_REGION::"
+                },
+                {
+                    "name": "S3_UPLOADS_SECRET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_SECRET::"
+                },
+                {
+                    "name": "SAH_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "SAH_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_SITE_URL::"
+                },
+                {
+                    "name": "SAML_AUTH_ADMINPASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_AUTH_ADMINPASSWORD::"
+                },
+                {
+                    "name": "SAML_SECRETSALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_SECRETSALT::"
+                },
+                {
+                    "name": "SATOSA_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SATOSA_SERVER_URL::"
+                },
+                {
+                    "name": "SECURE_AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_KEY::"
+                },
+                {
+                    "name": "SECURE_AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_SALT::"
+                },
+                {
                     "name": "SIMPLESAMLPHP_CONFIG_DIR",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SIMPLESAMLPHP_CONFIG_DIR::"
+                },
+                {
+                    "name": "UP_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "UP_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "UP_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_SITE_URL::"
+                },
+                {
+                    "name": "WPCOM_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WPCOM_API_KEY::"
+                },
+                {
+                    "name": "WP_CACHE_KEY_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_CACHE_KEY_SALT::"
+                },
+                {
+                    "name": "WP_DOMAIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_DOMAIN::"
+                },
+                {
+                    "name": "WP_ENV",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_ENV::"
+                },
+                {
+                    "name": "WP_HOME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_HOME::"
+                },
+                {
+                    "name": "WP_LOGS_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_LOGS_DIR::"
+                },
+                {
+                    "name": "WP_REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_REDIS_HOST::"
                 },
                 {
                     "name": "WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD",
@@ -598,46 +514,45 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN::"
                 },
                 {
-                    "name": "SAML_SECRETSALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_SECRETSALT::"
+                    "name": "WP_SITEURL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
                 },
                 {
-                    "name": "SAML_AUTH_ADMINPASSWORD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_AUTH_ADMINPASSWORD::"
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DOMAIN_NAME::"
                 },
                 {
-                    "name": "HC_UPLOADS_BASE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_UPLOADS_BASE_URL::"
+                    "name": "IDP_ENTITY_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:IDP_ENTITY_ID::"
+                },
+                {
+                    "name": "S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL::"
                 }
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/commons-wordpress-test",
+                    "awslogs-group": "/ecs/commons-wordpress-staging",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 }
-            }
+            },
+            "systemControls": []
         },
         {
             "name": "nginx",
             "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-nginx:latest",
             "cpu": 0,
             "links": [
-                "php"
+                "app"
             ],
             "portMappings": [
                 {
                     "name": "nginx-80-tcp",
                     "containerPort": 80,
                     "hostPort": 80,
-                    "protocol": "tcp"
-                },
-                {
-                    "name": "nginx-443-tcp",
-                    "containerPort": 443,
-                    "hostPort": 443,
                     "protocol": "tcp"
                 }
             ],
@@ -646,16 +561,571 @@
             "mountPoints": [],
             "volumesFrom": [
                 {
-                    "sourceContainer": "php",
+                    "sourceContainer": "app",
                     "readOnly": true
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "CORE_FEDORA_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_HOST::"
+                },
+                {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DOMAIN_NAME::"
                 }
             ],
             "dependsOn": [
                 {
-                    "containerName": "php",
+                    "containerName": "app",
                     "condition": "START"
                 }
-            ]
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/commons-wordpress-staging",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "systemControls": []
+        },
+        {
+            "name": "cron",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-cron",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [
+                {
+                    "sourceContainer": "app",
+                    "readOnly": true
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "ADMIN_EMAIL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ADMIN_EMAIL::"
+                },
+                {
+                    "name": "ARLISNA_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "ARLISNA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "ARLISNA_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "ARLISNA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:ARLISNA_SITE_URL::"
+                },
+                {
+                    "name": "AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AUTH_KEY::"
+                },
+                {
+                    "name": "AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:AUTH_SALT::"
+                },
+                {
+                    "name": "BPGES_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BPGES_DEBUG::"
+                },
+                {
+                    "name": "BPGES_DEBUG_LOG_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BPGES_DEBUG_LOG_PATH::"
+                },
+                {
+                    "name": "BP_RBE_SPARKPOST_WEBHOOK_TOKEN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:BP_RBE_SPARKPOST_WEBHOOK_TOKEN::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_KEY::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_SECRET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_SECRET::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CBOX_AUTH_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_PASSWORD::"
+                },
+                {
+                    "name": "COMANAGE_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:COMANAGE_API_USERNAME::"
+                },
+                {
+                    "name": "CORE_DATACITE_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_HOST::"
+                },
+                {
+                    "name": "CORE_DATACITE_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_LOGIN::"
+                },
+                {
+                    "name": "CORE_DATACITE_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PASSWORD::"
+                },
+                {
+                    "name": "CORE_DATACITE_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PATH::"
+                },
+                {
+                    "name": "CORE_DATACITE_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PORT::"
+                },
+                {
+                    "name": "CORE_DATACITE_PREFIX",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PREFIX::"
+                },
+                {
+                    "name": "CORE_DATACITE_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_DATACITE_PROXY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_DATACITE_PROXY::"
+                },
+                {
+                    "name": "CORE_FEDORA_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_HOST::"
+                },
+                {
+                    "name": "CORE_FEDORA_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_LOGIN::"
+                },
+                {
+                    "name": "CORE_FEDORA_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PASSWORD::"
+                },
+                {
+                    "name": "CORE_FEDORA_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PATH::"
+                },
+                {
+                    "name": "CORE_FEDORA_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PORT::"
+                },
+                {
+                    "name": "CORE_FEDORA_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_FEDORA_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_HTTP_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HTTP_DEBUG::"
+                },
+                {
+                    "name": "CORE_HUMCORE_COLLECTION_PID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_COLLECTION_PID::"
+                },
+                {
+                    "name": "CORE_HUMCORE_NAMESPACE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_NAMESPACE::"
+                },
+                {
+                    "name": "CORE_HUMCORE_TEMP_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_HUMCORE_TEMP_DIR::"
+                },
+                {
+                    "name": "CORE_OAI_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_HOST::"
+                },
+                {
+                    "name": "CORE_OAI_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PATH::"
+                },
+                {
+                    "name": "CORE_OAI_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PORT::"
+                },
+                {
+                    "name": "CORE_OAI_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_OAI_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_SOLR_CORE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_CORE::"
+                },
+                {
+                    "name": "CORE_SOLR_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_HOST::"
+                },
+                {
+                    "name": "CORE_SOLR_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PATH::"
+                },
+                {
+                    "name": "CORE_SOLR_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PORT::"
+                },
+                {
+                    "name": "CORE_SOLR_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:CORE_SOLR_PROTOCOL::"
+                },
+                {
+                    "name": "DB_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DB_HOST::"
+                },
+                {
+                    "name": "DB_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DB_NAME::"
+                },
+                {
+                    "name": "DB_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:password::"
+                },
+                {
+                    "name": "DB_USER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:username::"
+                },
+                {
+                    "name": "DHRI_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "DHRI_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "DHRI_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "DHRI_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "DHRI_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_SITE_URL::"
+                },
+                {
+                    "name": "EP_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:EP_HOST::"
+                },
+                {
+                    "name": "GLOBAL_SMTP_FROM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GLOBAL_SMTP_FROM::"
+                },
+                {
+                    "name": "GLOBAL_SUPER_ADMINS",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GLOBAL_SUPER_ADMINS::"
+                },
+                {
+                    "name": "GOOGLE_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "GOOGLE_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_IDP_URL::"
+                },
+                {
+                    "name": "GOOGLE_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:GOOGLE_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HASTAC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HASTAC_OPEN_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_OPEN_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HASTAC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HASTAC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HASTAC_SITE_URL::"
+                },
+                {
+                    "name": "HC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HC_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "HC_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_IDP_URL::"
+                },
+                {
+                    "name": "HC_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HC_SITE_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_SITE_ID::"
+                },
+                {
+                    "name": "HC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_SITE_URL::"
+                },
+                {
+                    "name": "HC_UPLOADS_BASE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_UPLOADS_BASE_URL::"
+                },
+                {
+                    "name": "LOGGED_IN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGGED_IN_KEY::"
+                },
+                {
+                    "name": "LOGGED_IN_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGGED_IN_SALT::"
+                },
+                {
+                    "name": "LOGIN_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:LOGIN_PATH::"
+                },
+                {
+                    "name": "MLA_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MLA_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "MLA_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_IDP_URL::"
+                },
+                {
+                    "name": "MLA_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "MLA_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MLA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MLA_SITE_URL::"
+                },
+                {
+                    "name": "MSU_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MSU_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MSU_MAPPED_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_MAPPED_URL::"
+                },
+                {
+                    "name": "MSU_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MSU_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:MSU_SITE_URL::"
+                },
+                {
+                    "name": "NONCE_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:NONCE_KEY::"
+                },
+                {
+                    "name": "NONCE_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:NONCE_SALT::"
+                },
+                {
+                    "name": "REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REDIS_HOST::"
+                },
+                {
+                    "name": "REGISTRY_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SERVER_URL::"
+                },
+                {
+                    "name": "REGISTRY_SP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SP_URL::"
+                },
+                {
+                    "name": "S3_UPLOADS_AUTOENABLE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_AUTOENABLE::"
+                },
+                {
+                    "name": "S3_UPLOADS_BUCKET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET::"
+                },
+                {
+                    "name": "S3_UPLOADS_BUCKET_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET_URL::"
+                },
+                {
+                    "name": "S3_UPLOADS_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_KEY::"
+                },
+                {
+                    "name": "S3_UPLOADS_OBJECT_ACL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_OBJECT_ACL::"
+                },
+                {
+                    "name": "S3_UPLOADS_REGION",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_REGION::"
+                },
+                {
+                    "name": "S3_UPLOADS_SECRET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_SECRET::"
+                },
+                {
+                    "name": "SAH_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "SAH_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_SITE_URL::"
+                },
+                {
+                    "name": "SAML_AUTH_ADMINPASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_AUTH_ADMINPASSWORD::"
+                },
+                {
+                    "name": "SAML_SECRETSALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_SECRETSALT::"
+                },
+                {
+                    "name": "SATOSA_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SATOSA_SERVER_URL::"
+                },
+                {
+                    "name": "SECURE_AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_KEY::"
+                },
+                {
+                    "name": "SECURE_AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_SALT::"
+                },
+                {
+                    "name": "SIMPLESAMLPHP_CONFIG_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SIMPLESAMLPHP_CONFIG_DIR::"
+                },
+                {
+                    "name": "UP_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "UP_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "UP_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:UP_SITE_URL::"
+                },
+                {
+                    "name": "WPCOM_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WPCOM_API_KEY::"
+                },
+                {
+                    "name": "WP_CACHE_KEY_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_CACHE_KEY_SALT::"
+                },
+                {
+                    "name": "WP_DOMAIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_DOMAIN::"
+                },
+                {
+                    "name": "WP_ENV",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_ENV::"
+                },
+                {
+                    "name": "WP_HOME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_HOME::"
+                },
+                {
+                    "name": "WP_LOGS_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_LOGS_DIR::"
+                },
+                {
+                    "name": "WP_REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_REDIS_HOST::"
+                },
+                {
+                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD::"
+                },
+                {
+                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN::"
+                },
+                {
+                    "name": "WP_SITEURL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
+                },
+                {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DOMAIN_NAME::"
+                },
+                {
+                    "name": "DISABLE_MAILCHIMP",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DISABLE_MAILCHIMP::"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/commons-wordpress-staging",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "systemControls": []
         }
     ],
     "executionRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",

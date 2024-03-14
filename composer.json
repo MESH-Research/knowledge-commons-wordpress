@@ -55,7 +55,6 @@
     "wpackagist-plugin/elementor":"^3.6.6",
     "wpackagist-plugin/event-organiser":"^3.12.0",
     "wpackagist-plugin/fd-footnotes":"^1.36",
-    "wpackagist-plugin/feedwordpress":"^2022.0222",
     "wpackagist-plugin/gd-bbpress-attachments":"^4.3.1",
     "wpackagist-plugin/google-sitemap-generator":"^4.1.5",
     "wpackagist-plugin/health-check":"^1.4.5",
@@ -117,8 +116,7 @@
     "roots/multisite-url-fixer": "^1.1",
     "wpackagist-plugin/wp-saml-auth": "^2.1",
     "simplesamlphp/simplesamlphp": "^2.0.4",
-    "skoranda/simplesamlphp-module-idpsamlmdattributes" : "*",
-    "humanmade/s3-uploads": "^3.0"
+    "skoranda/simplesamlphp-module-idpsamlmdattributes" : "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

@@ -5,8 +5,8 @@ server {
   server_name hastac.org www.hastac.org *.hastac.org;
   
   location / {
-     return 301 https://hastac.{DOMAIN_NAME};
+     return 301 https://hastac.${DOMAIN_NAME};
   }
  
-  include includes.d/hastac/*.conf;
+  include /etc/nginx/conf.d/hastac-redirects.conf;
 }

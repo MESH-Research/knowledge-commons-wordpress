@@ -202,6 +202,7 @@ Config::define('S3_UPLOADS_OBJECT_ACL', getenv('S3_UPLOADS_OBJECT_ACL'));
 Config::define('S3_UPLOADS_BUCKET_URL', getenv('S3_UPLOADS_BUCKET_URL'));
 Config::define('S3_UPLOADS_USE_LOCAL', getenv('S3_UPLOADS_USE_LOCAL'));
 Config::define('S3_UPLOADS_REGION', getenv('S3_UPLOADS_REGION'));
+Config::define('S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL', getenv('S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL'));
 Config::define('HC_UPLOADS_BASE_URL', getenv('HC_UPLOADS_BASE_URL'));
 
 /**

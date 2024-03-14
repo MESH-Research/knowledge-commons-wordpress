@@ -2,12 +2,7 @@
 
 FROM nginx:stable-alpine
 
+RUN adduser nginx www-data
+
 COPY ./config/all/nginx/nginx.conf /etc/nginx/
-COPY ./config/all/nginx/conf.d /etc/nginx/conf.d
-COPY ./config/all/nginx/sites-enabled /etc/nginx/sites-enabled
-
-COPY ./scripts /app/scripts
-
-ARG DOMAIN_NAME="hcommons-staging.org"
-ENV DOMAIN_NAME=${DOMAIN_NAME}
-RUN chmod +x /app/scripts/build-scripts/nginx-domain-replace.sh && /app/scripts/build-scripts/nginx-domain-replace.sh
+COPY ./config/all/nginx/templates /etc/nginx/templates
