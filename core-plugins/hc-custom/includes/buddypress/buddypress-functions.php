@@ -259,7 +259,9 @@ function hc_custom_ensure_site_has_domain( $result ) {
 }
 add_filter( 'wpmu_validate_blog_signup', 'hc_custom_ensure_site_has_domain', 10, 1 );
 
-
+/**
+ * Add manage account link that points to the COmanage self-service dashboard.
+ */
 function hc_custom_override_settings_general_menu() {
     global $wp_admin_bar;
 
@@ -269,16 +271,14 @@ function hc_custom_override_settings_general_menu() {
 
     $society_id = Humanities_Commons::$society_id;
     $dashboard_url_constant = strtoupper( $society_id ) . '_DASHBOARD_URL';
-    $dashboard_url = constant( $dashboard_url_constant );
-    if ( ! $dashboard_url ) {
+    if ( defined( $dashboard_url_constant ) ) {
+        $dashboard_url = constant( $dashboard_url_constant );
+    } elseif ( defined( 'HC_DASHBOARD_URL' ) ) {
         $dashboard_url = constant( 'HC_DASHBOARD_URL' );
-    }
-    
-    if ( ! $dashboard_url ) {
-      return;
+    } else {
+        return;
     }
 
-    $settings_node = $wp_admin_bar->get_node( 'my-account-settings' );
     $wp_admin_bar->add_node( array(
         'id'     => 'my-account-settings-manage-my-account',
         'parent' => 'my-account-buddypress',

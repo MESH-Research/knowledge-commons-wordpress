@@ -186,6 +186,8 @@
             public $reload_fields = array();
             public $omit_share_icons = false;
             public $omit_admin_items = false;
+            public $transients; // PHP 8.x compat: no dynamic properties
+            public $transients_check; // PHP 8.x compat: no dynamic properties
 
             /**
              * Class Constructor. Defines the args for the theme options class

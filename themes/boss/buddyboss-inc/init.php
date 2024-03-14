@@ -56,6 +56,11 @@ Class BuddyBoss_Theme {
 	public $bbpress_active;
 
 	/**
+	 * (??) Added for PHP 8.x compatibility to avoid dynamic properties
+	 */
+	public $bp_legacy;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {

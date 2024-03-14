@@ -3,7 +3,7 @@
 # See: https://serverfault.com/questions/958965/nginx-enabling-cors-for-multiple-subdomains
 # 
 map $http_origin $allow_origin {
-    ~^https:\/\/(.*\.)?{DOMAIN_NAME}$ $http_origin;
+    ~^https:\/\/(.*\.)?${DOMAIN_NAME}$ $http_origin;
     default "";
 }
 
@@ -13,14 +13,14 @@ server {
   server_name commons.mla.org ~(?<subdomain>[\w-]+\.)commons.mla.org;
   add_header mla-subdomain "$subdomain"; 
   location / {
-    return 301 https://${subdomain}mla.{DOMAIN_NAME}$request_uri;
+    return 301 https://${subdomain}mla.${DOMAIN_NAME}$request_uri;
   } 
 }
 
 server {
   listen [::]:80 default_server;
   listen 80 default_server;
-  server_name ~^(?<sitename>[\w-]+\.)?(?<subdomain>[\w-]+)\.{DOMAIN_NAME}$ action.mla.org symposium.mla.org *.action.mla.org *.symposium.mla.org commons.msu.edu *.commons.msu.edu;
+  server_name ~^(?<sitename>[\w-]+\.)?(?<subdomain>[\w-]+)\.${DOMAIN_NAME}$ action.mla.org symposium.mla.org *.action.mla.org *.symposium.mla.org commons.msu.edu *.commons.msu.edu;
   
   if ( $subdomain = "msu" ) {
     rewrite ^ "https://${sitename}commons.msu.edu$uri" permanent;
@@ -65,7 +65,8 @@ server {
   }
   rewrite ^/app/uploads/sites/[0-9]+/bp-attachments/([0-9]+)/(.*) https://$http_host/?p=$1&bp-attachment=$2;
 
-  include conf.d/commons/*.conf;
+  include /etc/nginx/conf.d/fedora.conf;
+  include /etc/nginx/conf.d/redirects.conf;
   
   location / {
     try_files $uri $uri/ /index.php?$args;
@@ -82,7 +83,7 @@ server {
   #
   location ~ \.php$ {
     try_files $uri /index.php;
-    fastcgi_pass php:9000;
+    fastcgi_pass app:9000;
   }
 
   #
@@ -98,7 +99,7 @@ server {
         fastcgi_param SCRIPT_FILENAME $document_root$phpfile;
         fastcgi_param PATH_INFO $pathinfo if_not_empty;
         fastcgi_param SCRIPT_NAME /simplesaml$phpfile;
-        fastcgi_pass php:9000;
+        fastcgi_pass app:9000;
     }
   }
 }
