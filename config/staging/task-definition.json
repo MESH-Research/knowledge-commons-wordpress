@@ -1,5 +1,5 @@
 {
-    "family": "commons-wordpress-staging",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:755997884632:task-definition/commons-wordpress-staging:11",
     "containerDefinitions": [
         {
             "name": "app",
@@ -12,6 +12,11 @@
                 {
                     "sourceVolume": "commons-app",
                     "containerPath": "/app",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
                     "readOnly": false
                 }
             ],
@@ -226,6 +231,10 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_SITE_URL::"
                 },
                 {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DOMAIN_NAME::"
+                },
+                {
                     "name": "EP_HOST",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:EP_HOST::"
                 },
@@ -312,6 +321,10 @@
                 {
                     "name": "HC_UPLOADS_BASE_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:HC_UPLOADS_BASE_URL::"
+                },
+                {
+                    "name": "IDP_ENTITY_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:IDP_ENTITY_ID::"
                 },
                 {
                     "name": "LOGGED_IN_KEY",
@@ -408,6 +421,10 @@
                 {
                     "name": "S3_UPLOADS_BUCKET_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET_URL::"
+                },
+                {
+                    "name": "S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL::"
                 },
                 {
                     "name": "S3_UPLOADS_KEY",
@@ -516,18 +533,6 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
-                },
-                {
-                    "name": "DOMAIN_NAME",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DOMAIN_NAME::"
-                },
-                {
-                    "name": "IDP_ENTITY_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:IDP_ENTITY_ID::"
-                },
-                {
-                    "name": "S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL::"
                 }
             ],
             "logConfiguration": {
@@ -537,7 +542,8 @@
                     "awslogs-group": "/ecs/commons-wordpress-staging",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         },
@@ -558,7 +564,13 @@
             ],
             "essential": true,
             "environment": [],
-            "mountPoints": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
+                    "readOnly": false
+                }
+            ],
             "volumesFrom": [
                 {
                     "sourceContainer": "app",
@@ -588,7 +600,8 @@
                     "awslogs-group": "/ecs/commons-wordpress-staging",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         },
@@ -599,7 +612,13 @@
             "portMappings": [],
             "essential": true,
             "environment": [],
-            "mountPoints": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
+                    "readOnly": false
+                }
+            ],
             "volumesFrom": [
                 {
                     "sourceContainer": "app",
@@ -816,6 +835,14 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DHRI_SITE_URL::"
                 },
                 {
+                    "name": "DISABLE_MAILCHIMP",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DISABLE_MAILCHIMP::"
+                },
+                {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DOMAIN_NAME::"
+                },
+                {
                     "name": "EP_HOST",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:EP_HOST::"
                 },
@@ -1106,14 +1133,6 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
-                },
-                {
-                    "name": "DOMAIN_NAME",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DOMAIN_NAME::"
-                },
-                {
-                    "name": "DISABLE_MAILCHIMP",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:DISABLE_MAILCHIMP::"
                 }
             ],
             "logConfiguration": {
@@ -1123,14 +1142,24 @@
                     "awslogs-group": "/ecs/commons-wordpress-staging",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         }
     ],
+    "family": "commons-wordpress-staging",
     "executionRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",
     "networkMode": "bridge",
+    "revision": 11,
     "volumes": [
+        {
+            "name": "media",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-08928dc9301c040f1",
+                "rootDirectory": "/"
+            }
+        },
         {
             "name": "commons-app",
             "dockerVolumeConfiguration": {
@@ -1138,6 +1167,46 @@
                 "driver": "local"
             }
         }
+    ],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.secrets.asm.environment-variables"
+        },
+        {
+            "name": "ecs.capability.efs"
+        },
+        {
+            "name": "ecs.capability.docker-plugin.local"
+        },
+        {
+            "name": "ecs.capability.container-ordering"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2"
     ],
     "requiresCompatibilities": [
         "EC2"
@@ -1147,5 +1216,8 @@
     "runtimePlatform": {
         "cpuArchitecture": "ARM64",
         "operatingSystemFamily": "LINUX"
-    }
+    },
+    "registeredAt": "2024-03-19T17:44:43.662Z",
+    "registeredBy": "arn:aws:sts::755997884632:assumed-role/OktaSSOAdmin/thickemi@msu.edu",
+    "tags": []
 }
