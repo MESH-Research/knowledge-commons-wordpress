@@ -25,23 +25,19 @@ FROM base AS cloud
 # This is a bit awkward, but we want to copy only the necessary files to the
 # container. If we copy the entire root directory of the project, there will
 # be a lot of junk files from development that we don't need.
+COPY wp-cli.yml /app/
 COPY ./site /app/site
+COPY ./simplesamlphp /app/simplesamlphp
+COPY ./themes /app/themes
+COPY ./config /app/config
 COPY ./scripts /app/scripts
 COPY ./core-plugins /app/core-plugins
 COPY ./forked-plugins /app/forked-plugins
 COPY ./ancillary-plugins /app/ancillary-plugins
 COPY ./mu-plugins /app/mu-plugins
-COPY ./themes /app/themes
-COPY ./simplesamlphp /app/simplesamlphp
-COPY ./config /app/config
 
 COPY composer.json /app/
 COPY composer.lock /app/
-COPY wp-cli.yml /app/
-
-RUN chown -R www-data:www-data /app && \
-	find /app -type d -exec chmod 755 {} \; && \
-	find /app -type f -exec chmod 644 {} \;
 
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
@@ -51,11 +47,25 @@ RUN mkdir -p /media && \
 	rm -rf /app/site/web/app/blogs.dir && \
 	ln -s /media/blogs.dir /app/site/web/app/blogs.dir
 
+RUN rm -rf /usr/local/etc/php/php.ini && \
+	ln -s /app/config/all/php/php.ini /usr/local/etc/php/php.ini
+
+RUN rm -rf /app/config/all/simplesamlphp/log && \
+	rm -rf /app/config/all/simplesamlphp/tmp && \
+	mkdir -p /app/config/all/simplesamlphp/log && \
+	mkdir -p /app/config/all/simplesamlphp/tmp
+
+# Redis drop-in
+RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
+
+RUN chown -R www-data:www-data /app
+RUN chmod -R 755 /app
+
 WORKDIR /app
-ENV COMPOSER_ALLOW_SUPERUSER=1
-# Should get rid of this script and just run the commands directly
-RUN chmod a+x /app/scripts/build-scripts/build-wordpress-cloud.sh && \
-	/app/scripts/build-scripts/build-wordpress-cloud.sh
+USER www-data
+RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
+WORKDIR /app/core-plugins/humcore/
+RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
 
 FROM cloud AS cron
 
