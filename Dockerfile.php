@@ -55,9 +55,6 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/tmp
 
-# Redis drop-in
-RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
-
 RUN chown -R www-data:www-data /app
 RUN chmod -R 755 /app
 
@@ -67,8 +64,12 @@ RUN composer install --no-dev --no-interaction --no-progress --no-suggest --opti
 WORKDIR /app/core-plugins/humcore/
 RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
 
+# Redis drop-in
+RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
+
 FROM cloud AS cron
 
+USER root
 RUN apk add bash
 RUN crontab -u www-data /app/scripts/cron/commons.crontab
 
