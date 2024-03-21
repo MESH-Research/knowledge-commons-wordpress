@@ -39,8 +39,9 @@ COPY composer.json /app/
 COPY composer.lock /app/
 COPY wp-cli.yml /app/
 
-RUN chown -R www-data:www-data /app
-RUN chmod -R 755 /app
+RUN chown -R www-data:www-data /app && \
+	find /app -type d -exec chmod 755 {} \; && \
+	find /app -type f -exec chmod 644 {} \;
 
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
