@@ -411,38 +411,6 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SP_URL::"
                 },
                 {
-                    "name": "S3_UPLOADS_AUTOENABLE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_AUTOENABLE::"
-                },
-                {
-                    "name": "S3_UPLOADS_BUCKET",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET::"
-                },
-                {
-                    "name": "S3_UPLOADS_BUCKET_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET_URL::"
-                },
-                {
-                    "name": "S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL::"
-                },
-                {
-                    "name": "S3_UPLOADS_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_KEY::"
-                },
-                {
-                    "name": "S3_UPLOADS_OBJECT_ACL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_OBJECT_ACL::"
-                },
-                {
-                    "name": "S3_UPLOADS_REGION",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_REGION::"
-                },
-                {
-                    "name": "S3_UPLOADS_SECRET",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_SECRET::"
-                },
-                {
                     "name": "SAH_ENROLLMENT_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_ENROLLMENT_URL::"
                 },
@@ -1133,7 +1101,11 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
-                }
+                },
+                {
+                    "name": "EP_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:EP_HOST::"
+                },
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
