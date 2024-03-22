@@ -154,7 +154,7 @@ function ass_digest_fire( $type ) {
 
 		// get userdata
 		// @see ass_get_mass_userdata()
-		$userdata = $bp->ass->massdata[$user_id];
+		$userdata = array_key_exists( $user_id, $bp->ass->massdata ) ? $bp->ass->massdata[$user_id] : null;
 
 		// sanity check!
 		if ( empty( $userdata ) )
