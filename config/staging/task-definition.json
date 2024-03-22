@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:755997884632:task-definition/commons-wordpress-staging:11",
+    "family": "commons-wordpress-staging",
     "containerDefinitions": [
         {
             "name": "app",
@@ -983,34 +983,6 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:REGISTRY_SP_URL::"
                 },
                 {
-                    "name": "S3_UPLOADS_AUTOENABLE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_AUTOENABLE::"
-                },
-                {
-                    "name": "S3_UPLOADS_BUCKET",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET::"
-                },
-                {
-                    "name": "S3_UPLOADS_BUCKET_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_BUCKET_URL::"
-                },
-                {
-                    "name": "S3_UPLOADS_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_KEY::"
-                },
-                {
-                    "name": "S3_UPLOADS_OBJECT_ACL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_OBJECT_ACL::"
-                },
-                {
-                    "name": "S3_UPLOADS_REGION",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_REGION::"
-                },
-                {
-                    "name": "S3_UPLOADS_SECRET",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:S3_UPLOADS_SECRET::"
-                },
-                {
                     "name": "SAH_ENROLLMENT_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_ENROLLMENT_URL::"
                 },
@@ -1101,11 +1073,7 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
-                },
-                {
-                    "name": "EP_HOST",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:EP_HOST::"
-                },
+                }
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
@@ -1120,10 +1088,8 @@
             "systemControls": []
         }
     ],
-    "family": "commons-wordpress-staging",
     "executionRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",
     "networkMode": "bridge",
-    "revision": 11,
     "volumes": [
         {
             "name": "media",
@@ -1140,46 +1106,6 @@
             }
         }
     ],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-        },
-        {
-            "name": "ecs.capability.execution-role-awslogs"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-        },
-        {
-            "name": "ecs.capability.secrets.asm.environment-variables"
-        },
-        {
-            "name": "ecs.capability.efs"
-        },
-        {
-            "name": "ecs.capability.docker-plugin.local"
-        },
-        {
-            "name": "ecs.capability.container-ordering"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
-        }
-    ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2"
-    ],
     "requiresCompatibilities": [
         "EC2"
     ],
@@ -1188,8 +1114,5 @@
     "runtimePlatform": {
         "cpuArchitecture": "ARM64",
         "operatingSystemFamily": "LINUX"
-    },
-    "registeredAt": "2024-03-19T17:44:43.662Z",
-    "registeredBy": "arn:aws:sts::755997884632:assumed-role/OktaSSOAdmin/thickemi@msu.edu",
-    "tags": []
+    }
 }

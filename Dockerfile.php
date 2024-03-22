@@ -56,7 +56,6 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/tmp
 
 RUN chown -R www-data:www-data /app
-RUN chmod -R 755 /app
 
 WORKDIR /app
 USER www-data

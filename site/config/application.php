@@ -353,7 +353,7 @@ Config::define('CORE_DATACITE_PREFIX', getenv('CORE_DATACITE_PREFIX'));
  */
 ini_set( 'log_errors', 'on' );
 ini_set( 'error_log', 'php://stderr' );
-ini_set( 'error_reporting', E_ERROR | E_WARNING | E_PARSE );
+ini_set( 'error_reporting', E_ERROR );
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 

@@ -259,11 +259,11 @@ $config = [
      * If you want to disable debugging completely, unset this option or set it to an
      * empty array.
      */
-    'debug' => [
-        'saml' => true,
-        'backtraces' => true,
-        'validatexml' => true,
-    ],
+    // 'debug' => [
+    //     'saml' => true,
+    //     'backtraces' => true,
+    //     'validatexml' => true,
+    // ],
 
     /*
      * When 'showerrors' is enabled, all error messages and stack traces will be output
@@ -272,8 +272,8 @@ $config = [
      * When 'errorreporting' is enabled, a form will be presented for the user to report
      * the error to 'technicalcontact_email'.
      */
-    'showerrors' => true,
-    'errorreporting' => true,
+    'showerrors' => false,
+    'errorreporting' => false,
 
     /*
      * Custom error show function called from SimpleSAML\Error\Error::show.
@@ -302,7 +302,7 @@ $config = [
      * Options: [syslog,file,errorlog,stderr]
      *
      */
-    'logging.level' => SimpleSAML\Logger::DEBUG,
+    'logging.level' => SimpleSAML\Logger::ERR,
     'logging.handler' => 'stderr',
 
     /*
