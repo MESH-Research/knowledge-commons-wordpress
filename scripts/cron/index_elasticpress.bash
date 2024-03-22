@@ -17,7 +17,7 @@ all_networks_wp=/app/scripts/cron/all_networks_wp.bash
 
 if [[ "$1" = "setup" ]]
 then
-  $all_networks_wp elasticpress sync --setup --yes --force --show-errors
+  $all_networks_wp elasticpress sync --setup --yes --force
 else
   wp --url="$WP_DOMAIN" --path="/app/site/web/wp" elasticpress-buddypress index_from_all_networks --post-type="humcore_deposit"
 fi
