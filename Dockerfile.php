@@ -62,6 +62,9 @@ USER www-data
 RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
 WORKDIR /app/core-plugins/humcore/
 RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
+WORKDIR /app/scripts/cron/mailchimp
+RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
+WORKDIR /app
 
 # Redis drop-in
 RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
