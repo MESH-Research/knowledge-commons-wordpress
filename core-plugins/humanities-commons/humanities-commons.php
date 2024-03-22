@@ -909,7 +909,7 @@ class Humanities_Commons {
 	 *
 	 * @since HCommons
 	 *
-	 * @param array $activity
+	 * @param object $activity
 	 */
 	public function hcommons_set_activity_society_meta( $activity ) {
 
@@ -921,7 +921,7 @@ class Humanities_Commons {
 	 *
 	 * @since HCommons
 	 *
-	 * @param array $notification
+	 * @param object $notification
 	 */
 	public function hcommons_set_notification_society_meta( $notification ) {
 		bp_notifications_add_meta( $notification->id, 'society_id', self::$society_id, true );
