@@ -149,7 +149,6 @@ do_action( 'bp_before_member_settings_template' ); ?>
 <?php
 
 $shib_email = Humanities_Commons::hcommons_shib_email( $user );
-hcommons_write_error_log( 'info', 'Settings General | Registered Emails: ' . var_export( $shib_email, true ) );
 
 //lets check if $shib_email is an array to loop through,
 //otherwise the user does not have multiple emails to select from

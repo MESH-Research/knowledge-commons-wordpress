@@ -94,7 +94,6 @@ function hcommons_admin_bar_render() {
 	}
 
 	$nodes = $wp_admin_bar->get_nodes();
-	//hcommons_write_error_log( 'info', '****ADMIN_BAR_RENDER****-'.var_export($nodes,true) );
 
 	$vetted_user = humanities_commons::hcommons_vet_user();
 	if ( ! $vetted_user ) {
@@ -111,7 +110,6 @@ add_action( 'wp_enqueue_scripts', 'hcommons_admin_bar_enqueue_style' );
 
 function debug_admin_bar_init() {
         global $wp_admin_bar, $humanities_commons;
-	//hcommons_write_error_log( 'info', '****ADMIN_BAR_INIT****-'.var_export($wp_admin_bar,true) );
 }
 add_action( 'admin_bar_init', 'debug_admin_bar_init' );
 

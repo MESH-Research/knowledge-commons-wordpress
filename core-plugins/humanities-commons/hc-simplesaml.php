@@ -53,8 +53,6 @@ function hcommons_sync_bp_profile( $user ) {
 
 	$user_id = $user->ID;
 
-	hcommons_write_error_log( 'info', '****SYNC_BP_PROFILE****-'.var_export( $user->ID, true ) );
-
 	$current_name = xprofile_get_field_data( 'Name', $user->ID );
 	if ( empty( $current_name ) ) {
 		$server_displayname = !empty($_SERVER['HTTP_DISPLAYNAME']) && isset($_SERVER['HTTP_DISPLAYNAME']) ? $_SERVER['HTTP_DISPLAYNAME'] : '';
@@ -123,13 +121,10 @@ function hcommons_set_user_member_types( $user ) {
 	}
 	
 	$user_info = get_userdata( $user->ID );
-	hcommons_write_error_log( 'info', "Setting user member types for {$user_info->user_login}." );
 
 	$memberships = Humanities_Commons::hcommons_get_user_memberships();
-	hcommons_write_error_log( 'info', "Memberships passed from SAML: " . var_export( $memberships, true ) );
 
 	if ( count( $memberships['societies'] ) === 0 && count( $memberships['groups'] ) === 0 ) {
-		hcommons_write_error_log( 'info', "User is logged in but has expired SAML session, so don't change anything." );
 		return;
 	}
 	
@@ -146,7 +141,6 @@ function hcommons_set_user_member_types( $user ) {
 	}
 
 	$user_groups = groups_get_groups( ['user_id' => $user->ID ] );
-	hcommons_write_error_log( 'info', "User Groups: " . var_export( $user_groups, true ) );
 
 	// Sync group membership for managed groups.
 	$managed_groups = Humanities_Commons::hcommons_get_managed_groups();
@@ -178,8 +172,6 @@ function hcommons_set_user_member_types( $user ) {
 			}
 		}
 	}
-
-	hcommons_write_error_log( 'info', "Finished setting user member types for {$user_info->user_login}." );
 }
 add_action( 'bp_init', 'hcommons_set_user_member_types', 50 );
 
@@ -212,13 +204,11 @@ function hcommons_safe_leave_group( $group_id, $user_id ) {
  * @param WP_User $user The user who has just logged in.
  */
 function hcommons_maybe_set_user_role_for_site( $user ) {
-	hcommons_write_error_log( 'info', "hcommons_maybe_set_user_role_for_site - user: {$user->data->user_nicename} current site: " . get_current_blog_id() );
 	$memberships = Humanities_Commons::hcommons_get_user_memberships();
 	$is_site_member = in_array( Humanities_Commons::$society_id, $memberships['societies'] );
 
 	switch_to_blog( get_main_site_id() );
 
-	hcommons_write_error_log( 'info', "hcommons_maybe_set_user_role_for_site - user: {$user->data->user_nicename} switched to site: " . get_current_blog_id() );
 
 	$base_site_user = get_userdata( $user->ID );
 	$user_roles = $base_site_user->roles;
@@ -227,11 +217,9 @@ function hcommons_maybe_set_user_role_for_site( $user ) {
 
 	if ( $is_site_member ) {
 		if ( empty( $user_site_roles ) ) {
-			hcommons_write_error_log( 'info', "hcommons_maybe_set_user_role_for_site - user: {$user->data->user_nicename} - setting role to subscriber" );
 			$base_site_user->add_role( 'subscriber' );
 		}
 	} else {
-		hcommons_write_error_log( 'info', 'hcommons_maybe_set_user_role_for_site - removing roles for site' );
 		foreach ( $user_site_roles as $role ) {
 			$base_site_user->remove_role( $role );
 		}
@@ -276,14 +264,6 @@ function hcommons_maybe_update_email( $user ) {
 	}
 }
 add_action( 'wp_saml_auth_existing_user_authenticated', 'hcommons_maybe_update_email', 10, 1 );
-
-function hcommons_dump_new_user_data( $user_args, $attributes ) {
-
-	hcommons_write_error_log( 'info', '****DUMP_NEW_USER_DATA***-'.var_export( $user_args, true ) );
-	hcommons_write_error_log( 'info', '****DUMP_NEW_USER_DATA***-'.var_export( $attributes, true ) );
-	return $user_args;
-}
-add_action( 'wp_saml_auth_insert_user', 'hcommons_dump_new_user_data', 10, 2 );
 
 /**
  * Capture shibboleth data in user meta once per shibboleth session
@@ -347,9 +327,8 @@ function hcommons_set_shibboleth_based_user_meta( $user ) {
 			$user_login_methods[] = $_SERVER['HTTP_IDPDISPLAYNAME'];
 			$result = update_user_meta( $user_id, 'saml_login_methods', maybe_serialize( $user_login_methods ) );
 		}
-	} else {
-		hcommons_write_error_log( 'info', '****HTTP_IDPDISPLAYNAME NOT SET****-' );
-	}
+	} 
+	
 	$shib_uid = $_SERVER['HTTP_UID'];
 	if ( false === strpos( $shib_uid, ';' ) ) {
 		$shib_uid_updated = $shib_uid;
@@ -452,7 +431,6 @@ function hcommons_wpsa_filter_option( $value, string $option_name ) {
 		'last_name_attribute'    => 'sn',
 		'default_role'           => get_option( 'default_role' ),
 	);
-	hcommons_write_error_log( 'info', '****FILTER_OPTION****-'.var_export( $defaults, true ) );
 	$value    = isset( $defaults[ $option_name ] ) ? $defaults[ $option_name ] : $value;
 	return $value;
 }
@@ -535,7 +513,6 @@ function hcommons_set_env_saml_attributes() {
  * Automatically log in to WordPress with an existing SimpleSAML session.
  */
 function hcommons_auto_login() {
-	hcommons_write_error_log( 'info', 'hcommons_auto_login');
 	if ( defined( 'WP_CLI' ) && constant( 'WP_CLI' ) ) {
 		return;
 	}
@@ -553,14 +530,12 @@ function hcommons_auto_login() {
 	}
 
 	// At this point, we know there's a SimpleSAML session but no WordPress session, so try authenticating.
-	hcommons_write_error_log( 'info', sprintf( '%s: authenticating token %s', __METHOD__, $_COOKIE['SimpleSAMLAuthToken'] ) );
 	$result = WP_SAML_Auth::get_instance()->do_saml_authentication();
 
 	if ( is_a( $result, 'WP_User' ) ) {
 		// Make sure this user is a member of the current site.
 		$member_societies = Humanities_Commons::hcommons_get_user_org_memberships();
 		if ( ! in_array( Humanities_Commons::$society_id, $member_societies ) ) {
-			hcommons_write_error_log( 'info', sprintf( '%s: %s is not a member of %s', __METHOD__, $result->user_login, Humanities_Commons::$society_id ) );
 			return;
 		}
 
