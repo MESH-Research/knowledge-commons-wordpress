@@ -1,0 +1,1089 @@
+{
+    "family": "commons-wordpress-dev",
+    "containerDefinitions": [
+        {
+            "name": "app",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-app:latest",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "commons-app",
+                    "containerPath": "/app",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
+                    "readOnly": false
+                }
+            ],
+            "volumesFrom": [],
+            "secrets": [
+                {
+                    "name": "ADMIN_EMAIL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ADMIN_EMAIL::"
+                },
+                {
+                    "name": "ARLISNA_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "ARLISNA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "ARLISNA_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "ARLISNA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_SITE_URL::"
+                },
+                {
+                    "name": "AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AUTH_KEY::"
+                },
+                {
+                    "name": "AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AUTH_SALT::"
+                },
+                {
+                    "name": "BPGES_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:BPGES_DEBUG::"
+                },
+                {
+                    "name": "BPGES_DEBUG_LOG_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:BPGES_DEBUG_LOG_PATH::"
+                },
+                {
+                    "name": "BP_RBE_SPARKPOST_WEBHOOK_TOKEN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:BP_RBE_SPARKPOST_WEBHOOK_TOKEN::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_KEY::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_SECRET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_SECRET::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:COMANAGE_API_PASSWORD::"
+                },
+                {
+                    "name": "COMANAGE_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:COMANAGE_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:COMANAGE_API_USERNAME::"
+                },
+                {
+                    "name": "CORE_DATACITE_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_HOST::"
+                },
+                {
+                    "name": "CORE_DATACITE_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_LOGIN::"
+                },
+                {
+                    "name": "CORE_DATACITE_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PASSWORD::"
+                },
+                {
+                    "name": "CORE_DATACITE_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PATH::"
+                },
+                {
+                    "name": "CORE_DATACITE_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PORT::"
+                },
+                {
+                    "name": "CORE_DATACITE_PREFIX",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PREFIX::"
+                },
+                {
+                    "name": "CORE_DATACITE_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_DATACITE_PROXY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PROXY::"
+                },
+                {
+                    "name": "CORE_FEDORA_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_HOST::"
+                },
+                {
+                    "name": "CORE_FEDORA_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_LOGIN::"
+                },
+                {
+                    "name": "CORE_FEDORA_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PASSWORD::"
+                },
+                {
+                    "name": "CORE_FEDORA_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PATH::"
+                },
+                {
+                    "name": "CORE_FEDORA_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PORT::"
+                },
+                {
+                    "name": "CORE_FEDORA_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_HTTP_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HTTP_DEBUG::"
+                },
+                {
+                    "name": "CORE_HUMCORE_COLLECTION_PID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HUMCORE_COLLECTION_PID::"
+                },
+                {
+                    "name": "CORE_HUMCORE_NAMESPACE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HUMCORE_NAMESPACE::"
+                },
+                {
+                    "name": "CORE_HUMCORE_TEMP_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HUMCORE_TEMP_DIR::"
+                },
+                {
+                    "name": "CORE_OAI_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_HOST::"
+                },
+                {
+                    "name": "CORE_OAI_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_PATH::"
+                },
+                {
+                    "name": "CORE_OAI_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_PORT::"
+                },
+                {
+                    "name": "CORE_OAI_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_SOLR_CORE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_CORE::"
+                },
+                {
+                    "name": "CORE_SOLR_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_HOST::"
+                },
+                {
+                    "name": "CORE_SOLR_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_PATH::"
+                },
+                {
+                    "name": "CORE_SOLR_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_PORT::"
+                },
+                {
+                    "name": "CORE_SOLR_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_PROTOCOL::"
+                },
+                {
+                    "name": "DB_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_HOST::"
+                },
+                {
+                    "name": "DB_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_NAME::"
+                },
+                {
+                    "name": "DB_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_PASSWORD::"
+                },
+                {
+                    "name": "DB_USER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_USER::"
+                },
+                {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DOMAIN_NAME::"
+                },
+                {
+                    "name": "EP_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:EP_HOST::"
+                },
+                {
+                    "name": "GLOBAL_SMTP_FROM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GLOBAL_SMTP_FROM::"
+                },
+                {
+                    "name": "GLOBAL_SUPER_ADMINS",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GLOBAL_SUPER_ADMINS::"
+                },
+                {
+                    "name": "GOOGLE_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GOOGLE_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "GOOGLE_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GOOGLE_IDP_URL::"
+                },
+                {
+                    "name": "GOOGLE_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GOOGLE_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HASTAC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HASTAC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HASTAC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_SITE_URL::"
+                },
+                {
+                    "name": "HC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HC_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "HC_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_IDP_URL::"
+                },
+                {
+                    "name": "HC_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HC_SITE_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_SITE_ID::"
+                },
+                {
+                    "name": "HC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_SITE_URL::"
+                },
+                {
+                    "name": "HC_UPLOADS_BASE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_UPLOADS_BASE_URL::"
+                },
+                {
+                    "name": "IDP_ENTITY_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:IDP_ENTITY_ID::"
+                },
+                {
+                    "name": "LOGGED_IN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:LOGGED_IN_KEY::"
+                },
+                {
+                    "name": "LOGGED_IN_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:LOGGED_IN_SALT::"
+                },
+                {
+                    "name": "LOGIN_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:LOGIN_PATH::"
+                },
+                {
+                    "name": "MLA_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MLA_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "MLA_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_IDP_URL::"
+                },
+                {
+                    "name": "MLA_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "MLA_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MLA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_SITE_URL::"
+                },
+                {
+                    "name": "MSU_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MSU_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MSU_MAPPED_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_MAPPED_URL::"
+                },
+                {
+                    "name": "MSU_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MSU_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_SITE_URL::"
+                },
+                {
+                    "name": "NONCE_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:NONCE_KEY::"
+                },
+                {
+                    "name": "NONCE_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:NONCE_SALT::"
+                },
+                {
+                    "name": "REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:REDIS_HOST::"
+                },
+                {
+                    "name": "REGISTRY_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:REGISTRY_SERVER_URL::"
+                },
+                {
+                    "name": "REGISTRY_SP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:REGISTRY_SP_URL::"
+                },
+                {
+                    "name": "SAH_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAH_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "SAH_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAH_SITE_URL::"
+                },
+                {
+                    "name": "SAML_AUTH_ADMINPASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAML_AUTH_ADMINPASSWORD::"
+                },
+                {
+                    "name": "SAML_SECRETSALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAML_SECRETSALT::"
+                },
+                {
+                    "name": "SATOSA_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SATOSA_SERVER_URL::"
+                },
+                {
+                    "name": "SECURE_AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SECURE_AUTH_KEY::"
+                },
+                {
+                    "name": "SECURE_AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SECURE_AUTH_SALT::"
+                },
+                {
+                    "name": "SIMPLESAMLPHP_CONFIG_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_CONFIG_DIR::"
+                },
+                {
+                    "name": "UP_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "UP_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "UP_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_SITE_URL::"
+                },
+                {
+                    "name": "WPCOM_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WPCOM_API_KEY::"
+                },
+                {
+                    "name": "WP_CACHE_KEY_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_CACHE_KEY_SALT::"
+                },
+                {
+                    "name": "WP_DOMAIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_DOMAIN::"
+                },
+                {
+                    "name": "WP_ENV",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_ENV::"
+                },
+                {
+                    "name": "WP_HOME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_HOME::"
+                },
+                {
+                    "name": "WP_LOGS_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_LOGS_DIR::"
+                },
+                {
+                    "name": "WP_REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_REDIS_HOST::"
+                },
+                {
+                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD::"
+                },
+                {
+                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN::"
+                },
+                {
+                    "name": "WP_SITEURL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
+                },
+				{
+                    "name": "SIMPLESAMLPHP_METADATA_FILE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_METADATA_FILE::"
+                },
+				{
+                    "name": "SAML_CRT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.crt-qvsDvx"
+                },
+                {
+                    "name": "SAML_PEM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.pem-FNH7Dd"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "cron",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-cron",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
+                    "readOnly": false
+                }
+            ],
+            "volumesFrom": [
+                {
+                    "sourceContainer": "app",
+                    "readOnly": true
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "ADMIN_EMAIL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ADMIN_EMAIL::"
+                },
+                {
+                    "name": "ARLISNA_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "ARLISNA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "ARLISNA_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "ARLISNA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_SITE_URL::"
+                },
+                {
+                    "name": "AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AUTH_KEY::"
+                },
+                {
+                    "name": "AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AUTH_SALT::"
+                },
+                {
+                    "name": "BPGES_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:BPGES_DEBUG::"
+                },
+                {
+                    "name": "BPGES_DEBUG_LOG_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:BPGES_DEBUG_LOG_PATH::"
+                },
+                {
+                    "name": "BP_RBE_SPARKPOST_WEBHOOK_TOKEN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:BP_RBE_SPARKPOST_WEBHOOK_TOKEN::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_KEY::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_SECRET",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_SECRET::"
+                },
+                {
+                    "name": "CBOX_AUTH_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:COMANAGE_API_PASSWORD::"
+                },
+                {
+                    "name": "COMANAGE_API_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:COMANAGE_API_URL::"
+                },
+                {
+                    "name": "COMANAGE_API_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:COMANAGE_API_USERNAME::"
+                },
+                {
+                    "name": "CORE_DATACITE_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_HOST::"
+                },
+                {
+                    "name": "CORE_DATACITE_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_LOGIN::"
+                },
+                {
+                    "name": "CORE_DATACITE_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PASSWORD::"
+                },
+                {
+                    "name": "CORE_DATACITE_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PATH::"
+                },
+                {
+                    "name": "CORE_DATACITE_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PORT::"
+                },
+                {
+                    "name": "CORE_DATACITE_PREFIX",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PREFIX::"
+                },
+                {
+                    "name": "CORE_DATACITE_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_DATACITE_PROXY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_DATACITE_PROXY::"
+                },
+                {
+                    "name": "CORE_FEDORA_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_HOST::"
+                },
+                {
+                    "name": "CORE_FEDORA_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_LOGIN::"
+                },
+                {
+                    "name": "CORE_FEDORA_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PASSWORD::"
+                },
+                {
+                    "name": "CORE_FEDORA_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PATH::"
+                },
+                {
+                    "name": "CORE_FEDORA_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PORT::"
+                },
+                {
+                    "name": "CORE_FEDORA_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_HTTP_DEBUG",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HTTP_DEBUG::"
+                },
+                {
+                    "name": "CORE_HUMCORE_COLLECTION_PID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HUMCORE_COLLECTION_PID::"
+                },
+                {
+                    "name": "CORE_HUMCORE_NAMESPACE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HUMCORE_NAMESPACE::"
+                },
+                {
+                    "name": "CORE_HUMCORE_TEMP_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_HUMCORE_TEMP_DIR::"
+                },
+                {
+                    "name": "CORE_OAI_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_HOST::"
+                },
+                {
+                    "name": "CORE_OAI_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_PATH::"
+                },
+                {
+                    "name": "CORE_OAI_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_PORT::"
+                },
+                {
+                    "name": "CORE_OAI_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_OAI_PROTOCOL::"
+                },
+                {
+                    "name": "CORE_SOLR_CORE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_CORE::"
+                },
+                {
+                    "name": "CORE_SOLR_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_HOST::"
+                },
+                {
+                    "name": "CORE_SOLR_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_PATH::"
+                },
+                {
+                    "name": "CORE_SOLR_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_PORT::"
+                },
+                {
+                    "name": "CORE_SOLR_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_SOLR_PROTOCOL::"
+                },
+                {
+                    "name": "DB_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_HOST::"
+                },
+                {
+                    "name": "DB_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_NAME::"
+                },
+                {
+                    "name": "DB_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:password::"
+                },
+                {
+                    "name": "DB_USER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:username::"
+                },
+                {
+                    "name": "DISABLE_MAILCHIMP",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DISABLE_MAILCHIMP::"
+                },
+                {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DOMAIN_NAME::"
+                },
+                {
+                    "name": "EP_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:EP_HOST::"
+                },
+                {
+                    "name": "GLOBAL_SMTP_FROM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GLOBAL_SMTP_FROM::"
+                },
+                {
+                    "name": "GLOBAL_SUPER_ADMINS",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GLOBAL_SUPER_ADMINS::"
+                },
+                {
+                    "name": "GOOGLE_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GOOGLE_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "GOOGLE_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GOOGLE_IDP_URL::"
+                },
+                {
+                    "name": "GOOGLE_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:GOOGLE_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HASTAC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HASTAC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HASTAC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HASTAC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HASTAC_SITE_URL::"
+                },
+                {
+                    "name": "HC_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "HC_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "HC_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_IDP_URL::"
+                },
+                {
+                    "name": "HC_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "HC_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "HC_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "HC_SITE_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_SITE_ID::"
+                },
+                {
+                    "name": "HC_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_SITE_URL::"
+                },
+                {
+                    "name": "HC_UPLOADS_BASE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:HC_UPLOADS_BASE_URL::"
+                },
+                {
+                    "name": "LOGGED_IN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:LOGGED_IN_KEY::"
+                },
+                {
+                    "name": "LOGGED_IN_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:LOGGED_IN_SALT::"
+                },
+                {
+                    "name": "LOGIN_PATH",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:LOGIN_PATH::"
+                },
+                {
+                    "name": "MLA_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MLA_IDENTITY_PROVIDER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_IDENTITY_PROVIDER::"
+                },
+                {
+                    "name": "MLA_IDP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_IDP_URL::"
+                },
+                {
+                    "name": "MLA_LOGIN_METHOD_SCOPE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_LOGIN_METHOD_SCOPE::"
+                },
+                {
+                    "name": "MLA_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MLA_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MLA_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MLA_SITE_URL::"
+                },
+                {
+                    "name": "MSU_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "MSU_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "MSU_MAPPED_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_MAPPED_URL::"
+                },
+                {
+                    "name": "MSU_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "MSU_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:MSU_SITE_URL::"
+                },
+                {
+                    "name": "NONCE_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:NONCE_KEY::"
+                },
+                {
+                    "name": "NONCE_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:NONCE_SALT::"
+                },
+                {
+                    "name": "REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:REDIS_HOST::"
+                },
+                {
+                    "name": "REGISTRY_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:REGISTRY_SERVER_URL::"
+                },
+                {
+                    "name": "REGISTRY_SP_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:REGISTRY_SP_URL::"
+                },
+                {
+                    "name": "SAH_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAH_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "SAH_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAH_SITE_URL::"
+                },
+                {
+                    "name": "SAML_AUTH_ADMINPASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAML_AUTH_ADMINPASSWORD::"
+                },
+                {
+                    "name": "SAML_CRT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.crt-qvsDvx"
+                },
+                {
+                    "name": "SAML_PEM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.pem-FNH7Dd"
+                },
+                {
+                    "name": "SAML_SECRETSALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAML_SECRETSALT::"
+                },
+                {
+                    "name": "SATOSA_SERVER_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SATOSA_SERVER_URL::"
+                },
+                {
+                    "name": "SECURE_AUTH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SECURE_AUTH_KEY::"
+                },
+                {
+                    "name": "SECURE_AUTH_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SECURE_AUTH_SALT::"
+                },
+                {
+                    "name": "SIMPLESAMLPHP_CONFIG_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_CONFIG_DIR::"
+                },
+                {
+                    "name": "SIMPLESAMLPHP_METADATA_FILE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_METADATA_FILE::"
+                },
+                {
+                    "name": "UP_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ENROLLMENT_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ENROLLMENT_URL::"
+                },
+                {
+                    "name": "UP_ORCID_USER_ACCOUNT_LINK_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ORCID_USER_ACCOUNT_LINK_URL::"
+                },
+                {
+                    "name": "UP_ROOT_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_ROOT_BLOG_ID::"
+                },
+                {
+                    "name": "UP_SITE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_SITE_URL::"
+                },
+                {
+                    "name": "WPCOM_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WPCOM_API_KEY::"
+                },
+                {
+                    "name": "WP_CACHE_KEY_SALT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_CACHE_KEY_SALT::"
+                },
+                {
+                    "name": "WP_DOMAIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_DOMAIN::"
+                },
+                {
+                    "name": "WP_ENV",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_ENV::"
+                },
+                {
+                    "name": "WP_HOME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_HOME::"
+                },
+                {
+                    "name": "WP_LOGS_DIR",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_LOGS_DIR::"
+                },
+                {
+                    "name": "WP_REDIS_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_REDIS_HOST::"
+                },
+                {
+                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD::"
+                },
+                {
+                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN::"
+                },
+                {
+                    "name": "WP_SITEURL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "nginx",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-nginx:latest",
+            "cpu": 0,
+            "links": [
+                "app"
+            ],
+            "portMappings": [
+                {
+                    "name": "nginx-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
+                    "readOnly": false
+                }
+            ],
+            "volumesFrom": [
+                {
+                    "sourceContainer": "app",
+                    "readOnly": true
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "CORE_FEDORA_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_HOST::"
+                },
+                {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DOMAIN_NAME::"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",
+    "networkMode": "bridge",
+    "volumes": [
+        {
+            "name": "media",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-08928dc9301c040f1",
+                "rootDirectory": "/"
+            }
+        },
+        {
+            "name": "commons-app",
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "driver": "local"
+            }
+        }
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "ARM64",
+        "operatingSystemFamily": "LINUX"
+    }
+}

@@ -69,6 +69,9 @@ WORKDIR /app
 # Redis drop-in
 RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
 
+ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"]
+CMD ["php-fpm"]
+
 FROM cloud AS cron
 
 USER root
