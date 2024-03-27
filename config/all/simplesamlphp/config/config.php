@@ -1183,7 +1183,7 @@ $config = [
      * ],
      */
     'metadata.sources' => [
-        ['type' => 'xml', 'file' => '/app/config/all/simplesamlphp/metadata/dev-metadata.xml']
+        ['type' => 'xml', 'file' => getenv('SIMPLESAMLPHP_METADATA_FILE')]
     ],
 
     /*

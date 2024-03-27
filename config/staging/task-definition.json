@@ -501,6 +501,18 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
+                },
+				{
+                    "name": "SIMPLESAMLPHP_METADATA_FILE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SIMPLESAMLPHP_METADATA_FILE::"
+                },
+				{
+                    "name": "SAML_CRT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.crt-qvsDvx"
+                },
+				{
+                    "name": "SAML_PEM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.pem-FNH7Dd"
                 }
             ],
             "logConfiguration": {
@@ -510,8 +522,7 @@
                     "awslogs-group": "/ecs/commons-wordpress-staging",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         },
@@ -568,8 +579,7 @@
                     "awslogs-group": "/ecs/commons-wordpress-staging",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         },
@@ -1082,8 +1092,7 @@
                     "awslogs-group": "/ecs/commons-wordpress-staging",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         }

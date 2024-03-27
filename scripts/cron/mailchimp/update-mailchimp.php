@@ -13,13 +13,10 @@
 
 require_once( __DIR__ . '/vendor/autoload.php');
 
-const LOGFILE = '/srv/www/commons/logs/update-mailchimp.log';
-
-const API_KEY = '';
-const DC = 'us9';
-const LIST_ID = 'ab124b16b0'; //commons-active
-
-const HC_ROOT_BLOG_ID = 1000360;
+define( 'API_KEY', getenv('MAILCHIMP_API_KEY') );
+define( 'DC', getenv('MAILCHIMP_DC') );
+define( 'LIST_ID', getenv('MAILCHIMP_LIST_ID') );
+define( 'HC_ROOT_BLOG_ID', getenv('HC_ROOT_BLOG_ID') );
 
 // Facilitate debugging MailChimp API responses.
 ini_set( 'log_errors_max_len', 0 );
@@ -52,6 +49,11 @@ function main( $args ) {
 
 	if ( ! $dry_run ) {
 		$updated_users = update_mailchimp( $recent_users );
+	} else {
+		$updated_users = [
+			'added' => [],
+			'removed' => [],
+		];
 	}
 	
 	if ( $args['csv'] ) {
@@ -180,9 +182,6 @@ function get_recent_users( $weeks ) {
 	$unique_users = [];
 	foreach ( $users as $user ) {
 		if ( array_key_exists( $user->ID, $unique_users ) ) {
-			if ( $user->last_login > $unique_users[ $user->ID ]->last_login ) {
-				$unique_users[ $user->ID ]->last_login = $user->last_login;
-			}
 			if ( $user->last_activity > $unique_users[ $user->ID ]->last_activity ) {
 				$unique_users[ $user->ID ]->last_activity = $user->last_activity;
 			}
@@ -211,8 +210,7 @@ function get_recent_users( $weeks ) {
 			in_array( 'hastac', $user->member_type ) &&
 			in_array( 'hc', $user->member_type ) &&
 			count( $user->member_type ) === 2 &&
-			strtotime( $user->last_activity ) < $hastac_cutoff_time &&
-			strtotime( $user->last_login ) < $hastac_cutoff_time
+			strtotime( $user->last_activity ) < $hastac_cutoff_time
 		) {
 			continue;
 		}
@@ -452,7 +450,7 @@ function get_first_and_last_name( $display_name ) {
  * Write entry to logfile.
  */
 function log_entry( $message ) {
-	error_log( date( 'Y-m-d H:i:s' ) . " $message\n", 3, LOGFILE );
+	error_log( $message );
 }
 
 main( $args );
