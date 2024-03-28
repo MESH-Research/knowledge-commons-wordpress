@@ -480,6 +480,81 @@ ExQsBSmhbW034CtlKspIbinSjq9TJf34TkNJLFBLQ0viJgPsMzmlWmn+879Nc7qC
         </ContactPerson>
     </EntityDescriptor>
 
+    <!-- Humanities Commons Wordpress New -->
+    <EntityDescriptor entityID="https://hcommons.org/sp">
+
+        <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+            <Extensions>
+                <idpdisc:DiscoveryResponse
+                    index="1"
+                    Binding="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol"
+                    Location="https://hcommons.org/Shibboleth.sso/Login" />
+                <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+                    <mdui:DisplayName xml:lang="en">Humanities Commons WordPress</mdui:DisplayName>
+                    <mdui:Description xml:lang="en">Humanities Commons WordPress</mdui:Description>
+                </mdui:UIInfo>
+            </Extensions>
+
+            <KeyDescriptor>
+                <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>
+MIIDDDCCAfSgAwIBAgIJAL94GnYylGCmMA0GCSqGSIb3DQEBBQUAMBcxFTATBgNV
+BAMTDGhjb21tb25zLm9yZzAeFw0xNjExMTYxNTM5MzVaFw0yNjExMTQxNTM5MzVa
+MBcxFTATBgNVBAMTDGhjb21tb25zLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEP
+ADCCAQoCggEBAKxGgJ6X2bIbUk3suyfSUWlSgjipRw7Yb9U+th/wp6nGy2ct6+1i
+YlSbVkTS5Cqhdpfjf8rZY6rbjoPGzHiInejDpba0YcJP8zB5xSBdqMsqM/jMQisF
+SwlzBIWx7GiTSm7cupJluvdCi8MNcxbiokGu4pO+PzI2ZL/NeRHqPdfWBHzYynVU
+T49wFfx/pKfmftnOYZyKIKqhjPlDicHLdKmgnx+SsRqzYTGtN6fkRdT9A7aCiwyu
+ikrNyoRKumzCTtVyy59FJhsjMi2FNC28M08v+YReL9Fg/lt8FAst8Qym1hQGPtFS
+sSV4nAAS6VAzo4v9ca680rKEOrL6gi0noosCAwEAAaNbMFkwOAYDVR0RBDEwL4IM
+aGNvbW1vbnMub3Jnhh9odHRwczovL2hjb21tb25zLm9yZy9zaGliYm9sZXRoMB0G
+A1UdDgQWBBSu6zaQg+VL7KKXIvwJw1vZJTl/3jANBgkqhkiG9w0BAQUFAAOCAQEA
+j18bH//6Nw51+x9y1jxs8rMcHD3+CoodJtj+aK7U+2uB/f3tHmpJdXDhbXWq5p5q
+gY4mi38Q7QeK2C3C2mkV8QlxnqHVYDI3Yo1jouQN08xbAqcFkyJMru1+DrZkJRQP
+tl8ugK+xJ62DxJz3XUM/BT07LL4oJHdpgAxxyr1vdJANjNo7uqqi39iS5LJiHl8z
+BPTBprDK4rkK6rsA5P17N8jAa6Ep383Z75LLDPyB0HNnKDhx26+ct7kGjTvG+U3d
+ExQsBSmhbW034CtlKspIbinSjq9TJf34TkNJLFBLQ0viJgPsMzmlWmn+879Nc7qC
+6psDE+VPD2Y0mg5/pUUGPw==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+                </ds:KeyInfo>
+            </KeyDescriptor>
+
+            <AssertionConsumerService
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                Location="https://hcommons.org/Shibboleth.sso/SAML2/POST" index="1"/>
+            <AssertionConsumerService
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                Location="https://style.mla.org/Shibboleth.sso/SAML2/POST" index="2"/>
+            <AssertionConsumerService
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                Location="https://action.mla.org/Shibboleth.sso/SAML2/POST" index="3"/>
+            <AssertionConsumerService
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                Location="https://symposium.mla.org/Shibboleth.sso/SAML2/POST" index="4"/>
+            <AssertionConsumerService
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                Location="https://commons.msu.edu/Shibboleth.sso/SAML2/POST" index="5"/>
+            <AssertionConsumerService
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                Location="https://graphicnarratives.org/Shibboleth.sso/SAML2/POST" index="6"/>
+
+        </SPSSODescriptor>
+
+        <Organization>
+            <OrganizationName xml:lang="en">Humanities Commons</OrganizationName>
+            <OrganizationDisplayName xml:lang="en">Humanities Commons</OrganizationDisplayName>
+            <OrganizationURL xml:lang="en">https://hcommons.org</OrganizationURL>
+        </Organization>
+
+        <ContactPerson contactType="technical">
+            <GivenName>HC</GivenName>
+            <SurName>Admin</SurName>
+            <EmailAddress>admin@hcommons.org</EmailAddress>
+        </ContactPerson>
+    </EntityDescriptor>
+
     <!-- Humanities Commons attribute authority -->
     <EntityDescriptor entityID="https://registry.hcommons.org/aa/shibboleth">
 
