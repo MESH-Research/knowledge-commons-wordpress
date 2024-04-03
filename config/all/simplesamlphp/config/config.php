@@ -570,7 +570,7 @@ $config = [
      * Example:
      *  'session.cookie.domain' => '.example.org',
      */
-    'session.cookie.domain' => '.hcommons-staging.org',
+    'session.cookie.domain' => '.' . getenv( 'DOMAIN_NAME'),
 
     /*
      * Set the secure flag in the cookie.

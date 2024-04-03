@@ -523,7 +523,9 @@ ExQsBSmhbW034CtlKspIbinSjq9TJf34TkNJLFBLQ0viJgPsMzmlWmn+879Nc7qC
 
             <AssertionConsumerService
                 Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-                Location="https://hcommons.org/Shibboleth.sso/SAML2/POST" index="1"/>
+                Location="https://hcommons.org/simplesaml/module.php/saml/sp/saml2-acs.php/default-sp"
+                index="1"
+            />
             <AssertionConsumerService
                 Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
                 Location="https://style.mla.org/Shibboleth.sso/SAML2/POST" index="2"/>
