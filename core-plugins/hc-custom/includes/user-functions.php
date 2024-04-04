@@ -94,3 +94,15 @@ function hc_filter_untrash_status( $new_status, $post_id, $previous_status ) {
 	return $previous_status;
 }
 add_filter( 'wp_untrash_post_status', 'hc_filter_untrash_status', 10, 3 );
+
+/**
+ * Force allow registration.
+ * 
+ * 2024-04-04: It is unclear to me why this is necessary, but the Register button
+ * is failing to appear on the site without this filter using the containerized
+ * WordPress.
+ */
+function hc_filter_allow_registration( $allow ) {
+	return true;
+}
+add_filter( 'bp_get_signup_allowed', 'hc_filter_allow_registration', 10, 1 );
