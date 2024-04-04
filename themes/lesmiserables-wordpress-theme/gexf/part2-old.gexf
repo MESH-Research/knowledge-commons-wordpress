@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
+  <meta lastmodifieddate="2015-12-08">
+    <creator>Gephi 0.8.1</creator>
+    <description></description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static">
+    <attributes class="node" mode="static">
+      <attribute id="name" title="name" type="string"></attribute>
+      <attribute id="description" title="description" type="string"></attribute>
+      <attribute id="graphColor" title="graphColor" type="string"></attribute>
+      <attribute id="eigencentrality" title="Eigenvector Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="group" title="group" type="string"></attribute>
+    </attributes>
+    <nodes>
+      <node id="0.0" label="Colonel Pontmercy">
+        <attvalues>
+          <attvalue for="name" value="GP"></attvalue>
+          <attvalue for="description" value="Colonel George Pontmercy, Marius's father"></attvalue>
+          <attvalue for="graphColor" value="#377eb8"></attvalue>
+          <attvalue for="eigencentrality" value="0.09002792388609362"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.0"></viz:size>
+        <viz:position x="35.083572" y="39.70277" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="1.0" label="Boulatruelle">
+        <attvalues>
+          <attvalue for="name" value="BZ"></attvalue>
+          <attvalue for="description" value="Boulatruelle, former convict and road mender in Montfermeil"></attvalue>
+          <attvalue for="graphColor" value="#377eb8"></attvalue>
+          <attvalue for="eigencentrality" value="0.27509984553830485"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.3846154"></viz:size>
+        <viz:position x="-2.6860716" y="63.33767" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="2.0" label="Boatswain">
+        <attvalues>
+          <attvalue for="name" value="BS"></attvalue>
+          <attvalue for="description" value="Boatswain on the Orion saved by Valjean"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="0.1850719216522113"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.0"></viz:size>
+        <viz:position x="-161.95297" y="-13.89759" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="3.0" label="Cosette">
+        <attvalues>
+          <attvalue for="name" value="CO"></attvalue>
+          <attvalue for="description" value="Cosette, daughter of Fantine"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="0.8108807925733044"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="6.0769234"></viz:size>
+        <viz:position x="-76.79319" y="-48.845615" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="4.0" label="Azelma">
+        <attvalues>
+          <attvalue for="name" value="AZ"></attvalue>
+          <attvalue for="description" value="Azelma, daughter of the Thénardiers"></attvalue>
+          <attvalue for="graphColor" value="#984ea3"></attvalue>
+          <attvalue for="eigencentrality" value="0.4130077513615121"></attvalue>
+          <attvalue for="group" value="5.0"></attvalue>
+        </attvalues>
+        <viz:size value="4.1538463"></viz:size>
+        <viz:position x="9.534856" y="-80.28673" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="5.0" label="Eponine">
+        <attvalues>
+          <attvalue for="name" value="EP"></attvalue>
+          <attvalue for="description" value="Eponine, daughter of the Thénardiers"></attvalue>
+          <attvalue for="graphColor" value="#984ea3"></attvalue>
+          <attvalue for="eigencentrality" value="0.4130077513615121"></attvalue>
+          <attvalue for="group" value="5.0"></attvalue>
+        </attvalues>
+        <viz:size value="4.1538463"></viz:size>
+        <viz:position x="-31.969234" y="-74.92243" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="6.0" label="Thénardier">
+        <attvalues>
+          <attvalue for="name" value="TH"></attvalue>
+          <attvalue for="description" value="Thénardier, innkeeper in Montfermeil, aka Jondrette"></attvalue>
+          <attvalue for="graphColor" value="#377eb8"></attvalue>
+          <attvalue for="eigencentrality" value="0.48620122315938463"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+        </attvalues>
+        <viz:size value="4.5384617"></viz:size>
+        <viz:position x="-12.564868" y="19.423412" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="7.0" label="Peddler">
+        <attvalues>
+          <attvalue for="name" value="PZ"></attvalue>
+          <attvalue for="description" value="Peddler in Thénardier's inn"></attvalue>
+          <attvalue for="graphColor" value="#377eb8"></attvalue>
+          <attvalue for="eigencentrality" value="0.2811722786925988"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.3846154"></viz:size>
+        <viz:position x="-88.57476" y="-94.13236" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="8.0" label="Jean Valjean">
+        <attvalues>
+          <attvalue for="name" value="JV"></attvalue>
+          <attvalue for="description" value="Jean Valjean"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="1.0"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="8.0"></viz:size>
+        <viz:position x="-83.67773" y="-3.2573893" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="9.0" label="Duc d'Havré">
+        <attvalues>
+          <attvalue for="name" value="DH"></attvalue>
+          <attvalue for="description" value="Duc d'Havré, accompanies Louis-Philippe"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="0.22858220483375624"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.3846154"></viz:size>
+        <viz:position x="-140.17763" y="-70.8408" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="10.0" label="Montfermeuil coachman">
+        <attvalues>
+          <attvalue for="name" value="CF"></attvalue>
+          <attvalue for="description" value="Montfermeuil coachman"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="0.1850719216522113"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.0"></viz:size>
+        <viz:position x="-156.51535" y="10.118589" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="11.0" label="Javert">
+        <attvalues>
+          <attvalue for="name" value="JA"></attvalue>
+          <attvalue for="description" value="Javert, police officer"></attvalue>
+          <attvalue for="graphColor" value="#e41a1c"></attvalue>
+          <attvalue for="eigencentrality" value="0.5394688591890301"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+        </attvalues>
+        <viz:size value="4.5384617"></viz:size>
+        <viz:position x="-94.70044" y="61.39118" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="12.0" label="Fauchelevent">
+        <attvalues>
+          <attvalue for="name" value="FF"></attvalue>
+          <attvalue for="description" value="Fauchelevent, failed notary turned carter in M-sur-M"></attvalue>
+          <attvalue for="graphColor" value="#ff7f00"></attvalue>
+          <attvalue for="eigencentrality" value="0.425670235277338"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+        </attvalues>
+        <viz:size value="4.1538463"></viz:size>
+        <viz:position x="47.591454" y="-11.587697" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="13.0" label="Gavroche">
+        <attvalues>
+          <attvalue for="name" value="GA"></attvalue>
+          <attvalue for="description" value="Gavroche, son of the Thénardiers"></attvalue>
+          <attvalue for="graphColor" value="#984ea3"></attvalue>
+          <attvalue for="eigencentrality" value="0.30044702525406963"></attvalue>
+          <attvalue for="group" value="5.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.7692308"></viz:size>
+        <viz:position x="-49.65001" y="-105.59301" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="14.0" label="Mme Thénardier">
+        <attvalues>
+          <attvalue for="name" value="TM"></attvalue>
+          <attvalue for="description" value="Madame Thénardier, wife of Thénardier"></attvalue>
+          <attvalue for="graphColor" value="#377eb8"></attvalue>
+          <attvalue for="eigencentrality" value="0.7259834536958494"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+        </attvalues>
+        <viz:size value="5.3076925"></viz:size>
+        <viz:position x="-4.5284586" y="-15.427209" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="15.0" label="Louis-Philippe">
+        <attvalues>
+          <attvalue for="name" value="LP"></attvalue>
+          <attvalue for="description" value="Louis-Philippe d'Orléans, King of France"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="0.22858220483375624"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.3846154"></viz:size>
+        <viz:position x="-159.29674" y="-39.141632" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="16.0" label="Landlady, Gorbeau">
+        <attvalues>
+          <attvalue for="name" value="LL"></attvalue>
+          <attvalue for="description" value="Landlady at Gorbeau House (during JVJ's stay)"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="0.43242116787560175"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.7692308"></viz:size>
+        <viz:position x="-47.46263" y="61.32312" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="17.0" label="Toll keeper">
+        <attvalues>
+          <attvalue for="name" value="KA"></attvalue>
+          <attvalue for="description" value="Toll keeper at Austerlitz bridge"></attvalue>
+          <attvalue for="graphColor" value="#4daf4a"></attvalue>
+          <attvalue for="eigencentrality" value="0.1850719216522113"></attvalue>
+          <attvalue for="group" value="4.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.0"></viz:size>
+        <viz:position x="-146.7761" y="32.497437" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="18.0" label="Soldiers">
+        <attvalues>
+          <attvalue for="name" value="SO"></attvalue>
+          <attvalue for="description" value="Soldiers pursuing Valjean, led by Javert"></attvalue>
+          <attvalue for="graphColor" value="#e41a1c"></attvalue>
+          <attvalue for="eigencentrality" value="0.283906295182078"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.3846154"></viz:size>
+        <viz:position x="-126.6499" y="45.55805" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="19.0" label="Mother Innocent">
+        <attvalues>
+          <attvalue for="name" value="MI"></attvalue>
+          <attvalue for="description" value="Mother Innocent, prioress of Convent of Petit Picpus"></attvalue>
+          <attvalue for="graphColor" value="#ff7f00"></attvalue>
+          <attvalue for="eigencentrality" value="0.41252921436212875"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.7692308"></viz:size>
+        <viz:position x="40.81299" y="-55.177494" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="20.0" label="Gribier">
+        <attvalues>
+          <attvalue for="name" value="GR"></attvalue>
+          <attvalue for="description" value="Gribier, new gravedigger at Vaugirard cemetery"></attvalue>
+          <attvalue for="graphColor" value="#ff7f00"></attvalue>
+          <attvalue for="eigencentrality" value="0.07894242001639336"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+        </attvalues>
+        <viz:size value="3.0"></viz:size>
+        <viz:position x="60.090908" y="11.478998" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="4.0" target="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="5.0" target="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="5.0" target="4.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6.0" target="1.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="7.0" target="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8.0" target="1.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8.0" target="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8.0" target="3.0" weight="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8.0" target="6.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="9.0" target="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="10.0" target="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="11.0" target="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="11.0" target="8.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="12.0" target="3.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="12.0" target="8.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="13.0" target="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="13.0" target="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="13.0" target="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="14.0" target="3.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="14.0" target="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="14.0" target="5.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="14.0" target="6.0" weight="9.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="14.0" target="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="14.0" target="8.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="14.0" target="11.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15.0" target="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15.0" target="9.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="8.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="11.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17.0" target="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="18.0" target="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="18.0" target="11.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="19.0" target="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="19.0" target="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="19.0" target="12.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20.0" target="12.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

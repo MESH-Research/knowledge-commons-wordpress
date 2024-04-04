@@ -1,0 +1,1 @@
+setParams({graphFile:"miserables.gexf",showEdges:!0,useLens:!1,zoomLevel:0,curvedEdges:!0,edgeWidthFactor:1,minEdgeWidth:1,maxEdgeWidth:50,textDisplayThreshold:9,nodeSizeFactor:1,replaceUrls:!0,showEdgeWeight:!0,showEdgeLabel:!0,language:!1});

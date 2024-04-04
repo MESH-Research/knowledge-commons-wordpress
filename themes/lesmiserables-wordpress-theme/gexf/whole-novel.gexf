@@ -1,0 +1,3840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
+  <meta lastmodifieddate="2015-12-07">
+    <creator>Gephi 0.8.1</creator>
+    <description></description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static">
+    <attributes class="node" mode="static">
+      <attribute id="name" title="name" type="string"></attribute>
+      <attribute id="description" title="description" type="string"></attribute>
+      <attribute id="group" title="group" type="string"></attribute>
+      <attribute id="eigencentrality" title="Eigenvector Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="graphName" title="graphName" type="string"></attribute>
+      <attribute id="color" title="color" type="string"></attribute>
+    </attributes>
+    <nodes>
+      <node id="0.0" label="Bishop Myriel">
+        <attvalues>
+          <attvalue for="name" value="MY"></attvalue>
+          <attvalue for="description" value="M. Myriel, Bishop of Digne"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1043159184997587"></attvalue>
+          <attvalue for="graphName" value="MY"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="6.5697675"></viz:size>
+        <viz:position x="-231.54321" y="363.93307" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="1.0" label="Mlle Baptistine">
+        <attvalues>
+          <attvalue for="name" value="MB"></attvalue>
+          <attvalue for="description" value="Mlle Baptistine, sister of Myriel"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.08335127348386721"></attvalue>
+          <attvalue for="graphName" value="MB"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="-128.7323" y="254.60498" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="2.0" label="Mme Magloire">
+        <attvalues>
+          <attvalue for="name" value="ME"></attvalue>
+          <attvalue for="description" value="Mme Magloire, housekeeper to Myriel"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.08236027004954649"></attvalue>
+          <attvalue for="graphName" value="ME"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-81.79611" y="347.51147" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="3.0" label="Hospital director">
+        <attvalues>
+          <attvalue for="name" value="HD"></attvalue>
+          <attvalue for="description" value="Hospital director in Digne"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="HD"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-329.48224" y="369.80762" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="4.0" label="Mayor of Senez">
+        <attvalues>
+          <attvalue for="name" value="MS"></attvalue>
+          <attvalue for="description" value="Mayor of Senez"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="MS"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-250.28127" y="471.09564" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="5.0" label="Countess de Lô">
+        <attvalues>
+          <attvalue for="name" value="CL"></attvalue>
+          <attvalue for="description" value="Countess de Lô, distant relative of Myriel"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="CL"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-323.5747" y="404.89777" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="6.0" label="Géborand">
+        <attvalues>
+          <attvalue for="name" value="GE"></attvalue>
+          <attvalue for="description" value="Géborand, retired merchant of Digne"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="GE"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-168.20787" y="475.58438" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="7.0" label="Champtercier">
+        <attvalues>
+          <attvalue for="name" value="MC"></attvalue>
+          <attvalue for="description" value="Marquis de Champtercier, ultra-royalist in Digne"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="MC"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-330.457" y="324.76877" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="8.0" label="Condemned to death">
+        <attvalues>
+          <attvalue for="name" value="CD"></attvalue>
+          <attvalue for="description" value="Man condemned to death"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="CD"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-324.0723" y="301.37125" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="9.0" label="Curé, Digne">
+        <attvalues>
+          <attvalue for="name" value="CA"></attvalue>
+          <attvalue for="description" value="Curé in Digne"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="CA"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-194.70604" y="478.1679" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="10.0" label="Chastelar mayor">
+        <attvalues>
+          <attvalue for="name" value="MH"></attvalue>
+          <attvalue for="description" value="Mayor of Chastelar"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="MH"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-222.53613" y="478.99564" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="11.0" label="Mountain curé">
+        <attvalues>
+          <attvalue for="name" value="CB"></attvalue>
+          <attvalue for="description" value="Curé in the mountains near Digne"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="CB"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-331.90054" y="346.7953" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="12.0" label="Cravatte">
+        <attvalues>
+          <attvalue for="name" value="CV"></attvalue>
+          <attvalue for="description" value="Cravatte, mountain bandit"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="CV"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-271.7955" y="460.7118" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="13.0" label="Conventionist">
+        <attvalues>
+          <attvalue for="name" value="GG"></attvalue>
+          <attvalue for="description" value="G--, a Convenionist"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009915973465201514"></attvalue>
+          <attvalue for="graphName" value="GG"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-312.97977" y="425.8921" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="14.0" label="Gendarme, Digne">
+        <attvalues>
+          <attvalue for="name" value="GD"></attvalue>
+          <attvalue for="description" value="Gendarme in Digne"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="GD"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-69.282715" y="558.88477" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="15.0" label="Labarre">
+        <attvalues>
+          <attvalue for="name" value="JL"></attvalue>
+          <attvalue for="description" value="Labarre, innkeeper in Digne"></attvalue>
+          <attvalue for="group" value="3.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07389165383783614"></attvalue>
+          <attvalue for="graphName" value="JL"></attvalue>
+          <attvalue for="color" value="#444444"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="363.76102" y="515.699" z="0.0"></viz:position>
+        <viz:color r="68" g="68" b="68"></viz:color>
+      </node>
+      <node id="16.0" label="Jean Valjean">
+        <attvalues>
+          <attvalue for="name" value="JV"></attvalue>
+          <attvalue for="description" value="Jean Valjean"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="1.0"></attvalue>
+          <attvalue for="graphName" value="JV"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="20.0"></viz:size>
+        <viz:position x="54.83547" y="31.157118" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="17.0" label="Fisherman, Digne">
+        <attvalues>
+          <attvalue for="name" value="FM"></attvalue>
+          <attvalue for="description" value="Fisherman in Digne"></attvalue>
+          <attvalue for="group" value="3.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07790237391311963"></attvalue>
+          <attvalue for="graphName" value="FM"></attvalue>
+          <attvalue for="color" value="#444444"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="416.14694" y="494.60315" z="0.0"></viz:position>
+        <viz:color r="68" g="68" b="68"></viz:color>
+      </node>
+      <node id="18.0" label="Jailer, Digne">
+        <attvalues>
+          <attvalue for="name" value="JD"></attvalue>
+          <attvalue for="description" value="Jailer in the prison of Digne"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="JD"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="37.139637" y="571.08875" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="19.0" label="Digne peasant">
+        <attvalues>
+          <attvalue for="name" value="PD"></attvalue>
+          <attvalue for="description" value="Peasant in Digne, whom Valjean asks for food"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06811165628417135"></attvalue>
+          <attvalue for="graphName" value="PD"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-42.755737" y="563.631" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="20.0" label="Valjean's sister">
+        <attvalues>
+          <attvalue for="name" value="JM"></attvalue>
+          <attvalue for="description" value="Jeanne, sister of Valjean"></attvalue>
+          <attvalue for="group" value="5.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06828659092868461"></attvalue>
+          <attvalue for="graphName" value="JM"></attvalue>
+          <attvalue for="color" value="#fb8072"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-114.839745" y="552.2116" z="0.0"></viz:position>
+        <viz:color r="251" g="128" b="114"></viz:color>
+      </node>
+      <node id="21.0" label="Isabeau">
+        <attvalues>
+          <attvalue for="name" value="IS"></attvalue>
+          <attvalue for="description" value="Isabeau, baker in Faverolles"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="IS"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="11.240809" y="568.34076" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="22.0" label="Sister's son">
+        <attvalues>
+          <attvalue for="name" value="JN"></attvalue>
+          <attvalue for="description" value="Youngest son of Valjean's sister"></attvalue>
+          <attvalue for="group" value="5.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.005966572594080453"></attvalue>
+          <attvalue for="graphName" value="JN"></attvalue>
+          <attvalue for="color" value="#fb8072"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-128.43622" y="584.69946" z="0.0"></viz:position>
+        <viz:color r="251" g="128" b="114"></viz:color>
+      </node>
+      <node id="23.0" label="Foreman, Grasse">
+        <attvalues>
+          <attvalue for="name" value="DO"></attvalue>
+          <attvalue for="description" value="Distillery foreman in Grasse"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="DO"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="592.67786" y="29.343391" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="24.0" label="Tholomyès">
+        <attvalues>
+          <attvalue for="name" value="FT"></attvalue>
+          <attvalue for="description" value="Tholomyès, Parisian student, lover of Fantine"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05052931889064277"></attvalue>
+          <attvalue for="graphName" value="FT"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="400.16953" y="-161.96472" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="25.0" label="Fameuil">
+        <attvalues>
+          <attvalue for="name" value="FA"></attvalue>
+          <attvalue for="description" value="Fameuil, Parisian student, lover of  Zéphine"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05052931889064277"></attvalue>
+          <attvalue for="graphName" value="FA"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="458.0098" y="-210.47826" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="26.0" label="Blachevelle">
+        <attvalues>
+          <attvalue for="name" value="BL"></attvalue>
+          <attvalue for="description" value="Blachevelle, Parisian student, lover of Favourite"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05052931889064277"></attvalue>
+          <attvalue for="graphName" value="BL"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="423.4125" y="-234.58423" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="27.0" label="Dahlia">
+        <attvalues>
+          <attvalue for="name" value="DA"></attvalue>
+          <attvalue for="description" value="Dahlia, mistress of Listolier"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05370354388388517"></attvalue>
+          <attvalue for="graphName" value="DA"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.8430233"></viz:size>
+        <viz:position x="381.2859" y="-222.84073" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="28.0" label="Fantine">
+        <attvalues>
+          <attvalue for="name" value="FN"></attvalue>
+          <attvalue for="description" value="Fantine, mistress of Tholomyès"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.2875598303434291"></attvalue>
+          <attvalue for="graphName" value="FN"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="8.104651"></viz:size>
+        <viz:position x="222.22676" y="-173.35988" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="29.0" label="Favourite">
+        <attvalues>
+          <attvalue for="name" value="FV"></attvalue>
+          <attvalue for="description" value="Favourite, mistress of Blachevelle"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.053703543883885166"></attvalue>
+          <attvalue for="graphName" value="FV"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.8430233"></viz:size>
+        <viz:position x="441.05002" y="-169.82399" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="30.0" label="Listolier">
+        <attvalues>
+          <attvalue for="name" value="LI"></attvalue>
+          <attvalue for="description" value="Listolier, Parisian student, lover of Dahlia"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05052931889064277"></attvalue>
+          <attvalue for="graphName" value="LI"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="423.42352" y="-198.27357" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="31.0" label="Waiter">
+        <attvalues>
+          <attvalue for="name" value="WB"></attvalue>
+          <attvalue for="description" value="Waiter at Bombarda"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.03604199886863184"></attvalue>
+          <attvalue for="graphName" value="WB"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="351.32056" y="-205.13168" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="32.0" label="Azelma">
+        <attvalues>
+          <attvalue for="name" value="AZ"></attvalue>
+          <attvalue for="description" value="Azelma, daughter of the Thénardiers"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.26612226844456766"></attvalue>
+          <attvalue for="graphName" value="AZ"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="41.992397" y="-237.80092" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="33.0" label="Eponine">
+        <attvalues>
+          <attvalue for="name" value="EP"></attvalue>
+          <attvalue for="description" value="Eponine, daughter of the Thénardiers"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.4618851654511405"></attvalue>
+          <attvalue for="graphName" value="EP"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="6.377907"></viz:size>
+        <viz:position x="46.638817" y="-280.0194" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="34.0" label="Cosette">
+        <attvalues>
+          <attvalue for="name" value="CO"></attvalue>
+          <attvalue for="description" value="Cosette, daughter of Fantine"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.5612473128934471"></attvalue>
+          <attvalue for="graphName" value="CO"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="8.104651"></viz:size>
+        <viz:position x="-140.63983" y="13.667434" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="35.0" label="Thénardier">
+        <attvalues>
+          <attvalue for="name" value="TH"></attvalue>
+          <attvalue for="description" value="Thénardier, innkeeper in Montfermeil, aka Jondrette"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.4887301222155166"></attvalue>
+          <attvalue for="graphName" value="TH"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="6.9534883"></viz:size>
+        <viz:position x="115.545364" y="-225.74187" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="36.0" label="Dowager M-s-M">
+        <attvalues>
+          <attvalue for="name" value="DM"></attvalue>
+          <attvalue for="description" value="Dowager in M-sur-M"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="DM"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="455.59747" y="465.13513" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="37.0" label="Fauchelevent">
+        <attvalues>
+          <attvalue for="name" value="FF"></attvalue>
+          <attvalue for="description" value="Fauchelevent, failed notary turned carter in M-sur-M"></attvalue>
+          <attvalue for="group" value="9.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1506668526036178"></attvalue>
+          <attvalue for="graphName" value="FF"></attvalue>
+          <attvalue for="color" value="#ffff33"></attvalue>
+        </attvalues>
+        <viz:size value="4.2674417"></viz:size>
+        <viz:position x="-58.21788" y="247.5228" z="0.0"></viz:position>
+        <viz:color r="255" g="255" b="51"></viz:color>
+      </node>
+      <node id="38.0" label="Javert">
+        <attvalues>
+          <attvalue for="name" value="JA"></attvalue>
+          <attvalue for="description" value="Javert, police officer"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.6246209217027334"></attvalue>
+          <attvalue for="graphName" value="JA"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="8.872093"></viz:size>
+        <viz:position x="77.52664" y="-212.86441" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="39.0" label="Mme Thénardier">
+        <attvalues>
+          <attvalue for="name" value="TM"></attvalue>
+          <attvalue for="description" value="Madame Thénardier, wife of Thénardier"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.3884736268255517"></attvalue>
+          <attvalue for="graphName" value="TM"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="6.377907"></viz:size>
+        <viz:position x="149.17761" y="-245.87819" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="40.0" label="Furniture seller">
+        <attvalues>
+          <attvalue for="name" value="FD"></attvalue>
+          <attvalue for="description" value="Secondhand dealer who sold furniture to Fantine"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02060079192135303"></attvalue>
+          <attvalue for="graphName" value="FD"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="511.3069" y="-251.57774" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="41.0" label="Landlord">
+        <attvalues>
+          <attvalue for="name" value="FL"></attvalue>
+          <attvalue for="description" value="Fantine's landlord"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02060079192135303"></attvalue>
+          <attvalue for="graphName" value="FL"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="366.05402" y="-361.74677" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="42.0" label="Barber">
+        <attvalues>
+          <attvalue for="name" value="FB"></attvalue>
+          <attvalue for="description" value="Barber to whom Fantine sells her hair"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02060079192135303"></attvalue>
+          <attvalue for="graphName" value="FB"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="523.6911" y="-227.61864" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="43.0" label="Bamatabois">
+        <attvalues>
+          <attvalue for="name" value="BM"></attvalue>
+          <attvalue for="description" value="M. Bamatabois, idler of M-sur-M"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.15530086881983263"></attvalue>
+          <attvalue for="graphName" value="BM"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="5.0348835"></viz:size>
+        <viz:position x="536.5417" y="32.54914" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="44.0" label="Doctor M-s-M">
+        <attvalues>
+          <attvalue for="name" value="DS"></attvalue>
+          <attvalue for="description" value="Doctor in M-sur-M hospital"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.09724984847835903"></attvalue>
+          <attvalue for="graphName" value="DS"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="334.49188" y="-362.7008" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="45.0" label="Sister Perpétue">
+        <attvalues>
+          <attvalue for="name" value="SP"></attvalue>
+          <attvalue for="description" value="Sister Perpétue, nun at infirmary in M-sur-M"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009612908829114818"></attvalue>
+          <attvalue for="graphName" value="SP"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="403.46094" y="-419.5816" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="46.0" label="M. Scaufflaire">
+        <attvalues>
+          <attvalue for="name" value="SC"></attvalue>
+          <attvalue for="description" value="M. Scaufflaire, keeper of horses and coaches in M-sur-M"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06811165628417135"></attvalue>
+          <attvalue for="graphName" value="SC"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="478.14374" y="450.42975" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="47.0" label="Cashier">
+        <attvalues>
+          <attvalue for="name" value="CI"></attvalue>
+          <attvalue for="description" value="Cashier at M.Madeleine's manufactory"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.007404826073409683"></attvalue>
+          <attvalue for="graphName" value="CI"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="521.14575" y="471.669" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="48.0" label="Arras coachman">
+        <attvalues>
+          <attvalue for="name" value="CE"></attvalue>
+          <attvalue for="description" value="Coachman of the mail to Arras"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="CE"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="117.32978" y="574.5415" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="49.0" label="Stable boy">
+        <attvalues>
+          <attvalue for="name" value="BH"></attvalue>
+          <attvalue for="description" value="Stable boy in Hesdin"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="BH"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="143.42365" y="570.84875" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="50.0" label="Wheelright">
+        <attvalues>
+          <attvalue for="name" value="BW"></attvalue>
+          <attvalue for="description" value="Master Bourgaillard, wheelright"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="BW"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="168.40593" y="567.29913" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="51.0" label="Innkeeper's wife">
+        <attvalues>
+          <attvalue for="name" value="IK"></attvalue>
+          <attvalue for="description" value="Innkeeper's wife at Saint Pol"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="IK"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="247.32202" y="554.9733" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="52.0" label="Hospital servant">
+        <attvalues>
+          <attvalue for="name" value="SM"></attvalue>
+          <attvalue for="description" value="Servant at the hospital in M-sur-M"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.030213700750467858"></attvalue>
+          <attvalue for="graphName" value="SM"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="427.0814" y="-356.8022" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="53.0" label="Booking clerk">
+        <attvalues>
+          <attvalue for="name" value="BC"></attvalue>
+          <attvalue for="description" value="Booking clerk in Arras's court"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="BC"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="552.5033" y="336.16287" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="54.0" label="Arras lawyer">
+        <attvalues>
+          <attvalue for="name" value="AA"></attvalue>
+          <attvalue for="description" value="Lawyer in Arras's court"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="AA"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="563.4132" y="308.40027" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="55.0" label="Bailiff">
+        <attvalues>
+          <attvalue for="name" value="BI"></attvalue>
+          <attvalue for="description" value="Bailiff in Arras's court"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07723322509627399"></attvalue>
+          <attvalue for="graphName" value="BI"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="572.5973" y="285.68924" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="56.0" label="Champmathieu">
+        <attvalues>
+          <attvalue for="name" value="CH"></attvalue>
+          <attvalue for="description" value="Champmathieu, accused thief mistaken for Valjean"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.13602652009206706"></attvalue>
+          <attvalue for="graphName" value="CH"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="4.8430233"></viz:size>
+        <viz:position x="579.40295" y="159.32988" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="57.0" label="Judge">
+        <attvalues>
+          <attvalue for="name" value="JU"></attvalue>
+          <attvalue for="description" value="Judge at the Arras court"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.14124519890082685"></attvalue>
+          <attvalue for="graphName" value="JU"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="5.0348835"></viz:size>
+        <viz:position x="548.96375" y="178.37779" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="58.0" label="Defense counsel">
+        <attvalues>
+          <attvalue for="name" value="CK"></attvalue>
+          <attvalue for="description" value="Counsel for the defense in Champmathieu's trial"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.11014333958654227"></attvalue>
+          <attvalue for="graphName" value="CK"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="4.2674417"></viz:size>
+        <viz:position x="531.07446" y="137.20866" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="59.0" label="Brevet">
+        <attvalues>
+          <attvalue for="name" value="BR"></attvalue>
+          <attvalue for="description" value="Brevet, convict in the galleys with Valjean"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.12864562161203955"></attvalue>
+          <attvalue for="graphName" value="BR"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="504.03012" y="128.61679" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="60.0" label="Chenildieu">
+        <attvalues>
+          <attvalue for="name" value="CN"></attvalue>
+          <attvalue for="description" value="Chenildieu, convict in the galleys with Valjean"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.12864562161203955"></attvalue>
+          <attvalue for="graphName" value="CN"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="531.5384" y="109.16054" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="61.0" label="Cochepaille">
+        <attvalues>
+          <attvalue for="name" value="CC"></attvalue>
+          <attvalue for="description" value="Cochepaille, convict in the galleys with Valjean"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.12864562161203955"></attvalue>
+          <attvalue for="graphName" value="CC"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="504.09708" y="164.8506" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="62.0" label="Colonel Pontmercy">
+        <attvalues>
+          <attvalue for="name" value="GP"></attvalue>
+          <attvalue for="description" value="Colonel George Pontmercy, Marius's father"></attvalue>
+          <attvalue for="group" value="12.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.10549535764332317"></attvalue>
+          <attvalue for="graphName" value="GP"></attvalue>
+          <attvalue for="color" value="#999999"></attvalue>
+        </attvalues>
+        <viz:size value="4.8430233"></viz:size>
+        <viz:position x="-200.80927" y="-325.33582" z="0.0"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="63.0" label="Boulatruelle">
+        <attvalues>
+          <attvalue for="name" value="BZ"></attvalue>
+          <attvalue for="description" value="Boulatruelle, former convict and road mender in Montfermeil"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.16159571834100736"></attvalue>
+          <attvalue for="graphName" value="BZ"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="4.2674417"></viz:size>
+        <viz:position x="91.033356" y="-329.52325" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="64.0" label="Boatswain">
+        <attvalues>
+          <attvalue for="name" value="BS"></attvalue>
+          <attvalue for="description" value="Boatswain on the Orion saved by Valjean"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="BS"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="588.14545" y="-25.006899" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="65.0" label="Peddler">
+        <attvalues>
+          <attvalue for="name" value="PZ"></attvalue>
+          <attvalue for="description" value="Peddler in Thénardier's inn"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05994452595678974"></attvalue>
+          <attvalue for="graphName" value="PZ"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="169.39723" y="-130.88232" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="66.0" label="Duc d'Havré">
+        <attvalues>
+          <attvalue for="name" value="DH"></attvalue>
+          <attvalue for="description" value="Duc d'Havré, accompanies Louis-Philippe"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07234561010407874"></attvalue>
+          <attvalue for="graphName" value="DH"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="571.45245" y="-110.00758" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="67.0" label="Montfermeuil coachman">
+        <attvalues>
+          <attvalue for="name" value="CF"></attvalue>
+          <attvalue for="description" value="Montfermeuil coachman"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="CF"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="591.19293" y="1.8721247" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="68.0" label="M. Gillenormand">
+        <attvalues>
+          <attvalue for="name" value="GI"></attvalue>
+          <attvalue for="description" value="M. Gillenormand, Marius's grandfather"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.21584463406147741"></attvalue>
+          <attvalue for="graphName" value="GI"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="5.610465"></viz:size>
+        <viz:position x="-119.30804" y="162.52962" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="69.0" label="Mlle Gillenormand">
+        <attvalues>
+          <attvalue for="name" value="MG"></attvalue>
+          <attvalue for="description" value="Mlle Gillenormand, unmarried daughter of Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.20841544715261762"></attvalue>
+          <attvalue for="graphName" value="MG"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="5.226744"></viz:size>
+        <viz:position x="-142.29552" y="202.73907" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="70.0" label="Marius">
+        <attvalues>
+          <attvalue for="name" value="MA"></attvalue>
+          <attvalue for="description" value="Marius"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.6778626551590021"></attvalue>
+          <attvalue for="graphName" value="MA"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="10.023256"></viz:size>
+        <viz:position x="-212.62569" y="-41.03773" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="71.0" label="Baroness de T">
+        <attvalues>
+          <attvalue for="name" value="BT"></attvalue>
+          <attvalue for="description" value="Baroness de T-, friend of M. Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05856210563626128"></attvalue>
+          <attvalue for="graphName" value="BT"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-101.56914" y="169.5622" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="72.0" label="Abbé Mabeuf">
+        <attvalues>
+          <attvalue for="name" value="AM"></attvalue>
+          <attvalue for="description" value="Abbé Mabeuf, curé in Vernon, brother of M. Mabeuf"></attvalue>
+          <attvalue for="group" value="12.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.013765157445504094"></attvalue>
+          <attvalue for="graphName" value="AM"></attvalue>
+          <attvalue for="color" value="#999999"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-179.44348" y="-347.8002" z="0.0"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="73.0" label="Doctor, Vernon">
+        <attvalues>
+          <attvalue for="name" value="DV"></attvalue>
+          <attvalue for="description" value="Doctor in Vernon"></attvalue>
+          <attvalue for="group" value="12.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.013765157445504094"></attvalue>
+          <attvalue for="graphName" value="DV"></attvalue>
+          <attvalue for="color" value="#999999"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-157.60077" y="-331.57382" z="0.0"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="74.0" label="Bossuet">
+        <attvalues>
+          <attvalue for="name" value="BO"></attvalue>
+          <attvalue for="description" value="Bossuet (Lesgle), member, Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.4455268320946664"></attvalue>
+          <attvalue for="graphName" value="BO"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="6.761628"></viz:size>
+        <viz:position x="-349.92838" y="-8.52964" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="75.0" label="Courfeyrac">
+        <attvalues>
+          <attvalue for="name" value="CR"></attvalue>
+          <attvalue for="description" value="Courfeyrac, member, Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.4452485537484633"></attvalue>
+          <attvalue for="graphName" value="CR"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="6.9534883"></viz:size>
+        <viz:position x="-267.3133" y="-15.188023" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="76.0" label="Bahorel">
+        <attvalues>
+          <attvalue for="name" value="BA"></attvalue>
+          <attvalue for="description" value="Bahorel, member, Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.35812160618653077"></attvalue>
+          <attvalue for="graphName" value="BA"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="5.994186"></viz:size>
+        <viz:position x="-283.94788" y="-111.843575" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="77.0" label="Combeferre">
+        <attvalues>
+          <attvalue for="name" value="CM"></attvalue>
+          <attvalue for="description" value="Combeferre, member, Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.42106732621029097"></attvalue>
+          <attvalue for="graphName" value="CM"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="5.994186"></viz:size>
+        <viz:position x="-288.6268" y="-57.781498" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="78.0" label="Enjolras">
+        <attvalues>
+          <attvalue for="name" value="EN"></attvalue>
+          <attvalue for="description" value="Enjolras, chief of Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.5033762423844931"></attvalue>
+          <attvalue for="graphName" value="EN"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="7.1453485"></viz:size>
+        <viz:position x="-241.92416" y="-86.5875" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="79.0" label="Grantaire">
+        <attvalues>
+          <attvalue for="name" value="GT"></attvalue>
+          <attvalue for="description" value="Grantaire, Friends of the ABC skeptic"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.17058611080299024"></attvalue>
+          <attvalue for="graphName" value="GT"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="5.0348835"></viz:size>
+        <viz:position x="-402.4301" y="-21.001335" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="80.0" label="M. Mabeuf">
+        <attvalues>
+          <attvalue for="name" value="MM"></attvalue>
+          <attvalue for="description" value="M. Mabeuf, warden of St. Sulpice, bibliophile"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.3298067463941603"></attvalue>
+          <attvalue for="graphName" value="MM"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="6.1860466"></viz:size>
+        <viz:position x="-311.7411" y="-148.7874" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="81.0" label="Mme Burgon">
+        <attvalues>
+          <attvalue for="name" value="BU"></attvalue>
+          <attvalue for="description" value="Mme Burgon (aka Bougon), new concierge at the Gorbeau tenement"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.15034784219404398"></attvalue>
+          <attvalue for="graphName" value="BU"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="-99.261284" y="-87.81101" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="82.0" label="Prouvaire">
+        <attvalues>
+          <attvalue for="name" value="JP"></attvalue>
+          <attvalue for="description" value="Prouvaire, member Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.32286599849622155"></attvalue>
+          <attvalue for="graphName" value="JP"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="5.418605"></viz:size>
+        <viz:position x="-335.54172" y="-115.79041" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="83.0" label="Gueulemer">
+        <attvalues>
+          <attvalue for="name" value="GU"></attvalue>
+          <attvalue for="description" value="Gueulemer, member of Patron-Minette"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.3559401250648006"></attvalue>
+          <attvalue for="graphName" value="GU"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="5.610465"></viz:size>
+        <viz:position x="149.51364" y="-310.53995" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="84.0" label="Parisian coachman">
+        <attvalues>
+          <attvalue for="name" value="CG"></attvalue>
+          <attvalue for="description" value="Coachman by Gorbeau tenement"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.042826639070653684"></attvalue>
+          <attvalue for="graphName" value="CG"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-334.97638" y="61.57909" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="85.0" label="Panchaud">
+        <attvalues>
+          <attvalue for="name" value="PN"></attvalue>
+          <attvalue for="description" value="Panchaud, a criminal aka as Printanier, Bigrenaille"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.2850462640579345"></attvalue>
+          <attvalue for="graphName" value="PN"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="5.226744"></viz:size>
+        <viz:position x="126.27333" y="-328.36865" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="86.0" label="Brujon">
+        <attvalues>
+          <attvalue for="name" value="BJ"></attvalue>
+          <attvalue for="description" value="Brujon, criminal, associate of Patron-Minette"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.40823191791639557"></attvalue>
+          <attvalue for="graphName" value="BJ"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="6.1860466"></viz:size>
+        <viz:position x="107.61904" y="-264.34732" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="87.0" label="Deuxmilliards">
+        <attvalues>
+          <attvalue for="name" value="DU"></attvalue>
+          <attvalue for="description" value="Deux-millards, aka Demi-liard, a criminal"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.3254497694710923"></attvalue>
+          <attvalue for="graphName" value="DU"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="5.418605"></viz:size>
+        <viz:position x="157.01129" y="-277.32852" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="88.0" label="Babet">
+        <attvalues>
+          <attvalue for="name" value="BB"></attvalue>
+          <attvalue for="description" value="Babet, member, Patron-Minette"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.3652457196003863"></attvalue>
+          <attvalue for="graphName" value="BB"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="5.994186"></viz:size>
+        <viz:position x="70.26534" y="-263.0819" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="89.0" label="Claquesous">
+        <attvalues>
+          <attvalue for="name" value="QU"></attvalue>
+          <attvalue for="description" value="Claquesous, member of Patron-Minette,aka Le Cabuc"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.3490606278666503"></attvalue>
+          <attvalue for="graphName" value="QU"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="5.8023257"></viz:size>
+        <viz:position x="66.04112" y="-316.8121" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="90.0" label="Feuilly">
+        <attvalues>
+          <attvalue for="name" value="FE"></attvalue>
+          <attvalue for="description" value="Feuilly, member, Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.369887552598439"></attvalue>
+          <attvalue for="graphName" value="FE"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="6.1860466"></viz:size>
+        <viz:position x="-355.15515" y="-57.251762" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="91.0" label="Joly">
+        <attvalues>
+          <attvalue for="name" value="JO"></attvalue>
+          <attvalue for="description" value="Joly, member Friends of the ABC"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.34700427122309"></attvalue>
+          <attvalue for="graphName" value="JO"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="6.1860466"></viz:size>
+        <viz:position x="-391.7964" y="-78.58916" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="92.0" label="Card player">
+        <attvalues>
+          <attvalue for="name" value="CP"></attvalue>
+          <attvalue for="description" value="Man playing cards with Grantaire"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.01119151758887916"></attvalue>
+          <attvalue for="graphName" value="CP"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-413.71295" y="9.0995865" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="93.0" label="Babet's girlfriend">
+        <attvalues>
+          <attvalue for="name" value="BF"></attvalue>
+          <attvalue for="description" value="Babet's girlfriend"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.030432819514475073"></attvalue>
+          <attvalue for="graphName" value="BF"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-262.40466" y="213.36087" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="94.0" label="Gavroche">
+        <attvalues>
+          <attvalue for="name" value="GA"></attvalue>
+          <attvalue for="description" value="Gavroche, son of the Thénardiers"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.6435965609825284"></attvalue>
+          <attvalue for="graphName" value="GA"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="9.639535"></viz:size>
+        <viz:position x="-290.30774" y="101.51282" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="95.0" label="Magnon">
+        <attvalues>
+          <attvalue for="name" value="MN"></attvalue>
+          <attvalue for="description" value="Magnon, servant of Gillenormand"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1055038599596049"></attvalue>
+          <attvalue for="graphName" value="MN"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="-263.0277" y="242.25157" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="96.0" label="Older child">
+        <attvalues>
+          <attvalue for="name" value="XA"></attvalue>
+          <attvalue for="description" value="Older Child, son of Thénardier, raised by Magnon"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07680646907431095"></attvalue>
+          <attvalue for="graphName" value="XA"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="-274.95157" y="200.63345" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="97.0" label="Paris barber">
+        <attvalues>
+          <attvalue for="name" value="BG"></attvalue>
+          <attvalue for="description" value="Barber encountered by Gavroche"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.053629256579015266"></attvalue>
+          <attvalue for="graphName" value="BG"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="-373.38712" y="235.0936" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="98.0" label="Paris baker">
+        <attvalues>
+          <attvalue for="name" value="BK"></attvalue>
+          <attvalue for="description" value="Baker, visited by Gavroche"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.04061609812211836"></attvalue>
+          <attvalue for="graphName" value="BK"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-429.50528" y="136.99881" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="99.0" label="Montparnasse">
+        <attvalues>
+          <attvalue for="name" value="MO"></attvalue>
+          <attvalue for="description" value="Montparnasse, member of Patron-Minette"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.259502614756309"></attvalue>
+          <attvalue for="graphName" value="MO"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="4.8430233"></viz:size>
+        <viz:position x="3.8151605" y="-262.73358" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="100.0" label="Basque">
+        <attvalues>
+          <attvalue for="name" value="BQ"></attvalue>
+          <attvalue for="description" value="Basque, manservant to Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.16690571505379864"></attvalue>
+          <attvalue for="graphName" value="BQ"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="-164.73706" y="155.00407" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="101.0" label="Minister of agriculture">
+        <attvalues>
+          <attvalue for="name" value="MU"></attvalue>
+          <attvalue for="description" value="Minister of agriculture"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02171925698466226"></attvalue>
+          <attvalue for="graphName" value="MU"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-355.02936" y="-166.37692" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="102.0" label="Gardener">
+        <attvalues>
+          <attvalue for="name" value="GN"></attvalue>
+          <attvalue for="description" value="Gardener, encountered by Mabeuf"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.020804824629556448"></attvalue>
+          <attvalue for="graphName" value="GN"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-341.73868" y="-201.91882" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="103.0" label="Ragpicker">
+        <attvalues>
+          <attvalue for="name" value="RP"></attvalue>
+          <attvalue for="description" value="Ragpicker"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.044019647864690585"></attvalue>
+          <attvalue for="graphName" value="RP"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-420.81064" y="173.23106" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="104.0" label="Mme Hucheloup">
+        <attvalues>
+          <attvalue for="name" value="HL"></attvalue>
+          <attvalue for="description" value="Mme Hucheloup, keeper of Corinth Inn"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07776013261603291"></attvalue>
+          <attvalue for="graphName" value="HL"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="4.2674417"></viz:size>
+        <viz:position x="-420.4199" y="-133.8061" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="105.0" label="Gibolette">
+        <attvalues>
+          <attvalue for="name" value="GB"></attvalue>
+          <attvalue for="description" value="Gibolette, servant in Corinth Inn"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.11837665479815787"></attvalue>
+          <attvalue for="graphName" value="GB"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="4.4593024"></viz:size>
+        <viz:position x="-449.28522" y="-94.90549" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="106.0" label="Dandy">
+        <attvalues>
+          <attvalue for="name" value="DN"></attvalue>
+          <attvalue for="description" value="Dandy near the barricade"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.04061609812211836"></attvalue>
+          <attvalue for="graphName" value="DN"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-433.921" y="117.79955" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="107.0" label="Porter, barricade">
+        <attvalues>
+          <attvalue for="name" value="PC"></attvalue>
+          <attvalue for="description" value="Porter shot at the barricade by Le Cabuc"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.021880474867744606"></attvalue>
+          <attvalue for="graphName" value="PC"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="54.602264" y="-364.37836" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="108.0" label="Government troops">
+        <attvalues>
+          <attvalue for="name" value="GV"></attvalue>
+          <attvalue for="description" value="Government troops"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.38261362385105185"></attvalue>
+          <attvalue for="graphName" value="GV"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="5.8023257"></viz:size>
+        <viz:position x="-311.76456" y="9.866403" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="109.0" label="Drunk coachman">
+        <attvalues>
+          <attvalue for="name" value="DR"></attvalue>
+          <attvalue for="description" value="Drunk Auvergnat coachman"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.04061609812211836"></attvalue>
+          <attvalue for="graphName" value="DR"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-396.55673" y="214.49352" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="110.0" label="Insurgent workers">
+        <attvalues>
+          <attvalue for="name" value="IW"></attvalue>
+          <attvalue for="description" value="Insurgent workers"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.20073602044963287"></attvalue>
+          <attvalue for="graphName" value="IW"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="-381.38428" y="-117.467125" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="111.0" label="Bourgeois man">
+        <attvalues>
+          <attvalue for="name" value="BX"></attvalue>
+          <attvalue for="description" value="Bourgeois man in Luxemburg gardens"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.013866392949845511"></attvalue>
+          <attvalue for="graphName" value="BX"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-308.21292" y="236.12396" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="112.0" label="Bourgeois son">
+        <attvalues>
+          <attvalue for="name" value="BY"></attvalue>
+          <attvalue for="description" value="Bourgeois man's son"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.013866392949845511"></attvalue>
+          <attvalue for="graphName" value="BY"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-283.34714" y="250.51727" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="113.0" label="Javert's coachman">
+        <attvalues>
+          <attvalue for="name" value="CJ"></attvalue>
+          <attvalue for="description" value="Coachman assisting Javert"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1491081565449666"></attvalue>
+          <attvalue for="graphName" value="CJ"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-25.532808" y="-108.036026" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="114.0" label="Concierge, Gillenormand">
+        <attvalues>
+          <attvalue for="name" value="CX"></attvalue>
+          <attvalue for="description" value="Concierge at Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.2165007443124895"></attvalue>
+          <attvalue for="graphName" value="CX"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="-135.43431" y="146.72514" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="115.0" label="Doctor, Gillenormand">
+        <attvalues>
+          <attvalue for="name" value="DG"></attvalue>
+          <attvalue for="description" value="Doctor at Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.09683113120222914"></attvalue>
+          <attvalue for="graphName" value="DG"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="4.2674417"></viz:size>
+        <viz:position x="-179.90523" y="179.0511" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="116.0" label="Concierge, l'Homme Armé">
+        <attvalues>
+          <attvalue for="name" value="CY"></attvalue>
+          <attvalue for="description" value="Concierge at rue de l'Homme Armé"></attvalue>
+          <attvalue for="group" value="17.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07603614778502794"></attvalue>
+          <attvalue for="graphName" value="CY"></attvalue>
+          <attvalue for="color" value="#eeeeee"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-70.6351" y="-357.0564" z="0.0"></viz:position>
+        <viz:color r="238" g="238" b="238"></viz:color>
+      </node>
+      <node id="117.0" label="Doctor, Valjean">
+        <attvalues>
+          <attvalue for="name" value="DJ"></attvalue>
+          <attvalue for="description" value="Doctor to Valjean"></attvalue>
+          <attvalue for="group" value="17.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1154948492565157"></attvalue>
+          <attvalue for="graphName" value="DJ"></attvalue>
+          <attvalue for="color" value="#eeeeee"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-77.561104" y="-339.41577" z="0.0"></viz:position>
+        <viz:color r="238" g="238" b="238"></viz:color>
+      </node>
+      <node id="118.0" label="Napoleon">
+        <attvalues>
+          <attvalue for="name" value="NP"></attvalue>
+          <attvalue for="description" value="Napoleon, Emperor of France"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.016636855005383918"></attvalue>
+          <attvalue for="graphName" value="NP"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-381.00104" y="399.88318" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="119.0" label="Senator">
+        <attvalues>
+          <attvalue for="name" value="SN"></attvalue>
+          <attvalue for="description" value="Senator, Count ***, in Digne"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.009021637632310703"></attvalue>
+          <attvalue for="graphName" value="SN"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-290.14813" y="442.2365" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="120.0" label="Mme Boischevron">
+        <attvalues>
+          <attvalue for="name" value="VB"></attvalue>
+          <attvalue for="description" value="Mme Boischevron, friend and correspondent of Mlle Baptistine"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.006302484689344632"></attvalue>
+          <attvalue for="graphName" value="VB"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-147.07051" y="298.43817" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="121.0" label="Shepherd boy">
+        <attvalues>
+          <attvalue for="name" value="SB"></attvalue>
+          <attvalue for="description" value="Shepherd boy, serves G-- the conventionist"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.0015941713887924543"></attvalue>
+          <attvalue for="graphName" value="SB"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-338.38895" y="449.5429" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="122.0" label="Kitchen boy">
+        <attvalues>
+          <attvalue for="name" value="KB"></attvalue>
+          <attvalue for="description" value="Kitchen boy at Labarre's inn"></attvalue>
+          <attvalue for="group" value="3.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.00552540996985708"></attvalue>
+          <attvalue for="graphName" value="KB"></attvalue>
+          <attvalue for="color" value="#444444"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="374.3984" y="558.72986" z="0.0"></viz:position>
+        <viz:color r="68" g="68" b="68"></viz:color>
+      </node>
+      <node id="123.0" label="Tavern keeper">
+        <attvalues>
+          <attvalue for="name" value="KT"></attvalue>
+          <attvalue for="description" value="Tavern keeper in Digne"></attvalue>
+          <attvalue for="group" value="3.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.0727843759928017"></attvalue>
+          <attvalue for="graphName" value="KT"></attvalue>
+          <attvalue for="color" value="#444444"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="388.2926" y="506.2232" z="0.0"></viz:position>
+        <viz:color r="68" g="68" b="68"></viz:color>
+      </node>
+      <node id="124.0" label="Peasant's wife">
+        <attvalues>
+          <attvalue for="name" value="PE"></attvalue>
+          <attvalue for="description" value="Peasant's wife"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.00507615215478415"></attvalue>
+          <attvalue for="graphName" value="PE"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-50.45173" y="597.04767" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="125.0" label="Marquise de R">
+        <attvalues>
+          <attvalue for="name" value="MR"></attvalue>
+          <attvalue for="description" value="Marquise de R-, inhabitant of Digne"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="MR"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-14.863901" y="565.95325" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="126.0" label="Marie-Claude">
+        <attvalues>
+          <attvalue for="name" value="MD"></attvalue>
+          <attvalue for="description" value="Marie-Claude, neighbor of the Valjeans in Faverolles"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="MD"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-141.24821" y="547.0505" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="127.0" label="Prison guard">
+        <attvalues>
+          <attvalue for="name" value="PR"></attvalue>
+          <attvalue for="description" value="Prison guard"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="PR"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-166.45718" y="538.4083" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="128.0" label="Door keeper">
+        <attvalues>
+          <attvalue for="name" value="KD"></attvalue>
+          <attvalue for="description" value="Door keeper at a Paris bindery"></attvalue>
+          <attvalue for="group" value="5.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.0012504432007934558"></attvalue>
+          <attvalue for="graphName" value="KD"></attvalue>
+          <attvalue for="color" value="#fb8072"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-156.3309" y="613.76996" z="0.0"></viz:position>
+        <viz:color r="251" g="128" b="114"></viz:color>
+      </node>
+      <node id="129.0" label="Three gendarmes">
+        <attvalues>
+          <attvalue for="name" value="TR"></attvalue>
+          <attvalue for="description" value="Three gendarmes, arrested Valjean"></attvalue>
+          <attvalue for="group" value="1.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07605778536020187"></attvalue>
+          <attvalue for="graphName" value="TR"></attvalue>
+          <attvalue for="color" value="#e41a1c"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-115.196365" y="403.32062" z="0.0"></viz:position>
+        <viz:color r="228" g="26" b="28"></viz:color>
+      </node>
+      <node id="130.0" label="Petit Gervais">
+        <attvalues>
+          <attvalue for="name" value="PG"></attvalue>
+          <attvalue for="description" value="Petit Gervais, a chimney sweep"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="PG"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="64.063736" y="571.9217" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="131.0" label="Priest, Digne">
+        <attvalues>
+          <attvalue for="name" value="PH"></attvalue>
+          <attvalue for="description" value="A priest on the road from Digne"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="PH"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="90.18652" y="572.4865" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="132.0" label="Zephine">
+        <attvalues>
+          <attvalue for="name" value="ZE"></attvalue>
+          <attvalue for="description" value="Zephine, mistress of Fameuil"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05370354388388517"></attvalue>
+          <attvalue for="graphName" value="ZE"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.8430233"></viz:size>
+        <viz:position x="370.44574" y="-178.57338" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="133.0" label="Thénardiers' neighbor">
+        <attvalues>
+          <attvalue for="name" value="NT"></attvalue>
+          <attvalue for="description" value="Neighbor of Thénardiers"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02060079192135303"></attvalue>
+          <attvalue for="graphName" value="NT"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="481.5863" y="-297.2378" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="134.0" label="Mme Victurnien">
+        <attvalues>
+          <attvalue for="name" value="VI"></attvalue>
+          <attvalue for="description" value="Mme Victurnien, snoop in M-sur-M"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.11115655559093396"></attvalue>
+          <attvalue for="graphName" value="VI"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="158.90147" y="-180.87067" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="135.0" label="Factory supervisor">
+        <attvalues>
+          <attvalue for="name" value="SF"></attvalue>
+          <attvalue for="description" value="Supervisor in M. Madeleine's factory"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02060079192135303"></attvalue>
+          <attvalue for="graphName" value="SF"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="465.83972" y="-319.61942" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="136.0" label="Marguerite">
+        <attvalues>
+          <attvalue for="name" value="MT"></attvalue>
+          <attvalue for="description" value="Marguerite, friend of Fantine in M-sur-M"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02060079192135303"></attvalue>
+          <attvalue for="graphName" value="MT"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="446.46664" y="-338.91238" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="137.0" label="Itinerant dentist">
+        <attvalues>
+          <attvalue for="name" value="ID"></attvalue>
+          <attvalue for="description" value="Itinerant dentist"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02060079192135303"></attvalue>
+          <attvalue for="graphName" value="ID"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="497.13315" y="-274.66003" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="138.0" label="Police sergeant M-s-M">
+        <attvalues>
+          <attvalue for="name" value="SG"></attvalue>
+          <attvalue for="description" value="Police sergeant in M-sur-M"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.039245369746421704"></attvalue>
+          <attvalue for="graphName" value="SG"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="36.132786" y="-359.9853" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="139.0" label="Sister Simplice">
+        <attvalues>
+          <attvalue for="name" value="SS"></attvalue>
+          <attvalue for="description" value="Sister Simplice, nun at infirmary in M-sur-M"></attvalue>
+          <attvalue for="group" value="6.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1379449460460998"></attvalue>
+          <attvalue for="graphName" value="SS"></attvalue>
+          <attvalue for="color" value="#4daf4a"></attvalue>
+        </attvalues>
+        <viz:size value="4.4593024"></viz:size>
+        <viz:position x="371.0933" y="-397.70718" z="0.0"></viz:position>
+        <viz:color r="77" g="175" b="74"></viz:color>
+      </node>
+      <node id="140.0" label="Scaufflaire's wife">
+        <attvalues>
+          <attvalue for="name" value="SD"></attvalue>
+          <attvalue for="description" value="M. Scaufflaire's wife"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.00507615215478415"></attvalue>
+          <attvalue for="graphName" value="SD"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="490.50296" y="497.62207" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="141.0" label="Portress, M-s-M">
+        <attvalues>
+          <attvalue for="name" value="PO"></attvalue>
+          <attvalue for="description" value="Portress of JV in M-sur-M"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.10748069572260117"></attvalue>
+          <attvalue for="graphName" value="PO"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="498.96667" y="426.59537" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="142.0" label="Old woman">
+        <attvalues>
+          <attvalue for="name" value="WH"></attvalue>
+          <attvalue for="description" value="Old woman in Hesdin"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="WH"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="195.47745" y="564.69507" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="143.0" label="Old woman's son">
+        <attvalues>
+          <attvalue for="name" value="WI"></attvalue>
+          <attvalue for="description" value="Old woman's son"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="WI"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="221.50627" y="559.91516" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="144.0" label="Saint Pol Servant girl">
+        <attvalues>
+          <attvalue for="name" value="SE"></attvalue>
+          <attvalue for="description" value="Servant girl in Saint Pol"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="SE"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="270.92624" y="548.5103" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="145.0" label="German teamster">
+        <attvalues>
+          <attvalue for="name" value="TE"></attvalue>
+          <attvalue for="description" value="German teamster"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="TE"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="294.76184" y="543.0776" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="146.0" label="Road mender">
+        <attvalues>
+          <attvalue for="name" value="RM"></attvalue>
+          <attvalue for="description" value="Road mender"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="RM"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="317.1498" y="533.9829" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="147.0" label="Postillion">
+        <attvalues>
+          <attvalue for="name" value="PT"></attvalue>
+          <attvalue for="description" value="Postillion, accompanying Valjean to Arras"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="PT"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="338.22195" y="522.68805" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="148.0" label="Arras hotel keeper">
+        <attvalues>
+          <attvalue for="name" value="LR"></attvalue>
+          <attvalue for="description" value="Landlady at an Arras hotel"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="LR"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="527.21686" y="390.28073" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="149.0" label="Arras resident">
+        <attvalues>
+          <attvalue for="name" value="RA"></attvalue>
+          <attvalue for="description" value="Resident of Arras"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="RA"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="541.50525" y="364.57526" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="150.0" label="Prosecuting attorney">
+        <attvalues>
+          <attvalue for="name" value="PA"></attvalue>
+          <attvalue for="description" value="Prosecuting attorney in Champmathieu trial"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.17306688561187147"></attvalue>
+          <attvalue for="graphName" value="PA"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="5.0348835"></viz:size>
+        <viz:position x="574.4644" y="117.18621" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="151.0" label="Louis-Philippe">
+        <attvalues>
+          <attvalue for="name" value="LP"></attvalue>
+          <attvalue for="description" value="Louis-Philippe d'Orléans, King of France"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07234561010407874"></attvalue>
+          <attvalue for="graphName" value="LP"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="576.0151" y="-84.40897" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="152.0" label="Landlady, Gorbeau">
+        <attvalues>
+          <attvalue for="name" value="LL"></attvalue>
+          <attvalue for="description" value="Landlady at Gorbeau House (during JVJ's stay)"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.14164565302302184"></attvalue>
+          <attvalue for="graphName" value="LL"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="7.337902" y="-109.293816" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="153.0" label="Toll keeper">
+        <attvalues>
+          <attvalue for="name" value="KA"></attvalue>
+          <attvalue for="description" value="Toll keeper at Austerlitz bridge"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.06703614772789117"></attvalue>
+          <attvalue for="graphName" value="KA"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="584.75085" y="-51.381275" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="154.0" label="Soldiers">
+        <attvalues>
+          <attvalue for="name" value="SO"></attvalue>
+          <attvalue for="description" value="Soldiers pursuing Valjean, led by Javert"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.10628151747431291"></attvalue>
+          <attvalue for="graphName" value="SO"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="160.08685" y="-39.63712" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="155.0" label="Mother Innocent">
+        <attvalues>
+          <attvalue for="name" value="MI"></attvalue>
+          <attvalue for="description" value="Mother Innocent, prioress of Convent of Petit Picpus"></attvalue>
+          <attvalue for="group" value="9.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1124564781732614"></attvalue>
+          <attvalue for="graphName" value="MI"></attvalue>
+          <attvalue for="color" value="#ffff33"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-30.762177" y="249.80453" z="0.0"></viz:position>
+        <viz:color r="255" g="255" b="51"></viz:color>
+      </node>
+      <node id="156.0" label="Gribier">
+        <attvalues>
+          <attvalue for="name" value="GR"></attvalue>
+          <attvalue for="description" value="Gribier, new gravedigger at Vaugirard cemetery"></attvalue>
+          <attvalue for="group" value="9.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.010056194896661312"></attvalue>
+          <attvalue for="graphName" value="GR"></attvalue>
+          <attvalue for="color" value="#ffff33"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-51.13231" y="270.34235" z="0.0"></viz:position>
+        <viz:color r="255" g="255" b="51"></viz:color>
+      </node>
+      <node id="157.0" label="Mlle Vaubois">
+        <attvalues>
+          <attvalue for="name" value="MV"></attvalue>
+          <attvalue for="description" value="Mlle Vaubois, friend of Mlle Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.013960015953409871"></attvalue>
+          <attvalue for="graphName" value="MV"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-166.53989" y="226.58142" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="158.0" label="Théodule">
+        <attvalues>
+          <attvalue for="name" value="TG"></attvalue>
+          <attvalue for="description" value="Lieutenant Théodule Gillenormand, grandnephew of Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.10684846450858328"></attvalue>
+          <attvalue for="graphName" value="TG"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="-168.58817" y="199.19441" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="159.0" label="Count Lamothe">
+        <attvalues>
+          <attvalue for="name" value="LA"></attvalue>
+          <attvalue for="description" value="Count Lamothe, member of Baroness de T-'s salon"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.0043838853569740585"></attvalue>
+          <attvalue for="graphName" value="LA"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-112.09765" y="211.1203" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="160.0" label="Pontmercy's servant">
+        <attvalues>
+          <attvalue for="name" value="WP"></attvalue>
+          <attvalue for="description" value="Woman servant to Colonel Pontmercy"></attvalue>
+          <attvalue for="group" value="12.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.05416866285866184"></attvalue>
+          <attvalue for="graphName" value="WP"></attvalue>
+          <attvalue for="color" value="#999999"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="-172.91551" y="-300.97556" z="0.0"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="161.0" label="Mme Pontmercy">
+        <attvalues>
+          <attvalue for="name" value="MP"></attvalue>
+          <attvalue for="description" value="Mme Pontmercy, younger daughter of Gillenormand"></attvalue>
+          <attvalue for="group" value="12.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.007615217373073212"></attvalue>
+          <attvalue for="graphName" value="MP"></attvalue>
+          <attvalue for="color" value="#999999"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-199.89604" y="-359.79022" z="0.0"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="162.0" label="Mother Plutarch">
+        <attvalues>
+          <attvalue for="name" value="PL"></attvalue>
+          <attvalue for="description" value="Mother Plutarch, housekeeper of M. Mabeuf"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.020804824629556448"></attvalue>
+          <attvalue for="graphName" value="PL"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-313.5259" y="-218.79774" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="163.0" label="Marius's servant">
+        <attvalues>
+          <attvalue for="name" value="SR"></attvalue>
+          <attvalue for="description" value="Servant to Marius at Garbeau tenement"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.042826639070653684"></attvalue>
+          <attvalue for="graphName" value="SR"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-343.82053" y="51.057453" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="164.0" label="Porter, r. de l'Ouest">
+        <attvalues>
+          <attvalue for="name" value="PS"></attvalue>
+          <attvalue for="description" value="Porter, rue de l'Ouest"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1098627867985449"></attvalue>
+          <attvalue for="graphName" value="PS"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-53.830383" y="-33.705055" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="165.0" label="Guard, La Force">
+        <attvalues>
+          <attvalue for="name" value="GF"></attvalue>
+          <attvalue for="description" value="Guard, La Force prison"></attvalue>
+          <attvalue for="group" value="7.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.025505571835735163"></attvalue>
+          <attvalue for="graphName" value="GF"></attvalue>
+          <attvalue for="color" value="#984ea3"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="109.51117" y="-374.6878" z="0.0"></viz:position>
+        <viz:color r="152" g="78" b="163"></viz:color>
+      </node>
+      <node id="166.0" label="Toussaint">
+        <attvalues>
+          <attvalue for="name" value="TS"></attvalue>
+          <attvalue for="description" value="Toussaint, servant of Valjean at Rue Plumet"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.14164565302302184"></attvalue>
+          <attvalue for="graphName" value="TS"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.8837209"></viz:size>
+        <viz:position x="-33.42022" y="-60.84088" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="167.0" label="Younger child">
+        <attvalues>
+          <attvalue for="name" value="XB"></attvalue>
+          <attvalue for="description" value="Younger Child, son of Thénardier, raised by Magnon"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.07680646907431095"></attvalue>
+          <attvalue for="graphName" value="XB"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="-302.24472" y="210.7884" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="168.0" label="Poor girl">
+        <attvalues>
+          <attvalue for="name" value="GL"></attvalue>
+          <attvalue for="description" value="Poor girl, helped by Gavroche"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.04061609812211836"></attvalue>
+          <attvalue for="graphName" value="GL"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-427.73547" y="157.08319" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="169.0" label="Minister's wife">
+        <attvalues>
+          <attvalue for="name" value="MW"></attvalue>
+          <attvalue for="description" value="Minister of agriculture's wife"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.0021238543838711897"></attvalue>
+          <attvalue for="graphName" value="MW"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-360.33902" y="-186.18033" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="170.0" label="Secondhand dealer">
+        <attvalues>
+          <attvalue for="name" value="GS"></attvalue>
+          <attvalue for="description" value="Secondhand dealer from whom Gavroche 'borrows' a pistol"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.04061609812211836"></attvalue>
+          <attvalue for="graphName" value="GS"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-386.37924" y="225.21086" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="171.0" label="Three concierges">
+        <attvalues>
+          <attvalue for="name" value="TC"></attvalue>
+          <attvalue for="description" value="Three concierges, met by Gvaroche"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.044019647864690585"></attvalue>
+          <attvalue for="graphName" value="TC"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-412.3447" y="189.2935" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="172.0" label="Old soldier">
+        <attvalues>
+          <attvalue for="name" value="OS"></attvalue>
+          <attvalue for="description" value="Old soldier at barbershop"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.004256784235520889"></attvalue>
+          <attvalue for="graphName" value="OS"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-386.56772" y="256.65253" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="173.0" label="Concierge, Verrerie">
+        <attvalues>
+          <attvalue for="name" value="CW"></attvalue>
+          <attvalue for="description" value="Concierge, rue de la Verrerie"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02765973525485024"></attvalue>
+          <attvalue for="graphName" value="CW"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-354.39984" y="40.526043" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="174.0" label="Matelotte">
+        <attvalues>
+          <attvalue for="name" value="ML"></attvalue>
+          <attvalue for="description" value="Matelotte, a servant at the Corinth Inn"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.12886183175000754"></attvalue>
+          <attvalue for="graphName" value="ML"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="4.651163"></viz:size>
+        <viz:position x="-431.4801" y="-52.432247" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="175.0" label="Navet">
+        <attvalues>
+          <attvalue for="name" value="NA"></attvalue>
+          <attvalue for="description" value="Navet, friend of Gavroche"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.02795211627434905"></attvalue>
+          <attvalue for="graphName" value="NA"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-378.28787" y="28.659277" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="176.0" label="Sergeant, Imprimérie">
+        <attvalues>
+          <attvalue for="name" value="SI"></attvalue>
+          <attvalue for="description" value="Sergeant at the Imprimérie Royale post"></attvalue>
+          <attvalue for="group" value="15.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.04061609812211836"></attvalue>
+          <attvalue for="graphName" value="SI"></attvalue>
+          <attvalue for="color" value="#f781bf"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-407.83392" y="202.35445" z="0.0"></viz:position>
+        <viz:color r="247" g="129" b="191"></viz:color>
+      </node>
+      <node id="177.0" label="Anonymous worker">
+        <attvalues>
+          <attvalue for="name" value="WA"></attvalue>
+          <attvalue for="description" value="Anonymous worker at barricade"></attvalue>
+          <attvalue for="group" value="8.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.031416537228497333"></attvalue>
+          <attvalue for="graphName" value="WA"></attvalue>
+          <attvalue for="color" value="#ff7f00"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-199.31825" y="-161.81151" z="0.0"></viz:position>
+        <viz:color r="255" g="127" b="0"></viz:color>
+      </node>
+      <node id="178.0" label="Sewermen">
+        <attvalues>
+          <attvalue for="name" value="SW"></attvalue>
+          <attvalue for="description" value="Sewermen"></attvalue>
+          <attvalue for="group" value="2.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1098627867985449"></attvalue>
+          <attvalue for="graphName" value="SW"></attvalue>
+          <attvalue for="color" value="#377eb8"></attvalue>
+        </attvalues>
+        <viz:size value="3.6918604"></viz:size>
+        <viz:position x="-69.586174" y="64.16651" z="0.0"></viz:position>
+        <viz:color r="55" g="126" b="184"></viz:color>
+      </node>
+      <node id="179.0" label="Nicolette">
+        <attvalues>
+          <attvalue for="name" value="NI"></attvalue>
+          <attvalue for="description" value="Nicolette, maid to Gillenormand"></attvalue>
+          <attvalue for="group" value="13.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.1069848364858237"></attvalue>
+          <attvalue for="graphName" value="NI"></attvalue>
+          <attvalue for="color" value="#a65628"></attvalue>
+        </attvalues>
+        <viz:size value="4.0755816"></viz:size>
+        <viz:position x="-121.69453" y="189.0251" z="0.0"></viz:position>
+        <viz:color r="166" g="86" b="40"></viz:color>
+      </node>
+      <node id="180.0" label="Concierge's husband">
+        <attvalues>
+          <attvalue for="name" value="CZ"></attvalue>
+          <attvalue for="description" value="Husband of Concierge at rue de l'Homme Armé"></attvalue>
+          <attvalue for="group" value="17.0"></attvalue>
+          <attvalue for="eigencentrality" value="0.005632062457970806"></attvalue>
+          <attvalue for="graphName" value="CZ"></attvalue>
+          <attvalue for="color" value="#eeeeee"></attvalue>
+        </attvalues>
+        <viz:size value="3.5"></viz:size>
+        <viz:position x="-68.35178" y="-376.15707" z="0.0"></viz:position>
+        <viz:color r="238" g="238" b="238"></viz:color>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="1.0" target="0.0" weight="11.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="2.0" target="0.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="2.0" target="1.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="3.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="4.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="5.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="7.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="9.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="10.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="11.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="12.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="13.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="0.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="1.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="2.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="14.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16.0" target="15.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17.0" target="15.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="18.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="19.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22.0" target="20.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="23.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="25.0" target="24.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26.0" target="24.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26.0" target="25.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="27.0" target="24.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="27.0" target="25.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="27.0" target="26.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28.0" target="16.0" weight="12.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28.0" target="24.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28.0" target="25.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28.0" target="26.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28.0" target="27.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="29.0" target="24.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="29.0" target="25.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="29.0" target="26.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="29.0" target="27.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="29.0" target="28.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30.0" target="24.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30.0" target="25.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30.0" target="26.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30.0" target="27.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30.0" target="28.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30.0" target="29.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31.0" target="27.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31.0" target="29.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="32.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="33.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="33.0" target="32.0" weight="11.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="34.0" target="16.0" weight="62.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="34.0" target="28.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="34.0" target="32.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="34.0" target="33.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="35.0" target="16.0" weight="20.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="35.0" target="28.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="35.0" target="32.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="35.0" target="33.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="35.0" target="34.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="36.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="37.0" target="16.0" weight="9.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="37.0" target="34.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38.0" target="16.0" weight="24.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38.0" target="28.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38.0" target="32.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38.0" target="33.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38.0" target="35.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38.0" target="37.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39.0" target="16.0" weight="11.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39.0" target="28.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39.0" target="32.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39.0" target="33.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39.0" target="34.0" weight="13.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39.0" target="35.0" weight="32.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39.0" target="38.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="41.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="42.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="43.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="43.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="44.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="44.0" target="28.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="46.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="48.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="49.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="50.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="51.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="54.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="55.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="56.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="56.0" target="43.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57.0" target="43.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57.0" target="55.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57.0" target="56.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58.0" target="43.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58.0" target="56.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58.0" target="57.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="59.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="59.0" target="43.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="59.0" target="56.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="59.0" target="57.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="60.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="60.0" target="43.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="60.0" target="56.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="60.0" target="57.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="60.0" target="59.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="61.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="61.0" target="43.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="61.0" target="56.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="61.0" target="57.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="61.0" target="59.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="61.0" target="60.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="62.0" target="35.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="63.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="63.0" target="35.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="64.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="65.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="65.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="66.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="67.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="68.0" target="16.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="68.0" target="34.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="69.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="69.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="69.0" target="68.0" weight="13.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="16.0" weight="37.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="33.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="34.0" weight="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="35.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="38.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="62.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="68.0" weight="20.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="70.0" target="69.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="71.0" target="68.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="71.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="72.0" target="62.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="73.0" target="62.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="73.0" target="72.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="74.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="74.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="74.0" target="70.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="75.0" target="33.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="75.0" target="34.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="75.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="75.0" target="70.0" weight="18.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="75.0" target="74.0" weight="14.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="76.0" target="34.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="76.0" target="70.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="76.0" target="74.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="76.0" target="75.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="77.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="77.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="77.0" target="70.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="77.0" target="74.0" weight="11.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="77.0" target="75.0" weight="14.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="77.0" target="76.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="16.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="34.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="38.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="70.0" weight="14.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="74.0" weight="14.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="75.0" weight="21.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="76.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="78.0" target="77.0" weight="22.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="79.0" target="74.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="79.0" target="75.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="79.0" target="76.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="79.0" target="78.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="33.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="62.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="70.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="74.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="75.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="76.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="77.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="80.0" target="78.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="81.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="81.0" target="70.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="81.0" target="75.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="82.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="82.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="82.0" target="74.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="82.0" target="75.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="82.0" target="76.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="82.0" target="77.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="82.0" target="78.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="83.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="83.0" target="33.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="83.0" target="35.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="83.0" target="38.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="83.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="84.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="85.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="85.0" target="35.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="85.0" target="38.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="85.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="85.0" target="63.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="85.0" target="83.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="33.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="35.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="38.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="63.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="83.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="86.0" target="85.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="35.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="38.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="63.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="83.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="85.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="87.0" target="86.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="33.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="35.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="38.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="83.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="85.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="86.0" weight="11.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="88.0" target="87.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="33.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="35.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="38.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="78.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="83.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="85.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="86.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="87.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="89.0" target="88.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="70.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="74.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="75.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="76.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="77.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="78.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="80.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="90.0" target="82.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="74.0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="75.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="76.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="77.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="78.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="79.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="80.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="82.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="91.0" target="90.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="92.0" target="79.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="93.0" target="88.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="32.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="33.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="35.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="38.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="70.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="74.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="75.0" weight="9.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="76.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="77.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="78.0" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="80.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="81.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="82.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="83.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="86.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="88.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="90.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="94.0" target="91.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="95.0" target="33.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="95.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="95.0" target="68.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="95.0" target="88.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="95.0" target="93.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="96.0" target="68.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="96.0" target="94.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="96.0" target="95.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="97.0" target="94.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="97.0" target="96.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="98.0" target="94.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="33.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="35.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="83.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="86.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="88.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="89.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="99.0" target="94.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="100.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="100.0" target="68.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="100.0" target="69.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="100.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="101.0" target="80.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="102.0" target="80.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="103.0" target="94.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="104.0" target="75.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="104.0" target="76.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="104.0" target="79.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="105.0" target="74.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="105.0" target="78.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="105.0" target="90.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="105.0" target="91.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="105.0" target="104.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="106.0" target="94.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="107.0" target="89.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="74.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="75.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="76.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="77.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="78.0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="79.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="80.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="82.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="90.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="91.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="108.0" target="94.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="109.0" target="94.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="110.0" target="70.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="110.0" target="74.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="110.0" target="75.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="110.0" target="77.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="110.0" target="78.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="110.0" target="90.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="110.0" target="91.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="111.0" target="96.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="112.0" target="96.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="112.0" target="111.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="113.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="113.0" target="38.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="113.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="114.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="114.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="114.0" target="38.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="114.0" target="69.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="114.0" target="70.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="114.0" target="100.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="115.0" target="68.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="115.0" target="69.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="115.0" target="70.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="115.0" target="100.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="115.0" target="114.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="116.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="117.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="117.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="117.0" target="116.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="118.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="118.0" target="62.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="119.0" target="0.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="120.0" target="1.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="121.0" target="13.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="122.0" target="15.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="123.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="123.0" target="17.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="124.0" target="19.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="125.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="126.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="127.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="128.0" target="22.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="129.0" target="0.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="129.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="130.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="131.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="24.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="25.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="26.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="27.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="28.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="29.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="30.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="132.0" target="31.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="133.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="134.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="134.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="134.0" target="35.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="134.0" target="39.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="135.0" target="28.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="136.0" target="28.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="137.0" target="28.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="138.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="139.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="139.0" target="28.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="139.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="139.0" target="44.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="139.0" target="45.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="139.0" target="52.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="140.0" target="46.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="141.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="141.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="141.0" target="47.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="142.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="143.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="144.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="145.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="146.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="147.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="148.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="149.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="43.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="56.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="57.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="58.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="59.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="60.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="150.0" target="61.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="151.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="151.0" target="66.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="152.0" target="16.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="152.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="152.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="153.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="154.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="154.0" target="38.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="155.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="155.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="155.0" target="37.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="156.0" target="37.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="157.0" target="69.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="158.0" target="34.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="158.0" target="68.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="158.0" target="69.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="158.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="159.0" target="71.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="160.0" target="62.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="160.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="160.0" target="72.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="160.0" target="73.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="161.0" target="62.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="162.0" target="80.0" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="163.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="164.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="164.0" target="70.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="165.0" target="86.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="166.0" target="16.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="166.0" target="34.0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="166.0" target="38.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="167.0" target="68.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="167.0" target="94.0" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="167.0" target="95.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="167.0" target="96.0" weight="9.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="167.0" target="97.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="167.0" target="111.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="167.0" target="112.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="168.0" target="94.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="169.0" target="101.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="170.0" target="94.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="171.0" target="94.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="171.0" target="103.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="172.0" target="97.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="173.0" target="75.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="174.0" target="74.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="174.0" target="78.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="174.0" target="79.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="174.0" target="90.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="174.0" target="91.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="174.0" target="104.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="174.0" target="105.0" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="175.0" target="74.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="176.0" target="94.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="177.0" target="78.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="178.0" target="16.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="178.0" target="70.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="179.0" target="16.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="179.0" target="68.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="179.0" target="69.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="179.0" target="100.0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="180.0" target="116.0">
+        <attvalues></attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

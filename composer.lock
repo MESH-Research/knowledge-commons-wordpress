@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4d424af29a65f4e955df9982e22ca25",
+    "content-hash": "c9739c330d5f47ccb6891cfe714e433d",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -5729,6 +5729,24 @@
             "time": "2022-06-03T18:03:27+00:00"
         },
         {
+            "name": "wpackagist-plugin/activitypub",
+            "version": "2.2.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/activitypub/",
+                "reference": "tags/2.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/activitypub.2.2.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/activitypub/"
+        },
+        {
             "name": "wpackagist-plugin/akismet",
             "version": "5.3.2",
             "source": {
@@ -5801,22 +5819,40 @@
             "homepage": "https://wordpress.org/plugins/beehive-analytics/"
         },
         {
-            "name": "wpackagist-plugin/bp-blog-avatar",
-            "version": "1.0",
+            "name": "wpackagist-plugin/black-studio-tinymce-widget",
+            "version": "2.7.2",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/bp-blog-avatar/",
-                "reference": "tags/1.0"
+                "url": "https://plugins.svn.wordpress.org/black-studio-tinymce-widget/",
+                "reference": "tags/2.7.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/bp-blog-avatar.1.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/black-studio-tinymce-widget.2.7.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/bp-blog-avatar/"
+            "homepage": "https://wordpress.org/plugins/black-studio-tinymce-widget/"
+        },
+        {
+            "name": "wpackagist-plugin/bp-groupblog",
+            "version": "1.9.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/bp-groupblog/",
+                "reference": "tags/1.9.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/bp-groupblog.1.9.3.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/bp-groupblog/"
         },
         {
             "name": "wpackagist-plugin/bp-lotsa-feeds",
@@ -5945,22 +5981,40 @@
             "homepage": "https://wordpress.org/plugins/buddypress-sitewide-activity-widget/"
         },
         {
-            "name": "wpackagist-plugin/commentarysandbox",
-            "version": "2.2",
+            "name": "wpackagist-plugin/classic-editor",
+            "version": "1.6.3",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/commentarysandbox/",
-                "reference": "trunk"
+                "url": "https://plugins.svn.wordpress.org/classic-editor/",
+                "reference": "tags/1.6.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/commentarysandbox.zip?timestamp=1558742741"
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/commentarysandbox/"
+            "homepage": "https://wordpress.org/plugins/classic-editor/"
+        },
+        {
+            "name": "wpackagist-plugin/classic-widgets",
+            "version": "0.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/classic-widgets/",
+                "reference": "tags/0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/classic-widgets.0.3.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/classic-widgets/"
         },
         {
             "name": "wpackagist-plugin/commons-in-a-box",
@@ -6053,6 +6107,24 @@
             "homepage": "https://wordpress.org/plugins/elementor/"
         },
         {
+            "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
+            "version": "5.9.14",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
+                "reference": "tags/5.9.14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.9.14.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/essential-addons-for-elementor-lite/"
+        },
+        {
             "name": "wpackagist-plugin/event-organiser",
             "version": "3.12.5",
             "source": {
@@ -6071,6 +6143,24 @@
             "homepage": "https://wordpress.org/plugins/event-organiser/"
         },
         {
+            "name": "wpackagist-plugin/events-manager",
+            "version": "6.4.7.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/events-manager/",
+                "reference": "tags/6.4.7.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/events-manager.6.4.7.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/events-manager/"
+        },
+        {
             "name": "wpackagist-plugin/fd-footnotes",
             "version": "1.36",
             "source": {
@@ -6087,6 +6177,42 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/fd-footnotes/"
+        },
+        {
+            "name": "wpackagist-plugin/footnotes-made-easy",
+            "version": "3.0.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/footnotes-made-easy/",
+                "reference": "tags/3.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/footnotes-made-easy.3.0.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/footnotes-made-easy/"
+        },
+        {
+            "name": "wpackagist-plugin/formassembly-web-forms",
+            "version": "2.0.11",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/formassembly-web-forms/",
+                "reference": "tags/2.0.11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/formassembly-web-forms.2.0.11.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/formassembly-web-forms/"
         },
         {
             "name": "wpackagist-plugin/gd-bbpress-attachments",
@@ -6197,6 +6323,42 @@
             "homepage": "https://wordpress.org/plugins/jetpack/"
         },
         {
+            "name": "wpackagist-plugin/knight-lab-timelinejs",
+            "version": "3.9.3.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/knight-lab-timelinejs/",
+                "reference": "tags/3.9.3.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/knight-lab-timelinejs.3.9.3.4.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/knight-lab-timelinejs/"
+        },
+        {
+            "name": "wpackagist-plugin/mailpoet",
+            "version": "4.48.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/mailpoet/",
+                "reference": "tags/4.48.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/mailpoet.4.48.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/mailpoet/"
+        },
+        {
             "name": "wpackagist-plugin/mathml-block",
             "version": "1.2.2",
             "source": {
@@ -6213,6 +6375,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/mathml-block/"
+        },
+        {
+            "name": "wpackagist-plugin/more-privacy-options",
+            "version": "4.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/more-privacy-options/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/more-privacy-options.zip?timestamp=1470691290"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/more-privacy-options/"
         },
         {
             "name": "wpackagist-plugin/multisite-plugin-manager",
@@ -6269,6 +6449,24 @@
             "homepage": "https://wordpress.org/plugins/participants-database/"
         },
         {
+            "name": "wpackagist-plugin/password-protected",
+            "version": "2.7.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/password-protected/",
+                "reference": "tags/2.7.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/password-protected.2.7.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/password-protected/"
+        },
+        {
             "name": "wpackagist-plugin/pressforward",
             "version": "5.6.2",
             "source": {
@@ -6285,6 +6483,42 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/pressforward/"
+        },
+        {
+            "name": "wpackagist-plugin/printfriendly",
+            "version": "5.5.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/printfriendly/",
+                "reference": "tags/5.5.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/printfriendly.5.5.4.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/printfriendly/"
+        },
+        {
+            "name": "wpackagist-plugin/redirection",
+            "version": "5.4.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/redirection/",
+                "reference": "tags/5.4.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.5.4.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/redirection/"
         },
         {
             "name": "wpackagist-plugin/redis-cache",
@@ -6305,6 +6539,42 @@
             "homepage": "https://wordpress.org/plugins/redis-cache/"
         },
         {
+            "name": "wpackagist-plugin/redux-framework",
+            "version": "4.4.15",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/redux-framework/",
+                "reference": "tags/4.4.15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/redux-framework.4.4.15.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/redux-framework/"
+        },
+        {
+            "name": "wpackagist-plugin/smart-slider-3",
+            "version": "3.5.1.21",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/smart-slider-3/",
+                "reference": "tags/3.5.1.21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/smart-slider-3.3.5.1.21.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/smart-slider-3/"
+        },
+        {
             "name": "wpackagist-plugin/so-widgets-bundle",
             "version": "1.58.10",
             "source": {
@@ -6323,6 +6593,42 @@
             "homepage": "https://wordpress.org/plugins/so-widgets-bundle/"
         },
         {
+            "name": "wpackagist-plugin/translatepress-multilingual",
+            "version": "2.7.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/translatepress-multilingual/",
+                "reference": "tags/2.7.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/translatepress-multilingual.2.7.4.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/translatepress-multilingual/"
+        },
+        {
+            "name": "wpackagist-plugin/woosidebars",
+            "version": "1.4.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/woosidebars/",
+                "reference": "tags/1.4.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/woosidebars.1.4.6.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/woosidebars/"
+        },
+        {
             "name": "wpackagist-plugin/wordpress-importer",
             "version": "0.8.2",
             "source": {
@@ -6339,6 +6645,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-importer/"
+        },
+        {
+            "name": "wpackagist-plugin/wordpress-mu-domain-mapping",
+            "version": "0.5.5.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-mu-domain-mapping/",
+                "reference": "tags/0.5.5.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.0.5.5.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wordpress-mu-domain-mapping/"
         },
         {
             "name": "wpackagist-plugin/wp-accessibility",
@@ -6375,24 +6699,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-google-maps/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-graphql",
-            "version": "1.22.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-graphql/",
-                "reference": "tags/1.22.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-graphql.1.22.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-graphql/"
         },
         {
             "name": "wpackagist-plugin/wp-job-manager",
@@ -6825,6 +7131,24 @@
             },
             "type": "wordpress-theme",
             "homepage": "https://wordpress.org/themes/sparkling/"
+        },
+        {
+            "name": "wpackagist-theme/stewart",
+            "version": "1.17",
+            "source": {
+                "type": "svn",
+                "url": "https://themes.svn.wordpress.org/stewart/",
+                "reference": "1.17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/theme/stewart.1.17.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-theme",
+            "homepage": "https://wordpress.org/themes/stewart/"
         },
         {
             "name": "wpackagist-theme/suits",
