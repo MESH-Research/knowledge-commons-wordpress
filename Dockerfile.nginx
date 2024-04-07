@@ -5,7 +5,9 @@ FROM nginx:stable-alpine
 # Ensure that important users and groups have consistent IDs across all containers.
 # 82 is the standard uid/gid for "www-data" on php-fpm Alpine.
 RUN adduser -u 82 -D -S -G www-data www-data \
-	&& addgroup nginx www-data
+	&& addgroup nginx www-data \
+	&& addgroup -g 33 xfs || true \
+	&& addgroup nginx xfs
 
 COPY ./config/all/nginx/nginx.conf /etc/nginx/
 COPY ./config/all/nginx/templates /etc/nginx/templates

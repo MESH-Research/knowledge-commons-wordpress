@@ -669,11 +669,11 @@
                 },
                 {
                     "name": "DB_PASSWORD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:password::"
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DB_PASSWORD::"
                 },
                 {
                     "name": "DB_USER",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:username::"
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DB_USER::"
                 },
                 {
                     "name": "DISABLE_MAILCHIMP",
