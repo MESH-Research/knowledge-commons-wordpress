@@ -29,6 +29,7 @@ server {
   root "/app/site/web";
   index index.php index.htm index.html;
   add_header Fastcgi-Cache $upstream_cache_status;
+  add_header X-Content-Type-Options nosniff;
 
   # Specify a charset
   charset utf-8;
