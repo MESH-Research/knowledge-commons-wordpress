@@ -1,0 +1,14 @@
+footer{
+  a.nav-link {
+      padding: .25rem 0;
+      font-weight: bold;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+  }
+
+  a.site-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--light);
+  }
+}

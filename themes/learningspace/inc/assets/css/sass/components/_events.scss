@@ -1,0 +1,48 @@
+.event {
+
+  .eventorganiser-event-meta {
+    hr {
+      display: none;
+    }
+
+    h4 {
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+      font-size: 0.9rem;
+      text-align: left;
+      font-weight: bolder;
+      margin-bottom: 1rem;
+      margin-top: 0;
+      color: var(--secondary);
+    }
+
+    ul.eo-event-meta {
+      list-style: none;
+
+      ul {
+        list-style: none;
+      }
+
+      a.eo-upcoming-dates-show-less,
+      a.eo-upcoming-dates-show-more,
+      .eo-upcoming-dates-pipe {
+        font-size: .8rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: .5rem;
+      }
+    }
+
+    /* FIX DUPLICATE EVENT INFO FOR EO 3.7.2 */
+    &:nth-of-type(2) {
+      display: none;
+    }
+
+
+  }
+
+  /* FIX ERRONEOUS H4 for EO 3.7.2 */
+  .entry-content > h4:first-of-type {
+    display: none;
+  }
+}

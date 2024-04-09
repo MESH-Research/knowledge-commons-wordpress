@@ -1,0 +1,71 @@
+aside#secondary {
+  margin-top: 3rem;
+
+    h2.course-card--instructor-name {
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    p.course-card--instructor-email {
+      margin-bottom: 4rem;
+    }
+
+
+
+}
+
+.widget-post-list,
+.widget-post-list--excerpt {
+  list-style: none;
+  margin-bottom: 3rem;
+  padding-left: 0;
+
+  li {
+
+    a {
+      color: var(--dark);
+    }
+
+    border-bottom: 2px solid var(--secondary);
+    padding: .85rem 0;
+  }
+}
+
+.widget-post-list--excerpt {
+  li {
+    border-bottom-width: 1px;
+    padding: .25rem 0 1.75rem;
+  }
+}
+
+.EO_Event_List_Widget {
+
+
+  ul {
+    list-style: none;
+    margin-bottom: 3rem;
+    padding-left: 0;
+
+    li {
+
+      a {
+        color: var(--secondary);
+        font-weight: bold;
+      }
+
+      border-bottom: 2px solid var(--secondary);
+      padding: .85rem 0;
+    }
+  }
+
+  h3.widget-title {
+    text-transform: uppercase !important;
+    letter-spacing: 0.1rem;
+    font-size: 0.9rem;
+    text-align: left;
+    font-weight: bolder;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: var(--secondary);
+  }
+}

@@ -1,0 +1,271 @@
+header#masthead {
+  background: var(--primary); }
+  header#masthead a.site-title {
+    font-size: 2rem; }
+  header#masthead a.nav-link {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem; }
+
+h1.page-title {
+  font-size: 3rem;
+  border-bottom: none; }
+
+.entry-content h3 {
+  font-size: 1.5rem;
+  font-weight: normal; }
+
+.entry-content p, .entry-content ul {
+  font-size: 1.25rem;
+  line-height: 1.5; }
+
+ul li {
+  text-align: left; }
+
+button.navbar-toggler {
+  background: var(--light); }
+
+body:not(.theme-preset-active) {
+  font-family: var(--font-family-sans-serif); }
+
+body:not(.theme-preset-active) #masthead .navbar-nav > li > a {
+  color: var(--light); }
+
+h4.label {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
+  text-align: left;
+  font-weight: bolder;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: var(--secondary); }
+
+.sub-banner {
+  background: var(--secondary);
+  color: var(--light);
+  padding: .25rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem; }
+  .sub-banner p {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: center; }
+
+#page-sub-header {
+  /* Course Card Styles */ }
+  #page-sub-header .course-card {
+    border: 1px solid var(--secondary);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 4px;
+    background-color: #fdfceb;
+    text-align: left; }
+    #page-sub-header .course-card h1.course-card--course-name {
+      text-align: left;
+      font-size: 3rem;
+      color: var(--dark); }
+    #page-sub-header .course-card h2.course-card--instructor-name {
+      text-align: left;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding-bottom: 0;
+      font-weight: normal;
+      font-size: 2rem; }
+    #page-sub-header .course-card p {
+      max-width: 100%; }
+      #page-sub-header .course-card p.course-card--instructor-email {
+        margin-bottom: 1.75rem; }
+    #page-sub-header .course-card .course-card--course-description p {
+      font-size: 1rem; }
+
+.archive div#content {
+  padding-top: 3rem; }
+
+.archive article {
+  margin: 2rem 0 1.5rem; }
+  .archive article .entry-header h2.entry-title {
+    margin-top: .5rem;
+    margin-bottom: 0;
+    border-bottom: none; }
+  .archive article .entry-header .entry-meta .posted-on, .archive article .entry-header .entry-meta .posted-on a {
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    font-size: 0.8rem;
+    text-align: left;
+    font-weight: bolder;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: var(--secondary); }
+  .archive article .entry-content {
+    margin-top: 0; }
+    .archive article .entry-content p {
+      margin-bottom: 0.5rem; }
+
+aside#secondary {
+  margin-top: 3rem; }
+  aside#secondary h2.course-card--instructor-name {
+    margin-top: 0.5rem;
+    margin-bottom: 0; }
+  aside#secondary p.course-card--instructor-email {
+    margin-bottom: 4rem; }
+
+.widget-post-list,
+.widget-post-list--excerpt {
+  list-style: none;
+  margin-bottom: 3rem;
+  padding-left: 0; }
+  .widget-post-list li,
+  .widget-post-list--excerpt li {
+    border-bottom: 2px solid var(--secondary);
+    padding: .85rem 0; }
+    .widget-post-list li a,
+    .widget-post-list--excerpt li a {
+      color: var(--dark); }
+
+.widget-post-list--excerpt li {
+  border-bottom-width: 1px;
+  padding: .25rem 0 1.75rem; }
+
+.EO_Event_List_Widget ul {
+  list-style: none;
+  margin-bottom: 3rem;
+  padding-left: 0; }
+  .EO_Event_List_Widget ul li {
+    border-bottom: 2px solid var(--secondary);
+    padding: .85rem 0; }
+    .EO_Event_List_Widget ul li a {
+      color: var(--secondary);
+      font-weight: bold; }
+
+.EO_Event_List_Widget h3.widget-title {
+  text-transform: uppercase !important;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
+  text-align: left;
+  font-weight: bolder;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: var(--secondary); }
+
+.event {
+  /* FIX ERRONEOUS H4 for EO 3.7.2 */ }
+  .event .eventorganiser-event-meta {
+    /* FIX DUPLICATE EVENT INFO FOR EO 3.7.2 */ }
+    .event .eventorganiser-event-meta hr {
+      display: none; }
+    .event .eventorganiser-event-meta h4 {
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+      font-size: 0.9rem;
+      text-align: left;
+      font-weight: bolder;
+      margin-bottom: 1rem;
+      margin-top: 0;
+      color: var(--secondary); }
+    .event .eventorganiser-event-meta ul.eo-event-meta {
+      list-style: none; }
+      .event .eventorganiser-event-meta ul.eo-event-meta ul {
+        list-style: none; }
+      .event .eventorganiser-event-meta ul.eo-event-meta a.eo-upcoming-dates-show-less,
+      .event .eventorganiser-event-meta ul.eo-event-meta a.eo-upcoming-dates-show-more,
+      .event .eventorganiser-event-meta ul.eo-event-meta .eo-upcoming-dates-pipe {
+        font-size: .8rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: .5rem; }
+    .event .eventorganiser-event-meta:nth-of-type(2) {
+      display: none; }
+  .event .entry-content > h4:first-of-type {
+    display: none; }
+
+#content.assignment, #content.lesson {
+  padding-top: 0; }
+  #content.assignment .assignment--header,
+  #content.assignment .lesson--header, #content.lesson .assignment--header,
+  #content.lesson .lesson--header {
+    background: var(--secondary);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem; }
+    #content.assignment .assignment--header h1, #content.assignment .assignment--header h2, #content.assignment .assignment--header h4,
+    #content.assignment .lesson--header h1,
+    #content.assignment .lesson--header h2,
+    #content.assignment .lesson--header h4, #content.lesson .assignment--header h1, #content.lesson .assignment--header h2, #content.lesson .assignment--header h4,
+    #content.lesson .lesson--header h1,
+    #content.lesson .lesson--header h2,
+    #content.lesson .lesson--header h4 {
+      color: var(--light);
+      text-align: center;
+      margin-top: .75rem; }
+    #content.assignment .assignment--header h1,
+    #content.assignment .lesson--header h1, #content.lesson .assignment--header h1,
+    #content.lesson .lesson--header h1 {
+      margin-bottom: 2.5rem;
+      font-size: 3rem; }
+
+#content.document h1.entry-title, #content.event h1.entry-title {
+  font-size: 3rem;
+  border-bottom: none; }
+
+footer a.nav-link {
+  padding: .25rem 0;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase; }
+
+footer a.site-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--light); }
+
+.comments-area {
+  margin-top: 6rem; }
+  .comments-area ul.comment-list {
+    margin-top: 1.5rem; }
+    .comments-area ul.comment-list .card {
+      border: none;
+      padding-left: 0;
+      padding-right: 0; }
+    .comments-area ul.comment-list .card-header {
+      background: none;
+      padding-left: 0;
+      padding-right: 0; }
+      .comments-area ul.comment-list .card-header h5 {
+        margin-bottom: 0;
+        font-size: 1rem;
+        line-height: 1.4; }
+        .comments-area ul.comment-list .card-header h5 time {
+          font-size: .8rem;
+          font-weight: normal;
+          text-transform: uppercase; }
+    .comments-area ul.comment-list .comment-content {
+      padding: .5rem 0; }
+      .comments-area ul.comment-list .comment-content p {
+        margin-bottom: .5rem; }
+        .comments-area ul.comment-list .comment-content p:last-of-type {
+          margin-bottom: 0; }
+    .comments-area ul.comment-list .card-footer {
+      background: none;
+      padding: 0;
+      padding-bottom: .5rem;
+      border-top: none; }
+      .comments-area ul.comment-list .card-footer .comment-reply-link {
+        padding: .18rem .5rem;
+        font-size: .7rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        background: var(--secondary); }
+    .comments-area ul.comment-list ul.children {
+      padding-left: 1rem; }
+      .comments-area ul.comment-list ul.children li {
+        padding-left: 1rem;
+        border-left: 3px solid var(--info); }
+  .comments-area .comment-respond .alert-info,
+  .comments-area .comment-respond p.form-allowed-tags {
+    padding: .25rem;
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem; }
+  .comments-area .comment-respond p.form-allowed-tags {
+    margin-bottom: 0.25rem; }

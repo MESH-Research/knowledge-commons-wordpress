@@ -1,0 +1,35 @@
+#content {
+  &.assignment,
+  &.lesson {
+    padding-top: 0;
+
+    .assignment--header,
+    .lesson--header {
+      background: var(--secondary);
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+
+      h1, h2, h4 {
+        color: var(--light);
+        text-align: center;
+        margin-top: .75rem;
+      }
+
+      h1 {
+        margin-bottom: 2.5rem;
+        font-size: 3rem;
+      }
+    }
+
+  }
+
+  &.document,
+  &.event {
+    h1.entry-title {
+      font-size: 3rem;
+      border-bottom: none;
+    }
+  }
+
+}

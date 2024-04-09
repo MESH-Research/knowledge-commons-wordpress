@@ -1,0 +1,42 @@
+#page-sub-header {
+  /* Course Card Styles */
+  .course-card {
+    border: 1px solid var(--secondary);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 4px;
+    background-color: lighten(#FAF8D4, 5%);
+    text-align: left;
+
+    h1.course-card--course-name {
+      text-align: left;
+      font-size: 3rem;
+      color: var(--dark);
+    }
+
+    h2.course-card--instructor-name {
+      text-align: left;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding-bottom: 0;
+      font-weight: normal;
+      font-size: 2rem;
+    }
+
+    p {
+      max-width: 100%;
+
+      &.course-card--instructor-email {
+        margin-bottom: 1.75rem;
+      }
+    }
+
+    .course-card--course-description {
+
+      p {
+        font-size: 1rem;
+
+      }
+    }
+  }
+}
