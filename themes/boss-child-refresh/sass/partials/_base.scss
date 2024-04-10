@@ -1,0 +1,215 @@
+@font-face {
+  font-family: Atkinson Hyperlegible;
+  src: url(../fonts/Atkinson-Hyperlegible/Atkinson-Hyperlegible-Regular-102.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Atkinson Hyperlegible;
+  src: url(../fonts/Atkinson-Hyperlegible/Atkinson-Hyperlegible-Regular-102.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Atkinson Hyperlegible;
+  src: url(../fonts/Atkinson-Hyperlegible/Atkinson-Hyperlegible-Bold-102.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Atkinson Hyperlegible;
+  src: url(../fonts/Atkinson-Hyperlegible/Atkinson-Hyperlegible-Italic-102.ttf);
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Atkinson Hyperlegible;
+  src: url(../fonts/Atkinson-Hyperlegible-BoldItalic-102.ttf);
+  font-weight: bold;
+  font-style: italic;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#mobile-header, // parent theme applies a bg color directly here which overrides body. override it right back
+body {
+  background-color: $menu-panel-background-color; // menu doesn't always extend to bottom of screen, this covers that space
+  font-family: $font-family-body;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-title,
+.widget-title,
+.entry-content th,
+.comment-content th,
+h1.main-title,
+.group-info li p:first-child,
+#item-statistics .numbers span p:first-child,
+#bbpress-forums fieldset.bbp-form legend {
+  font-family: $font-family-header;
+  font-weight: 300;
+  text-transform: none !important; // always sentence case everywhere!!
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    color: $link-color-hover;
+    text-decoration: underline;
+  }
+}
+
+#buddypress {
+  #item-header {
+    #header-cover-image {
+      background-size: cover !important; /* override inline style */
+    }
+  }
+}
+
+#footer-links a:hover {
+  color: $link-color;
+}
+
+#buddypress #message.info,
+div#sitewide-notice #message.info {
+  margin-top: 15px;
+}
+
+// fewer transitions
+#mastlogo,
+.menu-panel,
+.header-outher,
+#left-panel *,
+#nav-menu > ul > li > a,
+#left-panel-inner #scroll-area,
+#right-panel-inner,
+.menu-panel #header-menu > ul li a:before,
+.menu-panel #nav-menu > ul > li > a:not(.open-submenu):before,
+.menu-panel .screen-reader-shortcut:before,
+.menu-panel .bp_components ul li ul li > .ab-item:before {
+  transition-property: none;
+}
+
+// template notices
+div.bbp-template-notice {
+  background-color: white;
+  border: 1px solid black;
+
+  p {
+    color: black;
+  }
+
+  a {
+    color: $link-color;
+  }
+
+  &.info,
+  &.info * {
+    background-color: white;
+    color: black;
+    text-align: left;
+  }
+}
+
+// this is invisible against the titlebar by default, change to make it visible
+.ui-dialog-titlebar-close:hover::before {
+  content: '\f158';
+  color: black;
+}
+
+.bp-user #buddypress #item-header div#message,
+.group-single #buddypress #item-header div#message {
+  animation-duration: 10s;
+  opacity: 1;
+  top: 0;
+  margin-top: 0;
+}
+
+.bp-active a:focus, input[type=text]:focus,
+.bp-active textarea:focus, .bp-active iframe:focus,
+ button:focus, .bp-active select:focus {
+  outline: #9ecaed solid 2px;
+}
+
+.buddyboss-select-inner select:focus {
+  opacity: 1;
+  left: -5px;
+}
+
+#buddypress table#groups-notification-settings th {
+    padding-right: 2em;
+}
+
+.bp-user.settings #buddypress div#item-body {
+    max-width: 800px;
+}
+
+#buddypress table#groups-notification-settings th.network-header {
+    border: none;
+}
+
+#buddypress table.notification-settings .yes, #buddypress table.notification-settings .no {
+    text-align: unset;
+}
+
+#buddypress table#groups-subscription-notification-settings tr:nth-child(even),
+#buddypress table#groups-notification-settings tr:nth-child(even),
+#buddypress table#activity-notification-settings tr:nth-child(even),
+#buddypress table#messages-notification-settings tr:nth-child(even),
+#buddypress table#follow-notification-settings tr:nth-child(even) {
+    background: #DCDCDC;
+}
+
+#buddypress table tbody tr:last-child:not(:first-child) td {
+    padding-bottom: 5px;
+}
+
+#buddypress table.notification-settings td {
+    padding: 5px;
+}
+
+#buddypress table thead tr#network {
+    border: none;
+}
+
+#buddypress table#groups-notification-settings tbody tr:last-child:not(:first-child) td, 
+#buddypress table#activity-notification-settings tbody tr:last-child:not(:first-child) td {
+    padding: 5px;
+}
+
+#buddypress #settings-form div#group-email-settings,
+#buddypress #settings-form p:first-child {
+    display: none;
+}
+
+
+footer#colophon * {
+    color: #575757;
+}
+
+.footer-credits a, #footer-links a {
+    color: #575757 !important;
+}
+
+
+#buddypress #activity-stream .activity-meta .bp-secondary-action:before {
+  color: #575757 !important;
+}
+
+.fa-mail-reply:before, .fa-reply:before {
+  color: #575757 !important;
+}
+
+#primary .item-list li .item-meta span:not(.count) {
+  color: #575757;
+}
