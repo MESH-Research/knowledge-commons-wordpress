@@ -127,14 +127,14 @@
     "wpackagist-plugin/more-privacy-options": "^4.6",
     "wpackagist-plugin/password-protected": "^2.7",
     "wpackagist-plugin/printfriendly": "^5.5",
-    "wpackagist-plugin/redirection": "^5.4",
+    "wpackagist-plugin/redirection": "5.3.10",
     "wpackagist-plugin/redux-framework": "^4.4",
     "wpackagist-plugin/smart-slider-3": "3.5.1.21",
     "wpackagist-plugin/translatepress-multilingual": "^2.7",
     "wpackagist-plugin/woosidebars": "^1.4",
-    "wpackagist-plugin/wordpress-mu-domain-mapping": "0.5.5.1",
     "wpackagist-plugin/formassembly-web-forms": "^2.0",
-    "wpackagist-theme/stewart": "1.15"
+    "wpackagist-theme/stewart": "1.15",
+    "wpackagist-plugin/tainacan": "0.20.3"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

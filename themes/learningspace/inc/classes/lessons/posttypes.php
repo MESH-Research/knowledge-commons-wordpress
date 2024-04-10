@@ -1,7 +1,7 @@
 <?php
 
 namespace learningspace\inc\classes\lessons;
-use learningspace\inc\classes\Inflector;
+use learningspace\inc\classes\inflector;
 
 class posttypes extends \learningspace\inc\classes\posttypes {
 	public function __construct() {
@@ -9,7 +9,7 @@ class posttypes extends \learningspace\inc\classes\posttypes {
 	}
 	public function get_config () {
 		$names     = "Lessons";
-		$name      = Inflector::singularize( $names );
+		$name      = singularize( $names );
 		return array(
 			'name' => ucfirst($name),
 			'args' => array(

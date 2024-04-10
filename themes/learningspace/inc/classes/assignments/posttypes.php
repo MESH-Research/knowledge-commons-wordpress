@@ -8,7 +8,7 @@ class posttypes extends \learningspace\inc\classes\posttypes {
 	}
 	public function get_config () {
 		$names     = "Assignments";
-		$name      = Inflector::singularize( $names );
+		$name      = singularize( $names );
 		return array(
 			'name' => ucfirst($name),
 			'args' => array(

@@ -2,6 +2,9 @@
 
 FROM php:8.2-fpm-alpine AS base
 
+RUN addgroup -g 33 xfs || true \
+	&& addgroup www-data xfs
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/

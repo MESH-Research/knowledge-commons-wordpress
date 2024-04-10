@@ -25,7 +25,7 @@
  */
 namespace learningspace\inc\classes;
 
-class Inflector {
+class inflector {
 
 	/**
 	 * Plural inflector rules
@@ -292,7 +292,7 @@ class Inflector {
 	 */
 	public static function reset() {
 		if (empty(self::$_initialState)) {
-			self::$_initialState = get_class_vars('Inflector');
+			self::$_initialState = get_class_vars('learningspace\inc\classes\inflector');
 			return;
 		}
 		foreach (self::$_initialState as $key => $val) {
