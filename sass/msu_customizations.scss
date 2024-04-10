@@ -1,0 +1,112 @@
+a, a:hover {
+	color: #107045;
+}
+p, li {
+	font-size: 16px;
+}
+
+.footer-credits, .footer-credits-single {
+	color: #23282d;
+}
+
+.social-icons li a {
+	color: #23282d;
+}
+
+.msu_footer_wrapper {
+	border-top: 2px solid #18453b;
+	display: flex;
+  width: 100%;
+
+}
+#footer_lists {
+	width: 80%
+}
+.msu_footer_wrapper ul li {
+	display: inline;
+  width: auto;
+}
+.footer-inner-bottom {
+	padding:0px
+}
+.msu_footer_wordmark img {
+	padding: 10px;
+}
+#footer_lists {
+	padding: 10px;
+}
+.msu_footer_unit_info{
+	border-bottom: 1px dotted #808080;
+	padding-bottom: 5px;
+}
+.msu_footer_unit_info li {
+ 	padding: 5px 5px 5px 5px;
+	border-right: 1px solid #18453b;
+}
+.msu_footer{
+	font-size : 12px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.msu_footer li {
+ 	padding: 5px 5px 5px 5px;
+	border-right: 1px solid #18453b;
+}
+.msu_footer li:last-child, .msu_footer_unit_info li:last-child {
+    	border-right: none;
+}
+
+.button {
+	background-color: #18453b;
+	padding: 5px;
+	width: 135px;
+	color: #ffffff;
+	border-radius: 5px;
+	clear: both;
+	display: inline-block;
+	margin: 5px;
+}
+
+.button a {
+	color: #ffffff;
+}
+
+.b-right, .b-left {
+	text-align: center
+}
+
+.b-right {
+	float:right;
+}
+.site-header .header-inner .right-col, header .header-inner, header .header-inner, header #mastlogo, header .search-wrapper  {
+	color: #18453b;
+}
+#masthead a,  #titlebar-search form #searchsubmit{
+    color: #18453b;
+}
+.footer-credits {
+	padding-left:10px;
+}
+#footer-links {
+	padding-right:10px;
+}
+@media (max-width: 1373px) {
+        .button { float: right; }
+}
+
+@media ( max-width: 980px) {
+
+        .msu_footer_wrapper {
+                display: block;
+        }
+        #footer_lists {
+                width:100%
+        }
+        .msu_footer_wordmark {
+                display: inline-flex;
+                width:100%
+        }
+
+
+}
+
