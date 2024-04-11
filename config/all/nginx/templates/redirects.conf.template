@@ -557,3 +557,20 @@ if ($http_host = "stemedpacermeetthementors.commons.msu.edu") {
 rewrite ^/files/(.+) /wp/wp-includes/ms-files.php?file=$1 last;
 rewrite ^/wp/files/(.+) /wp/wp-includes/ms-files.php?file=$1 last;
 rewrite /wp-admin$ https://$host$uri/ permanent;
+
+# Digital Pedagogy registration
+if ($http_host = "digitalpedagogy.hcommons.org") {
+	rewrite ^/register https://registry.hcommons.org/registry/co_petitions/start/coef:606;
+}
+
+if ($http_host = "raamp.hcommons.org") {
+	rewrite ^/(.*)$ https://www.collegeart.org/programs/raamp;
+}
+
+if ($http_host = "mlaresources.mla.hcommons.org") {
+	rewrite ^/(.*)$ https://profession.mla.org/
+}
+
+if ($http_host = "mlastyle.mla.hcommons.org") {
+	rewrite ^/(.*)$ https://style.mla.org/
+}
