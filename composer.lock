@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9352a5f6ddf791d29cdca5b29d3fdd3d",
+    "content-hash": "57f2403ef7b934449ef56b5e1b810526",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -6951,24 +6951,6 @@
             },
             "type": "wordpress-theme",
             "homepage": "https://wordpress.org/themes/hum/"
-        },
-        {
-            "name": "wpackagist-theme/maskitto-light",
-            "version": "3.4.0",
-            "source": {
-                "type": "svn",
-                "url": "https://themes.svn.wordpress.org/maskitto-light/",
-                "reference": "3.4.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/maskitto-light.3.4.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-theme",
-            "homepage": "https://wordpress.org/themes/maskitto-light/"
         },
         {
             "name": "wpackagist-theme/naledi",
