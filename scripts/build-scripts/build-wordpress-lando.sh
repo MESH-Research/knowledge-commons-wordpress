@@ -15,11 +15,4 @@ echo "Installing Composer dependencies..."
 cd /app
 composer update
 
-echo "Relinking Commons plugins & themes..."
-ln -s /app/ancillary-plugins/*/ /app/site/web/app/plugins/
-ln -s /app/core-plugins/*/ /app/site/web/app/plugins/
-ln -s /app/forked-plugins/*/ /app/site/web/app/plugins/
-ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/
-ln -s /app/themes/*/ /app/site/web/app/themes/
-
 echo "Finished running WordPress build script."
