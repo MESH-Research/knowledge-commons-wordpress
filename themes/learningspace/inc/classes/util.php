@@ -1,6 +1,7 @@
 <?php
 
 namespace learningspace\inc\classes;
+use learningspace\inc\classes\Inflector;
 class util {
 	public function __construct() {
 	}
@@ -13,7 +14,7 @@ class util {
 		if ( empty( $args['labels'] ) ) {
 			$args['labels'] = array(
 				'name'          => _x( $post_type_name, "", "post_type_" . $post_type_name ),
-				'singular_name' => _x( singularize( $post_type_name ), "", "post_type_" . $post_type_name ),
+				'singular_name' => _x( Inflector::singularize( $post_type_name ), "", "post_type_" . $post_type_name ),
 			);
 		}
 		$name = strtolower( str_replace( " ", "_", $post_type_name ) );
@@ -23,10 +24,10 @@ class util {
 		//required for graphQL
 		$args['show_in_graphql']     = true;
 		$args['hierarchical']        = true;
-		$args['graphql_single_name'] = singularize( $name );
-		$args['graphql_plural_name'] = pluralize( $name );
+		$args['graphql_single_name'] = Inflector::singularize( $name );
+		$args['graphql_plural_name'] = Inflector::pluralize( $name );
 
-		register_post_type( singularize( $name ), $args );
+		register_post_type( Inflector::singularize( $name ), $args );
 	}
 
 	/**
@@ -48,7 +49,7 @@ class util {
 			$array['slug'] :
 			strtolower( str_replace( "_", "-", $tax_machine_name ) );
 
-		$tax_name_singular = singularize( $tax_name );
+		$tax_name_singular = Inflector::singularize( $tax_name );
 
 		$labels = array_merge( array(
 			'name'              => __( $tax_name, 'tax_' . $tax_name ),
@@ -75,8 +76,8 @@ class util {
 			'has_archive'         => true,
 			'query_var'           => true,
 			'show_in_graphql'     => true, //needed for wpgraphql plugin\
-			'graphql_single_name' => singularize( $tax_machine_name ),
-			'graphql_plural_name' => pluralize( $tax_machine_name ),
+			'graphql_single_name' => Inflector::singularize( $tax_machine_name ),
+			'graphql_plural_name' => Inflector::pluralize( $tax_machine_name ),
 			'show_in_rest'        => true, //required for Gutenberg
 			'rewrite'             => array(
 				'slug'       => $tax_slug,
