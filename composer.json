@@ -117,7 +117,6 @@
     "wpackagist-theme/wabi": "^1.1.0",
     "monolog/monolog": "^3.3",
     "psr/log": "^2.0",
-    "roots/multisite-url-fixer": "^1.1",
     "wpackagist-plugin/wp-saml-auth": "^2.1",
     "simplesamlphp/simplesamlphp": "^2.0.4",
     "skoranda/simplesamlphp-module-idpsamlmdattributes" : "*",
