@@ -2,6 +2,7 @@ name: commons-wordpress
 recipe: lemp
 services:
   appserver:
+    api: 3
     type: php:custom
     overrides:
       image: lando-wordpress-php:latest
@@ -9,6 +10,8 @@ services:
       environment:
         XDEBUG_MODE:
         XDEBUG_CONFIG:
+      volumes:
+        - wp_uploads:/uploads
     build_as_root:
       - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
       - rm -f site/web/phpinfo.php && ln -s /app/scripts/build-scripts/phpinfo.php site/web/phpinfo.php
@@ -80,3 +83,5 @@ tooling:
     description: Imports database from .sql file.
     user: root
     cmd: /app/scripts/db-import.php 
+compose:
+  - docker-compose.yml
