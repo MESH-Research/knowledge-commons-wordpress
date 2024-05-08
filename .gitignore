@@ -19,6 +19,7 @@ site/web/app/themes/*
 site/web/app/uploads/*
 site/web/app/upgrade/*
 site/web/wp/*
+site/web/app/fonts/*
 
 #ignore temporary and logging directories
 log/
