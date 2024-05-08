@@ -56,3 +56,6 @@ composer.phar
 # ignore copied .lando.yml
 .lando.yml
 .lando.local.yml
+
+# ignore symlinked cc-client plugin
+cc-client
