@@ -64,7 +64,7 @@ class InvenioGroupsRestController extends \WP_REST_Controller {
 	public function get_items_permissions_check( $request ) {
 		$api_key = getenv( 'INVENIO_API_KEY' );
 		if ( ! $api_key ) {
-			return new \WP_Error( 'rest_forbidden', __( 'API key not set.' ), [  'status' => 403  ] );
+			return new \WP_Error( 'rest_forbidden', __( 'API key environment variable not set.' ), [  'status' => 403  ] );
 		}
 
 		if ( ! isset( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
