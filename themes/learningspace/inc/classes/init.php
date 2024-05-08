@@ -28,7 +28,7 @@ class init {
 		documents_setup::sunrise();
 		menus::install();
 
-		add_action( 'plugins_loaded', self::install_calendar() );
+		add_action( 'plugins_loaded', [ __NAMESPACE__ . '\init', 'install_calendar' ] );
 		$menu_order = function ( $menu_ord ) {
 			if ( ! $menu_ord ) {
 				return true;
