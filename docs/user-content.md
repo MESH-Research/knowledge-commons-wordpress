@@ -2,17 +2,19 @@
 
 ## Accessing Content
 
-To manage user content we use S3 to store (partial) exports of the `uploads/` directory and WordPress database. You can use `scripts/s3-pull.php` to view and import this content. Generally imported content will wipe the current `uploads/` directory and database, so any local changes will be lost.
+To work with user content, you need to import the WordPress database and uploads directory. 
 
-In order to interact with exports, you will need to [install](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html#cli-authentication-user-configure.title) the AWS CLI. You will also need to obtain CLI user credentials.
+The uploads directory can be accessed through AWS EFS via an NFS mount. You can do this by:
 
-Examples:
+1. Copy the `lando.efs.yaml` file to `lando.yaml` in the root of the project.
+2. Connect to the Commons OpenVPN.
+3. Rebuild with `./lando-rebuild.sh`.
 
-- `scripts/s3-pull.php` List available content.
-- `scripts/s3-pull.php --help` See help.
-- `scripts/s3-pull.php --import-prefix=hcdev-base-sites` Import uploads and db from `hcdev-base-sites` prefix.
+The database can be synced using the `lando s3-pull` command:
 
-Note: These files can be quite large, so it can take a while to run the import script.
+1. Configure the AWS CLI: `lando aws configure`. You will need to obtain CLI user credentials.
+2. Run `lando s3-pull` to list available content.
+3. Run `lando s3-pull production-db-full-localized` to import the database. This takes a while.
 
 ## Logging in to the site
 
