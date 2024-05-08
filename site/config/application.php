@@ -349,6 +349,11 @@ Config::define('CORE_DATACITE_PROXY', getenv('CORE_DATACITE_PROXY'));
 Config::define('CORE_DATACITE_PREFIX', getenv('CORE_DATACITE_PREFIX'));
 
 /**
+ * Invenio Integration
+ */
+Config::define('INVENIO_API_KEY', getenv('INVENIO_API_KEY'));
+
+/**
  * WP_Saml_Auth
  */
  Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD') );
