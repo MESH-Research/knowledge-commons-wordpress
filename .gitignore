@@ -52,3 +52,7 @@ kc-scripts-*/
 
 # ignore local composer exec
 composer.phar 
+
+# ignore copied .lando.yml
+.lando.yml
+.lando.local.yml

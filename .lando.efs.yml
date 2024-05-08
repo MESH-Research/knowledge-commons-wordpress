@@ -1,0 +1,36 @@
+services:
+  appserver:
+    overrides:
+      volumes:
+        - type: volume
+          source: wp_uploads
+          target: /media
+          volume:
+            nocopy: true
+    run_as_root:
+      - |
+        mkdir -p /media && \
+        chown www-data:www-data /media && \
+        rm -rf /app/site/web/app/uploads && \
+        ln -s /media/uploads /app/site/web/app/uploads && \
+        rm -rf /app/site/web/app/blogs.dir && \
+        ln -s /media/blogs.dir /app/site/web/app/blogs.dir
+  cron:
+    services:
+      volumes:
+        - wp_uploads:/media
+    volumes:
+      wp_uploads:
+        driver: local
+        driver_opts:
+          type: nfs
+          o: addr=10.100.11.189,rw,nfsvers=4
+          device: ":/"
+  appserver_nginx:
+    overrides:
+      volumes:
+        - type: volume
+          source: wp_uploads
+          target: /media
+          volume:
+            nocopy: true
