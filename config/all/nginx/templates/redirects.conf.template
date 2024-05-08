@@ -568,9 +568,9 @@ if ($http_host = "raamp.hcommons.org") {
 }
 
 if ($http_host = "mlaresources.mla.hcommons.org") {
-	rewrite ^/(.*)$ https://profession.mla.org/
+	rewrite ^/(.*)$ https://profession.mla.org/;
 }
 
 if ($http_host = "mlastyle.mla.hcommons.org") {
-	rewrite ^/(.*)$ https://style.mla.org/
+	rewrite ^/(.*)$ https://style.mla.org/;
 }

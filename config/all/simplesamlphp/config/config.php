@@ -178,13 +178,15 @@ $config = [
      *   'trusted.url.domains' => ['sp.example.com', 'app.example.com'],
      */
     'trusted.url.domains' => [
-      '.*\.commons-wordpress.lndo.site',
-      '.*\.hcommons-dev.org',
-      '.*\.hcommons-staging.org',
-      '.*\.hcommons.org',
-      '.*\.commons.msu.edu',
-      '.*\.hcommons-2.dev',
-      '.*\.hcommons-3.dev',
+      '.*commons-wordpress.lndo.site',
+      '.*hcommons-dev.org',
+      '.*hcommons-staging.org',
+      '.*hcommons.org',
+      '.*commons.msu.edu',
+      '.*hcommons-2.dev',
+      '.*hcommons-3.dev',
+      '.*action.mla.org',
+      '.*symposium.mla.org',
     ],
 
 

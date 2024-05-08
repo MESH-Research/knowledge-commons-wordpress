@@ -922,6 +922,10 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_SITEURL::"
+                },
+                {
+                    "name": "RUN_CRON",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:RUN_CRON::"
                 }
             ],
             "logConfiguration": {

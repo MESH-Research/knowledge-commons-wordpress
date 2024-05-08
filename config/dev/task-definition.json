@@ -478,18 +478,23 @@
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
                 },
-				{
+                {
                     "name": "SIMPLESAMLPHP_METADATA_FILE",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_METADATA_FILE::"
                 },
-				{
+                {
                     "name": "SAML_CRT",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.crt-qvsDvx"
                 },
                 {
                     "name": "SAML_PEM",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.pem-FNH7Dd"
+                },
+                {
+                    "name": "INVENIO_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:INVENIO_API_KEY::"
                 }
+    
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
@@ -498,8 +503,7 @@
                     "awslogs-group": "/ecs/commons-wordpress-dev",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         },
@@ -706,11 +710,11 @@
                 },
                 {
                     "name": "DB_PASSWORD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:password::"
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_PASSWORD::"
                 },
                 {
                     "name": "DB_USER",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:rds!db-50fd61fd-8b23-49ce-9592-024f702f6a26-rdkXTG:username::"
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DB_USER::"
                 },
                 {
                     "name": "DISABLE_MAILCHIMP",
@@ -991,6 +995,10 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
+                },
+                {
+                    "name": "RUN_CRON",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:RUN_CRON::"
                 }
             ],
             "logConfiguration": {
@@ -1000,8 +1008,7 @@
                     "awslogs-group": "/ecs/commons-wordpress-dev",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         },
@@ -1052,8 +1059,7 @@
                     "awslogs-group": "/ecs/commons-wordpress-dev",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         }
