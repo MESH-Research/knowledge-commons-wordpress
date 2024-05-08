@@ -20,6 +20,8 @@ site/web/app/uploads/*
 site/web/app/upgrade/*
 site/web/wp/*
 site/web/app/fonts/*
+site/web/app/uploads
+site/web/app/blogs.dir
 
 #ignore temporary and logging directories
 log/

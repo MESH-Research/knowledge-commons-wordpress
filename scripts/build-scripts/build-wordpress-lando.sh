@@ -7,9 +7,7 @@ pecl install xdebug
 docker-php-ext-enable xdebug
 
 echo "Resetting plugins & themes directories..."
-rm -rf /app/site/web/app/plugins/*
-rm -rf /app/site/web/app/themes/*
-rm -rf /app/site/web/app/mu-plugins/*
+
 
 echo "Installing Composer dependencies..."
 cd /app

@@ -6,4 +6,5 @@
 
 docker build -t lando-wordpress-php:latest -f Dockerfile.php --target lando .
 docker build -t lando-wordpress-cron:latest -f Dockerfile.php --target cron .
+docker build -t lando-nginx:latest -f Dockerfile.nginx .
 lando rebuild -y

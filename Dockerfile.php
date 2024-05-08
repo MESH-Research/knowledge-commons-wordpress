@@ -5,7 +5,7 @@ FROM php:8.2-fpm-alpine AS base
 RUN addgroup -g 33 xfs || true \
 	&& addgroup www-data xfs
 
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY --chown=www-data:www-data --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && \
@@ -23,21 +23,31 @@ RUN apk add git mysql py3-pip py-cryptography mandoc aws-cli linux-headers bash
 
 EXPOSE 9000
 
+FROM lando AS lando-efs
+
+# Linking uploads folders to EFS volume mounted at /media
+RUN mkdir -p /media && \
+	chown www-data:www-data /media && \
+	rm -rf /app/site/web/app/uploads && \
+	ln -s /media/uploads /app/site/web/app/uploads && \
+	rm -rf /app/site/web/app/blogs.dir && \
+	ln -s /media/blogs.dir /app/site/web/app/blogs.dir
+
 FROM base AS cloud
 
-# This is a bit awkward, but we want to copy only the necessary files to the
-# container. If we copy the entire root directory of the project, there will
+# This is a bit awkward, but we want to COPY --chown=www-data:www-data only the necessary files to the
+# container. If we COPY --chown=www-data:www-data the entire root directory of the project, there will
 # be a lot of junk files from development that we don't need.
-COPY wp-cli.yml /app/
-COPY ./site /app/site
-COPY ./simplesamlphp /app/simplesamlphp
-COPY ./themes /app/themes
-COPY ./config /app/config
-COPY ./scripts /app/scripts
-COPY ./core-plugins /app/core-plugins
-COPY ./forked-plugins /app/forked-plugins
-COPY ./ancillary-plugins /app/ancillary-plugins
-COPY ./mu-plugins /app/mu-plugins
+COPY --chown=www-data:www-data wp-cli.yml /app/
+COPY --chown=www-data:www-data ./site /app/site
+COPY --chown=www-data:www-data ./simplesamlphp /app/simplesamlphp
+COPY --chown=www-data:www-data ./themes /app/themes
+COPY --chown=www-data:www-data ./config /app/config
+COPY --chown=www-data:www-data ./scripts /app/scripts
+COPY --chown=www-data:www-data ./core-plugins /app/core-plugins
+COPY --chown=www-data:www-data ./forked-plugins /app/forked-plugins
+COPY --chown=www-data:www-data ./ancillary-plugins /app/ancillary-plugins
+COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
 
 RUN rm -rf /app/site/web/app/plugins/* && \
 	rm -rf /app/site/web/app/themes/* && \
@@ -48,8 +58,8 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
 	ln -s /app/themes/*/ /app/site/web/app/themes/
 
-COPY composer.json /app/
-COPY composer.lock /app/
+COPY --chown=www-data:www-data composer.json /app/
+COPY --chown=www-data:www-data composer.lock /app/
 
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
@@ -66,8 +76,6 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 	rm -rf /app/config/all/simplesamlphp/tmp && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/tmp
-
-RUN chown -R www-data:www-data /app
 
 WORKDIR /app
 USER www-data
