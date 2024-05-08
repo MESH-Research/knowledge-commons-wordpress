@@ -65,15 +65,24 @@ function get_deposit_metadata( $blog_id, $domain ) {
 	$result = $wpdb->get_results(
 		$wpdb->prepare(
 			"
-			SELECT DISTINCT u.user_login AS submitter_login, u.user_email AS submitter_email, d.meta_value AS metadata, f.meta_value AS filedata
+			SELECT DISTINCT 
+				d.post_id AS deposit_id, 
+				u.user_login AS submitter_login, 
+				u.user_email AS submitter_email, 
+				d.meta_value AS metadata, 
+				f.meta_value AS filedata,
+				g.meta_value AS total_downloads,
+				h.meta_value AS total_views
 			FROM {$wpdb->base_prefix}{$blog_prefix}postmeta as d
-			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}postmeta as f
-			ON d.post_id = f.post_id
-			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}posts as p
-			ON d.post_id = p.ID
-			LEFT JOIN {$wpdb->base_prefix}users as u
-			ON p.post_author = u.ID
-			WHERE d.meta_key = '_deposit_metadata' AND f.meta_key = '_deposit_file_metadata'
+			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}postmeta as f ON d.post_id = f.post_id
+			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}postmeta as g ON d.post_id = g.post_id
+			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}postmeta as h ON d.post_id = h.post_id
+			LEFT JOIN {$wpdb->base_prefix}{$blog_prefix}posts as p ON d.post_id = p.ID
+			LEFT JOIN {$wpdb->base_prefix}users as u ON p.post_author = u.ID
+			WHERE d.meta_key = '_deposit_metadata' 
+				AND f.meta_key = '_deposit_file_metadata'
+				AND g.meta_key LIKE '_total_downloads_CONTENT_%'
+				AND h.meta_key LIKE '_total_views_CONTENT_%'
 			LIMIT %d
 			",
 			MAX_ROWS
@@ -93,14 +102,18 @@ function get_deposit_metadata( $blog_id, $domain ) {
 		} else {
 			$deposit_file_metadata = [];
 		}
-		$metadata[] = array_merge( 
+		$metadata_row = array_merge( 
 			[ 
+				'deposit_post_id' => $row->deposit_id,
+				'total_downloads' => $row->total_downloads,
+				'total_views' => $row->total_views,
 				'submitter_login' => $row->submitter_login, 
 				'submitter_email' => $row->submitter_email 
 			], 
 			$deposit_metadata, 
 			$deposit_file_metadata
 		);
+		$metadata[] = $metadata_row;
 	}
 
 	return $metadata;
