@@ -126,7 +126,7 @@
     "wpackagist-plugin/password-protected": "^2.7",
     "wpackagist-plugin/printfriendly": "^5.5",
     "wpackagist-plugin/redux-framework": "^4.4",
-    "wpackagist-plugin/smart-slider-3": "3.5.1.21",
+    "wpackagist-plugin/smart-slider-3": "^3",
     "wpackagist-plugin/translatepress-multilingual": "^2.7",
     "wpackagist-plugin/woosidebars": "^1.4",
     "wpackagist-plugin/formassembly-web-forms": "^2.0",
