@@ -57,5 +57,7 @@ composer.phar
 .lando.yml
 .lando.local.yml
 
-# ignore symlinked cc-client plugin
+# ignore commons-connect
+commons-connect/
 cc-client
+cc-client/

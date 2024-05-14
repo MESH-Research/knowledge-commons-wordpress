@@ -7,6 +7,8 @@ services:
           target: /media
           volume:
             nocopy: true
+    build_as_root:
+      - adduser www-data xfs
     run_as_root:
       - |
         mkdir -p /media && \
@@ -24,7 +26,7 @@ services:
         driver: local
         driver_opts:
           type: nfs
-          o: addr=10.100.11.189,rw,nfsvers=4
+          o: addr=10.100.11.189,ro,nfsvers=4
           device: ":/"
   appserver_nginx:
     overrides:
@@ -34,3 +36,5 @@ services:
           target: /media
           volume:
             nocopy: true
+    build_as_root:
+      - adduser daemon www-data

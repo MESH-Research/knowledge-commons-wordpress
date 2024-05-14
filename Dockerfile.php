@@ -75,7 +75,8 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
 RUN rm -rf /app/config/all/simplesamlphp/log && \
 	rm -rf /app/config/all/simplesamlphp/tmp && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
-	mkdir -p /app/config/all/simplesamlphp/tmp
+	mkdir -p /app/config/all/simplesamlphp/tmp && \
+	chown -R www-data:www-data /app/config/all/simplesamlphp
 
 WORKDIR /app
 USER www-data
