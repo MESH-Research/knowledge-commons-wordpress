@@ -5,28 +5,30 @@ services:
         - type: volume
           source: wp_uploads
           target: /media
+          read_only: true
           volume:
             nocopy: true
     build_as_root:
       - adduser www-data xfs
     run_as_root:
       - |
-        mkdir -p /media && \
-        chown www-data:www-data /media && \
-        rm -rf /app/site/web/app/uploads && \
-        ln -s /media/uploads /app/site/web/app/uploads && \
-        rm -rf /app/site/web/app/blogs.dir && \
-        ln -s /media/blogs.dir /app/site/web/app/blogs.dir
+        ln -sf /media/uploads /app/site/web/app/uploads && \
+        ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
   cron:
     services:
       volumes:
-        - wp_uploads:/media
+        - type: volume
+          source: wp_uploads
+          target: /media
+          read_only: true
+          volume:
+            nocopy: true
     volumes:
       wp_uploads:
         driver: local
         driver_opts:
           type: nfs
-          o: addr=10.100.11.189,ro,nfsvers=4
+          o: addr=10.100.11.189,ro,nfsvers=4,uid=33,gid=33
           device: ":/"
   appserver_nginx:
     overrides:
@@ -34,6 +36,7 @@ services:
         - type: volume
           source: wp_uploads
           target: /media
+          read_only: true
           volume:
             nocopy: true
     build_as_root:

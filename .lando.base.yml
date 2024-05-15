@@ -23,6 +23,7 @@ services:
       user: wordpress
       password: wordpress
       database: wordpress
+    healthcheck: false
   cron:
     api: 3
     type: lando
@@ -54,6 +55,10 @@ tooling:
     service: appserver
     description: Runs WP-CLI commands
     cmd: wp
+  wpd:
+    service: appserver
+    description: Runs WP-CLI commands with xdebug enabled
+    cmd: php -d xdebug.start_with_request=yes /usr/local/bin/wp
   aws:
     service: appserver
     description: Runs AWS CLI commands
