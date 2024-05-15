@@ -6,7 +6,7 @@ To work with user content, you need to import the WordPress database and uploads
 
 The uploads directory can be accessed through AWS EFS via an NFS mount. You can do this by:
 
-1. Copy the `lando.efs.yaml` file to `lando.yaml` in the root of the project.
+1. Copy the `.lando.efs.yaml` file to `.lando.yaml` in the root of the project.
 2. Connect to the Commons OpenVPN.
 3. Rebuild with `./lando-rebuild.sh`.
 
