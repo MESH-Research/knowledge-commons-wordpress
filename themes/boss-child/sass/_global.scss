@@ -12,3 +12,16 @@
 
 @import 'responsive/desktop';
 @import 'responsive/mobile';
+
+/// Overwriting Rules From boss-child theme:
+/// Added by ventres3 05/17/24
+
+h1, h2, h3, h4, h5, h6 { color: #1C4036; }
+
+body {
+	background-color: #F0FAF5;
+}
+
+.profile #profile-main .left > div, .profile #profile-main .right > div {
+	background-color: #F0FAF5;
+}

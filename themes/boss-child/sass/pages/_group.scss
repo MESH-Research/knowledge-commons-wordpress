@@ -1,3 +1,10 @@
+/// Added by ventres3 on 05/17/24
+body:not(.boxed) #buddypress .filters, body.activity:not(.bp-user):not(.boxed) .item-list-tabs, body:not(.boxed) .dir-form .item-list-tabs {
+	background-color: #F0FAF5;
+}
+
+
+/// Original CSS:
 .bbp-topic-details .bbp-forum-data .post-num,
 .bbp-forum-details .bbp-forum-data .post-num,
 #bbpress-forums li.bbp-header,
@@ -536,12 +543,12 @@ table.group-nav-settings {
   display:none;
 }
 #buddypress div#item-nav .item-list-tabs ul li a {
-  color: #217E8C;
+  color: #1C4036;
 }
 
 #buddypress div#item-nav .item-list-tabs ul li.current > a,
 #buddypress div#item-nav .item-list-tabs ul li:hover > a {
-  color: #217E8C;
+  color: #1C4036;
 }
 
 
