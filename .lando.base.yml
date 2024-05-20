@@ -86,3 +86,7 @@ tooling:
     description: Imports database from .sql file.
     user: root
     cmd: /app/scripts/db-import.php 
+  reset-local-passwords:
+    service: appserver
+    description: Resets local WordPress passwords to "password" for all users
+    cmd: wp eval-file /app/scripts/reset-local-wp-passwords.php
