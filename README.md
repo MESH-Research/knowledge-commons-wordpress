@@ -17,19 +17,7 @@ Note: These instructions and many helper scripts assume you are running a Linux-
 3. Run `./lando-rebuild.sh`
 4. Visit https://commons-wordpress.lndo.site/
 
-### Importing Commons Data
-
-To work on the Commons site, you will probably need to import content. This is restricted to authorized Commons developers as it involves connecting to live services and having access to users data.
-
-1. Configure AWS CLI: `lando aws configure`
-   1. AWS Access Key ID: (get from another developer)
-   2. AWS Secrete Access Key: (get from another developer)
-   3. Default region name: us-east-1
-   4. Default output format: json
-2. Run `lando get-local-secrets` to install local secrets for connecting to IDMS dev stack, Fedora, etc.
-3. Run `lando s3-pull` to see available content exports.
-4. Run `lando s3-pull <prefix>` to import content.
-5. Run `lando restart` to relaunch the local site.
+You will probably want to [Import Commons Data](docs/user-content.md) to work with the site.
 
 ## Developer Documentation
 

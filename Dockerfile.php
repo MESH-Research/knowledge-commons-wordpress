@@ -25,14 +25,6 @@ EXPOSE 9000
 
 FROM lando AS lando-efs
 
-# Linking uploads folders to EFS volume mounted at /media
-RUN mkdir -p /media && \
-	chown www-data:www-data /media && \
-	rm -rf /app/site/web/app/uploads && \
-	ln -s /media/uploads /app/site/web/app/uploads && \
-	rm -rf /app/site/web/app/blogs.dir && \
-	ln -s /media/blogs.dir /app/site/web/app/blogs.dir
-
 FROM base AS cloud
 
 # This is a bit awkward, but we want to COPY --chown=www-data:www-data only the necessary files to the
@@ -64,10 +56,8 @@ COPY --chown=www-data:www-data composer.lock /app/
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
 	chown www-data:www-data /media && \
-	rm -rf /app/site/web/app/uploads && \
-	ln -s /media/uploads /app/site/web/app/uploads && \
-	rm -rf /app/site/web/app/blogs.dir && \
-	ln -s /media/blogs.dir /app/site/web/app/blogs.dir
+	ln -sf /media/uploads /app/site/web/app/uploads && \
+	ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
 
 RUN rm -rf /usr/local/etc/php/php.ini && \
 	ln -s /app/config/all/php/php.ini /usr/local/etc/php/php.ini

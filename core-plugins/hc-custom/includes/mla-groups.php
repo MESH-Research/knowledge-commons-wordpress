@@ -151,6 +151,10 @@ class MLA_Groups {
 	}
 
 	function filter_bp_groups_get_paged_groups_sql( $sql_str, $sql_arr, $r ) {
+		if ( empty ( $_COOKIE['bp-groups-status'] ) ) {
+			return $sql_str;
+		}
+		
 		$status = $_COOKIE['bp-groups-status'];
 
 		if ( bp_is_groups_directory() && ! empty( $status ) ) {
