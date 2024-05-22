@@ -44,6 +44,12 @@ COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
 RUN rm -rf /app/site/web/app/plugins/* && \
 	rm -rf /app/site/web/app/themes/* && \
 	rm -rf /app/site/web/app/mu-plugins/* && \
+	mkdir -p /app/site/web/app/plugins && \
+	mkdir -p /app/site/web/app/themes && \
+	mkdir -p /app/site/web/app/mu-plugins && \
+	chown www-data:www-data /app/site/web/app/plugins && \
+	chown www-data:www-data /app/site/web/app/themes && \
+	chown www-data:www-data /app/site/web/app/mu-plugins && \
 	ln -s /app/ancillary-plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/core-plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/forked-plugins/*/ /app/site/web/app/plugins/ && \
