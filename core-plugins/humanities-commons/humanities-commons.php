@@ -1115,7 +1115,7 @@ class Humanities_Commons {
 	public function hcommons_set_bp_core_avatar_upload_path( $path  ) {
 
 		if ( ! empty( $path ) ) {
-			$site_loc = strpos( $path, '/site' );
+			$site_loc = strpos( $path, '/sites' );
 			if ( false === $site_loc ) {
 				return $path;
 			} else {
@@ -1139,7 +1139,7 @@ class Humanities_Commons {
 	public function hcommons_set_bp_core_avatar_url( $url  ) {
 
 		if ( ! empty( $url ) ) {
-			$site_loc = strpos( $url, '/site' );
+			$site_loc = strpos( $url, '/sites' );
 			if ( false === $site_loc ) {
 				return $url;
 			} else {
