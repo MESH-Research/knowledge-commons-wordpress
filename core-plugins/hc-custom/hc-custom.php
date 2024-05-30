@@ -57,3 +57,8 @@ require_once trailingslashit( __DIR__ ) . 'includes/user-functions.php';
  */
 require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-user-rest-controller.php';
 require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-groups-rest-controller.php';
+
+/**
+ * Load Global CSS for Plugin Reduction
+ */
+require_once trailingslashit( __DIR__ ) . 'includes/queue-css.php';

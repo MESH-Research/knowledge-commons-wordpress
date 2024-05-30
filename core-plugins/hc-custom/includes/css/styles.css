@@ -1,2 +1,7 @@
 /* Styles Pertaining to Plugin Reduction & Theme Reduction */
 
+#secondary { padding: 30px; }
+
+.page-right-sidebar {
+	width: 100%;
+}
