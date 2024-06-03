@@ -35,9 +35,12 @@ services:
     build_as_root:
       - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
   appserver_nginx:
+    overrides:
+      pull_policy: always
     scanner:
       okCodes:
         - 500
+        - 301
 env_file:
   - .lando/secrets-default.env
   - .lando/secrets.env

@@ -1,6 +1,7 @@
 # Nginx container for running WordPress on production
 
-FROM nginx:stable-alpine
+FROM --platform=$BUILDPLATFORM nginx:stable-alpine3.19
+ARG BUILDPLATFORM
 
 # Ensure that important users and groups have consistent IDs across all containers.
 # 82 is the standard uid/gid for "www-data" on php-fpm Alpine.

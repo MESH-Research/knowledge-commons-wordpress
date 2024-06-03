@@ -1,6 +1,7 @@
 # PHP container for running WordPress
 
-FROM php:8.2-fpm-alpine AS base
+FROM --platform=$BUILDPLATFORM php:fpm-alpine3.19 AS base
+ARG BUILDPLATFORM
 
 RUN addgroup -g 33 xfs || true \
 	&& addgroup www-data xfs
@@ -9,7 +10,7 @@ COPY --chown=www-data:www-data --from=composer:latest /usr/bin/composer /usr/loc
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-	install-php-extensions exif imagick zip memcached redis mysqli intl yaml
+	install-php-extensions exif imagick/imagick@master zip memcached redis mysqli intl yaml
 
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
