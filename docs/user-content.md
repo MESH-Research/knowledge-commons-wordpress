@@ -13,9 +13,9 @@ The uploads directory can be accessed through AWS EFS via an NFS mount. You can 
 
 The database can be synced using the `lando s3-pull` command:
 
-1. Configure the AWS CLI: `lando aws configure`. You will need to obtain CLI user credentials.
+1. Configure the AWS CLI: `lando aws configure`. You will need to obtain CLI user credentials (Currently for Access Key ********K7UZ).
 2. Run `lando s3-pull` to list available content.
-3. Run `lando s3-pull production-db-full-localized` to import the database. This takes a while. Note that you need approximately twice the size of the database in free disk space to import it.
+3. Run `lando s3-pull production-db-full-localized` to import the database. This takes a while (about an hour for me). Note that you need approximately twice the size of the database in free disk space to import it.
 
 ### NFS Configuration
 
