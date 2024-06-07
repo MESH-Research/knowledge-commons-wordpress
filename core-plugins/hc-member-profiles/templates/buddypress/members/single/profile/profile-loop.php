@@ -23,6 +23,7 @@ do_action( 'bp_before_profile_loop_content' );
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::EDUCATION ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::CV ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::DEPOSITS ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::WORKSDEPOSITS ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::PUBLICATIONS ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::BLOGPOSTS ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::PROJECTS ); ?>
@@ -33,3 +34,5 @@ do_action( 'bp_before_profile_loop_content' );
 </form>
 
 <?php do_action( 'bp_after_profile_loop_content' ); ?>
+
+

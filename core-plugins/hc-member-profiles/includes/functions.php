@@ -40,6 +40,10 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 	require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-blog-posts.php';
 	$fields['blog_posts'] = 'BP_XProfile_Field_Type_Blog_Posts';
 
+	// Works.
+	require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-works-deposits.php';
+	$fields['works_deposits'] = 'BP_XProfile_Field_Type_Works_Deposits';
+
 	// Academic Interests.
 	if ( class_exists( 'MLA_Academic_Interests' ) ) {
 		// Field type.
@@ -266,7 +270,8 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::MEMBERSHIPS,
 		HC_Member_Profiles_Component::CV,
 		HC_Member_Profiles_Component::BLOGPOSTS,
-		HC_Member_Profiles_Component::DEPOSITS
+		HC_Member_Profiles_Component::DEPOSITS,
+		HC_Member_Profiles_Component::WORKSDEPOSITS,
 	];
 
 	if ( in_array( $field_name, $user_hideable_fields ) ) {
@@ -280,6 +285,7 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::GROUPS,
 		HC_Member_Profiles_Component::BLOGS,
 		HC_Member_Profiles_Component::BLOGPOSTS,
+		HC_Member_Profiles_Component::WORKSDEPOSITS,
 	];
 
 	$wordblock_fields = [
@@ -427,28 +433,23 @@ function _hcmp_create_xprofile_fields() {
 		HC_Member_Profiles_Component::PROJECTS     => 'textarea',
 		HC_Member_Profiles_Component::TALKS        => 'textarea',
 		HC_Member_Profiles_Component::MEMBERSHIPS  => 'textarea',
+		HC_Member_Profiles_Component::WORKSDEPOSITS => 'works_deposits',
 	];
 
 	foreach ( $default_fields as $name => $type ) {
 		$field_id = xprofile_get_field_id_from_name( $name );
 
-		if ( ! $field_id ) {
-			$field_id = xprofile_insert_field(
-				[
-					'name'           => $name,
-					'type'           => $type,
-					'field_group_id' => 1,
-				]
-			);
-		};
+		$field_data = [
+			'name'           => $name,
+			'type'           => $type,
+			'field_group_id' => 1,
+		];
 
-		$field = xprofile_get_field( $field_id );
-
-		// If an existing field is in a different group, move it to the primary group.
-		if ( 1 !== $field->group_id ) {
-			$field->group_id = 1;
-			$field->save();
+		if ( $field_id ) {
+			$field_data['field_id'] = $field_id;
 		}
+
+		xprofile_insert_field( $field_data );
 	}
 
 	// Create field types that have satisfied dependencies - see hcmp_register_xprofile_field_types().

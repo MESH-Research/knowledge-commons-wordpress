@@ -4,7 +4,7 @@ FROM --platform=$BUILDPLATFORM php:fpm-alpine3.19 AS base
 ARG BUILDPLATFORM
 
 RUN addgroup -g 33 xfs || true \
-	&& addgroup www-data xfs
+	&& addgroup xfs www-data
 
 COPY --chown=www-data:www-data --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 

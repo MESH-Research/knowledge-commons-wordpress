@@ -57,3 +57,11 @@ require_once trailingslashit( __DIR__ ) . 'includes/user-functions.php';
  */
 require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-user-rest-controller.php';
 require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-groups-rest-controller.php';
+
+/**
+ * Works Groups extension.
+ */
+add_action( 'bp_init', function() {
+	require_once trailingslashit( __DIR__ ) . 'includes/class-works-group-extension.php';
+	bp_register_group_extension( 'Works_Groups_Extension' );
+} );

@@ -33,6 +33,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const ACTIVITY     = 'Recent Commons Activity';
 	const BLOGS        = 'Commons Sites';
 	const BLOGPOSTS    = 'Blog Posts';
+	const WORKSDEPOSITS = 'Works Deposits';
 
 	/**
 	 * TODO deprecate.
@@ -70,6 +71,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 			self::ACTIVITY     => 'Recent Commons Activity',
 			self::BLOGS        => 'Commons Sites',
 			self::BLOGPOSTS    => 'Blog Posts',
+			self::WORKSDEPOSITS => 'KCWorks',
 		];
 
 		parent::start(

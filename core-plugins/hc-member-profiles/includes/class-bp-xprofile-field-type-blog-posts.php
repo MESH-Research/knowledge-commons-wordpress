@@ -70,7 +70,6 @@ class BP_XProfile_Field_Type_Blog_Posts extends BP_XProfile_Field_Type {
 								'blog_title' => get_bloginfo( 'name' ),
 								'blog_url'   => get_bloginfo( 'url' ),
 							];
-							$user_posts[ $post->ID ]->permalink = get_permalink( $post );
 						}
 					}
 					restore_current_blog();
