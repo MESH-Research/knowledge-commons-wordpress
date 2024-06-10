@@ -458,8 +458,18 @@ function hcommons_bootstrap_wp_saml_auth() {
  * Use WP_SAML_Auth::get_instance()->get_provider()->getAttributes() instead of $_SERVER when possible.
  */
 function hcommons_set_env_saml_attributes() {
+	// Don't run this function if on plain HTTP.
+	if ( ! is_ssl() ) {
+		return;
+	}
+	
 	// This requires wp-saml-auth to be active.
 	if ( ! class_exists( 'WP_SAML_Auth' ) ) {
+		return;
+	}
+
+	// Don't run this function if the user is not authenticated.
+	if ( ! WP_SAML_Auth::get_instance()->get_provider()->isAuthenticated() ) {
 		return;
 	}
 
@@ -513,6 +523,10 @@ function hcommons_set_env_saml_attributes() {
  * Automatically log in to WordPress with an existing SimpleSAML session.
  */
 function hcommons_auto_login() {
+	if ( ! is_ssl() ) {
+		return;
+	}
+	
 	if ( defined( 'WP_CLI' ) && constant( 'WP_CLI' ) ) {
 		return;
 	}
