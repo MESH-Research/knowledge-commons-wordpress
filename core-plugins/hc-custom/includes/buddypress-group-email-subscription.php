@@ -41,7 +41,7 @@ add_action( 'bp_group_email_subscription_enable_email_notice', function () {
  *
  * @since 1.0.11272018
  */
-add_filter( 'bp_rbe_new_topic_show_option_on_details_page', false );
+add_filter( 'bp_rbe_new_topic_show_option_on_details_page', '__return_false' );
 
 /**
  * Remove BPGES actions since we use crontab instead of WP cron.
