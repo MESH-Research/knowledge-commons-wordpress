@@ -55,7 +55,7 @@ class BP_XProfile_Field_Type_Works_Deposits extends BP_XProfile_Field_Type {
 		}
 
 		$api_endpoint = WORKS_URL . '/api/records';
-		$query_string = $api_endpoint . '?q=metadata.creators.person_or_org.identifiers.identifier:' . $username;
+		$query_string = $api_endpoint . "?q=metadata.creators.person_or_org.identifiers.identifier:$username&size=100";
 		$response = wp_remote_get( $query_string );
 		if ( is_wp_error( $response ) ) {
 			trigger_error( 'In hc-member-profiles, error fetching works: ' . $response->get_error_message(), E_USER_WARNING );

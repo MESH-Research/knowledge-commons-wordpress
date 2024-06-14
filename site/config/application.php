@@ -353,6 +353,7 @@ Config::define('CORE_DATACITE_PREFIX', getenv('CORE_DATACITE_PREFIX'));
  */
 Config::define('INVENIO_API_KEY', getenv('INVENIO_API_KEY'));
 Config::define('WORKS_URL', getenv('WORKS_URL'));
+Config::define('WORKS_API_KEY', getenv('WORKS_API_KEY'));
 
 /**
  * WP_Saml_Auth

@@ -25,20 +25,80 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 					'enabled' => true,
 					'position' => 42,
 				],
+				'admin' => [
+					'enabled' => false,
+				],
 			],
 		];
+
+		add_action( 'bp_get_options_nav_nav-kcworks', [ $this, 'filter_kcworks_subnav_link' ], 10, 3 );
 		parent::init( $args );
 	}
 
-	public function settings_screen( $group_id = null ) {
-		echo 'KCWorks settings screen';
+	public function filter_kcworks_subnav_link( string $value, \BP_Core_Nav_Item $subnav_item, string $selected_item ) {
+		$group_id = bp_get_current_group_id();
+		if ( ! $group_id ) {
+			trigger_error( '$group_id is not set.', E_USER_WARNING );
+			return '';
+		}
+		$collection_enabled = (bool) groups_get_groupmeta( $group_id, 'kcworks-enable' );
+		if ( ! $collection_enabled ) {
+			return '';
+		}
+		$collection_slug = groups_get_groupmeta( $group_id, 'kcworks-collection-slug' );
+		if ( ! $collection_slug ) {
+			trigger_error( '$collection_slug is not set.', E_USER_WARNING );
+			return '';
+		}
+		$collection_url = WORKS_URL . '/collections/' . $collection_slug;
+		return preg_replace( '/href="[^"]*"/', 'href="' . $collection_url . '"', $value );
 	}
 
-	public function settings_screen_save( $group_id = null ) {
-		echo 'KCWorks settings screen save';
-	}
-
+	/**
+	 * Screen displayed when creating a new group.
+	 */
 	public function create_screen( $group_id = null ) {
+		$this->create_edit_form();
+	}
+
+	public function create_screen_save( $group_id = null ) {
+		$this->create_edit_save( $group_id );
+	}
+
+	/**
+	 * Screen displayed when managing a group.
+	 */
+	public function edit_screen( $group_id = null ) {
+		$this->create_edit_form();
+	}
+
+	public function edit_screen_save( $group_id = null ) {
+		$this->create_edit_save( $group_id );
+	}
+
+	private function create_edit_save( $group_id = null ) {
+		check_admin_referer( 'groups_create_save_' . $this->slug );
+		if ( ! $group_id ) {
+			trigger_error( 'In Works_Groups_Extension::create_screen_save, $group_id is not set.', E_USER_WARNING );
+			return;
+		}
+		
+		if ( ! isset( $_POST['kcworks-enable'] ) ) {
+			$enable = 0;
+		} else {
+			$enable = intval( $_POST['kcworks-enable'] );
+		}
+
+		groups_update_groupmeta( $group_id, 'kcworks-enable', $enable );
+		if ( $enable ) {
+			$this->signal_enable_works_collection( $group_id );
+		} else {
+			$this->signal_disable_works_collection( $group_id );
+		}
+	}
+
+	private function create_edit_form() : void {
+		$collection_enabled = (bool) groups_get_groupmeta( bp_get_current_group_id(), 'kcworks-enable' );
 		?>
 		<h2><?= esc_html__( 'Create a KCWorks collection', 'hc-custom' ); ?></h2>
 		<p>
@@ -50,7 +110,7 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 		</p>
 		<div>
 			<label for='kcworks-enable'>
-				<input type='checkbox' id='kcworks-enable' name='kcworks-enable' value='1' />
+				<input type='checkbox' id='kcworks-enable' name='kcworks-enable' value='1' <?= $collection_enabled ? 'checked' : '' ?>/>
 				<?= esc_html__( 'Associate a KCWorks collection with this group.', 'hc-custom' ); ?>
 			</label>
 		</div>
@@ -58,36 +118,17 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 		wp_nonce_field( 'groups_create_save_' . $this->slug );
 	}
 
-	public function create_screen_save( $group_id = null ) {
-		check_admin_referer( 'groups_create_save_' . $this->slug );
-		if ( ! $group_id ) {
-			trigger_error( 'In Works_Groups_Extension::create_screen_save, $group_id is not set.', E_USER_WARNING );
-			return;
-		}
-		if ( ! isset( $_POST['kcworks-enable'] ) ) {
-			trigger_error( 'In Works_Groups_Extension::create_screen_save, $_POST[\'kcworks-enable\'] is not set.', E_USER_WARNING );
-			return;
-		}
-		
-		$enable = intval( $_POST['kcworks-enable'] );
-		groups_update_groupmeta( $group_id, 'kcworks-enable', $enable );
-		$this->signal_create_works_collection( $group_id );
-	}
-
-	public function edit_screen( $group_id = null ) {
-		echo 'KCWorks edit screen';
-	}
-
-	public function edit_screen_save( $group_id = null ) {
-		echo 'KCWorks edit screen save';
-	}
-
 	/**
 	 * Signal to KCWorks that a new collection should be created and associated with this group.
+	 *
+	 * @see https://github.com/MESH-Research/invenio-group-collections#creating-a-collection-for-a-group-post
 	 */
-	private function signal_create_works_collection(int $group_id) {
+	private function signal_enable_works_collection(int $group_id) {
 		$endpoint = WORKS_URL . '/api/group_collections';
 		$response = wp_remote_post( $endpoint, [
+			'headers' => [
+				'Authorization' => 'Bearer ' . WORKS_API_KEY,
+			],
 			'body' => [
 				'commons_instance'      => 'knowledgeCommons',
 				'commons_group_id'      => $group_id,
@@ -95,8 +136,34 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			],
 		] );
 		if ( is_wp_error( $response ) ) {
-			trigger_warning( 'In Works_Groups_Extension::signal_create_works_collection, error creating collection: ' . $response->get_error_message(), E_USER_WARNING );
+			trigger_error( 'In Works_Groups_Extension::signal_create_works_collection, error creating collection: ' . $response->get_error_message(), E_USER_WARNING );
 			return;
 		}
+		if ( 201 !== wp_remote_retrieve_response_code( $response ) ) {
+			$message = match( wp_remote_retrieve_response_code( $response ) ) {
+				400 => '400 Bad request: The request body is missing required fields or contains invalid data.',
+				401 => '401 Unauthorized',
+				403 => '403 Forbidden: The request is not authorized to modify the collection',
+				404 => '404 Not found: The specified group could not be found by the callback to the Commons instance',
+				500 => '500 Internal server error',
+				default => wp_remote_retrieve_response_code( $response ) . ' Unknown error',
+			};
+			trigger_error( 'In Works_Groups_Extension::signal_create_works_collection, error creating collection: ' . $message, E_USER_WARNING );
+			return;
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( ! $response_body || ! intval( $response_body->commons_group_id ) !== $group_id ) {
+			trigger_error( 'In Works_Groups_Extension::signal_create_works_collection, error creating collection: ' . wp_remote_retrieve_body( $response ), E_USER_WARNING );
+			return;
+		}
+		groups_update_groupmeta( $group_id, 'kcworks-collection-slug', $response_body->new_collection_slug );
+	}
+
+	/**
+	 * Signal to KCWorks that a collection should be hidden or deleted.
+	 */
+	private function signal_disable_works_collection( int $group_id ) {
+		$endpoint = WORKS_URL . '/api/group_collections';
+		return;
 	}
 }

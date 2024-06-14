@@ -2,6 +2,20 @@
 
 $httpUtils = $httpUtils = new \SimpleSAML\Utils\HTTP();
 
+$_requested_domain = $_SERVER['HTTP_HOST'] ?? getenv( 'DOMAIN_NAME');
+
+if(preg_match('/^.*\.*commons\.msu\.edu$/', $_requested_domain)){
+    $_requested_domain_base = 'commons.msu.edu';
+} else if($_requested_domain == 'action.mla.org'){
+    $_requested_domain_base = 'action.mla.org';
+} else if($_requested_domain == 'symposium.mla.org'){
+    $_requested_domain_base = 'symposium.mla.org';
+} else {
+    $_requested_domain_base = implode( '.', array_slice( explode( '.', $_requested_domain), -2 ) );
+}
+
+$_requested_baseurlpath = 'https://' . $_requested_domain_base . '/simplesaml';
+
 /**
  * The configuration of SimpleSAMLphp
  */
@@ -29,7 +43,7 @@ $config = [
      * external url, no matter where you come from (direct access or via the
      * reverse proxy).
      */
-    'baseurlpath' => 'https://' . getenv( 'DOMAIN_NAME') . '/simplesaml',
+    'baseurlpath' => $_requested_baseurlpath,
 
     /*
      * The 'application' configuration array groups a set configuration options
@@ -572,7 +586,7 @@ $config = [
      * Example:
      *  'session.cookie.domain' => '.example.org',
      */
-    'session.cookie.domain' => '.' . getenv( 'DOMAIN_NAME'),
+    'session.cookie.domain' => '.' . $_requested_domain_base,
 
     /*
      * Set the secure flag in the cookie.
