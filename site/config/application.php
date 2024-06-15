@@ -50,6 +50,10 @@ if (file_exists($root_dir . '/.env')) {
  */
 define('WP_ENV', env('WP_ENV') ?: 'production');
 
+if ( ! defined( 'COOKIEHASH') ) {
+    define( 'COOKIEHASH', env('COOKIEHASH') ?: md5(ABSPATH) );
+}
+
 /**
  * Stop WordPress from auto-updating. We want to control WP updates via Composer.
  */

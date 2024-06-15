@@ -548,10 +548,10 @@ function hcommons_auto_login() {
 
 	if ( is_a( $result, 'WP_User' ) ) {
 		// Make sure this user is a member of the current site.
-		$member_societies = Humanities_Commons::hcommons_get_user_org_memberships();
-		if ( ! in_array( Humanities_Commons::$society_id, $member_societies ) ) {
-			return;
-		}
+		// $member_societies = Humanities_Commons::hcommons_get_user_org_memberships();
+		// if ( ! in_array( Humanities_Commons::$society_id, $member_societies ) ) {
+		// 	return;
+		// }
 
 		// If we made it this far, we know this user is a member of the current site and has an existing session.
 		wp_set_current_user( $result->ID );
