@@ -12,6 +12,11 @@
   */
 function hcommons_add_new_user_to_mailchimp( $user_id, $userdata ) {
 
+	if ( ! defined( 'MAILCHIMP_LIST_ID' ) || ! defined( 'MAILCHIMP_API_KEY' ) || ! defined( 'MAILCHIMP_DC' ) ) {
+		hcommons_write_error_log( 'error', 'Mailchimp user creation failed: Mailchimp constants not defined.' );
+		return;
+	}
+
 	$user = get_user_by( 'id', $user_id );
 	if ( ! $user ) {
 		hcommons_write_error_log( 'error', 'Mailchimp user creation failed: no user found for ID ' . $user_id );
