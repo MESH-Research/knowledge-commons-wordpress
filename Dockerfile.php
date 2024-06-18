@@ -4,7 +4,8 @@ FROM --platform=$BUILDPLATFORM php:fpm-alpine3.19 AS base
 ARG BUILDPLATFORM
 
 RUN addgroup -g 33 xfs || true \
-	&& addgroup xfs www-data
+	&& addgroup xfs www-data \
+	&& addgroup www-data xfs
 
 COPY --chown=www-data:www-data --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
@@ -80,11 +81,11 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 
 WORKDIR /app
 USER www-data
-RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 WORKDIR /app/core-plugins/humcore/
-RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 WORKDIR /app/scripts/cron/mailchimp
-RUN composer install --no-dev --no-interaction --no-progress --no-suggest --optimize-autoloader
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 WORKDIR /app
 
 # Redis drop-in
