@@ -1469,7 +1469,7 @@ function humcore_deposits_view() {
 			bp_do_404();
 			return;
 		}
-		$total_views = get_post_meta( $deposit_post_id, $views_meta_key, true ) + 1; // views counted at file level
+		$total_views = intavl( get_post_meta( $deposit_post_id, $views_meta_key, true ) ) + 1; // views counted at file level
 		if ( bp_loggedin_user_id() != $post_data->post_author && ! humcore_is_bot_user_agent() ) {
 			$post_meta_id = update_post_meta( $deposit_post_id, $views_meta_key, $total_views );
 		}
