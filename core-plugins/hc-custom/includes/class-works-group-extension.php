@@ -125,16 +125,21 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 	 */
 	private function signal_enable_works_collection(int $group_id) {
 		$endpoint = WORKS_URL . '/api/group_collections';
-		$response = wp_remote_post( $endpoint, [
-			'headers' => [
-				'Authorization' => 'Bearer ' . WORKS_API_KEY,
-			],
-			'body' => [
-				'commons_instance'      => 'knowledgeCommons',
-				'commons_group_id'      => $group_id,
-				'collection_visibility' => 'public',
-			],
-		] );
+		try {
+			$response = wp_remote_post( $endpoint, [
+				'headers' => [
+					'Authorization' => 'Bearer ' . WORKS_API_KEY,
+				],
+				'body' => [
+					'commons_instance'      => 'knowledgeCommons',
+					'commons_group_id'      => $group_id,
+					'collection_visibility' => 'public',
+				],
+			] );
+		} catch ( Exception $e ) {
+			trigger_error( 'In Works_Groups_Extension::signal_create_works_collection, error creating collection: ' . $e->getMessage(), E_USER_WARNING );
+			return;
+		}
 		if ( is_wp_error( $response ) ) {
 			trigger_error( 'In Works_Groups_Extension::signal_create_works_collection, error creating collection: ' . $response->get_error_message(), E_USER_WARNING );
 			return;
@@ -163,7 +168,23 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 	 * Signal to KCWorks that a collection should be hidden or deleted.
 	 */
 	private function signal_disable_works_collection( int $group_id ) {
-		$endpoint = WORKS_URL . '/api/group_collections';
-		return;
+		$collection_slug = groups_get_groupmeta( $group_id, 'kcworks-collection-slug' );
+		$endpoint = WORKS_URL . "/api/communities/$collection_slug";
+		try {
+			$response = wp_remote_request( $endpoint, [
+				'method' => 'PUT',
+				'headers' => [
+					'Authorization' => 'Bearer ' . WORKS_API_KEY,
+				],
+				'body' => json_encode( [
+					'access' => [
+						'visibility' => 'hidden',
+					],
+				] ),
+			] );
+		} catch ( Exception $e ) {
+			trigger_error( 'In Works_Groups_Extension::signal_disable_works_collection, error disabling collection: ' . $e->getMessage(), E_USER_WARNING );
+			return;
+		}
 	}
 }
