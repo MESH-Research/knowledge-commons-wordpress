@@ -303,6 +303,10 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:IDP_ENTITY_ID::"
                 },
                 {
+                    "name": "INVENIO_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:INVENIO_API_KEY::"
+                },
+                {
                     "name": "LOGGED_IN_KEY",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:LOGGED_IN_KEY::"
                 },
@@ -399,6 +403,14 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAML_AUTH_ADMINPASSWORD::"
                 },
                 {
+                    "name": "SAML_CRT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.crt-qvsDvx"
+                },
+                {
+                    "name": "SAML_PEM",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.pem-FNH7Dd"
+                },
+                {
                     "name": "SAML_SECRETSALT",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAML_SECRETSALT::"
                 },
@@ -417,6 +429,10 @@
                 {
                     "name": "SIMPLESAMLPHP_CONFIG_DIR",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_CONFIG_DIR::"
+                },
+                {
+                    "name": "SIMPLESAMLPHP_METADATA_FILE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_METADATA_FILE::"
                 },
                 {
                     "name": "UP_ACCOUNT_LINK_URL",
@@ -479,31 +495,43 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
                 },
                 {
-                    "name": "SIMPLESAMLPHP_METADATA_FILE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SIMPLESAMLPHP_METADATA_FILE::"
+                    "name": "CC_SEARCH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_KEY::"
                 },
                 {
-                    "name": "SAML_CRT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.crt-qvsDvx"
+                    "name": "CC_SEARCH_ENDPOINT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ENDPOINT::"
                 },
                 {
-                    "name": "SAML_PEM",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.pem-FNH7Dd"
+                    "name": "CC_SEARCH_ADMIN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ADMIN_KEY::"
                 },
                 {
-                    "name": "INVENIO_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:INVENIO_API_KEY::"
+                    "name": "CC_INCREMENTAL_PROVISIONING_ENABLED",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_INCREMENTAL_PROVISIONING_ENABLED::"
+                },
+                {
+                    "name": "WORKS_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_URL::"
+                },
+                {
+                    "name": "WORKS_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_API_KEY::"
+                },
+                {
+                    "name": "CENTRAL_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CENTRAL_BLOG_ID::"
                 }
-    
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-create-group": "true",
                     "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         },
@@ -893,6 +921,10 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:REGISTRY_SP_URL::"
                 },
                 {
+                    "name": "RUN_CRON",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:RUN_CRON::"
+                },
+                {
                     "name": "SAH_ENROLLMENT_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:SAH_ENROLLMENT_URL::"
                 },
@@ -997,18 +1029,39 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
                 },
                 {
-                    "name": "RUN_CRON",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:RUN_CRON::"
+                    "name": "CC_SEARCH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_KEY::"
+                },
+                {
+                    "name": "CC_SEARCH_ENDPOINT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ENDPOINT::"
+                },
+                {
+                    "name": "CC_SEARCH_ADMIN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ADMIN_KEY::"
+                },
+                {
+                    "name": "WORKS_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_URL::"
+                },
+                {
+                    "name": "WORKS_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_API_KEY::"
+                },
+                {
+                    "name": "CENTRAL_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CENTRAL_BLOG_ID::"
                 }
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-create-group": "true",
                     "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         },
@@ -1025,6 +1078,13 @@
                     "containerPort": 80,
                     "hostPort": 80,
                     "protocol": "tcp"
+                },
+                {
+                    "name": "nginx-443-tcp",
+                    "containerPort": 443,
+                    "hostPort": 443,
+                    "protocol": "tcp",
+                    "appProtocol": "http2"
                 }
             ],
             "essential": true,
@@ -1055,11 +1115,12 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-create-group": "true",
                     "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         }
