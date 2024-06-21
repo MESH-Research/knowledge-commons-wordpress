@@ -49,14 +49,11 @@ function hcommons_login_failed( $username ) {
  * @param object $user   User object whose profile is being synced. Passed by reference.
  */
 function hcommons_sync_bp_profile( $user ) {
-	hcommons_set_env_saml_attributes();
-
-	$user_id = $user->ID;
+	$attributes = WP_SAML_Auth::get_instance()->get_provider()->getAttributes();
 
 	$current_name = xprofile_get_field_data( 'Name', $user->ID );
 	if ( empty( $current_name ) ) {
-		$server_displayname = !empty($_SERVER['HTTP_DISPLAYNAME']) && isset($_SERVER['HTTP_DISPLAYNAME']) ? $_SERVER['HTTP_DISPLAYNAME'] : '';
-		$name = $server_displayname;  // user record maybe not fully populated for first time users.
+		$name = $attributes['urn:oid:2.5.4.3'][0] ?? '';
 		if ( ! empty( $name ) ) {
 			xprofile_set_field_data( 'Name', $user->ID, $name );
 		}
@@ -64,12 +61,7 @@ function hcommons_sync_bp_profile( $user ) {
 
 	$current_title = xprofile_get_field_data( 'Title', $user->ID );
 	if ( empty( $current_title ) ) {
-		$titles = maybe_unserialize( get_user_meta( $user->ID, 'shib_title', true ) );
-		if ( is_array( $titles ) ) {
-			$title = $titles[0];
-		} else {
-			$title = $titles;
-		}
+		$title = $attributes['title'][0] ?? '';
 		if ( ! empty( $title ) ) {
 			xprofile_set_field_data( 'Title', $user->ID, $title );
 		}
@@ -77,25 +69,11 @@ function hcommons_sync_bp_profile( $user ) {
 
 	$current_org = xprofile_get_field_data( 'Institutional or Other Affiliation', $user->ID );
 	if ( empty( $current_org ) ) {
-		$orgs = maybe_unserialize( get_user_meta( $user->ID, 'shib_org', true ) );
-		if ( is_array( $orgs ) ) {
-			$org = $orgs[0];
-		} else {
-			$org = $orgs;
-		}
+		$org = $attributes['o'][0] ?? '';
 		if ( ! empty( $org ) ) {
 			xprofile_set_field_data( 'Institutional or Other Affiliation', $user->ID, str_replace( 'Mla', 'MLA', $org ) );
 		}
 	}
-
-	$current_orcid = xprofile_get_field_data( 18, $user->ID );
-	if ( empty( $current_orcid ) ) {
-		$orcid = get_user_meta( $user->ID, 'shib_orcid', true );
-		if ( ! empty( $orcid ) ) {
-			xprofile_set_field_data( 18, $user->ID, $orcid );
-		}
-	}
-
 }
 add_action( 'wp_saml_auth_existing_user_authenticated', 'hcommons_sync_bp_profile' );
 
