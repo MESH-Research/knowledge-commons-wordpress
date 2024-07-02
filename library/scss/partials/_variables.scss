@@ -1,0 +1,56 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Variables
+
+Here is where we declare all our variables like colors, fonts,
+base values, and defaults. We want to make sure this file ONLY
+contains variables that way our files don't get all messy.
+No one likes a mess.
+
+******************************************************************/
+
+/*********************
+COLORS
+Need help w/ choosing your colors? Try this site out:
+http://0to255.com/
+*********************/
+
+$alert-yellow:      #ebe16f;
+$alert-red:         #fbe3e4;
+$alert-green:       #e6efc2;
+$alert-blue:        #d5edf8;
+
+$black:             #444;
+$white:             #fff;
+
+$light-gray:        #fafafa;
+$gray:              #eaeaea;
+$darker-gray:       darken($light-gray, 10%); 
+$dark-gray: 	    #333; 
+$text-color:        #444;
+$darkish-gray:      #555;
+$dark-text-color:   #a9a9a9; 
+$meta-gray:         #777;
+
+$tan:               #eceee5;
+
+$green:             #7dd667;
+
+$mla-blue:          #07d;
+$blue:              #2980b9;
+
+$link-color:        $mla-blue;
+$link-hover:        darken($link-color, 9%);
+$dark-link-color:   #ddd; 
+
+$border-color:      #eee;
+$disabled-gray:     #cfcfcf;
+
+
+/*
+Here's a great tutorial on how to
+use color variables properly:
+http://sachagreif.com/sass-color-variables/
+*/
