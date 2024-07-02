@@ -76,8 +76,9 @@ if ( class_exists( 'Humanities_Commons' ) && ! empty( (new Humanities_Commons)->
 
     <div id="titlebar-search">
     <?php
+    //include( 'searchform.php' );
     get_template_part( 'searchform', 'header' );
-    ?>
+	?>
         <a href="#" id="search-open" class="header-button" title="<?php _e( 'Search', 'boss' ); ?>"><i class="fa fa-search"></i></a>
     </div><!-- #titlebar-search-->
 
