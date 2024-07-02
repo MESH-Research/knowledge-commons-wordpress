@@ -361,6 +361,15 @@ Config::define('WORKS_URL', getenv('WORKS_URL'));
 Config::define('WORKS_API_KEY', getenv('WORKS_API_KEY'));
 
 /**
+ * Mailchimp
+ */
+Config::define('MAILCHIMP_LIST_ID', getenv('MAILCHIMP_LIST_ID'));
+Config::define('MAILCHIMP_API_KEY', getenv('MAILCHIMP_API_KEY'));
+Config::define('MAILCHIMP_DC', getenv('MAILCHIMP_DC'));
+Config::define('MAILCHIMP_NEWSLETTER_GROUP_ID', getenv('MAILCHIMP_NEWSLETTER_GROUP_ID'));
+Config::define('DISABLE_MAILCHIMP', getenv('DISABLE_MAILCHIMP'));
+
+/**
  * WP_Saml_Auth
  */
  Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD') );
