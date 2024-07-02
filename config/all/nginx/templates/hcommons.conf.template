@@ -4,6 +4,9 @@
 # 
 map $http_origin $allow_origin {
     ~^https:\/\/(.*\.)?${DOMAIN_NAME}$ $http_origin;
+    https://commons.msu.edu $http_origin;
+    https://action.mla.org $http_origin;
+    https://symposium.mla.org $http_origin;
     default "";
 }
 
