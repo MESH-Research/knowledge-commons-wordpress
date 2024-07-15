@@ -79,6 +79,20 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/tmp && \
 	chown -R www-data:www-data /app/config/all/simplesamlphp
 
+RUN rm -rf /usr/local/etc/php/php.ini && \
+	ln -s /app/config/all/php/php.ini /usr/local/etc/php/php.ini
+
+RUN rm -rf /app/config/all/simplesamlphp/log && \
+	rm -rf /app/config/all/simplesamlphp/tmp && \
+	mkdir -p /app/config/all/simplesamlphp/log && \
+	mkdir -p /app/config/all/simplesamlphp/tmp
+
+# Redis drop-in
+RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
+
+RUN chown -R www-data:www-data /app
+RUN chmod -R 755 /app
+
 WORKDIR /app
 USER www-data
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
