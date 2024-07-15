@@ -12,6 +12,27 @@ use Roots\WPConfig\Config;
 use function Env\env;
 
 /**
+ * Disable WP_DEBUG mode
+ * 
+ * We set error reporting for each environment ourselves, so we don't want WordPress
+ * to override that. This filter will disable the WP_DEBUG mode checks in WordPress.
+ * 
+ * @see wp/wp-includes/load.php::wp_debug_mode()
+ */
+$GLOBALS['wp_filter'] = array(
+    'enable_wp_debug_mode_checks' => array(
+        10 => array(
+            array(
+                'accepted_args' => 0,
+                'function'      => function() {
+                    return false;
+                },
+            ),
+        ),
+    ),
+);
+
+/**
  * Directory containing all of the site's files
  *
  * @var string
@@ -359,6 +380,7 @@ Config::define('CORE_DATACITE_PREFIX', getenv('CORE_DATACITE_PREFIX'));
 Config::define('INVENIO_API_KEY', getenv('INVENIO_API_KEY'));
 Config::define('WORKS_URL', getenv('WORKS_URL'));
 Config::define('WORKS_API_KEY', getenv('WORKS_API_KEY'));
+Config::define('WORKS_KNOWLEDGE_COMMONS_INSTANCE', getenv('WORKS_KNOWLEDGE_COMMONS_INSTANCE'));
 
 /**
  * Mailchimp
@@ -374,13 +396,6 @@ Config::define('DISABLE_MAILCHIMP', getenv('DISABLE_MAILCHIMP'));
  */
  Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD') );
  Config::define( 'WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN', env( 'WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN') );
-
-/**
- * Docker error logging.
- */
-ini_set( 'log_errors', 'on' );
-ini_set( 'error_log', 'php://stderr' );
-ini_set( 'error_reporting', E_ERROR );
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 

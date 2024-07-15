@@ -37,3 +37,10 @@ Config::define('DISALLOW_INDEXING', true );
 
 // Enable plugin and theme updates and installation from the admin
 Config::define('DISALLOW_FILE_MODS', false);
+
+/**
+ * Docker error logging.
+ */
+ini_set( 'log_errors', 'on' );
+ini_set( 'error_log', 'php://stderr' );
+ini_set( 'error_reporting', E_ALL );
