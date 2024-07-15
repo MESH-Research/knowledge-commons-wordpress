@@ -97,6 +97,10 @@ function hcommons_set_user_member_types( $user ) {
 	if ( $user->ID === 0 ) {
 		return;
 	}
+
+	if ( ! function_exists( 'bp_set_member_type' ) ) {
+		return;
+	}
 	
 	$user_info = get_userdata( $user->ID );
 
@@ -151,7 +155,7 @@ function hcommons_set_user_member_types( $user ) {
 		}
 	}
 }
-add_action( 'bp_init', 'hcommons_set_user_member_types', 50 );
+add_action( 'wp_saml_auth_existing_user_authenticated', 'hcommons_set_user_member_types', 50 );
 
 /**
  * If the user is the only group admin, BuddyPress will not allow them to leave
