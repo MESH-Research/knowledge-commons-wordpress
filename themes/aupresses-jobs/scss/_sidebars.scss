@@ -1,0 +1,97 @@
+/**********************************
+* Side Nav
+**********************************/
+
+.sidenav {
+  font-family: "acumin-pro-condensed", Arial, Sans-serif;
+  font-size: 20px;
+  background-color: transparent;
+  border-width: 0 1px 0 0;
+  border-style: solid;
+  border-color: #ededed;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 20px 0 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li.menu-item {
+    display: none;
+  }
+
+  li.menu-item-has-children {
+    line-height: 1.3em;
+  }
+
+  li.current_page_item.menu-item-has-children,
+  li.current-page-ancestor {
+    display: block;
+
+    >a {
+      color: #000000;
+      font-family: $font-primary;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    li {
+      display: block;
+      margin-top: 12px;
+      font-family: $font-primary;
+      font-size: 18px;
+
+      >a {
+        color: $green;
+      }
+    }
+  }
+
+  li.current-menu-item>a,
+  .sub-menu li.current-page-ancestor>a,
+  li a:hover {
+    border-bottom: 2px solid currentColor;
+    text-decoration: none;
+  }
+
+  li.current-page-ancestor :not(.sub-menu) li>a,
+  li.menu-item-has-children>a {
+    color: #000000;
+    font-family: $font-primary;
+    font-size: 20px;
+    font-weight: bold;    
+  }
+
+  li.current-page-ancestor .sub-menu ul li>a {
+    font-size: 16px;
+    margin-left: 1em;
+  }
+}
+
+.sidenav-column {
+  display: none;
+}
+
+.elementor-widget-container .ve-cat-widget-listing {
+  padding-left: 0;
+}
+
+.elementor-widget-container .ve-cat-widget-div ul.ve-cat-widget-listing li {
+  border-bottom: 0;
+  line-height: 30px;
+
+  a {
+    color: $green;
+    transition: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  a:hover,
+  &.active-cat a,
+  &.active-cat span.post-count {
+    color: $green;
+  }
+}
