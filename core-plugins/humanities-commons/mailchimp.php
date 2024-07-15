@@ -8,18 +8,23 @@
  */
 
  /**
-  * Add user to MailChimp list on user registration.
-  */
+* Add user to MailChimp list on user registration.
+*/
 function hcommons_add_new_user_to_mailchimp( $user_id, $userdata ) {
 
 	if ( ! defined( 'MAILCHIMP_LIST_ID' ) || ! defined( 'MAILCHIMP_API_KEY' ) || ! defined( 'MAILCHIMP_DC' ) ) {
-		hcommons_write_error_log( 'error', 'Mailchimp user creation failed: Mailchimp constants not defined.' );
+		trigger_error( 'Mailchimp user creation failed: Mailchimp constants not defined.', E_USER_WARNING );
+		return;
+	}
+
+	if ( ! $user_id ) {
+		trigger_error( 'Mailchimp user creation failed: no user ID provided.', E_USER_WARNING );
 		return;
 	}
 
 	$user = get_user_by( 'id', $user_id );
 	if ( ! $user ) {
-		hcommons_write_error_log( 'error', 'Mailchimp user creation failed: no user found for ID ' . $user_id );
+		trigger_error( 'Mailchimp user creation failed: no user found for ID ' . $user_id, E_USER_WARNING );
 		return;
 	}
 
@@ -28,7 +33,7 @@ function hcommons_add_new_user_to_mailchimp( $user_id, $userdata ) {
 	hcommons_set_user_member_types( $user );
 	
 	if ( ! isset( $userdata['user_email'] ) ) {
-		hcommons_write_error_log( 'error', 'Mailchimp user creation failed: no email address provided.' );
+		trigger_error( 'Mailchimp user creation failed: no email address provided.', E_USER_WARNING );
 		return;
 	}
 
@@ -39,12 +44,12 @@ function hcommons_add_new_user_to_mailchimp( $user_id, $userdata ) {
 	$mailchimp_user_id = '';
 	$request_method = 'POST';
 	if ( is_array( $existing_mailchimp_response ) && isset( $existing_mailchimp_response['email_address'] ) ) {
-		hcommons_write_error_log( 'info', 'Mailchimp user exists for email ' . $userdata['user_email'] );
+		trigger_error( 'Mailchimp user exists for email ' . $userdata['user_email'], E_USER_NOTICE );
 		if ( $existing_mailchimp_response['status'] === 'archived') {
 			$mailchimp_user_id = $existing_mailchimp_response['id'];
 			$request_method = 'PUT';
 		} else {
-			hcommons_write_error_log( 'info', 'Mailchimp user exists and is not archived for email ' . $userdata['user_email'] );
+			trigger_error( 'Mailchimp user exists and is not archived for email ' . $userdata['user_email'], E_USER_NOTICE );
 			return;
 		}
 	}
@@ -75,9 +80,9 @@ function hcommons_add_new_user_to_mailchimp( $user_id, $userdata ) {
 	);
 
 	if ( is_array( $mailchimp_response ) && isset( $mailchimp_response['id'] ) ) {
-		hcommons_write_error_log( 'info', 'Mailchimp user created for email ' . $userdata['user_email'] . ' with status ' . $mailchimp_response['status'] );
+		trigger_error( 'Mailchimp user created for email ' . $userdata['user_email'] . ' with status ' . $mailchimp_response['status'], E_USER_NOTICE );
 	} else {
-		hcommons_write_error_log( 'error', 'Mailchimp user creation failed. Response:' . var_export( $mailchimp_response, true ) );
+		trigger_error( 'Mailchimp user creation failed. Response:' . var_export( $mailchimp_response, true ), E_USER_WARNING );
 	}
 }
 add_action( 'user_register', 'hcommons_add_new_user_to_mailchimp', 10, 2 );
@@ -87,19 +92,18 @@ add_action( 'user_register', 'hcommons_add_new_user_to_mailchimp', 10, 2 );
  */
 function hcommons_remove_user_from_mailchimp( $user_id ) {
 	if ( ! defined( 'MAILCHIMP_LIST_ID' ) ) {
-		hcommons_write_error_log( 'error', 'Mailchimp user removal failed: Mailchimp constants not defined.' );
+		trigger_error( 'Mailchimp user removal failed: Mailchimp constants not defined.', E_USER_WARNING );
 		return;
 	}
-	
 	
 	$user = get_user_by( 'id', $user_id );
 	
 	if ( ! $user ) {
-		hcommons_write_error_log( 'error', 'Mailchimp user deletion failed: no user found for ID ' . $user_id );
+		trigger_error( 'Mailchimp user deletion failed: no user found for ID ' . $user_id, E_USER_WARNING );
 		return;
 	}
 	
-	hcommons_write_error_log( 'info', 'Removing user ' . $user->user_login . ' from Mailchimp.');
+	trigger_error( 'Removing user ' . $user->user_login . ' from Mailchimp.', E_USER_NOTICE );
 
 	$existing_mailchimp_response = hcommons_mailchimp_request(
 		'/lists/' . MAILCHIMP_LIST_ID . '/members/' . $user->user_email
@@ -114,12 +118,12 @@ function hcommons_remove_user_from_mailchimp( $user_id ) {
 		);
 
 		if ( $mailchimp_response !== false ) {
-			hcommons_write_error_log( 'info', 'Mailchimp user deleted for email ' . $user->user_email );
+			trigger_error( 'Mailchimp user deleted for email ' . $user->user_email, E_USER_NOTICE );
 		} else {
-			hcommons_write_error_log( 'error', 'Mailchimp user deletion failed. Response:' . var_export( $mailchimp_response, true ) );
+			trigger_error( 'Mailchimp user deletion failed. Response:' . var_export( $mailchimp_response, true ), E_USER_WARNING );
 		}
 	} else {
-		hcommons_write_error_log( 'info', 'Mailchimp deletiion falied: user does not exist for email ' . $user->user_email );
+		trigger_error( 'Mailchimp deletion failed: user does not exist for email ' . $user->user_email, E_USER_NOTICE );
 	}
 }
 add_action( 'delete_user', 'hcommons_remove_user_from_mailchimp', 10, 1 );
@@ -134,7 +138,7 @@ add_action( 'wpmu_delete_user', 'hcommons_remove_user_from_mailchimp', 10, 1 );
  */
 function hcommons_mailchimp_request( $endpoint, $method='GET', $params=[] ) {
 	if ( ! defined( 'MAILCHIMP_API_KEY' ) || ! defined( 'MAILCHIMP_DC' ) ) {
-		hcommons_write_error_log( 'error', 'Mailchimp request failed: Mailchimp constants not defined.' );
+		trigger_error( 'Mailchimp request failed: Mailchimp constants not defined.', E_USER_WARNING );
 		return;
 	}
 	
@@ -163,12 +167,12 @@ function hcommons_mailchimp_request( $endpoint, $method='GET', $params=[] ) {
 			]
 		);
 	} catch ( Exception $e ) {
-		hcommons_write_error_log( 'error', 'MailChimp request error: ' . $e->getMessage() );
+		trigger_error( 'MailChimp request error: ' . $e->getMessage(), E_USER_WARNING );
 		return false;
 	}
 
 	if ( is_wp_error( $response ) ) {
-		hcommons_write_error_log( 'error', 'MailChimp request error: ' . $response->get_error_message() );
+		trigger_error( 'MailChimp request error: ' . $response->get_error_message(), E_USER_WARNING );
 		return false;
 	}
 
