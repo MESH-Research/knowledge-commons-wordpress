@@ -422,7 +422,7 @@ function humcore_deposit_item_search_meta() {
 	if ( ! empty( $metadata['publisher'] ) ) {
 		printf( '<meta name="citation_publisher" content="%1$s">' . "\n\r", htmlentities( $metadata['publisher'] ) );
 	}
-	$contributors      = array_filter( $metadata['authors'] );
+	$contributors      = is_array( $metadata['authors'] ) ? array_filter( $metadata['authors'] ) : [];
 	$contributor_uni   = humcore_deposit_parse_author_info( $metadata['author_info'][0], 1 );
 	$contributor_type  = humcore_deposit_parse_author_info( $metadata['author_info'][0], 3 );
 	$contributors_list = array_map( null, $contributors, $contributor_uni, $contributor_type );
@@ -1869,6 +1869,7 @@ function humcore_deposits_can_deposit_for_others( $user_id ) {
 			'1015542', // babaklar
 			'1053480', // emeryma4
 			'1053525', // denniss9
+			'1056213', // salhabje
 		) 
 	);
 	return apply_filters( 'humcore_deposits_can_deposit_for_others', $user_id );
