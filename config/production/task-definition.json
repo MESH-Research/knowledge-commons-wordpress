@@ -489,8 +489,27 @@
                 {
                     "name": "INVENIO_API_KEY",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:INVENIO_API_KEY::"
+                },
+                {
+                    "name": "MAILCHIMP_LIST_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_LIST_ID::"
+                },
+                {
+                    "name": "MAILCHIMP_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_API_KEY::"
+                },
+                {
+                    "name": "MAILCHIMP_DC",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_DC::"
+                },
+                {
+                    "name": "MAILCHIMP_NEWSLETTER_GROUP_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_NEWSLETTER_GROUP_ID::"
+                },
+                {
+                    "name": "DISABLE_MAILCHIMP",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DISABLE_MAILCHIMP::"
                 }
-                
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
@@ -703,6 +722,22 @@
                 {
                     "name": "DB_USER",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DB_USER::"
+                },
+                {
+                    "name": "MAILCHIMP_LIST_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_LIST_ID::"
+                },
+                {
+                    "name": "MAILCHIMP_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_API_KEY::"
+                },
+                {
+                    "name": "MAILCHIMP_DC",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_DC::"
+                },
+                {
+                    "name": "MAILCHIMP_NEWSLETTER_GROUP_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_NEWSLETTER_GROUP_ID::"
                 },
                 {
                     "name": "DISABLE_MAILCHIMP",
@@ -955,6 +990,18 @@
                 {
                     "name": "RUN_CRON",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:RUN_CRON::"
+                },
+                {
+                    "name": "CC_SEARCH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CC_SEARCH_KEY::"
+                },
+                {
+                    "name": "CC_SEARCH_ENDPOINT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CC_SEARCH_ENDPOINT::"
+                },
+                {
+                    "name": "CC_SEARCH_ADMIN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CC_SEARCH_ADMIN_KEY::"
                 }
             ],
             "logConfiguration": {
