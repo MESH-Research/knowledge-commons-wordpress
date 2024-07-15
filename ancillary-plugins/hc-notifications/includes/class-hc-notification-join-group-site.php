@@ -84,16 +84,14 @@ class HC_Notification_Join_Group_Site extends HC_Notification {
 	 * @return string Text content of the notification link.
 	 */
 	public static function filter_text( $action, $item_id, $secondary_item_id, $total_items, $format ) {
+		return '';
 		switch_to_blog( $secondary_item_id );
 		$blog_name = get_bloginfo( 'name' );
-		$caps      = array_keys( get_user_meta( get_current_user_id(), 'wp_capabilities', true ) );
-		$role      = $caps[0]; // Just report the first role for now.
 		restore_current_blog();
 
 		return sprintf(
-			'You\'ve been added to the group site "%s" with the role of %s.',
-			$blog_name,
-			$role
+			'You\'ve been added to the group site "%s".',
+			$blog_name
 		);
 	}
 
