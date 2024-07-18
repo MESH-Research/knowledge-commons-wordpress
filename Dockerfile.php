@@ -71,27 +71,15 @@ RUN mkdir -p /media && \
 	ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
 
 RUN rm -rf /usr/local/etc/php/php.ini && \
-	ln -s /app/config/all/php/php.ini /usr/local/etc/php/php.ini
+	ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
+	rm -rf /usr/local/etc/php-fpm.d/www.conf && \
+	ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 RUN rm -rf /app/config/all/simplesamlphp/log && \
 	rm -rf /app/config/all/simplesamlphp/tmp && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/tmp && \
 	chown -R www-data:www-data /app/config/all/simplesamlphp
-
-RUN rm -rf /usr/local/etc/php/php.ini && \
-	ln -s /app/config/all/php/php.ini /usr/local/etc/php/php.ini
-
-RUN rm -rf /app/config/all/simplesamlphp/log && \
-	rm -rf /app/config/all/simplesamlphp/tmp && \
-	mkdir -p /app/config/all/simplesamlphp/log && \
-	mkdir -p /app/config/all/simplesamlphp/tmp
-
-# Redis drop-in
-RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
-
-RUN chown -R www-data:www-data /app
-RUN chmod -R 755 /app
 
 WORKDIR /app
 USER www-data
@@ -102,10 +90,7 @@ WORKDIR /app/scripts/cron/mailchimp
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 WORKDIR /app
 
-# Redis drop-in
-RUN cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
-
-ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"]
+ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
 CMD ["php-fpm"]
 
 FROM cloud AS cron
