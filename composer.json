@@ -130,7 +130,8 @@
     "wpackagist-plugin/formassembly-web-forms": "^2.0",
     "wpackagist-theme/stewart": "1.15",
     "wpackagist-plugin/hide-admin-bar-from-non-admins": "^1.0",
-    "wpackagist-plugin/tainacan": "^0.21.7"
+    "wpackagist-plugin/tainacan": "^0.21.7",
+    "mesh-research/cc-client": "dev-main"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
