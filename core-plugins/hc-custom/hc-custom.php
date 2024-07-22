@@ -62,6 +62,6 @@ require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-groups-rest-co
  * Works Groups extension.
  */
 add_action( 'bp_init', function() {
-	require_once trailingslashit( __DIR__ ) . 'includes/class-works-group-extension.php';
-	bp_register_group_extension( 'Works_Groups_Extension' );
+	//require_once trailingslashit( __DIR__ ) . 'includes/class-works-group-extension.php';
+	//bp_register_group_extension( 'Works_Groups_Extension' );
 } );

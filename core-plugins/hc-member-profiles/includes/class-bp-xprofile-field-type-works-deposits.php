@@ -41,6 +41,8 @@ class BP_XProfile_Field_Type_Works_Deposits extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
+		//Turn off until Works launches
+		return '';
 		$username = bp_get_displayed_user_username();
 
 		$cache_key = "hc-member-profiles-xprofile-works-deposits-{$username}";
