@@ -42,8 +42,6 @@ COPY --chown=www-data:www-data ./core-plugins /app/core-plugins
 COPY --chown=www-data:www-data ./forked-plugins /app/forked-plugins
 COPY --chown=www-data:www-data ./ancillary-plugins /app/ancillary-plugins
 COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
-# Temporary method of distributing the commons-connect client
-COPY --chown=www-data:www-data ./commons-connect/cc-client /app/commons-connect/cc-client
 
 RUN rm -rf /app/site/web/app/plugins/* && \
 	rm -rf /app/site/web/app/themes/* && \
