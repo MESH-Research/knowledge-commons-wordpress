@@ -5,6 +5,8 @@
 
 # Pre-build steps
 
+composer update
+
 cd site/web/app/plugins/cc-client
 npm install
 npm run build
