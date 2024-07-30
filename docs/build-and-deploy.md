@@ -2,11 +2,13 @@ The Commons WordPress site runs on [Elastic Container Service](https://aws.amazo
 
 ## Build Process
 
-When a commit is pushed to the `main` or `production` branch, GitHub Actions runs the build process. The build process is defined in `.github/workflows/push-to-aws.yml`. Images on ECR are tagged according to the branch that triggered the build (ie. `main` or `production`).
+When a commit is pushed to the `main` or `production` branch, GitHub Actions runs the build process. The build process is defined in `.github/workflows/push-to-aws.yml`. Images on ECR are tagged according to the branch that triggered the build (ie. `main` or `production`). 
 
 To manually build without pushing to GitHub, run the `push-to-aws.sh` script in the root of the repository with the desired tag as an argument. Eg. `./push-to-aws.sh main`.
 
 ## Deployment Process
+
+[Production](https://hcommons.org) and [development](https://hcommons-dev.org) are deployed on separate ECS clusters, using the `production` and `main` tagged images respectively. 
 
 Currently the deployment process is manual. To deploy a new build, follow these steps:
 
