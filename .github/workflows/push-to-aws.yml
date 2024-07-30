@@ -1,0 +1,42 @@
+# Build container and push to AWS ECR
+
+on:
+  push:
+    branches:
+      - main
+      - production
+
+name: AWS ECR Build & Push
+
+env:
+  BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
+
+jobs:
+  build-and-push:
+    name: Build and Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Build images
+        id: build
+        run: |
+          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-nginx:${{env.BRANCH_NAME}} -f Dockerfile.nginx .
+          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-app:${{env.BRANCH_NAME}} -f Dockerfile.php --target cloud .
+          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-cron:${{env.BRANCH_NAME}} -f Dockerfile.php --target cron .
+      
+      - name: Push images
+        id: push
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-nginx:${{env.BRANCH_NAME}}
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-app:${{env.BRANCH_NAME}}
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-cron:${{env.BRANCH_NAME}}
