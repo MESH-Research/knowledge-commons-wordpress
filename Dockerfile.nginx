@@ -1,6 +1,6 @@
 # Nginx container for running WordPress on production
 
-FROM --platform=linux/amd64 nginx:stable-alpine3.19
+FROM --platform=linux/arm64 nginx:stable-alpine3.19
 
 # Ensure that important users and groups have consistent IDs across all containers.
 # 82 is the standard uid/gid for "www-data" on php-fpm Alpine.
