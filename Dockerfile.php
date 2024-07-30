@@ -29,6 +29,8 @@ FROM lando AS lando-efs
 
 FROM base AS cloud
 
+RUN apk add npm
+
 # This is a bit awkward, but we want to COPY --chown=www-data:www-data only the necessary files to the
 # container. If we COPY --chown=www-data:www-data the entire root directory of the project, there will
 # be a lot of junk files from development that we don't need.
@@ -61,6 +63,12 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 
 COPY --chown=www-data:www-data composer.json /app/
 COPY --chown=www-data:www-data composer.lock /app/
+
+WORKDIR /app/site/web/app/plugins/cc-client
+RUN npm install && npm run build
+
+WORKDIR /app/themes/boss-child
+RUN npm install && gulp sass
 
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
