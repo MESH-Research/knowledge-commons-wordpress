@@ -1,7 +1,6 @@
 # PHP container for running WordPress
 
-FROM --platform=$BUILDPLATFORM php:fpm-alpine3.19 AS base
-ARG BUILDPLATFORM
+FROM --platform=linux/amd64 php:fpm-alpine3.19 AS base
 
 RUN addgroup -g 33 xfs || true \
 	&& addgroup xfs www-data \
