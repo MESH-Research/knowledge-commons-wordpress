@@ -1,7 +1,6 @@
 # PHP container for running WordPress
 
-FROM --platform=$BUILDPLATFORM php:fpm-alpine3.19 AS base
-ARG BUILDPLATFORM
+FROM --platform=linux/arm64 php:fpm-alpine3.19 AS base
 
 RUN addgroup -g 33 xfs || true \
 	&& addgroup xfs www-data \
@@ -28,6 +27,8 @@ EXPOSE 9000
 FROM lando AS lando-efs
 
 FROM base AS cloud
+
+RUN apk add npm
 
 # This is a bit awkward, but we want to COPY --chown=www-data:www-data only the necessary files to the
 # container. If we COPY --chown=www-data:www-data the entire root directory of the project, there will
@@ -62,37 +63,46 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 COPY --chown=www-data:www-data composer.json /app/
 COPY --chown=www-data:www-data composer.lock /app/
 
+
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
-	chown www-data:www-data /media && \
-	ln -sf /media/uploads /app/site/web/app/uploads && \
+chown www-data:www-data /media && \
+ln -sf /media/uploads /app/site/web/app/uploads && \
 	ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
-
-RUN rm -rf /usr/local/etc/php/php.ini && \
+	
+	RUN rm -rf /usr/local/etc/php/php.ini && \
 	ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
 	rm -rf /usr/local/etc/php-fpm.d/www.conf && \
 	ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
-
-RUN rm -rf /app/config/all/simplesamlphp/log && \
+	
+	RUN rm -rf /app/config/all/simplesamlphp/log && \
 	rm -rf /app/config/all/simplesamlphp/tmp && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/tmp && \
 	chown -R www-data:www-data /app/config/all/simplesamlphp
+	
+	WORKDIR /app
+	USER www-data
+	RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+	WORKDIR /app/core-plugins/humcore/
+	RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+	WORKDIR /app/scripts/cron/mailchimp
+	RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+	WORKDIR /app
+	
+	WORKDIR /app/site/web/app/plugins/cc-client
+	RUN npm install && npm run build
+	
+	WORKDIR /app/themes/boss-child
+	RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
-WORKDIR /app
-USER www-data
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-WORKDIR /app/core-plugins/humcore/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-WORKDIR /app/scripts/cron/mailchimp
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-WORKDIR /app
+	WORKDIR /app
 
-ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
-CMD ["php-fpm"]
-
-FROM cloud AS cron
-
+	ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
+	CMD ["php-fpm"]
+	
+	FROM cloud AS cron
+	
 USER root
 RUN apk add bash
 RUN crontab -u www-data /app/scripts/cron/commons.crontab

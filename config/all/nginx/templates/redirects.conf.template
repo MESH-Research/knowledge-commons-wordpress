@@ -1,4 +1,6 @@
 # Redirect copyright or other violation
+rewrite ^/deposits/(download|view)/hc:68473/(.*) https://hcommons.org/deposits/removed/ permanent;
+rewrite ^/deposits/item/hc:68473/(.*) https://hcommons.org/deposits/removed/ permanent;
 rewrite ^/deposits/item/hc:28497/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
 rewrite ^/deposits/(download|view)/hc:28498/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
 rewrite ^/deposits/item/hc:45399/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
