@@ -105,9 +105,6 @@ RUN composer install --no-dev --no-interaction --no-progress --optimize-autoload
 WORKDIR /app/themes/dahd-tainacan/
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
-WORKDIR /app/themes/digital-pedagogy/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-
 WORKDIR /app
 
 ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
