@@ -1,0 +1,32 @@
+query GetCollectionByUserId($first: Int, $last: Int, $cursor: String, $userId: [ID]){
+    collections(
+        first: $first,
+        last: $last,
+        where: { authorIn: $userId, orderby:{field: DATE order:ASC}}
+    )
+    {
+        pageInfo {
+            total
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            node
+            {
+                artifacts(
+                    first: $first,
+                    last: $last,
+                    after: $cursor
+                )
+                {
+                    edges
+                    {
+                        ... CollectionArtifacts
+                    }
+                }
+                ... CollectionEntry
+            }
+        }
+    }
+}
+

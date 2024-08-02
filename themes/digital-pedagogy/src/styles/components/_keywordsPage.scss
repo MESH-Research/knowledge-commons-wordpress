@@ -1,0 +1,52 @@
+.keywords {
+  color: $dark-green;
+  margin-bottom: $xlarge-size;
+  a {
+    color: $dark-green;
+  }
+
+  a:hover {
+    color: $light-green;
+  }
+
+
+  .keywords__title {
+    width: 100%;
+    text-align: center;
+    font-size: $large-size;
+    font-weight: bold;
+    padding: $small-size 0;
+    @media all and (min-width: $desktop) {
+      padding: $xlarge-size 0;
+    }
+  }
+
+  .keywords__list {
+    @media all and (min-width: $desktop) {
+      padding: 0 0 $xlarge-size 0;
+    }
+
+    div {
+      font-weight: bold;
+      font-size: 1.6rem;
+      margin-top: 1.2rem;
+    }
+  }
+
+  .keyword__curator-list {
+    text-decoration: none;
+    list-style:none;
+    padding:0;
+
+
+    .keyword__curator-list-item {
+      display: block;
+
+      &:last-child {
+        &:after {
+          content: none;
+        }
+      }
+    }
+  }
+}

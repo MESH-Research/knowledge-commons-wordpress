@@ -1,0 +1,20 @@
+query GET_KEYWORDS($name: [String], $first: Int, $last: Int){
+    dp_keywords (
+        first: $first,
+        last: $last,
+        where: { name: $name, orderby: NAME}) {
+        pageInfo {
+            total
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            node {
+                id
+                dp_keywordId
+                name
+                count
+            }
+        }
+    }
+}

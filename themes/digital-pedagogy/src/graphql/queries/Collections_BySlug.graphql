@@ -1,0 +1,23 @@
+query GET_PAGE_BY_URI($uri: String, $first: Int, $last: Int, $cursor: String){
+    collectionBy(
+        uri: $uri
+    ) {
+        ... CollectionEntry
+        artifacts (
+            first: $first,
+            last: $last,
+            after: $cursor
+        ) {
+            pageInfo {
+                total
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges
+            {
+                ... CollectionArtifacts
+            }
+        }
+    }
+}

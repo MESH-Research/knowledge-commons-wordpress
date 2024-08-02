@@ -1,0 +1,105 @@
+fragment Fragment_Artifact on Artifact {
+                id
+                artifactId
+                title
+                slug
+                content
+                curator
+                sources
+                core
+                featuredImage
+                {
+                    sourceUrl( size: MEDIUM_WIDTH )
+                    altText
+                }
+                categories (first:100)
+                {
+                  edges
+                  {
+                    node
+                    {
+                        categoryId
+                        name
+                      description
+                    }
+                  }
+                }
+                tags (first:100)
+                {
+                    edges
+                    {
+                        node
+                        {
+                            name
+                        }
+                    }
+                }
+                dp_genres (first:100)
+                {
+                    edges
+                    {
+                        node
+                        {
+                            name
+                        }
+                    }
+                }
+                dp_keywords (first:100)
+                {
+                    edges
+                    {
+                        node
+                        {
+                            name
+                        }
+                    }
+                }
+                dp_authors (first:100, where: {orderby: TERM_ORDER})
+                {
+                    edges
+                    {
+                        node
+                        {
+                            name
+                            affiliation
+                            website
+                            role
+                        }
+                    }
+                }
+                dp_citations (first:100, where: {orderby: SLUG}){
+                    edges
+                    {
+                        node
+                        {
+                            name
+                            description
+                            slug
+                        }
+                    }
+                }
+                dp_related_works (first:100)
+                {
+                    edges
+                    {
+                        node
+                        {
+                            name
+                            description
+                        }
+                    }
+                }
+                dp_related_keywords (first:100)
+                {
+                    edges
+                    {
+                        node
+                        {
+                            name
+                            description
+                        }
+                    }
+                }
+            }
+
+

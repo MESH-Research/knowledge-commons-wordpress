@@ -1,0 +1,124 @@
+.header {
+  background: $header-bg;
+  color: $header-fg;
+
+  @media print {
+    background: #fafafa;
+
+  }
+
+
+  nav {
+    @media print {
+      display: block;
+      margin-bottom: 3rem;
+    }
+
+    a {
+      @media print {
+        color: $black;
+        text-decoration: none;
+      }
+    }
+
+    img {
+      height: 35px;
+      padding-right: 15px;
+    }
+
+
+    .navbar-collapse {
+      @media print {
+        display: none !important;
+      }
+
+
+
+      &.show {
+        ul {
+          width: 100%;
+
+          li {
+
+            a {
+              padding: .75rem 0;
+            }
+          }
+        }
+      }
+
+    }
+
+    ul {
+      text-transform: uppercase;
+      font-size: $normal-size;
+      white-space:nowrap;
+      text-align: center;
+      @media all and (min-width: $tablet) {
+        font-size: 1.5rem;
+
+      }
+
+    }
+
+  }
+}
+
+.header__title {
+  font-size: 1.8rem;
+  margin:0;
+  color: $header-fg;
+  white-space: normal;
+  @media all and (min-width: $tablet) {
+    font-size: $large-size;
+  }
+
+  img {
+    height: 35px;
+    padding-right: 15px;
+  }
+
+  a {
+    display: inline;
+    color: inherit;
+  }
+
+  @media print {
+    color: $black;
+    display: block;
+  }
+}
+
+.header__subtitle {
+  font-size: $normal-size;
+  font-weight: 500;
+  color: $header-fg;
+  margin:0;
+}
+
+.header__nav--Selected {
+  font-weight: bold;
+  color: white !important;
+}
+
+.header__nav__search {
+  padding: 0 0;
+  color: white !important;
+  font-size: $medium-size;
+  margin-top: -.25rem;
+}
+
+.sticky-top {
+  @media print {
+    position: relative;
+  }
+}
+
+.navbar-toggler-icon, .navbar-dark .navbar-toggler {
+  color: rgba(255,255,255,1);
+  border-color: rgba(255,255,255,1);
+}
+
+.navbar-dark .navbar-toggler-icon  {
+  background-image:  url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}

@@ -1,0 +1,33 @@
+query Artifacts_ByTag($uri: String, $first: Int, $last: Int, $cursor: String){
+    artifacts (
+        first: $first,
+        last: $last,
+        after: $cursor
+        where: {
+            orderby: {field: MENU_ORDER, order: ASC},
+            taxQuery: {
+                taxArray: [
+                    {
+                        terms: [$uri],
+                        taxonomy: TAG,
+                        operator: IN,
+                        field: SLUG
+                    }
+                ]
+            }
+        }
+    ){
+        pageInfo {
+            total
+            endCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            node {
+                ... Fragment_Artifact
+            }
+        }
+    }
+}
+

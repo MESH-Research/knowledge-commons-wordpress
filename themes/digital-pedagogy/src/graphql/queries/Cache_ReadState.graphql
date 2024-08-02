@@ -1,0 +1,8 @@
+query readClientState {
+    appState @client {
+        isDragging,
+        refreshDrawer,
+        refreshCollectionPageData,
+        refreshKeywordPageData
+    }
+}

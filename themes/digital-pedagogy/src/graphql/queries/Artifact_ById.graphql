@@ -1,0 +1,7 @@
+query GET_ARTIFACT_BY_ID($artifactId: Int){
+    artifactBy(
+        artifactId: $artifactId
+    ) {
+        ...Fragment_Artifact
+    }
+}

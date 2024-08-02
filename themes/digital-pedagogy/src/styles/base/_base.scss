@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i&display=swap');
+
+html {
+  font-size: 62.5%;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: $normal-size;
+
+}
+
+.d__side__bar {
+  z-index: inherit !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.mw-25 {
+  max-width: 25%;
+}
+
+.mw-50 {
+  max-width: 50%;
+}
+.mw-75 {
+  max-width: 75%;
+}
+
+.min-pct-h-25 {
+  min-height: 25%;
+}
+
+.min-pct-h-50 {
+  min-height: 50%;
+}
+
+.min-pct-h-75 {
+  min-height: 75%;
+}
+
+.min-pct-h-100 {
+  min-height: 100%;
+}
+
+.min-px-h-10 {
+  min-height: 10px;
+}
+
+.min-px-h-20 {
+  min-height: 20px;
+}
+
+.min-px-h-30 {
+  min-height: 30px;
+}
+
+.min-px-h-40 {
+  min-height: 40px;
+}
+
+.min-px-h-50 {
+  min-height: 50px;
+
+}
+
+.min-px-h-60 {
+  min-height: 60px;
+}
+
+.min-px-h-70 {
+  min-height: 70px;
+}
+
+.min-px-h-80 {
+  min-height: 80px;
+}
+
+.min-px-h-90 {
+  min-height: 90px;
+}
+
+.min-px-h-100 {
+  min-height: 100px;
+}
+
+.min-px-h-200 {
+  min-height: 200px;
+}
+
+.min-px-h-300 {
+  min-height: 300px;
+}
+
+.min-px-h-400 {
+  min-height: 400px;
+}
+
+.min-px-h-500 {
+  min-height: 500px;
+}
+
+.middle-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#root > div{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+p.layout-column-1 {
+  vertical-align: middle;
+}
+
+blockquote {
+  margin: 0 0 1rem 4rem;
+}

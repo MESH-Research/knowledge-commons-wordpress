@@ -1,0 +1,168 @@
+.homepageBody {
+
+  .homepageBody__intro {
+
+
+
+
+    .homepageBody__intro__outer-wrapper {
+      background:linear-gradient(0deg, rgba(49, 109, 109, 0.3), rgba(49, 109, 109, 0.3)), url('images/digiped-hp.png');
+      background-size: cover;
+
+      margin: 0;
+      padding: 0;
+
+      .homepageBody__intro__inner-wrapper {
+        background-color: white;
+        padding: 0;
+        box-shadow: 0px -.8rem 8px rgba(0, 0, 0, 0.3);
+        color: $dark-green;
+
+        .homepageBody__intro__inner-wrapper__text__copy__container {
+
+        }
+
+        .homepageBody__intro__inner-wrapper__title__container__h1 {
+          border-bottom: thin solid $dark-green;
+          font-size: 4.2rem;
+          font-weight: bold;
+          letter-spacing: -.13rem;
+          padding-bottom: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .homepageBody__intro__inner-wrapper__subtitle__container__h2 {
+          font-size: 2.6rem;
+          letter-spacing: -.1rem;
+          margin: 1.75rem 0 3.5rem;
+        }
+
+        .homepageBody__intro__inner-wrapper__text__editors__container {
+
+
+          .homepageBody__intro__inner-wrapper__text__editors__container__h3 {
+            font-size: 1.6rem !important;
+            //margin-top: 2rem;
+          }
+
+          .homepageBody__intro__inner-wrapper__text__editors__container__ul {
+            list-style: none;
+            padding: 0;
+            font-size: 1.6rem !important;
+
+            li {
+              font-size: 1.6rem !important;
+              padding-top: .6rem
+
+            }
+          }
+        }
+
+        .homepageBody__intro__inner-wrapper__text__wrapper {
+          padding: 4.8rem;
+
+          .homepageBody__intro__inner-wrapper__text {
+            font-size: 1.7rem;
+
+            .homepageBody__intro__inner-wrapper__text__copy__container {
+              padding-bottom: 1.5rem;
+            }
+
+            a {
+              color: black;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .homepageBody__intro__inner-wrapper__call-to-action {
+          background-color: #FFD740;
+          height: 5rem;
+          .homepageBody__intro__inner-wrapper__call-to-action {
+            .arrow-down {
+              width: 0;
+              height: 0;
+              border-left: 5rem solid transparent;
+              border-right: 5rem solid transparent;
+              border-top: 5rem solid white;
+            }
+          }
+        }
+      }
+    }
+
+    .homepageBody__intro__outer-wrapper__call-to-action__text {
+      background-color: #FFD740;
+      //height: 6.8rem;
+      padding: 1rem 1rem 3rem;
+      font-size: 2.8rem;
+      font-weight: bold;
+      box-shadow: 0px .8rem 8px rgba(0, 0, 0, 0.3);
+      a {
+        color: black;
+        text-decoration: underline;
+      }
+    }
+
+    .homepageBody__intro__nav {
+      background: rgba($goldTitles, 0.75);
+      margin-bottom: 2rem;
+      transition: background-color 0.2s;
+      padding-right: 0;
+      padding-left: 0;
+      color: $white;
+
+      a.nav-link {
+        color: rgba(255,255,255,1.0);
+      }
+
+      &:hover {
+        background: rgba($goldTitles, 0.95);
+        transition: background-color 0.2s;
+      }
+
+      .homepageBody__intro__nav__header {
+        float: right;
+      }
+    }
+
+    .homepageBody__keywords__title {
+      color: $dark-green;
+      font-size: $large-size;
+      font-weight: bold;
+      margin: 5rem 0;
+    }
+  }
+
+}
+
+.navbar-collapse {
+  @media print {
+    display: none !important;
+  }
+
+  ul li a {
+    padding: 1rem .25rem;
+    text-align: center;
+
+    svg {
+      position: relative;
+      top: -5px;
+    }
+  }
+
+  &.show {
+    ul {
+      width: 100%;
+
+      li {
+
+        a {
+          //padding: .75rem 0;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+}

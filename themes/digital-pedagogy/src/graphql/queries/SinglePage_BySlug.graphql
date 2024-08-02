@@ -1,0 +1,23 @@
+query GET_CHILDREN_BY_URI($uri: String){
+    pageBy(
+        uri: $uri
+    ) {
+        ... SinglePageFields
+        childPages(first: 100, where: {orderby: {field: MENU_ORDER, order: ASC}}) {
+            nodes {
+              title
+              slug
+            }
+        }
+    }
+}
+
+
+fragment SinglePageFields on Page {
+    id
+    title
+    slug
+    date
+    menuOrder
+    commentStatus
+}

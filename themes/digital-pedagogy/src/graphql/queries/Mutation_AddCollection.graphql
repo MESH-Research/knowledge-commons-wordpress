@@ -1,0 +1,10 @@
+mutation CREATE_COLLECTION($input: CreateCollectionInput!) {
+    createCollection(input: $input) {
+        collection {
+            id
+            collectionId
+            title
+            slug
+        }
+    }
+}
