@@ -47,15 +47,14 @@ const WP_TABLE_PREFIX          = 'wp_';
 const UPLOADS_PARENT_DIRECTORY = '/srv/www/commons/shared/';
 const UPLOADS_DIRECTORY        = 'uploads/';
 const S3_BUCKET                = 'kcommons-dev-content'; // AWS S3 bucket to upload files to.
-const ENV_DIR                  = '/srv/www/commons/current/'; 
 
 function main( $args ) {
-	$dotenv = Dotenv\Dotenv::createImmutable( ENV_DIR );
-	$dotenv->load();
+	load_env();
 	
 	$default_args = [
 		'export-uploads'              => true,              // Export uploads folders.
 		'export-sites'                => true,              // Export user sites.
+		'only-domains'                => null,              // Export only these domains.
 		'full-export'                 => false,             // Export all content.	
 		'skip-content-generation'     => false,             // Skip generating content and just upload existing files to S3.
 		'exclude-humcore-uploads'     => true,              // Exclude HumCORE uploads.
@@ -70,6 +69,7 @@ function main( $args ) {
 		'domain'                      => 'commons-wordpress.lndo.site', // New domain to replace old domain with.
 		'source-domain'               => $_SERVER['WP_DOMAIN'],
 		'help'                        => false,
+		'randomize-emails'            => true,
 	];
 
 	$args = array_merge( $default_args, $args );
@@ -84,7 +84,15 @@ function main( $args ) {
 	}
 	
 	if ( ! $args['skip-content-generation'] ) {
-		$site_ids    = site_ids( $args['user-sites'] );
+		if ( $args['only-domains'] ) {
+			echo "Overriding site domains...\n";
+			echo "Exporting from " . $args['only-domains'] . "\n";
+			$sites_override = explode( ',', $args['only-domains'] );
+		} else {
+			$sites_override = [];
+		}
+		
+		$site_ids    = site_ids( $args['user-sites'], $sites_override );
 		$table_names = get_table_names_for_dump( $site_ids );
 
 		if ( $args['full-export'] ) {
@@ -99,7 +107,7 @@ function main( $args ) {
 	
 		echo "Generating database export...\n";
 		echo "Database Export File: " . $args['db-export-file'] . "\n";
-		generate_db_export( $table_names, $args['domain'], $args['db-export-file'] );
+		generate_db_export( $table_names, $args['domain'], $args['db-export-file'], $args['randomize-emails'] );
 	
 		if ( $args['export-uploads'] ) {
 			echo "Generating uploads archive...\n";
@@ -139,6 +147,24 @@ function main( $args ) {
 	}
 
 	echo "Done.\n";
+}
+
+/**
+ * Load necessary environment variables into $_SERVER.
+ */
+function load_env() {
+	$vars = [
+		'DB_HOST',
+		'DB_USER',
+		'DB_PASSWORD',
+		'DB_NAME',
+		'WP_DOMAIN',
+	];
+	foreach ( $vars as $var ) {
+		if ( ! isset( $_SERVER[ $var ] ) ) {
+			$_SERVER[ $var ] = getenv( $var );
+		}
+	}
 }
 
 /**
@@ -220,29 +246,36 @@ function show_help() {
 /**
  * Gets site ids of all sites to be exported.
  */
-function site_ids( $user_sites) {
-	//Get base site domains
-	$site_domains  = [];
-	$msu_domain    = '';
-	$networks = get_networks();
-	foreach ( $networks as $network ) {
-		$site_domains[] = $network->domain;
-		if ( $network->site_name === MSU_COMMONS_NAME ) {
-			$msu_domain = $network->domain;
+function site_ids( $user_sites, $sites_override = [] ) {
+	if ( count( $sites_override ) == 0 ) {
+		//Get base site domains
+		$site_domains  = [];
+		$msu_domain    = '';
+		$networks = get_networks();
+		foreach ( $networks as $network ) {
+			$site_domains[] = $network->domain;
+			if ( $network->site_name === MSU_COMMONS_NAME ) {
+				$msu_domain = $network->domain;
+			}
 		}
+	
+		//Get user site domains
+		foreach ( $user_sites as $user_site ) {
+			if ( strpos( $user_site, '.msu') !== false ) {
+				$domain_parts = explode( '.', $user_site );
+				$domain = implode( '.', array_slice( $domain_parts, 0, -1 ) );
+				$site_domains[] = $domain . '.' . $msu_domain;
+			} else {
+				$site_domains[] = $user_site . '.' . $_SERVER['WP_DOMAIN'];
+			}
+		}
+	} else {
+		echo "Overriding site domains...\n";
+		$site_domains = $sites_override;
 	}
 
-	//Get user site domains
-	foreach ( $user_sites as $user_site ) {
-		if ( strpos( $user_site, '.msu') !== false ) {
-			$domain_parts = explode( '.', $user_site );
-			$domain = implode( '.', array_slice( $domain_parts, 0, -1 ) );
-			$site_domains[] = $domain . '.' . $msu_domain;
-		} else {
-			$site_domains[] = $user_site . '.' . $_SERVER['WP_DOMAIN'];
-		}
-	}
-
+	echo "Exporting " . count( $site_domains ) . " sites...\n";
+	
 	//Get site ids
 	$site_ids = [];
 	foreach ( $site_domains as $domain ) {
@@ -330,14 +363,14 @@ function get_table_names_for_dump( $site_ids ) {
 /**
  * Generates mysqldump file.
  */
-function generate_db_export( $table_names, $new_domain, $db_export_file ) {
+function generate_db_export( $table_names, $new_domain, $db_export_file, $randomize_emails = false ) {
 	if ( file_exists( $db_export_file ) ) {
 		echo "Removing existing database export...\n";
 		unlink( $db_export_file );
 	}
 	$table_list = implode( ' ', $table_names );
 	$command = "mysqldump -h {$_SERVER['DB_HOST']} -u {$_SERVER['DB_USER']} -p{$_SERVER['DB_PASSWORD']} --lock-tables=false hcommons $table_list > " . $db_export_file;
-	echo $command . "\n";
+	//echo $command . "\n";
 	exec( $command );
 	if ( $new_domain ) {
 		echo "Replacing " . $_SERVER['WP_DOMAIN'] . " with $new_domain in database export...\n";
@@ -346,6 +379,12 @@ function generate_db_export( $table_names, $new_domain, $db_export_file ) {
 		echo $command . "\n";
 		exec( $command );
 		unlink( "old-" . $db_export_file );
+	}
+
+	if ( $randomize_emails ) {
+		echo "Randomizing emails in database export...\n";
+		$command = "sed -i 's/[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]*\.[A-Za-z]{2,4}/'$(openssl rand -hex 16)'@example.com/g' " . $db_export_file;
+		exec($command);
 	}
 }
 

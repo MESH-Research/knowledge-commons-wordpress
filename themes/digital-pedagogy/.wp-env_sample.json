@@ -1,0 +1,38 @@
+//Notes: JSON does not support comments. If you use this file delete all comments before final save.
+//rename this file .wp-env.json and place in project root. Note the hidden file status (dot in front of wp-env.json).
+//to run use 'npm run dev-env' command.
+
+{
+  "phpVersion": "7.2", //Must be 7.2 or higher due to the xdebug component built into wp-env
+  "env": {
+    "development": {
+      "config": { //WP-Config.php any valid entries can go into this object.
+        "WP_DEBUG_DISPLAY": false,
+        "WP_DEBUG": true,
+        "WP_DEBUG_LOG": true,
+        "SCRIPT_DEBUG": true,
+        "WP_PHP_BINARY": "php",
+        "WP_SITEURL": "http://mla.test",
+        "WP_HOME": "http://mla.test"
+      },
+      "mappings": { //this will map remote directory to local directory. These will; somewhat override other theme/plugin options.
+        "wp-content/plugins": "../../plugins",
+        "wp-content/mu-plugins": "../../mu-plugins",
+        "wp-content/themes": "../../themes"
+      },
+      "themes": [
+        "../re-style-center" //this makes re-style-center available in the themes section (does not activate it). This is over-ridden by the mapping option.
+      ],
+      "plugins": [
+        "../../plugins/hello-dolly" //this loads the hello-dolly plugin and activates it. different from themes option above.
+      ],
+      "port": 80 //may need to change ports if you have multiple versions of wp-env running at once. Not sure how to handle, may need to use prefixes in one db.
+    },
+    "tests": { //this is config for testing instance.
+      "themes": [
+        "../re-style-center"
+      ],
+      "port": 3000
+    }
+  }
+}

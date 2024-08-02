@@ -1,0 +1,136 @@
+.page {
+
+}
+
+.page__sidebar {
+  border-right: $light-grey thin solid;
+
+}
+
+.page__body {
+  h1 {
+    font-size: $large-size;
+    color: $header-bg;
+    width: 100%;
+    border-bottom: $goldTitles 2px solid;
+    font-weight: bold;
+    padding-bottom: .75rem;
+    margin: 0 0 $small-size 0;
+  }
+
+  h2 {
+    font-size: $large-size;
+    color: $header-bg;
+    width: 100%;
+    /*border-bottom: $goldTitles 2px solid;*/
+    font-weight: bold;
+    padding-bottom: .75rem;
+    margin: 3rem 0 0;
+
+    &.heading-link {
+      margin-top: 3rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    color: $text-dark;
+    border-bottom: none;
+    font-weight: bold;
+    padding: 0 0 $small-size 0;
+  }
+
+  h4 {
+    font-size: 1.8rem;
+    color: $text-dark;
+    border-bottom: none;
+    font-weight: bold;
+    padding: 0 0 .5rem 0;
+  }
+
+  .intro-link a, .heading-link a {
+
+    color: inherit;
+    font-weight: normal;
+  }
+
+}
+
+.page__body__section {
+  padding: 0 0 $medium-size 0;
+}
+
+.page__body__container {
+  margin: 5% 16%;
+}
+
+.page__sidebar {
+  padding: 0 2%;
+  margin-top: 3%;
+}
+
+.page__sidebar__section {
+  margin-bottom: $xlarge-size;
+}
+
+.page__sidebar__title {
+  margin: 0 0 $medium-size 0;
+  padding: 0;
+
+  font-size: $normal-size;
+  color: $goldTitles;
+  text-transform: uppercase;
+
+}
+
+.page__sidebar__ul {
+
+}
+
+.page__sidebar__li {
+  margin: 0 0 1.2rem 0;
+  font-size: 1.4rem;
+  font-weight: lighter;
+
+  strong {
+    font-weight: bolder;
+    font-size: 1.7rem;
+  }
+
+  a {
+    color: #1e1e1e;
+    font-weight: bolder;
+  }
+}
+
+.page-not-found {
+  padding: 10rem 20rem;
+  h1 {
+    font-size: $xlarge-size;
+    color: $header-bg;
+    margin-bottom: 5rem;
+  }
+
+  div {
+    margin-bottom: 5rem;
+    font-size: $medium-size;
+    a {
+      margin-left: .3rem;
+      color: $collectionBar-bg;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+/* Fix for handing indents on intro works cited list */
+#works-cited {
+  p {
+    text-indent: -4rem;
+    padding-left: 4rem;
+  }
+}
+
+.previous-page strong, .next-page strong {
+  font-weight: lighter;
+}

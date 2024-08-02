@@ -1,0 +1,82 @@
+.collection_button {
+  background-color: $collectionBar-bg;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.added {
+    animation: addwaves 2s;
+  }
+
+  @keyframes addwaves {
+    0% {
+      background-color: $collectionBar-bg;
+    }
+
+    30% {
+      background-color: lighten($collectionBar-bg, 20%);
+    }
+
+    100% {
+      background-color: $collectionBar-bg;
+    }
+  }
+
+  @media print {
+    display: none;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    color: $header-fg;
+    font-size: 1.8rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+
+  .collection_button--open, .collection_button--close {
+    font-size: $large-size;
+  }
+}
+
+.collection_drawer {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  border-bottom: 2px solid $goldHighlight;
+  //max-height: 100vh;
+
+  @media print {
+    border-bottom: none;
+  }
+
+  .collection_drawer__content {
+    color: $text-dark;
+    max-height: 45vh;
+    overflow: scroll;
+
+    .collection-card__wrapper {
+      .not-logged-in-message {
+        div:first-of-type {
+          border: thin grey solid;
+          background-color: $header-fg;
+          color: $header-bg;
+          margin: 1rem 0;
+          padding: 3rem;
+          font-size: $medium-size;
+          a{
+            color: $text-dark;
+            font-size: $medium-size;
+            margin: 0 1rem 0 1rem;
+          }
+
+        }
+        div:nth-child(2) {
+          width: 55%;
+        }
+
+      }
+    }
+  }
+}

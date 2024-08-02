@@ -1,0 +1,15 @@
+{
+  "name": "Digiped",
+  "schemaPath": "fragmentTypes.json",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://digip.test:89/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": true
+      }
+    }
+  }
+}

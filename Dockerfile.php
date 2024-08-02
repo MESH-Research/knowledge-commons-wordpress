@@ -16,11 +16,11 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /u
 RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
 	mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
-RUN apk update && apk add mysql-client 
+RUN apk update && apk add mysql-client bash
 
 FROM base AS lando
 
-RUN apk add git mysql py3-pip py-cryptography mandoc aws-cli linux-headers bash
+RUN apk add git mysql py3-pip py-cryptography mandoc aws-cli linux-headers
 
 EXPOSE 9000
 
@@ -70,38 +70,50 @@ chown www-data:www-data /media && \
 ln -sf /media/uploads /app/site/web/app/uploads && \
 	ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
 	
-	RUN rm -rf /usr/local/etc/php/php.ini && \
+RUN rm -rf /usr/local/etc/php/php.ini && \
 	ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
 	rm -rf /usr/local/etc/php-fpm.d/www.conf && \
 	ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 	
-	RUN rm -rf /app/config/all/simplesamlphp/log && \
+RUN rm -rf /app/config/all/simplesamlphp/log && \
 	rm -rf /app/config/all/simplesamlphp/tmp && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
 	mkdir -p /app/config/all/simplesamlphp/tmp && \
 	chown -R www-data:www-data /app/config/all/simplesamlphp
-	
-	WORKDIR /app
-	USER www-data
-	RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-	WORKDIR /app/core-plugins/humcore/
-	RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-	WORKDIR /app/scripts/cron/mailchimp
-	RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-	WORKDIR /app
-	
-	WORKDIR /app/site/web/app/plugins/cc-client
-	RUN npm install && npm run build
-	
-	WORKDIR /app/themes/boss-child
-	RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
-	WORKDIR /app
+WORKDIR /app
+USER www-data
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+WORKDIR /app/core-plugins/humcore/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+WORKDIR /app/scripts/cron/mailchimp
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+WORKDIR /app
 
-	ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
-	CMD ["php-fpm"]
-	
-	FROM cloud AS cron
+WORKDIR /app/site/web/app/plugins/cc-client
+RUN npm install && npm run build
+
+WORKDIR /app/themes/boss-child
+RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
+
+WORKDIR /app/scripts/cron/mailchimp/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+WORKDIR /app/scripts/dev-scripts/content-export/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+WORKDIR /app/themes/dahd-tainacan/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+WORKDIR /app/themes/digital-pedagogy/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+WORKDIR /app
+
+ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
+CMD ["php-fpm"]
+
+FROM cloud AS cron
 	
 USER root
 RUN apk add bash

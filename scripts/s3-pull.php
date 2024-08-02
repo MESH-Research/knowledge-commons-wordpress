@@ -30,29 +30,34 @@ function main() : void {
 		'version' => 'latest',
 	] );
 
-	if ( count( $args ) === 0 || isset( $args['list-prefixes'] ) ) {
-		list_prefixes( $client );
-		echo "\n\n Note: For help, run ./s3-pull.php --help\n";
-	} elseif ( isset( $args['help'] ) ) {
-		show_help();
-	} elseif ( isset( $args['show-summary'] ) ) {
-		show_summary( $client, $args['show-summary'], 'summary.txt' );
-	} elseif ( isset( $args['get-prefix'] ) ) {
-		if ( isset( $args['destination-dir'] ) ) {
-			$destination = $args['destination-dir'];
-		} else {
-			$destination = getcwd();
+	try {
+		if ( count( $args ) === 0 || isset( $args['list-prefixes'] ) ) {
+			list_prefixes( $client );
+			echo "\n\n Note: For help, run ./s3-pull.php --help\n";
+		} elseif ( isset( $args['help'] ) ) {
+			show_help();
+		} elseif ( isset( $args['show-summary'] ) ) {
+			show_summary( $client, $args['show-summary'], 'summary.txt' );
+		} elseif ( isset( $args['get-prefix'] ) ) {
+			if ( isset( $args['destination-dir'] ) ) {
+				$destination = $args['destination-dir'];
+			} else {
+				$destination = getcwd();
+			}
+			get_all_from_prefix( $client, $args['get-prefix'], $destination );
+		} elseif ( isset( $args['import-prefix'] ) ) {
+			import_content_from_prefix( 
+				client:          $client, 
+				prefix:          $args['import-prefix'],
+				just_db:         isset( $args['just-db'] ),
+				just_uploads:    isset( $args['just-uploads'] ),
+				backup_uploads:  isset( $args['backup-uploads'] ),
+				keep_temp_files: isset( $args['keep-temp-files'] )
+			);
 		}
-		get_all_from_prefix( $client, $args['get-prefix'], $destination );
-	} elseif ( isset( $args['import-prefix'] ) ) {
-		import_content_from_prefix( 
-			client:          $client, 
-			prefix:          $args['import-prefix'],
-			just_db:         isset( $args['just-db'] ),
-			just_uploads:    isset( $args['just-uploads'] ),
-			backup_uploads:  isset( $args['backup-uploads'] ),
-			keep_temp_files: isset( $args['keep-temp-files'] )
-		);
+	} catch ( \Exception $e ) {
+		echo "Error: " . $e->getMessage() . "\n";
+		exit( 1 );
 	}
 }
 

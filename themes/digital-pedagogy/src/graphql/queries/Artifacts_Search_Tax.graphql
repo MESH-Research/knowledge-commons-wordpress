@@ -1,0 +1,62 @@
+query Artifacts_Search_Tax($search: String, $first: Int, $last: Int, $cursor: String) {
+    artifacts (
+        first: $first,
+        last: $last,
+        after: $cursor,
+        where: {
+            taxQuery: {
+                relation: OR,
+                taxArray: [
+                    {
+                        terms: [$search],
+                        taxonomy: CATEGORY,
+                        operator: IN,
+                        field: NAME
+                    },
+                    {
+                        terms: [$search],
+                        taxonomy: TAG,
+                        operator: IN,
+                        field: NAME
+                    },
+                    {
+                        terms: [$search],
+                        taxonomy: DP_AUTHOR,
+                        operator: IN,
+                        field: NAME
+                    },
+                    {
+                        terms: [$search],
+                        taxonomy: DP_CITATION,
+                        operator: IN,
+                        field: NAME
+                    },
+                    {
+                        terms: [$search],
+                        taxonomy: DP_GENRE,
+                        operator: IN,
+                        field: NAME
+                    },
+                    {
+                        terms: [$search],
+                        taxonomy: DP_KEYWORD,
+                        operator: IN,
+                        field: NAME
+                    }
+                ],
+
+            }}
+    ){
+        pageInfo {
+            total
+            endCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            node{
+                ... Fragment_Artifact
+            }
+        }
+    }
+}

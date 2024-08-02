@@ -1,0 +1,41 @@
+/*
+Theme Name: 	Faculty HC
+Theme URI:      http://owwwlab.com/wp-faculty
+Template:       faculty
+Author:         Joseff Betancourt
+Description:    A child theme of Faculty. To ensure easy updates, make your own edits to Faculty in this theme. Faculty is a unique theme for academic personal profile
+Version:        1.0
+License:        GNU General Public License
+Tags:           theme-options, full-width-template, sticky-post, threaded-comments, featured-images
+Text Domain:    faculty-child
+*/
+
+/*
+
+-- Stylesheet locations --
+
+Add your own customizations into /css/custom.css in this child theme.
+
+Parent styles are called from /functions.php in the
+parent theme and are located in /css/ in the parent theme.
+
+--- The styles are loaded in the following order ---
+-- CHILD THEME --
+
+custom.css
+
+The later on a stylesheet is loaded, the higher precedent it gets.
+So for example, if you define a CSS element in custom.css that has already
+been defined in main-global.css, the version in custom.css will be used.
+
+Each stylesheet includes a table of contents to help you navigate
+through it. You will notice that many of them include a section with
+media queries. Media queries allow us to detect a browser's screen
+size, and load specific styles only if the screen is larger or smaller
+than that particular size. This allows us to define a large set of
+global styles, and then specific styles for phones, tablets,
+and desktops & laptops - just based on the predicted screen size
+of these devices. That's boss!
+
+
+*/

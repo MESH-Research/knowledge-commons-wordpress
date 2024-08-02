@@ -1,0 +1,40 @@
+query GET_AUTHORS($name: [String], $withFragment: Boolean!, $first: Int, $last: Int, $cursor: String){
+    dp_authors (
+        first: $first,
+        last: $last,
+        where: { name: $name, orderby: COUNT}) {
+        pageInfo {
+            total
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            node {
+                id
+                dp_authorId
+                name
+                count
+                ... on Dp_author @include(if: $withFragment) {
+                    artifacts (
+                        first: $first,
+                        last: $last,
+                        after: $cursor
+                    )
+                    {
+                        pageInfo {
+                            total
+                            endCursor
+                            hasNextPage
+                            hasPreviousPage
+                        }
+                        edges {
+                            node{
+                                ...Fragment_Artifact
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

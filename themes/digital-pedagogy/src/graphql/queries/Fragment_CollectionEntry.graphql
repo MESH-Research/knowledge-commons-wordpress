@@ -1,0 +1,114 @@
+fragment CollectionEntry on Collection {
+    id
+    collectionId
+    title
+    slug
+    content
+    commentCount
+    author {
+        name
+        userId
+        comments (first:100){
+            nodes {
+                id
+                commentId
+                content
+            }
+        }
+    }
+}
+
+fragment CollectionArtifacts on CollectionToArtifactConnectionEdge{
+    node {
+        id
+        artifactId
+        title
+        slug
+        content
+        curator
+        sources
+        core
+        featuredImage
+        {
+            sourceUrl( size: MEDIUM_WIDTH )
+            altText
+        }
+        tags (first:50)
+        {
+            edges
+            {
+                node
+                {
+                    name
+                }
+            }
+        }
+        dp_genres (first:50)
+        {
+            edges
+            {
+                node
+                {
+                    name
+                }
+            }
+        }
+        dp_keywords (first:50)
+        {
+            edges
+            {
+                node
+                {
+                    name
+                }
+            }
+        }
+        dp_authors (first:50, where: {orderby: TERM_ORDER})
+        {
+            edges
+            {
+                node
+                {
+                    name
+                    affiliation
+                    website
+                    role
+                }
+            }
+        }
+        dp_citations (first:100, where: {orderby: SLUG})
+        {
+            edges
+            {
+                node
+                {
+                    name
+                    description
+                    slug
+                }
+            }
+        }
+        dp_related_works (first:50)
+        {
+            edges
+            {
+                node
+                {
+                    name
+                    description
+                }
+            }
+        }
+        dp_related_keywords (first:50)
+        {
+            edges
+            {
+                node
+                {
+                    name
+                    description
+                }
+            }
+        }
+    }
+}

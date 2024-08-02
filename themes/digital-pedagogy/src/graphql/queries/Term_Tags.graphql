@@ -1,0 +1,44 @@
+
+query GET_TAGS($name: [String], $withFragment: Boolean!, $first: Int, $last: Int, $cursor: String){
+    tags (
+        first: $first,
+        last: $last,
+        where: { name: $name, orderby: COUNT}) {
+        pageInfo {
+            total
+            endCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            node {
+                id
+                tagId
+                name
+                count
+                ... on Tag @include(if: $withFragment) {
+                    artifacts (
+                        first: $first,
+                        last: $last,
+                        after: $cursor
+                    )
+                    {
+                        pageInfo {
+                            total
+                            endCursor
+                            hasNextPage
+                            hasPreviousPage
+                        }
+                        edges {
+                            node{
+                                ...Fragment_Artifact
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+

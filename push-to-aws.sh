@@ -11,18 +11,6 @@ else
 	tag=$1
 fi
 
-composer update
-
-cd site/web/app/plugins/cc-client
-npm install
-npm run build
-cd ../../../../../
-
-cd themes/boss-child
-npm install
-gulp sass
-cd ../../
-
 # Docker build and push
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 755997884632.dkr.ecr.us-east-1.amazonaws.com
 

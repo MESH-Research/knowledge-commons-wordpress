@@ -1,0 +1,8 @@
+mutation UpdateCacheState($isDragging: String!) {
+    updateCacheState(isDragging: $isDragging, refreshDrawer:$refreshDrawer, refreshCollectionPageData:$refreshCollectionPageData, refreshKeywordPageData:$refreshKeywordPageData) @client {
+        isDragging,
+        refreshDrawer,
+        refreshCollectionPageData,
+        refreshKeywordPageData
+    }
+}

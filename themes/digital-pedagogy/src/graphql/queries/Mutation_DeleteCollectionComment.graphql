@@ -1,0 +1,7 @@
+mutation DELETE_COMMENT($input: DeleteCommentInput!) {
+    deleteComment(input: $input) {
+        comment {
+            id
+        }
+    }
+}

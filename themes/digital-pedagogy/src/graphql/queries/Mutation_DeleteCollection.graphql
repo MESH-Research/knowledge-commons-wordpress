@@ -1,0 +1,5 @@
+mutation DELETE_COLLECTION($input: DeletePostInput!) {
+    deletePost(input: $input) {
+        deletedId
+    }
+}

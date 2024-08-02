@@ -1,0 +1,16 @@
+{
+    menus {
+        nodes {
+            id
+            name
+            menuItems {
+                edges {
+                    node {
+                        id
+                        label
+                    }
+                }
+            }
+        }
+    }
+}

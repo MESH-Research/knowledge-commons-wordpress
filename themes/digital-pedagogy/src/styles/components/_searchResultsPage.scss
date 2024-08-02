@@ -1,0 +1,171 @@
+.search-results {
+
+}
+
+.search-results__body {
+  @media all and (min-width: $desktop) {
+    padding: 4%;
+  }
+
+  h1 {
+    font-size: 3.6rem;
+    color: $header-bg;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  h3 {
+    font-size: $medium-size;
+    color: $header-bg;
+    width: 100%;
+    font-weight: bold;
+    padding-bottom: .75rem;
+    margin: 0 0 $small-size 0;
+  }
+
+  .artifact__body:not(.open) h3 {
+    padding: 0;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: $normal-size;
+    color: $goldTitles;
+    border-bottom: none;
+    text-transform: uppercase;
+    padding: 0 0 $small-size 0;
+  }
+
+  h4 {
+    font-size: 1.8rem;
+    color: $text-dark;
+    border-bottom: none;
+    font-weight: bold;
+    padding: 0 0 .5rem 0;
+  }
+
+  .artifact__body__wrapper--readmore {
+    display: block;
+  }
+}
+
+
+.search-results__body__section__form__text {
+  input {
+    border: none;
+    border-bottom: thin solid $dark-green;
+    text-align: center;
+    color: $dark-green;
+    padding: 0 10% 0 10%;
+    font-weight: bold;
+    min-width: 50px;
+  }
+}
+
+.search-results__summary {
+  margin: 0 0 $xlarge-size 0;
+  padding: 0 0 0 0;
+  color: $dark-green;
+  font-size: $normal-size;
+}
+
+.search-results__body .section .title {
+  margin-top: 5%;
+}
+.search-results__body__container__loadmore {
+  border:none;
+  background-color: #f5f5f5;
+}
+.search-results__sidebar {
+  @media all and (min-width: $desktop) {
+    padding: 0 5% 0 2%;
+  }
+  margin-top: 3%;
+  z-index: inherit;
+}
+
+.search-results__sidebar__section {
+  margin-bottom: $xlarge-size;
+}
+
+.search-results__sidebar__title {
+  margin: 0 0 $medium-size 0;
+  padding: 0;
+
+  font-size: $normal-size;
+  color: $goldTitles;
+  text-transform: uppercase;
+
+}
+
+.search-results__sidebar__card {
+  border: none;
+}
+
+.search-results__sidebar__card-header {
+  background-color: transparent;
+  border: none;
+  padding: 0.75rem 0rem;
+
+  h5 {
+
+    button {
+      padding: 0;
+      color: $text-dark;
+      font-size: $sub-size;
+      font-weight: bold;
+      text-transform: uppercase;
+      &:hover {
+        color: $dark-green;
+        text-decoration: none;
+      }
+      &[aria-expanded="true"] {
+        .side-arrow {
+          display: none;
+        }
+        .down-arrow {
+          display: inline;
+        }
+      }
+      &[aria-expanded="false"] {
+        .side-arrow {
+          display: inline;
+        }
+        .down-arrow {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.search-results__sidebar__card-body {
+  padding: 0 .5rem;
+  background-color: #f5f5f5;
+  overflow: scroll;
+  height: 30rem;
+
+  div {
+    padding: .5rem 0 .25rem .25rem;
+  }
+
+  label {
+    display: inline;
+
+  }
+}
+
+.search-results__sidebar__checkbox__text {
+  color: $text-dark;
+  font-size: $sub-size;
+  padding-left: 1rem;
+}
+
+.no-search-result {
+ a {
+   color: $collectionBar-bg;
+   text-decoration: underline;
+   font-weight: bold;
+ }
+}

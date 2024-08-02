@@ -1,0 +1,89 @@
+.about {
+
+}
+
+.about__sidebar {
+  border-right: $light-grey thin solid;
+}
+
+.about__body {
+  h1 {
+    font-size: $large-size;
+    color: $header-bg;
+    width: 100%;
+    border-bottom: $goldTitles 2px solid;
+    font-weight: bold;
+    padding-bottom: .75rem;
+    margin: 0 0 $small-size 0;
+  }
+
+  h2 {
+    font-size: $large-size;
+    color: $header-bg;
+    width: 100%;
+    border-bottom: $goldTitles 2px solid;
+    font-weight: bold;
+    padding-bottom: .75rem;
+    margin: 0 0 $small-size 0;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    color: $text-dark;
+    border-bottom: none;
+    font-weight: bold;
+    padding: 0 0 $small-size 0;
+  }
+
+  h4 {
+    font-size: 1.8rem;
+    color: $text-dark;
+    border-bottom: none;
+    font-weight: bold;
+    padding: 0 0 .5rem 0;
+  }
+}
+
+.about__body__section {
+  padding: 0 0 $medium-size 0;
+}
+
+.about__body__section__about-us {
+  h2 {
+    font-size: 1.8rem;
+    color: $text-dark;;
+    border-bottom: none;
+    font-weight: bold;
+  }
+}
+
+.about__body__container {
+  margin: 5% 16%;
+}
+
+.about__sidebar {
+  padding: 0 2%;
+  margin-top: 3%;
+}
+
+.about__sidebar__section {
+  margin-bottom: $xlarge-size;
+}
+
+.about__sidebar__title {
+  margin: 0 0 $medium-size 0;
+  padding: 0;
+
+  font-size: $normal-size;
+  color: $goldTitles;
+  text-transform: uppercase;
+
+}
+
+.about__sidebar__ul {
+
+}
+
+.about__sidebar__li {
+  margin: 0 0 $small-size 0;
+}

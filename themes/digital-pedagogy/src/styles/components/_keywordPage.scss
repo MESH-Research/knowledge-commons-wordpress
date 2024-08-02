@@ -1,0 +1,303 @@
+.keyword {
+}
+
+.keyword-container {
+  .curator-name {
+    display: none;
+  }
+}
+
+.keyword__sidebar {
+  display:none;
+  @media all and (min-width: $tablet) {
+    display: inline;
+    border-right: $light-grey thin solid;
+  }
+
+  @media print {
+    display: none;
+    border-right: none;
+  }
+}
+
+.keyword__body {
+  h1 {
+    font-size: 4.0rem;
+    color: $header-bg;
+    width: 100%;
+    font-weight: bold;
+    padding-bottom: .75rem;
+    margin: $small-size 0 0 0;
+  }
+
+  h3 {
+    font-size: 2.2rem;
+    color: $header-bg;
+    width: 100%;
+    font-weight: bold;
+    padding-bottom: .75rem;
+    margin: 0 0 $small-size 0;
+
+    &.keyword_body_curator_value {
+      font-size: 2.5rem;
+    }
+  }
+
+  h2 {
+    font-size: $medium-size;
+    color: $goldTitles;
+    border-bottom: none;
+    text-transform: uppercase;
+    padding: $small-size 0 0 0;
+    font-weight: normal;
+
+    &.section-header {
+      text-align: center;
+      background: lighten($grey-green, 10%);
+      padding: 0.5rem 0;
+      margin-top: 1.5rem;
+    }
+
+    @media print {
+      color: #cccccc;
+      span {
+       button {
+         display: none;
+       }
+     }
+    }
+  }
+
+  h4 {
+    font-size: 1.8rem;
+    color: $text-dark;
+    border-bottom: none;
+    font-weight: bold;
+    padding: 0 0 .5rem 0;
+  }
+
+  @media print {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .description {
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.keyword_body_title_label button {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  padding-left: 1rem;
+  &:first-of-type {
+    padding-left: 3rem;
+  }
+}
+.keyword__body__sections {
+  padding: 0;
+  overflow-wrap: break-word;
+
+  @media print {
+    max-width: 100%;
+  }
+}
+.keyword__body__section {
+  padding: 0 0 $medium-size 0;
+
+  .keyword__body__section__curator-name {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      a {
+        color: #354973;
+        text-decoration: underline;
+      }
+
+    }
+  }
+
+}
+.keyword__body__section__controls {
+  margin-bottom: $medium-size;
+
+  @media print {
+    margin-bottom: 0;
+  }
+
+  .col-sm-12 {
+    @media print {
+      padding-left: 0;
+    }
+  }
+}
+.keyword__body__curator-statement--show-cards {
+  background-color: transparent;
+  border:none;
+  color: $text-dark;
+  text-transform: capitalize;
+  font-weight: bold;
+  padding-left: 0;
+  padding-bottom: $medium-size;
+  font-size: $normal-size;
+}
+
+.keyword__body_section__related-materials__sidebar__li, .keyword__body_section__work-cited__sidebar__li {
+  margin-bottom: $small-size;
+}
+
+.keyword__body__container {
+  margin: 4%;
+//@media all and (min-width: $desktop) {
+  //  margin: 4%;
+//  }
+  @media screen and (max-width: $desktop) {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+}
+
+.keyword__sidebar {
+  padding: 0 2%;
+  margin-top: 3%;
+  z-index: inherit;
+}
+
+.keyword__sidebar__section {
+  margin-bottom: $xlarge-size;
+}
+
+.keyword__sidebar__title {
+  margin: 0 0 $medium-size 0;
+  padding: 0;
+
+  font-size: $normal-size;
+  color: $goldTitles;
+  text-transform: uppercase;
+
+}
+
+.keyword__sidebar__ul {
+  width: 100%;
+}
+
+.keyword__body__section_view {
+  font-size: $small-size;
+  .keyword__body__section_view__label{
+    padding-top: 1.5rem;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: $medium-size;
+  }
+
+  .keyword__body__section_view--open {
+    color: $light-green;
+  }
+  .keyword__body__section_view--close {
+    color: $dark-green;
+  }
+
+  .keyword__body__section_view--open.open {
+    color: $dark-green;
+  }
+  .keyword__body__section_view--close.open {
+    color: $light-green;
+  }
+
+  @media print {
+    display: none;
+  }
+}
+
+
+.keyword__sidebar__li {
+  margin: 0 0 $small-size 0;
+  font-size: $small-size;
+  color: $text-dark;
+
+  a {
+    color: $text-dark;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $goldTitles;
+    text-decoration: none;
+  }
+}
+
+.related-keywords {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.4rem;
+  li {
+    margin: 1%;
+    //padding: 1%;
+    border-radius: 5%;
+
+    a {
+      color: grey;
+      width: 100%;
+      height: 100%;
+      padding:.75rem 1.5rem;
+      background-color: $green-blue;
+      border-radius: 4px;
+    }
+
+    a:hover {
+      color: $light-grey;
+      text-decoration: none;
+    }
+  }
+}
+
+.keyword__body__section__work-cited__sidebar__ul, .keyword__body__section__related-materials__sidebar__ul {
+  li {
+    div {
+      text-indent: -4rem;
+      padding-left: 4rem;
+      font-size: 1.4rem;
+      margin: 0 0 1rem 0;
+    }
+  }
+}
+
+.keyword__body__section__related-keywords__sidebar__ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.4rem;
+  li {
+    margin: 1%;
+    //padding: 1%;
+    border-radius: 5%;
+
+    a div {
+      color: grey;
+      width: 100%;
+      height: 100%;
+      padding:.75rem 1.5rem;
+      background-color: $green-blue;
+      border-radius: 4px;
+    }
+
+    a:hover {
+
+      color: $light-grey;
+      text-decoration: none;
+
+      div {
+        background-color: darken($green-blue, 10%);
+      }
+    }
+  }
+}

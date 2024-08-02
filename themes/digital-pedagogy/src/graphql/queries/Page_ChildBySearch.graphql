@@ -1,0 +1,15 @@
+query GET_CHILD_PAGE_BY_SEARCH($term: String, $first: Int, $cursor: String) {
+    pages(where: {parent: "Getting Started: General Introduction and Overview", search: $term}, first: $first, last:0, after: $cursor) {
+        edges {
+            cursor
+            node {
+                id
+                link
+                slug
+                title
+                content
+                uri
+            }
+        }
+    }
+}
