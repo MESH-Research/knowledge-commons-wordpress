@@ -66,15 +66,17 @@ COPY --chown=www-data:www-data composer.lock /app/
 
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
-chown www-data:www-data /media && \
-ln -sf /media/uploads /app/site/web/app/uploads && \
+	chown www-data:www-data /media && \
+	ln -sf /media/uploads /app/site/web/app/uploads && \
 	ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
 	
+
 RUN rm -rf /usr/local/etc/php/php.ini && \
 	ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
 	rm -rf /usr/local/etc/php-fpm.d/www.conf && \
 	ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 	
+
 RUN rm -rf /app/config/all/simplesamlphp/log && \
 	rm -rf /app/config/all/simplesamlphp/tmp && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
@@ -96,6 +98,12 @@ RUN npm install && npm run build
 WORKDIR /app/themes/boss-child
 RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
+WORKDIR /app/site/web/app/plugins/cc-client
+RUN npm install && npm run build
+
+WORKDIR /app/themes/boss-child
+RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
+
 WORKDIR /app/scripts/cron/mailchimp/
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
@@ -103,6 +111,15 @@ WORKDIR /app/scripts/dev-scripts/content-export/
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
 WORKDIR /app/themes/dahd-tainacan/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+WORKDIR /app/forked-plugins/wp-graphql-tax-query/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+WORKDIR /app/forked-plugins/15zine-functionality/
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+WORKDIR /app/themes/learningspace/
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
 WORKDIR /app
