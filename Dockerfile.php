@@ -116,9 +116,6 @@ RUN composer install --no-dev --no-interaction --no-progress --optimize-autoload
 WORKDIR /app/forked-plugins/wp-graphql-tax-query/
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
-WORKDIR /app/forked-plugins/15zine-functionality/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-
 WORKDIR /app/themes/learningspace/
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
