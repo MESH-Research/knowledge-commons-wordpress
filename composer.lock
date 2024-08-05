@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2643851d27fac062f78d39fd31c6b7fc",
+    "content-hash": "8b40c4987a025be10d74059157994ec9",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -7365,6 +7365,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-piwik/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-rss-aggregator",
+            "version": "4.23.12",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-rss-aggregator/",
+                "reference": "tags/4.23.12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-rss-aggregator.4.23.12.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-rss-aggregator/"
         },
         {
             "name": "wpackagist-plugin/wp-saml-auth",
