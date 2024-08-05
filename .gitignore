@@ -5,6 +5,7 @@ node_modules/
 # ignore composer dependency directories
 vendor/
 !forked-plugins/ninja-forms-uploads/vendor/
+!themes/dahd-tainacan/*/
 
 # ignore log files and databases
 *.log
