@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b40c4987a025be10d74059157994ec9",
+    "content-hash": "105724bc982534d917c0cec68d241db5",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -6791,6 +6791,24 @@
             "homepage": "https://wordpress.org/plugins/fd-footnotes/"
         },
         {
+            "name": "wpackagist-plugin/feedzy-rss-feeds",
+            "version": "4.4.12",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
+                "reference": "tags/4.4.12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.4.12.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/feedzy-rss-feeds/"
+        },
+        {
             "name": "wpackagist-plugin/footnotes-made-easy",
             "version": "3.0.4",
             "source": {
@@ -7365,24 +7383,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-piwik/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-rss-aggregator",
-            "version": "4.23.12",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-rss-aggregator/",
-                "reference": "tags/4.23.12"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-rss-aggregator.4.23.12.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-rss-aggregator/"
         },
         {
             "name": "wpackagist-plugin/wp-saml-auth",
