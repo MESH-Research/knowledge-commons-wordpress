@@ -57,7 +57,7 @@ function hcommons_wp_footer() {
 		);
 
 		printf(
-			'This site is part of %s<em><a href="%s">Humanities Commons</a></em>. ',
+			'This site is part of %s<em><a href="%s">Knowledge Commons</a></em>. ',
 			( 'hc' === $society_id ) ? '' : sprintf( 'the %s network on ', esc_html( strtoupper( $society_id ) ) ),
 			esc_url( $root_url )
 		);
