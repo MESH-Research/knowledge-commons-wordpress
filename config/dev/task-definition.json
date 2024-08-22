@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "app",
-            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-app:latest",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-app:main",
             "cpu": 0,
             "portMappings": [],
             "essential": true,
@@ -25,6 +25,10 @@
                 {
                     "name": "ADMIN_EMAIL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ADMIN_EMAIL::"
+                },
+                {
+                    "name": "OTEL_EXPORTER_OTLP_ENDPOINT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:OTEL_EXPORTER_OTLP_ENDPOINT::"
                 },
                 {
                     "name": "ARLISNA_ACCOUNT_LINK_URL",
@@ -73,6 +77,26 @@
                 {
                     "name": "CBOX_AUTH_API_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_URL::"
+                },
+                {
+                    "name": "CC_INCREMENTAL_PROVISIONING_ENABLED",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_INCREMENTAL_PROVISIONING_ENABLED::"
+                },
+                {
+                    "name": "CC_SEARCH_ADMIN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ADMIN_KEY::"
+                },
+                {
+                    "name": "CC_SEARCH_ENDPOINT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ENDPOINT::"
+                },
+                {
+                    "name": "CC_SEARCH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_KEY::"
+                },
+                {
+                    "name": "CENTRAL_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CENTRAL_BLOG_ID::"
                 },
                 {
                     "name": "COMANAGE_API_PASSWORD",
@@ -455,6 +479,18 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_SITE_URL::"
                 },
                 {
+                    "name": "WORKS_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_API_KEY::"
+                },
+                {
+                    "name": "WORKS_KNOWLEDGE_COMMONS_INSTANCE",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_KNOWLEDGE_COMMONS_INSTANCE::"
+                },
+                {
+                    "name": "WORKS_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_URL::"
+                },
+                {
                     "name": "WPCOM_API_KEY",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WPCOM_API_KEY::"
                 },
@@ -493,34 +529,6 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
-                },
-                {
-                    "name": "CC_SEARCH_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_KEY::"
-                },
-                {
-                    "name": "CC_SEARCH_ENDPOINT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ENDPOINT::"
-                },
-                {
-                    "name": "CC_SEARCH_ADMIN_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ADMIN_KEY::"
-                },
-                {
-                    "name": "CC_INCREMENTAL_PROVISIONING_ENABLED",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_INCREMENTAL_PROVISIONING_ENABLED::"
-                },
-                {
-                    "name": "WORKS_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_URL::"
-                },
-                {
-                    "name": "WORKS_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_API_KEY::"
-                },
-                {
-                    "name": "CENTRAL_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CENTRAL_BLOG_ID::"
                 }
             ],
             "logConfiguration": {
@@ -537,7 +545,7 @@
         },
         {
             "name": "cron",
-            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-cron",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-cron:main",
             "cpu": 0,
             "portMappings": [],
             "essential": true,
@@ -607,6 +615,22 @@
                 {
                     "name": "CBOX_AUTH_API_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CBOX_AUTH_API_URL::"
+                },
+                {
+                    "name": "CC_SEARCH_ADMIN_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ADMIN_KEY::"
+                },
+                {
+                    "name": "CC_SEARCH_ENDPOINT",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ENDPOINT::"
+                },
+                {
+                    "name": "CC_SEARCH_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_KEY::"
+                },
+                {
+                    "name": "CENTRAL_BLOG_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CENTRAL_BLOG_ID::"
                 },
                 {
                     "name": "COMANAGE_API_PASSWORD",
@@ -989,6 +1013,14 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:UP_SITE_URL::"
                 },
                 {
+                    "name": "WORKS_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_API_KEY::"
+                },
+                {
+                    "name": "WORKS_URL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_URL::"
+                },
+                {
                     "name": "WPCOM_API_KEY",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WPCOM_API_KEY::"
                 },
@@ -1027,30 +1059,6 @@
                 {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WP_SITEURL::"
-                },
-                {
-                    "name": "CC_SEARCH_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_KEY::"
-                },
-                {
-                    "name": "CC_SEARCH_ENDPOINT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ENDPOINT::"
-                },
-                {
-                    "name": "CC_SEARCH_ADMIN_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CC_SEARCH_ADMIN_KEY::"
-                },
-                {
-                    "name": "WORKS_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_URL::"
-                },
-                {
-                    "name": "WORKS_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:WORKS_API_KEY::"
-                },
-                {
-                    "name": "CENTRAL_BLOG_ID",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CENTRAL_BLOG_ID::"
                 }
             ],
             "logConfiguration": {
@@ -1067,7 +1075,7 @@
         },
         {
             "name": "nginx",
-            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-nginx:latest",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-nginx:main",
             "cpu": 0,
             "links": [
                 "app"
@@ -1147,8 +1155,7 @@
     "requiresCompatibilities": [
         "EC2"
     ],
-    "cpu": "1024",
-    "memory": "3072",
+    "memory": "14336",
     "runtimePlatform": {
         "cpuArchitecture": "ARM64",
         "operatingSystemFamily": "LINUX"
