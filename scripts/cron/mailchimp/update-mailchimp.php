@@ -314,7 +314,7 @@ function update_mailchimp( $recent_users, $list_id = LIST_ID ) {
 				],
 				'tags' => $user->member_type,
 				'interests' => [
-					'ab124b16b0' => true, // Newsletter
+					'ab124b16b0' => true, // Newsletter (To get this, probably need to do manual API requests in Postman)
 				],
 			];
 
