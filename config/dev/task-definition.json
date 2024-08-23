@@ -31,6 +31,26 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:OTEL_EXPORTER_OTLP_ENDPOINT::"
                 },
                 {
+                    "name": "OTEL_PHP_AUTOLOAD_ENABLED",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:OTEL_PHP_AUTOLOAD_ENABLED::"
+                },
+                {
+                    "name": "OTEL_SERVICE_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:OTEL_SERVICE_NAME::"
+                },
+                {
+                    "name": "OTEL_TRACES_EXPORTER",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:OTEL_TRACES_EXPORTER::"
+                },
+                {
+                    "name": "OTEL_EXPORTER_OTLP_PROTOCOL",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:OTEL_EXPORTER_OTLP_PROTOCOL::"
+                },
+                {
+                    "name": "OTEL_PROPAGATORS",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:OTEL_PROPAGATORS::"
+                },
+                {
                     "name": "ARLISNA_ACCOUNT_LINK_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:ARLISNA_ACCOUNT_LINK_URL::"
                 },
@@ -538,8 +558,7 @@
                     "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         },
@@ -1068,8 +1087,7 @@
                     "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         },
@@ -1127,8 +1145,7 @@
                     "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         }
