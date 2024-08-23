@@ -133,7 +133,10 @@
     "wpackagist-plugin/tainacan": "^0.21.7",
     "mesh-research/cc-client": "dev-main",
     "wpackagist-plugin/feedzy-rss-feeds": "^4.4",
-    "open-telemetry/opentelemetry-auto-wordpress": "^0.0.16"
+    "open-telemetry/opentelemetry-auto-wordpress": "^0.0.16",
+    "open-telemetry/sdk": "^1.0",
+    "php-http/guzzle7-adapter": "^1.0",
+    "open-telemetry/exporter-otlp": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
@@ -147,7 +150,8 @@
     "allow-plugins": {
       "composer/installers": true,
       "roots/wordpress-core-installer": true,
-      "simplesamlphp/composer-module-installer": true
+      "simplesamlphp/composer-module-installer": true,
+      "php-http/discovery": true
     }
   },
   "minimum-stability": "dev",
