@@ -10,7 +10,19 @@ COPY --chown=www-data:www-data --from=composer:latest /usr/bin/composer /usr/loc
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-	install-php-extensions exif imagick/imagick@master zip memcached redis mysqli intl yaml opentelemetry protobuf grpc
+	install-php-extensions exif imagick/imagick@master zip memcached redis mysqli intl yaml opentelemetry protobuf
+
+RUN apk add --no-cache git grpc-cpp grpc-dev $PHPIZE_DEPS && \
+    GRPC_VERSION=$(apk info grpc -d | grep grpc | cut -d- -f2) && \
+    git clone --depth 1 -b v${GRPC_VERSION} https://github.com/grpc/grpc /tmp/grpc && \
+    cd /tmp/grpc/src/php/ext/grpc && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    rm -rf /tmp/grpc && \
+    apk del --no-cache git grpc-dev $PHPIZE_DEPS && \
+    echo "extension=grpc.so" > /usr/local/etc/php/conf.d/grpc.ini
 
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
