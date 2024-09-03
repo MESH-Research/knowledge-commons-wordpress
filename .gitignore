@@ -64,3 +64,7 @@ composer.phar
 commons-connect/
 cc-client
 cc-client/
+
+# ignore composer.lock for 15zine-functionality because it has no dependencies
+# and we never run composer install on it
+forked-plugins/15zine-functionality/composer.lock
