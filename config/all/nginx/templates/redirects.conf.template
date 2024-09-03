@@ -585,7 +585,9 @@ if ($http_host = "stemedplus.commons.msu.edu") {
 
 if ($http_host = "sustaining.hcommons.org") {
 	rewrite ^/contact/$ https://about.hcommons.org/about-us/contact-us/ permanent;
-	rewrite ^/(.*)$ https://about.hcommons.org$request_uri permanent;
+	if ($request_uri !~ "^/wp-admin") {
+		rewrite ^/(.*)$ https://about.hcommons.org$request_uri permanent;
+	}
 }
 
 if ($http_host = "team.hcommons.org") {
@@ -599,4 +601,3 @@ if ($http_host = "building.hcommons.org") {
 if ($http_host = "stemedplus.commons.msu.edu") {
 	rewrite ^/(.*)$ https://stemedplus.hcommons.org/ permanent;
 }
-
