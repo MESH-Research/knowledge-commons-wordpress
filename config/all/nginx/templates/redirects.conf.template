@@ -578,3 +578,25 @@ if ($http_host = "mlaresources.mla.hcommons.org") {
 if ($http_host = "mlastyle.mla.hcommons.org") {
 	rewrite ^/(.*)$ https://style.mla.org/;
 }
+
+if ($http_host = "stemedplus.commons.msu.edu") {
+	rewrite ^/(.*)$ https://stemedplus.hcommons.org/ permanent;
+}
+
+if ($http_host = "sustaining.hcommons.org") {
+	rewrite ^/contact/$ https://about.hcommons.org/about-us/contact-us/ permanent;
+	rewrite ^/(.*)$ https://about.hcommons.org$request_uri permanent;
+}
+
+if ($http_host = "team.hcommons.org") {
+	rewrite ^/(.*)$ https://about.hcommons.org/news$request_uri permanent;
+}
+
+if ($http_host = "building.hcommons.org") {
+	rewrite ^/(.*)$ https://about.hcommons.org/ permanent;
+}
+
+if ($http_host = "stemedplus.commons.msu.edu") {
+	rewrite ^/(.*)$ https://stemedplus.hcommons.org/ permanent;
+}
+
