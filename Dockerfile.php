@@ -12,8 +12,10 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && \
 	install-php-extensions exif imagick/imagick@master zip memcached redis mysqli intl yaml opentelemetry protobuf
 
+# Previously version calculated as: GRPC_VERSION=$(apk info grpc -d | grep grpc | cut -d- -f2)
+# According to this: https://github.com/grpc/grpc/issues/36025, grpc > 1.58.0 segfaults randomly.
 RUN apk add --no-cache git grpc-cpp grpc-dev $PHPIZE_DEPS && \
-    GRPC_VERSION=$(apk info grpc -d | grep grpc | cut -d- -f2) && \
+    GRPC_VERSION=1.58.0 && \
     git clone --depth 1 -b v${GRPC_VERSION} https://github.com/grpc/grpc /tmp/grpc && \
     cd /tmp/grpc/src/php/ext/grpc && \
     phpize && \
