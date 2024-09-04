@@ -945,15 +945,15 @@ class Humanities_Commons {
 
 		global $wpdb;
 		$row = $wpdb->get_row( $wpdb->prepare( "SELECT site_id FROM $wpdb->sitemeta WHERE meta_key = '%s' AND meta_value = '%s'", 'society_id', $activity_society_id ) );
-		if ( is_object( $row ) ) {
-			$society_network = get_network( $row->site_id );
-			$scheme = ( is_ssl() ) ? 'https://' : 'http://';
-			$activity_root_domain = $scheme . $society_network->domain . $society_network->path;
+		if ( ! is_object( $row ) ) {
+			return $link;
 		}
+		
+		$society_network = get_network( $row->site_id );
+		$scheme = ( is_ssl() ) ? 'https://' : 'http://';
+		$activity_root_domain = $scheme . $society_network->domain . $society_network->path;
 		$society_activity_link = str_replace( trailingslashit( bp_get_root_domain() ), $activity_root_domain, $link );
-
 		return $society_activity_link;
-
 	}
 
 	/**
