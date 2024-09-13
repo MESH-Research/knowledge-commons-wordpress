@@ -149,6 +149,7 @@ mla.hcommons.org:
     - woosidebars
     - wordpress-mu-domain-mapping                                                               
     - -wp-accessibility
+  user-theme: twentytwentytwo
 sah.hcommons.org:
   base-site-plugins:                                                                                  
     - -classic-widgets                                
