@@ -32,6 +32,15 @@ $GLOBALS['wp_filter'] = array(
     ),
 );
 
+if ( 
+    defined('WP_CLI') && WP_CLI ||
+    function_exists('wp_is_cli') && wp_is_cli()
+) {
+    if ( ! $_SERVER['HTTP_HOST'] ) {
+        $_SERVER['HTTP_HOST'] = getenv( 'WP_DOMAIN' );
+    }
+}
+
 /**
  * Directory containing all of the site's files
  *
