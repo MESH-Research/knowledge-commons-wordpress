@@ -599,3 +599,8 @@ if ($http_host = "building.hcommons.org") {
 if ($http_host = "stemedplus.commons.msu.edu") {
 	rewrite ^/(.*)$ https://stemedplus.hcommons.org/ permanent;
 }
+
+# Redirects for plugins and themes that aren't compatible with knowledge-commons-wordpress folder structure
+rewrite ^/app/core-plugins/(.*) https://${DOMAIN_NAME}/app/plugins/$1 permanent;
+rewrite ^/app/forked-plugins/(.*) https://${DOMAIN_NAME}/app/plugins/$1 permanent;
+rewrite ^/app/ancillary-plugins/(.*) https://${DOMAIN_NAME}/app/plugins/$1 permanent;
