@@ -18,5 +18,5 @@
 # Run wp-cron for base sites once per hour
 0 * * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/all_networks_wp.bash cron event run --due-now
 
-# Run wp-cron once per day
-0 1 * * * [ "$RUN_CRON" = "true" ] && wp site list --field=url | xargs -i -n1 sudo -u www-data /usr/local/bin/wp --path=/srv/www/commons/current/web/wp cron event run --due-now --url="{}"
+# Run wp-cron for all sites every 3 hours
+30 */3 * * * [ "$RUN_CRON" = "true" ] && wp site list --field=url | xargs -i -n1 wp cron event run --due-now --url="{}"
