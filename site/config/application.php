@@ -216,6 +216,9 @@ Config::define('WP_CACHE_KEY_SALT', getenv('WP_CACHE_KEY_SALT'));
  */
 Config::define('REDIS_HOST', getenv('REDIS_HOST'));       // wp-redis
 Config::define('WP_REDIS_HOST', getenv('WP_REDIS_HOST')); // redis-cache
+Config::define('WP_REDIS_MAXTTL', 60 * 60 * 24);
+Config::define('WP_REDIS_TIMEOUT', 4);
+Config::define('WP_REDIS_READ_TIMEOUT', 4);
 
 /**
  * ElasticPress Elasticsearch
