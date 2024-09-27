@@ -153,6 +153,7 @@ class Humanities_Commons {
 		add_filter( 'bp_follow_blogs_get_follow_button', array( $this, 'hcommons_filter_get_follow_button' ), 10, 3 );
 	
 		add_action( 'init', array( $this, 'add_hide_site_option' ), 10 , 0 );
+		add_action( 'wp_update_site', array( $this, 'hcommons_delete_test_site' ), 10, 2 );
 	}
 
 	public function allow_external_hcommons( $external, $host, $url ) {
@@ -2087,6 +2088,23 @@ class Humanities_Commons {
 
 		$current_user = wp_get_current_user();
 		return $current_user->ID;
+	}
+
+	/**
+	 * Expunges temporary testing site from the db when the site is deleted.
+	 *
+	 * Triggered by the `wp_update_site` action.
+	 * 
+	 * @param WP_Site $new_site New site object.
+	 * @param WP_Site $old_site Old site object.
+	 */
+	public function hcommons_delete_test_site( \WP_Site $new_site, \WP_Site	$old_site ) {
+		if ( ! $old_site->deleted ) {
+			return;
+		}
+		if ( str_contains( $old_site->domain, 'gitestsite' ) ) {
+			wp_delete_site( $old_site->id );
+		}
 	}
 }
 
