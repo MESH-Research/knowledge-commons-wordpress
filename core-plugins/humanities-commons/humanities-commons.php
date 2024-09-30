@@ -154,6 +154,9 @@ class Humanities_Commons {
 	
 		add_action( 'init', array( $this, 'add_hide_site_option' ), 10 , 0 );
 		add_action( 'wp_update_site', array( $this, 'hcommons_delete_test_site' ), 10, 2 );
+
+		// Add filter to suppress activity for test users
+		add_filter('bp_activity_before_save', array($this, 'suppress_test_user_activity'), 10, 1);
 	}
 
 	public function allow_external_hcommons( $external, $host, $url ) {
@@ -2099,12 +2102,55 @@ class Humanities_Commons {
 	 * @param WP_Site $old_site Old site object.
 	 */
 	public function hcommons_delete_test_site( \WP_Site $new_site, \WP_Site	$old_site ) {
-		if ( ! $old_site->deleted ) {
+		if ( ! $new_site->deleted ) {
 			return;
 		}
 		if ( str_contains( $old_site->domain, 'gitestsite' ) ) {
 			wp_delete_site( $old_site->id );
 		}
+	}
+
+	/**
+	 * Suppresses activity entries for test users.
+	 *
+	 * @param BP_Activity_Activity $activity The activity object.
+	 * @return BP_Activity_Activity|bool The activity object or false to prevent saving.
+	 */
+	public function suppress_test_user_activity($activity) {
+		$test_users = $this->get_test_users();
+
+		if (in_array($activity->user_id, $test_users)) {
+			return false;
+		}
+		return $activity;
+	}
+
+	/**
+	 * Gets the list of test user IDs from the environment variable.
+	 *
+	 * @return array An array of test user IDs.
+	 */
+	private function get_test_users() {
+		$test_user_ids = wp_cache_get( 'test_user_ids', 'hcommons_settings' );
+		if ( false !== $test_user_ids ) {
+			return $test_user_ids;
+		}
+		$test_users_env = getenv('KC_TEST_USERS');
+		if (!$test_users_env) {
+			return array();
+		}
+
+		$test_usernames = explode(',', $test_users_env);
+		$test_user_ids = array();
+
+		foreach ($test_usernames as $username) {
+			$user = get_user_by('login', trim($username));
+			if ($user) {
+				$test_user_ids[] = $user->ID;
+			}
+		}
+		wp_cache_set( 'test_user_ids', $test_user_ids, 'hcommons_settings', 24 * HOUR_IN_SECONDS );
+		return $test_user_ids;
 	}
 }
 
