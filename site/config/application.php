@@ -36,7 +36,7 @@ if (
     defined('WP_CLI') && WP_CLI ||
     function_exists('wp_is_cli') && wp_is_cli()
 ) {
-    if ( ! $_SERVER['HTTP_HOST'] ) {
+    if ( ! array_key_exists('HTTP_HOST', $_SERVER ) ) {
         $_SERVER['HTTP_HOST'] = getenv( 'WP_DOMAIN' );
     }
 }
