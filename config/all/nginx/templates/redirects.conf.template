@@ -394,6 +394,8 @@ rewrite ^/deposits/item/hc:65419/(.*) https://hcommons.org/deposits/removed/ per
 rewrite ^/deposits/(download|view)/hc:65420/(.*) https://hcommons.org/deposits/removed/ permanent;
 rewrite ^/deposits/item/hc:65737/(.*) https://hcommons.org/deposits/removed/ permanent;
 rewrite ^/deposits/(download|view)/hc:65738/(.*) https://hcommons.org/deposits/removed/ permanent;
+rewrite ^/deposits/item/hc:66107/(.*) https://hcommons.org/deposits/removed/ permanent;
+rewrite ^/deposits/(download|view)/hc:66108/(.*) https://hcommons.org/deposits/removed/ permanent;
 
 # Redirect old group slugs
 rewrite ^/groups/comparative-studies-in-medieval-literature/(.*) https://mla.${DOMAIN_NAME}/groups/medieval/$1 permanent;
