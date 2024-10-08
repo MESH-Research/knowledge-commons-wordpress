@@ -390,12 +390,12 @@ rewrite ^/deposits/item/hc:60123/(.*) https://${DOMAIN_NAME}/deposits/removed/ p
 rewrite ^/deposits/(download|view)/hc:60124/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
 rewrite ^/deposits/item/hc:67991/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
 rewrite ^/deposits/(download|view)/hc:67992/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
-rewrite ^/deposits/item/hc:65419/(.*) https://hcommons.org/deposits/removed/ permanent;
-rewrite ^/deposits/(download|view)/hc:65420/(.*) https://hcommons.org/deposits/removed/ permanent;
-rewrite ^/deposits/item/hc:65737/(.*) https://hcommons.org/deposits/removed/ permanent;
-rewrite ^/deposits/(download|view)/hc:65738/(.*) https://hcommons.org/deposits/removed/ permanent;
-rewrite ^/deposits/item/hc:66107/(.*) https://hcommons.org/deposits/removed/ permanent;
-rewrite ^/deposits/(download|view)/hc:66108/(.*) https://hcommons.org/deposits/removed/ permanent;
+rewrite ^/deposits/item/hc:65419/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
+rewrite ^/deposits/(download|view)/hc:65420/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
+rewrite ^/deposits/item/hc:65737/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
+rewrite ^/deposits/(download|view)/hc:65738/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
+rewrite ^/deposits/item/hc:66107/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
+rewrite ^/deposits/(download|view)/hc:66108/(.*) https://${DOMAIN_NAME}/deposits/removed/ permanent;
 
 # Redirect old group slugs
 rewrite ^/groups/comparative-studies-in-medieval-literature/(.*) https://mla.${DOMAIN_NAME}/groups/medieval/$1 permanent;
