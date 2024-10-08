@@ -1,20 +1,16 @@
 default:
-  base-site-plugins:
-    - bbp-live-preview                               
+  base-site-plugins:                               
     - bbpress                                        
     - bp-attachment-xprofile-field-type              
     - bp-rbe-inbound-forum-attachments               
     - bp-rbe-new-topic                               
     - buddypress-group-email-subscription            
-    - buddypress-messages-spam-blocker               
-    - bp-multiple-forum-post                         
+    - buddypress-messages-spam-blocker                                      
     - bp-reply-by-email                              
-    - buddypress-sitewide-activity-widget            
-    - cac-featured-content                           
-    - classic-widgets                                
-    - cron-logger                                    
+    - buddypress-sitewide-activity-widget                                     
+    - classic-widgets                                                                  
     - elasticpress                                   
-    - elasticpress-buddypress/elasticpress-buddypress
+    - elasticpress-buddypress
     - elementor                                      
     - elementor-pro                                  
     - gd-bbpress-attachments                         
@@ -25,8 +21,7 @@ default:
     - humcore                                        
     - invite-anyone                                  
     - mla-allowed-tags                               
-    - siteorigin-panels                              
-    - plugin-monitor                                 
+    - siteorigin-panels                                                           
     - woosidebars                                     
     - formassembly-web-forms
   network-plugins:
@@ -34,7 +29,6 @@ default:
     - akismet                                           
     - beehive-analytics                                 
     - blog-avatar                                       
-    - bp-event-organiser/bp-event-organiser-group-widget
     - bp-groupblog                                      
     - bp-group-documents                                
     - bp-lotsa-feeds                                    
@@ -43,7 +37,7 @@ default:
     - buddypress                                        
     - buddypress-docs                                   
     - buddypress-docs-minor-edit                        
-    - bp-event-organiser/bp-event-organiser             
+    - bp-event-organiser             
     - buddypress-followers                              
     - buddypress-restrict-group-creation                
     - commons-in-a-box                                  
@@ -59,8 +53,7 @@ default:
     - wordpress-sparkpost                               
     - sparkpost-bp-mailer                               
     - wp-piwik                                          
-    - wp-accessibility                                  
-    - wp-fail2ban                                       
+    - wp-accessibility                                                                      
     - wp-multi-network 
   allowed-user-plugins:
     - anthologize
@@ -81,10 +74,16 @@ default:
     - wp-google-maps
     - google-sitemap-generator
     - zotpress
+    - tinymce-advanced
+    - layerslider
+    - shareadraft
+    - typekit-fonts-for-wordpress
+    - wp-markdown
+    - wp-polls
+    - wp-to-twitter
   allowed-user-themes:
     - 15zine              
-    - blockbase           
-    - dahd-tainacan-092321
+    - blockbase
     - digital-pedagogy    
     - dispatch            
     - faculty-child       
@@ -118,6 +117,7 @@ default:
     - twentytwentytwo     
     - vantage-premium     
     - vantage
+    - wabi
   base-theme: boss-child
   user-theme: twentytwentythree
 up.hcommons.org:
@@ -149,6 +149,9 @@ mla.hcommons.org:
     - woosidebars
     - wordpress-mu-domain-mapping                                                               
     - -wp-accessibility
+  allowed-user-plugins:
+    - password-protected
+    - wordpress-importer
   user-theme: twentytwentytwo
 sah.hcommons.org:
   base-site-plugins:                                                                                  

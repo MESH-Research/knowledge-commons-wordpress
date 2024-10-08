@@ -595,7 +595,7 @@ io+UqPY73YeZ0tbL9zfovHYSQBLV
     </EntityDescriptor>
     
     <!-- local dev -->
-        <EntityDescriptor entityID="https://commons-wordpress.lndo.site/simplesaml"
+        <EntityDescriptor entityID="https://commons-wordpress.lndo.site/shibboleth"
                           xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
                           xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
                           xmlns:shibmd="urn:mace:shibboleth:metadata:1.0"
