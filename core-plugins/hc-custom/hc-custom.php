@@ -59,6 +59,11 @@ require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-user-rest-cont
 require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-groups-rest-controller.php';
 
 /**
+ * Works update notifications.
+ */
+require_once trailingslashit( __DIR__ ) . 'includes/works-update-notifications.php';
+
+/**
  * Works Groups extension.
  */
 add_action( 'bp_init', function() {
