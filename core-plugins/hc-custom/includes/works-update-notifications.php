@@ -180,12 +180,26 @@ function send_works_update_notification_for_group( $group_id ) : bool {
 add_action( 'groups_group_details_edited', 'KCommons\HCCustom\send_works_update_notification_for_group', 10, 2 );
 
 /**
- * Get all the members of a group and send a Works update notification for each member.	
+ * If user_id is set, send a Works update notification for the user.
+ * Otherwise, get all the members of a group and send a Works update notification for each member.
  *
  * @param int $group_id The group ID.
+ * @param int $user_id The user ID.
  * @return bool True if the notification was sent, false otherwise.
  */
-function send_works_update_notification_for_group_members( int $group_id ) : bool {
+function send_works_update_notification_for_group_members( int $group_id, int $user_id = 0 ) : bool {
+	if ( $user_id ) {
+		if ( send_works_update_notification_for_user( $user_id ) ) {
+			trigger_error( 'Works membership update notification sent for user ' . $user_id, E_USER_NOTICE );
+			return true;
+		} else {
+			trigger_error( 'Works membership update notification failed for user ' . $user_id, E_USER_WARNING );
+			return false;
+		}
+	}
+
+	// No user_id was provided, so get all the members of the group.
+
 	$group = groups_get_group( $group_id );
 
 	if ( ! $group ) {
@@ -235,8 +249,6 @@ add_action( 'groups_leave_group', 'KCommons\HCCustom\send_works_update_notificat
 add_action( 'groups_member_invited', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
 add_action( 'groups_invite_accepted', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
 add_action( 'groups_invite_rejected', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
-add_action( 'groups_membership_accepted', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
-add_action( 'groups_membership_rejected', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
 add_action( 'groups_promote_member', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
 add_action( 'groups_demote_member', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
 add_action( 'groups_ban_member', 'KCommons\HCCustom\send_works_update_notification_for_group_members', 10, 2 );
