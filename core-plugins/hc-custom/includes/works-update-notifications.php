@@ -149,7 +149,7 @@ add_action( 'profile_update', 'KCommons\HCCustom\send_works_update_notification_
  * @param int $group_id The group ID.
  * @return bool True if the notification was sent, false otherwise.
  */
-function send_works_update_notification_for_group( $group_id ) : bool {
+function send_works_update_notification_for_group( int $group_id ) : bool {
 	$group = groups_get_group( $group_id );
 
 	if ( ! $group ) {
