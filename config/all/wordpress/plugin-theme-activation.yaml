@@ -1,221 +1,194 @@
 default:
-  base-site-plugins:                               
-    - bbpress                                        
-    - bp-attachment-xprofile-field-type              
-    - bp-rbe-inbound-forum-attachments               
-    - bp-rbe-new-topic                               
-    - buddypress-group-email-subscription            
-    - buddypress-messages-spam-blocker                                      
-    - bp-reply-by-email                              
-    - buddypress-sitewide-activity-widget                                     
-    - classic-widgets                                                                  
-    - elasticpress                                   
+  base-site-plugins:
+    - bbpress
+    - bp-attachment-xprofile-field-type
+    - bp-rbe-inbound-forum-attachments
+    - bp-rbe-new-topic
+    - buddypress-group-email-subscription
+    - buddypress-messages-spam-blocker
+    - bp-reply-by-email
+    - buddypress-sitewide-activity-widget
+    - classic-widgets
+    - elasticpress
     - elasticpress-buddypress
-    - elementor                                      
-    - elementor-pro                                  
-    - gd-bbpress-attachments                         
-    - hc-custom                                      
-    - hc-member-profiles                             
-    - hc-notifications                               
-    - hc-suggestions                                 
-    - humcore                                        
-    - invite-anyone                                  
-    - mla-allowed-tags                               
-    - siteorigin-panels                                                           
-    - woosidebars                                     
+    - elementor
+    - elementor-pro
+    - gd-bbpress-attachments
+    - hc-custom
+    - hc-member-profiles
+    - hc-notifications
+    - hc-suggestions
+    - humcore
+    - invite-anyone
+    - mla-allowed-tags
+    - siteorigin-panels
+    - woosidebars
     - formassembly-web-forms
   network-plugins:
-    - 15zine-functionality                              
-    - akismet                                           
-    - beehive-analytics                                 
-    - blog-avatar                                       
-    - bp-groupblog                                      
-    - bp-group-documents                                
-    - bp-lotsa-feeds                                    
-    - bp-mpo-activity-filter                            
-    - bp-block-member                                   
-    - buddypress                                        
-    - buddypress-docs                                   
-    - buddypress-docs-minor-edit                        
-    - bp-event-organiser             
-    - buddypress-followers                              
-    - buddypress-restrict-group-creation                
-    - commons-in-a-box                                  
-    - disable-password-reset-extended                   
-    - event-organiser                                   
-    - hc-styles                                         
-    - humanities-commons                                
-    - mla-academic-interests                            
-    - more-privacy-options                              
-    - multisite-plugin-manager                          
-    - redis-cache                                       
-    - simplemag-addons                                  
-    - wordpress-sparkpost                               
-    - sparkpost-bp-mailer                               
-    - wp-piwik                                          
-    - wp-accessibility                                                                      
-    - wp-multi-network 
+    - 15zine-functionality
+    - akismet
+    - beehive-analytics
+    - blog-avatar
+    - bp-groupblog
+    - bp-group-documents
+    - bp-lotsa-feeds
+    - bp-mpo-activity-filter
+    - bp-block-member
+    - buddypress
+    - buddypress-docs
+    - buddypress-docs-minor-edit
+    - bp-event-organiser
+    - buddypress-followers
+    - buddypress-restrict-group-creation
+    - commons-in-a-box
+    - disable-password-reset-extended
+    - event-organiser
+    - hc-styles
+    - humanities-commons
+    - mla-academic-interests
+    - more-privacy-options
+    - multisite-plugin-manager
+    - redis-cache
+    - simplemag-addons
+    - wordpress-sparkpost
+    - sparkpost-bp-mailer
+    - wp-accessibility
+    - wp-multi-network
   allowed-user-plugins:
     - anthologize
     - commentpress-core
-    - creative-commons-configurator-1
     - fd-footnotes
     - footnotes-made-easy
     - issuem
-    - jquery-hover-footnotes
     - knight-lab-timelinejs
     - mathml-block
-    - openbook-book-data
     - pressforward
     - printfriendly
-    - q-and-a
     - scholarpress-coins
-    - video-thumbnails
     - wp-google-maps
     - google-sitemap-generator
     - zotpress
-    - tinymce-advanced
-    - layerslider
-    - shareadraft
-    - typekit-fonts-for-wordpress
-    - wp-markdown
-    - wp-polls
-    - wp-to-twitter
   allowed-user-themes:
-    - 15zine              
     - blockbase
-    - digital-pedagogy    
-    - dispatch            
-    - faculty-child       
-    - faculty             
-    - foghorn             
-    - hitchcock           
-    - hum                 
-    - learningspace       
-    - maskitto-light      
-    - origin              
-    - portfolio-press     
-    - publish             
-    - radcliffe           
-    - responsive          
-    - reykjavik           
-    - simplemag           
-    - sparkling           
-    - suits               
-    - twentyeleven        
-    - twentyfifteen       
-    - twentyfourteen      
-    - twentynineteen      
-    - twentyseventeen     
-    - twentysixteen       
-    - twentyten           
-    - twentythirteen      
-    - twentytwelve        
-    - twentytwenty        
-    - twentytwentyone     
-    - twentytwentythree   
-    - twentytwentytwo     
-    - vantage-premium     
+    - dispatch
+    - faculty-child
+    - faculty
+    - foghorn
+    - hitchcock
+    - hum
+    - learningspace
+    - maskitto-light
+    - origin
+    - portfolio-press
+    - publish
+    - radcliffe
+    - responsive
+    - reykjavik
+    - sparkling
+    - suits
+    - twentytwenty
+    - twentytwentyone
+    - twentytwentythree
+    - twentytwentytwo
+    - vantage-premium
     - vantage
     - wabi
   base-theme: boss-child
   user-theme: twentytwentythree
 up.hcommons.org:
-  base-site-plugins:            
-    - -classic-widgets                                
-    - -cron-logger                                                  
-    - -woosidebars                                     
-    - -formassembly-web-forms
-  network-plugins:                            
-    - -buddypress-restrict-group-creation                             
-    - wp-piwik                                          
-mla.hcommons.org:
-  base-site-plugins:                                                                      
-    - buddypress-docs-minor-edit           
-    - -buddypress-messages-spam-blocker   
-    - classic-editor                                                                                                                                                                         
-    - -elementor                                      
-    - -elementor-pro
-    - hc-auth                                                                                       
-    - -woosidebars                                     
+  base-site-plugins:
+    - -classic-widgets
+    - -cron-logger
+    - -woosidebars
     - -formassembly-web-forms
   network-plugins:
-    - -15zine-functionality                              
-    - black-studio-tinymce-widget                              
-    - -buddypress-docs-minor-edit                        
-    - cbox-auth                            
-    - -buddypress-restrict-group-creation                
-    - google-analytics-async        
+    - -buddypress-restrict-group-creation
+mla.hcommons.org:
+  base-site-plugins:
+    - buddypress-docs-minor-edit
+    - -buddypress-messages-spam-blocker
+    - classic-editor
+    - -elementor
+    - -elementor-pro
+    - -woosidebars
+    - -formassembly-web-forms
+  network-plugins:
+    - -15zine-functionality
+    - black-studio-tinymce-widget
+    - -buddypress-docs-minor-edit
+    - cbox-auth
+    - -buddypress-restrict-group-creation
     - woosidebars
-    - wordpress-mu-domain-mapping                                                               
     - -wp-accessibility
+    - so-widgets-bundle
   allowed-user-plugins:
     - password-protected
     - wordpress-importer
-  user-theme: twentytwentytwo
 sah.hcommons.org:
-  base-site-plugins:                                                                                  
-    - -classic-widgets                                
-    - -cron-logger                                     
+  base-site-plugins:
+    - -classic-widgets
+    - -cron-logger
     - -siteorigin-panels
-    - password-protected                                                          
-    - -woosidebars                                     
+    - password-protected
+    - -woosidebars
     - -formassembly-web-forms
-  network-plugins:                        
-    - bp-blog-avatar
-    - -blog-avatar                                           
-    - -bp-event-organiser/bp-event-organiser                            
-    - -buddypress-restrict-group-creation                                                              
-    - wp-piwik 
+    - essential-addons-for-elementor-lite
+  network-plugins:
+    - -bp-event-organiser/bp-event-organiser
+    - -buddypress-restrict-group-creation
 commons.msu.edu:
-  base-site-plugins:                                                                                         
-    - -classic-widgets                                
-    - -cron-logger                                    
-    - essential-addons-for-elementor-lite                            
-    - -siteorigin-panels                                                            
-    - -woosidebars                                     
+  base-site-plugins:
+    - -classic-widgets
+    - -cron-logger
+    - essential-addons-for-elementor-lite
+    - -siteorigin-panels
+    - -woosidebars
     - -formassembly-web-forms
-  network-plugins:    
-    - -bp-event-organiser/bp-event-organiser             
+  network-plugins:
+    - -bp-event-organiser/bp-event-organiser
     - classic-editor
-    - classic-widgets                              
-    - -buddypress-restrict-group-creation                
-    - password-protected             
-    - redis-cache                                       
-    - wordpress-mu-domain-mapping                           
-    - wp-piwik
+    - classic-widgets
+    - -buddypress-restrict-group-creation
+    - redis-cache
 arlisna.hcommons.org:
-  base-site-plugins:       
-    - -classic-widgets                                
-    - -cron-logger                                    
-    - -siteorigin-panels                                                             
-    - -woosidebars                                     
+  base-site-plugins:
+    - -classic-widgets
+    - -cron-logger
+    - -siteorigin-panels
+    - -woosidebars
     - -formassembly-web-forms
   network-plugins:
-    - bp-blog-avatar              
-    - -blog-avatar                                          
-    - -bp-event-organiser/bp-event-organiser                    
-    - -buddypress-restrict-group-creation                
-    - password-protected                                
-    - wp-piwik                                          
+    - -bp-event-organiser/bp-event-organiser
+    - -buddypress-restrict-group-creation
+    - msu-kaltura-oembed
 hastac.hcommons.org:
-  base-site-plugins:         
-    - -classic-widgets                                
-    - -cron-logger                                    
-    - -elementor                                      
-    - -elementor-pro                                                          
-    - -siteorigin-panels                              
-    - smart-slider-3                                   
-    - wp-rss-aggregator
+  base-site-plugins:
+    - -woosidebars
+    - -formassembly-web-forms
+    - -classic-widgets
+    - -cron-logger
+    - -elementor
+    - -elementor-pro
+    - -siteorigin-panels
+    - smart-slider-3
+    - feedzy-rss-feeds
   network-plugins:
-    - -15zine-functionality                              
-    - -bp-event-organiser/bp-event-organiser             
-    - classic-widgets    
-    - -buddypress-restrict-group-creation                
-    - mathml-block     
-    - password-protected                       
-    - -redis-cache                                       
-    - -simplemag-addons                                  
-    - wordpress-importer                            
-    - wp-piwik                                          
+    - -bp-event-organiser/bp-event-organiser
+    - classic-widgets
+    - -buddypress-restrict-group-creation
+    - -redis-cache
+    - -simplemag-addons
+    - -15zine-functionality
+  allowed-user-plugins:
+    - -anthologize
+    - -commentpress-core
+    - -fd-footnotes
+    - -issuem
+    - -knight-lab-timelinejs
+    - -pressforward
+    - -printfriendly
+    - -scholarpress-coins
+    - -wp-google-maps
+    - -zotpress
+    - -google-sitemap-generator
 

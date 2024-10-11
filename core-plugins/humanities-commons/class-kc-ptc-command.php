@@ -7,6 +7,8 @@ namespace KC\PTC;
  */
 class KC_PTC_Command {
 
+	private $yes = false;
+
     /**
      * Compare actual plugin and theme states with YAML configuration.
      *
@@ -76,15 +78,34 @@ class KC_PTC_Command {
 	 *
 	 * ## OPTIONS
 	 *
-	 * <network>
+	 * [<network>]
 	 * : The network domain to sync.
+	 * 
+	 * [--yes]
+	 * : Skip confirmation prompts.
 	 *
 	 * ## EXAMPLES
 	 *
+	 *     wp kc sync
 	 *     wp kc sync mla.hcommons.org
+	 *     wp kc sync mla.hcommons.org --yes
 	 */
 	public function sync($args, $assoc_args) {
-		$network_domain = $args[0];
+		$this->yes = \WP_CLI\Utils\get_flag_value($assoc_args, 'yes');
+		if ( isset($args[0]) ) {
+			$network_domains = [$args[0]];
+		} else {
+			$networks = get_networks();
+			$network_domains = array_map(function($network) {
+				return $network->domain;
+			}, $networks);
+		}
+		foreach ($network_domains as $network_domain) {
+			$this->sync_network($args, $assoc_args, $network_domain);
+		}
+	}
+
+	private function sync_network( $args, $assoc_args, $network_domain) {
 		$network = $this->get_network_by_domain($network_domain);
 		$status = $this->get_status($network);
 		$config = $this->calculate_network_requirements($network_domain);
@@ -130,14 +151,14 @@ class KC_PTC_Command {
 			if ( !$confirm ) {
 				continue;
 			}
-			\WP_CLI::runcommand("plugin activate $plugin --url=$network_domain");
+			\WP_CLI::runcommand("plugin activate $plugin --url=$network_domain --network");
 		}
 		foreach ($section_differences['extra'] as $plugin) {
 			$confirm = $this->confirm_action("Deactivate $plugin on network?");
 			if ( !$confirm ) {
 				continue;
 			}
-			\WP_CLI::runcommand("plugin deactivate $plugin --url=$network_domain");
+			\WP_CLI::runcommand("plugin deactivate $plugin --url=$network_domain --network");
 		}
 	}
 
@@ -296,6 +317,7 @@ class KC_PTC_Command {
         $network_plugins = get_network_option($network->id, 'active_sitewide_plugins', []);
 		$network_plugins = array_keys($network_plugins);
 		$network_plugins = $this->simplify_plugin_names($network_plugins);
+		$network_plugins = array_intersect($network_plugins, $this->get_installed_plugins());
 
 		$available_themes = wp_get_themes();
 		$allowed_themes = get_network_option(get_current_network_id(), 'allowedthemes');
@@ -516,7 +538,7 @@ class KC_PTC_Command {
 	 * @return bool The result.
 	 */
 	private function confirm_action(string $message, array $assoc_args = []) : bool {
-		if ( \WP_CLI\Utils\get_flag_value( $assoc_args, 'yes' ) ) {
+		if ( $this->yes ) {
 			return true;
 		}
 		fwrite( STDOUT, "$message [y/n]: " );
