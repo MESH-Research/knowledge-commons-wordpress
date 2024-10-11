@@ -2829,16 +2829,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.9.1",
+            "version": "v6.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "039de174cd9c17a8389754d3b877a2ed22743e18"
+                "reference": "a7b17b42fa4887c92146243f3d2f4ccb962af17c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/039de174cd9c17a8389754d3b877a2ed22743e18",
-                "reference": "039de174cd9c17a8389754d3b877a2ed22743e18",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/a7b17b42fa4887c92146243f3d2f4ccb962af17c",
+                "reference": "a7b17b42fa4887c92146243f3d2f4ccb962af17c",
                 "shasum": ""
             },
             "require": {
@@ -2898,7 +2898,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.9.1"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.9.2"
             },
             "funding": [
                 {
@@ -2906,7 +2906,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-25T22:23:28+00:00"
+            "time": "2024-10-09T10:07:50+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -7746,15 +7746,15 @@
         },
         {
             "name": "wpackagist-plugin/activitypub",
-            "version": "3.3.2",
+            "version": "3.3.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/activitypub/",
-                "reference": "tags/3.3.2"
+                "reference": "tags/3.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/activitypub.3.3.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/activitypub.3.3.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -8070,15 +8070,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.24.5",
+            "version": "3.24.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.24.5"
+                "reference": "tags/3.24.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.24.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.24.6.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -8592,15 +8592,15 @@
         },
         {
             "name": "wpackagist-plugin/tainacan",
-            "version": "0.21.10",
+            "version": "0.21.11",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/tainacan/",
-                "reference": "tags/0.21.10"
+                "reference": "tags/0.21.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/tainacan.0.21.10.zip"
+                "url": "https://downloads.wordpress.org/plugin/tainacan.0.21.11.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -8826,15 +8826,15 @@
         },
         {
             "name": "wpackagist-theme/blockbase",
-            "version": "3.1.17",
+            "version": "3.1.18",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/blockbase/",
-                "reference": "3.1.17"
+                "reference": "3.1.18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/blockbase.3.1.17.zip"
+                "url": "https://downloads.wordpress.org/theme/blockbase.3.1.18.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -8898,15 +8898,15 @@
         },
         {
             "name": "wpackagist-theme/hestia",
-            "version": "3.1.10",
+            "version": "3.2.0",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/hestia/",
-                "reference": "3.1.10"
+                "reference": "3.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/hestia.3.1.10.zip"
+                "url": "https://downloads.wordpress.org/theme/hestia.3.2.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -9494,16 +9494,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.323.2",
+            "version": "3.323.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "030b93340f0e7d6fd20276037087d3eab8f16575"
+                "reference": "9dec2a6453bdb32b3abeb475fc63b46ba1cbd996"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/030b93340f0e7d6fd20276037087d3eab8f16575",
-                "reference": "030b93340f0e7d6fd20276037087d3eab8f16575",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9dec2a6453bdb32b3abeb475fc63b46ba1cbd996",
+                "reference": "9dec2a6453bdb32b3abeb475fc63b46ba1cbd996",
                 "shasum": ""
             },
             "require": {
@@ -9586,9 +9586,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.323.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.323.3"
             },
-            "time": "2024-10-07T18:11:24+00:00"
+            "time": "2024-10-08T18:05:47+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -9724,12 +9724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "bfe063645d26a0c517122e1f0ed472292881c657"
+                "reference": "4cb62de3d4cced8056a472da5fe788225dee4f1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/bfe063645d26a0c517122e1f0ed472292881c657",
-                "reference": "bfe063645d26a0c517122e1f0ed472292881c657",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4cb62de3d4cced8056a472da5fe788225dee4f1d",
+                "reference": "4cb62de3d4cced8056a472da5fe788225dee4f1d",
                 "shasum": ""
             },
             "conflict": {
@@ -10062,7 +10062,7 @@
                 "lightsaml/lightsaml": "<1.3.5",
                 "limesurvey/limesurvey": "<6.5.12",
                 "livehelperchat/livehelperchat": "<=3.91",
-                "livewire/livewire": ">2.2.4,<2.2.6|>=3.3.5,<3.4.9",
+                "livewire/livewire": "<3.5.2",
                 "lms/routes": "<2.1.1",
                 "localizationteam/l10nmgr": "<7.4|>=8,<8.7|>=9,<9.2",
                 "luyadev/yii-helpers": "<1.2.1",
@@ -10548,7 +10548,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-08T15:04:55+00:00"
+            "time": "2024-10-08T23:05:25+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -10642,6 +10642,6 @@
     "platform": {
         "php": ">=8.3"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
