@@ -54,6 +54,7 @@ default:
     - sparkpost-bp-mailer
     - wp-accessibility
     - wp-multi-network
+    - cc-client
   allowed-user-plugins:
     - anthologize
     - commentpress-core
