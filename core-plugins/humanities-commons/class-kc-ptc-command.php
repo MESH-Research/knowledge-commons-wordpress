@@ -14,23 +14,24 @@ class KC_PTC_Command {
      *
      * ## OPTIONS
      *
-     * [<network>]
-     * : The network domain to check. If not provided, checks all networks.
+     * [--all-networks]
+     * : Check all networks instead of just the current one.
      *
      * ## EXAMPLES
      *
-     *     wp kc compare
-     *     wp kc compare mla.hcommons.org
+     *     wp kc ptc compare
+     *     wp kc ptc compare --all-networks
      *
      * @when after_wp_load
      */
     public function compare($args, $assoc_args) {
-        $network = isset($args[0]) ? $args[0] : null;
+        $all_networks = \WP_CLI\Utils\get_flag_value($assoc_args, 'all-networks', false);
 
-        if ($network) {
-            $this->compare_network($network);
-        } else {
+        if ($all_networks) {
             $this->compare_all_networks();
+        } else {
+            $domain = $this->get_current_domain();
+            $this->compare_network($domain);
         }
     }
 
@@ -39,19 +40,33 @@ class KC_PTC_Command {
 	 *
 	 * ## OPTIONS
 	 *
-	 * [<network>]
-	 * : The network domain to check. If not provided, checks all networks.
+	 * [--all-networks]
+	 * : Check all networks instead of just the current one.
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp kc status mla.hcommons.org
-	 *     wp kc status
+	 *     wp kc ptc status --url=mla.hcommons.org
+	 *     wp kc ptc status --url=https://mla.hcommons.org
+	 *     wp kc ptc status
+	 *     wp kc ptc status --all-networks
 	 */
 	public function status($args, $assoc_args) {
-		$network_domain = isset($args[0]) ? $args[0] : '';
-		$network = $this->get_network_by_domain($network_domain);
-		$status = $this->get_status($network);
-		$this->print_sections($status);
+		$all_networks = \WP_CLI\Utils\get_flag_value($assoc_args, 'all-networks', false);
+
+		if ($all_networks) {
+			$networks = get_networks();
+			foreach ($networks as $network) {
+				$status = $this->get_status($network);
+				\WP_CLI::line("# Network: {$network->domain}");
+				$this->print_sections($status);
+				\WP_CLI::line('');
+			}
+		} else {
+			$domain = $this->get_current_domain();
+			$network = $this->get_network_by_domain($domain);
+			$status = $this->get_status($network);
+			$this->print_sections($status);
+		}
 	}
 
 	/**
@@ -59,18 +74,32 @@ class KC_PTC_Command {
 	 *
 	 * ## OPTIONS
 	 *
-	 * [<network>]
-	 * : The network domain to check. If not provided, checks all networks.
+	 * [--all-networks]
+	 * : Check all networks instead of just the current one.
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp kc requirements mla.hcommons.org
-	 *     wp kc requirements
+	 *     wp kc ptc requirements --url=mla.hcommons.org
+	 *     wp kc ptc requirements --url=https://mla.hcommons.org
+	 *     wp kc ptc requirements
+	 *     wp kc ptc requirements --all-networks
 	 */
 	public function requirements($args, $assoc_args) {
-		$network_domain = isset($args[0]) ? $args[0] : '';
-		$requirements = $this->calculate_network_requirements($network_domain);
-		$this->print_sections($requirements);
+		$all_networks = \WP_CLI\Utils\get_flag_value($assoc_args, 'all-networks', false);
+
+		if ($all_networks) {
+			$networks = get_networks();
+			foreach ($networks as $network) {
+				$requirements = $this->calculate_network_requirements($network->domain);
+				\WP_CLI::line("# Network: {$network->domain}");
+				$this->print_sections($requirements);
+				\WP_CLI::line('');
+			}
+		} else {
+			$domain = $this->get_current_domain();
+			$requirements = $this->calculate_network_requirements($domain);
+			$this->print_sections($requirements);
+		}
 	}
 
 	/**
@@ -78,34 +107,53 @@ class KC_PTC_Command {
 	 *
 	 * ## OPTIONS
 	 *
-	 * [<network>]
-	 * : The network domain to sync.
+	 * [--all-networks]
+	 * : Sync all networks instead of just the current one.
 	 * 
 	 * [--yes]
 	 * : Skip confirmation prompts.
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp kc sync
-	 *     wp kc sync mla.hcommons.org
-	 *     wp kc sync mla.hcommons.org --yes
+	 *     wp kc ptc sync
+	 *     wp kc ptc sync --all-networks
+	 *     wp kc ptc sync --yes
 	 */
 	public function sync($args, $assoc_args) {
 		$this->yes = \WP_CLI\Utils\get_flag_value($assoc_args, 'yes');
-		if ( isset($args[0]) ) {
-			$network_domains = [$args[0]];
-		} else {
+		$all_networks = \WP_CLI\Utils\get_flag_value($assoc_args, 'all-networks', false);
+
+		if ($all_networks) {
 			$networks = get_networks();
 			$network_domains = array_map(function($network) {
 				return $network->domain;
 			}, $networks);
+		} else {
+			$network_domains = [$this->get_current_domain()];
 		}
+
 		foreach ($network_domains as $network_domain) {
-			$this->sync_network($args, $assoc_args, $network_domain);
+			\WP_CLI::line("# Network: {$network_domain}");
+			$this->sync_network($network_domain);
+			\WP_CLI::line('');
 		}
 	}
 
-	private function sync_network( $args, $assoc_args, $network_domain) {
+	/**
+	 * Get the domain of the current site.
+	 *
+	 * @return string The domain of the current site.
+	 */
+	private function get_current_domain(): string {
+		return parse_url(get_site_url(), PHP_URL_HOST);
+	}
+
+	/**
+	 * Sync the plugins and themes on a network to the requirements.
+	 *
+	 * @param string $network_domain The domain of the network to sync.
+	 */
+	private function sync_network($network_domain) {
 		$network = $this->get_network_by_domain($network_domain);
 		$status = $this->get_status($network);
 		$config = $this->calculate_network_requirements($network_domain);
@@ -128,6 +176,12 @@ class KC_PTC_Command {
 		}
 	}
 	
+	/**
+	 * Sync the base site plugins on a network to the requirements.
+	 *
+	 * @param array $section_differences The differences between the current state and the requirements.
+	 * @param string $network_domain The domain of the network to sync.
+	 */
 	private function sync_base_site_plugins(array $section_differences, string $network_domain) {
 		foreach ($section_differences['missing'] as $plugin) {
 			$confirm = $this->confirm_action("Activate $plugin on base site?");
@@ -145,6 +199,12 @@ class KC_PTC_Command {
 		}
 	}
 
+	/**
+	 * Sync the network active plugins on a network to the requirements.
+	 *
+	 * @param array $section_differences The differences between the current state and the requirements.
+	 * @param string $network_domain The domain of the network to sync.
+	 */
 	private function sync_network_plugins(array $section_differences, string $network_domain) {
 		foreach ($section_differences['missing'] as $plugin) {
 			$confirm = $this->confirm_action("Activate $plugin on network?");
@@ -162,6 +222,12 @@ class KC_PTC_Command {
 		}
 	}
 
+	/**
+	 * Sync the allowed user plugins on a network to the requirements.
+	 *
+	 * @param array $section_differences The differences between the current state and the requirements.
+	 * @param string $network_domain The domain of the network to sync.
+	 */
 	private function sync_allowed_user_plugins(array $section_differences, string $network_domain) {
 		foreach ($section_differences['missing'] as $plugin) {
 			$confirm = $this->confirm_action("Allow user sites on $network_domain to activate $plugin?");
@@ -187,6 +253,12 @@ class KC_PTC_Command {
 		}
 	}
 
+	/**
+	 * Sync the allowed user themes on a network to the requirements.
+	 *
+	 * @param array $section_differences The differences between the current state and the requirements.
+	 * @param string $network_domain The domain of the network to sync.
+	 */
 	private function sync_allowed_user_themes(array $section_differences, string $network_domain) {
 		foreach ($section_differences['missing'] as $theme) {
 			$confirm = $this->confirm_action("Allow user sites on $network_domain to use theme $theme?");
@@ -212,6 +284,12 @@ class KC_PTC_Command {
 		}
 	}
 
+	/**
+	 * Sync the base theme on a network to the requirements.
+	 *
+	 * @param string $section_differences The differences between the current state and the requirements.
+	 * @param string $network_domain The domain of the network to sync.
+	 */
 	private function sync_base_theme(string $section_differences, string $network_domain) {
 		[ $old_theme, $new_theme ] = explode(' != ', $section_differences);
 		$confirm = $this->confirm_action("Switch base site from $old_theme to $new_theme?");
@@ -221,6 +299,12 @@ class KC_PTC_Command {
 		\WP_CLI::runcommand("theme activate $new_theme --url=$network_domain");
 	}
 
+	/**
+	 * Sync the default user theme on a network to the requirements.
+	 *
+	 * @param string $section_differences The differences between the current state and the requirements.
+	 * @param string $network_domain The domain of the network to sync.
+	 */
 	private function sync_user_theme(string $section_differences, string $network_domain) {
 		[ $old_theme, $new_theme ] = explode(' != ', $section_differences);
 		$confirm = $this->confirm_action("Switch default user theme from $old_theme to $new_theme?");
@@ -231,7 +315,6 @@ class KC_PTC_Command {
 		update_network_option($network->id, 'default_theme', $new_theme);
 		\WP_CLI::success("Switched default user theme on $network_domain from $old_theme to $new_theme");
 	}
-	
 
 	/**
 	 * Compare the status of plugins and themes on all networks to the requirements.
@@ -271,7 +354,6 @@ class KC_PTC_Command {
 			}
 		}
     }
-
     
 	/**
 	 * Get the plugin and theme requirements from the configuration file.
