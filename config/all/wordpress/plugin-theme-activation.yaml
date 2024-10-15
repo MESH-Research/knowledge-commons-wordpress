@@ -47,7 +47,6 @@ default:
     - humanities-commons
     - mla-academic-interests
     - more-privacy-options
-    - multisite-plugin-manager
     - redis-cache
     - simplemag-addons
     - wordpress-sparkpost
