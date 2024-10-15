@@ -30,11 +30,11 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /u
 RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
 	mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
-RUN apk update && apk add mysql-client bash
+RUN apk update && apk add mysql-client bash aws-cli
 
 FROM base AS lando
 
-RUN apk add git mysql py3-pip py-cryptography mandoc aws-cli linux-headers
+RUN apk add git mysql py3-pip py-cryptography mandoc linux-headers
 
 EXPOSE 9000
 
