@@ -30,7 +30,7 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /u
 RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
 	mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
-RUN apk update && apk add mysql-client bash aws-cli
+RUN apk update && apk add mysql-client bash aws-cli jq
 
 FROM base AS lando
 
