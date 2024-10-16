@@ -135,6 +135,12 @@ RUN composer install --no-dev --no-interaction --no-progress --optimize-autoload
 
 WORKDIR /app
 
+USER root
+RUN touch /etc/environment && \
+    chown www-data:www-data /etc/environment && \
+    chmod 664 /etc/environment
+USER www-data
+
 ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
 CMD ["php-fpm"]
 
@@ -143,5 +149,7 @@ FROM cloud AS cron
 USER root
 RUN apk add bash
 RUN crontab -u www-data /app/scripts/cron/commons.crontab
+
+USER www-data
 
 ENTRYPOINT ["/app/scripts/build-scripts/docker-cron-entrypoint.sh"]

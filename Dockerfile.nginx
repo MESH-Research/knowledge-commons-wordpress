@@ -17,5 +17,12 @@ RUN apk update && apk add jq aws-cli
 COPY scripts/build-scripts/docker-nginx-entrypoint.sh /usr/local/bin/docker-nginx-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-nginx-entrypoint.sh
 
+USER root
+RUN touch /etc/environment && \
+    chown nginx:nginx /etc/environment && \
+    chmod 664 /etc/environment
+
+USER nginx
+
 ENTRYPOINT ["/usr/local/bin/docker-nginx-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
