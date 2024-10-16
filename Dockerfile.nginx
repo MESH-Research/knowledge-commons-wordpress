@@ -11,3 +11,5 @@ RUN adduser -u 82 -D -S -G www-data www-data \
 
 COPY ./config/all/nginx/nginx.conf /etc/nginx/
 COPY ./config/all/nginx/templates /etc/nginx/templates
+
+ENTRYPOINT ["/app/scripts/build-scripts/docker-nginx-entrypoint.sh"]

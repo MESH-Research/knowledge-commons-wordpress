@@ -16,10 +16,9 @@ if [ $? -ne 0 ]; then
 fi
 
 # Parse the JSON and export each key/value pair
-echo "$secret" | jq -r 'to_entries | .[] | "export \(.key)=\(.value)"' | while read -r line; do
-    eval "$line"
-done
+echo "$secret" | jq -r 'to_entries[] | "export \(.key)=\(.value | @sh)"' > temp_exports.sh
+source temp_exports.sh
+rm temp_exports.sh
 
 # Optionally, you can print a success message
 echo "AWS secrets have been successfully retrieved and exported to the environment."
-

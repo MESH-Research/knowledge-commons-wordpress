@@ -144,4 +144,4 @@ USER root
 RUN apk add bash
 RUN crontab -u www-data /app/scripts/cron/commons.crontab
 
-ENTRYPOINT ["crond", "-f"]
+ENTRYPOINT ["/app/scripts/build-scripts/docker-cron-entrypoint.sh"]
