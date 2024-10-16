@@ -139,6 +139,10 @@ USER root
 RUN touch /etc/environment && \
     chown www-data:www-data /etc/environment && \
     chmod 664 /etc/environment
+RUN touch /etc/profile && \
+    chown root:www-data /etc/profile && \
+    chmod 664 /etc/profile
+
 USER www-data
 
 ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
