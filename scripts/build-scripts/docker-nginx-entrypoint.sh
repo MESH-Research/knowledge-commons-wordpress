@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+echo "Starting custom entrypoint script"
+
 # Retrieve AWS secrets and export them as environment variables
 if [ -f /app/scripts/build-scripts/get-aws-secrets.sh ]; then
     echo "Retrieving AWS secrets..."
@@ -14,4 +16,7 @@ else
     echo "AWS secrets retrieval script not found. Skipping."
 fi
 
+echo "Executing original entrypoint with arguments: $@"
 exec /docker-entrypoint.sh "$@"
+
+echo "docker-entrypoint.sh has finished executing"

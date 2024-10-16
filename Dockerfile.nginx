@@ -14,4 +14,8 @@ COPY ./config/all/nginx/templates /etc/nginx/templates
 
 RUN apk update && apk add jq aws-cli
 
-ENTRYPOINT ["/app/scripts/build-scripts/docker-nginx-entrypoint.sh"]
+COPY scripts/build-scripts/docker-nginx-entrypoint.sh /usr/local/bin/docker-nginx-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-nginx-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-nginx-entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
