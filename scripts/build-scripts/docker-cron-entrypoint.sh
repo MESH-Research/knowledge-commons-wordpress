@@ -14,4 +14,5 @@ else
     echo "AWS secrets retrieval script not found. Skipping."
 fi
 
-exec crond -f
+# Run crond in the foreground with logging
+exec crond -f -L /dev/stdout

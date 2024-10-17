@@ -72,7 +72,6 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 	ln -s /app/forked-plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
 	ln -s /app/themes/*/ /app/site/web/app/themes/ && \
-	ln -s /app/commons-connect/cc-client /app/site/web/app/plugins/commons-connect
 
 COPY --chown=www-data:www-data composer.json /app/
 COPY --chown=www-data:www-data composer.lock /app/
