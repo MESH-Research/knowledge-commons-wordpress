@@ -14,17 +14,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "$secret" | jq -r 'to_entries[] | "\(.key)=\(.value)"' | while IFS='=' read -r key value; do
-    value=$(echo "$value" | sed -e 's/^"//' -e 's/"$//')
-    export "$key=$value"
-    echo "export $key='$value'" >> "$ENV_FILE"
-done
-
-chmod 600 "$ENV_FILE"
-
-echo "AWS secrets have been successfully retrieved and exported to the environment."
-echo "Environment variables have been written to $ENV_FILE"
-
-if ! grep -q "source $ENV_FILE" /etc/profile; then
-    echo "source $ENV_FILE" >> /etc/profile
-fi
+touch ENV_FILE
+echo "$secret" | jq -r 'to_entries|map("\(.key|tostring)=\(.value|@sh)")|.[]' >> $ENV_FILE
+export $(cat $ENV_FILE | xargs)
