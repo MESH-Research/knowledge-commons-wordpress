@@ -18,14 +18,6 @@ COPY scripts/build-scripts/docker-nginx-entrypoint.sh /usr/local/bin/docker-ngin
 RUN chmod +x /usr/local/bin/docker-nginx-entrypoint.sh
 
 USER root
-RUN touch /etc/environment && \
-    chown nginx:nginx /etc/environment && \
-    chmod 664 /etc/environment
-RUN touch /etc/profile && \
-    chown root:nginx /etc/profile && \
-    chmod 664 /etc/profile
-
-USER nginx
 
 ENTRYPOINT ["/usr/local/bin/docker-nginx-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
