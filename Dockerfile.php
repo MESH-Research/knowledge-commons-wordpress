@@ -1,6 +1,6 @@
 # PHP container for running WordPress
 
-FROM --platform=linux/arm64 php:fpm-alpine3.19 AS base
+FROM php:fpm-alpine3.19 AS base
 
 RUN addgroup -g 33 xfs || true \
 	&& addgroup xfs www-data \
@@ -71,7 +71,7 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 	ln -s /app/core-plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/forked-plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
-	ln -s /app/themes/*/ /app/site/web/app/themes/ && \
+	ln -s /app/themes/*/ /app/site/web/app/themes/
 
 COPY --chown=www-data:www-data composer.json /app/
 COPY --chown=www-data:www-data composer.lock /app/
