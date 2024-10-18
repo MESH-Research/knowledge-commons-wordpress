@@ -1,17 +1,5 @@
-# Boop every minute
-* * * * * echo "$(date) boop" 
-
-# Confirm that $WP_ENV is set
-* * * * * echo "WP_ENV is set to $WP_ENV"
-
-# Test output redirection
-* * * * * echo "This is a test message" >> /tmp/test_output.log
-
-# Test output redirection to stderr
-* * * * * echo "This is an error message" 1>&2
-
-# Confirm that wp is working
-* * * * * [ "$RUN_CRON" = "true" ] && wp --version
+# Boop every hour
+0 * * * * echo "$(date) boop"
 
 # Elasticpress
 0 0 * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/index_elasticpress.bash

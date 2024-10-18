@@ -16,7 +16,4 @@ else
     echo "AWS secrets retrieval script not found. Skipping."
 fi
 
-echo "Executing original entrypoint with arguments: $@"
 exec /docker-entrypoint.sh "$@"
-
-echo "docker-entrypoint.sh has finished executing"
