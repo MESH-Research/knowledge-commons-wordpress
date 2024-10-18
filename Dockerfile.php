@@ -44,8 +44,8 @@ FROM base AS cloud
 
 RUN apk add npm
 
-# This is a bit awkward, but we want to COPY --chown=www-data:www-data only the necessary files to the
-# container. If we COPY --chown=www-data:www-data the entire root directory of the project, there will
+# This is a bit awkward, but we want to COPY only the necessary files to the
+# container. If we COPY the entire root directory of the project, there will
 # be a lot of junk files from development that we don't need.
 COPY --chown=www-data:www-data wp-cli.yml /app/
 COPY --chown=www-data:www-data ./site /app/site
