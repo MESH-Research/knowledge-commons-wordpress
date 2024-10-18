@@ -12,7 +12,11 @@ namespace KC\PTC;
  * @return array Modified array of plugin data.
  */
 function filter_visible_plugins($plugins) {
-    $allowed_plugins = get_network_option(get_current_network_id(), 'pm_user_control_list', []);
+    if ( is_network_admin() || ( defined('WP_CLI') && WP_CLI ) ) {
+		return $plugins;
+	}
+
+	$allowed_plugins = get_network_option(get_current_network_id(), 'pm_user_control_list', []);
 
 	$filtered_plugins = [];
 	foreach ($plugins as $plugin_path => $plugin) {
