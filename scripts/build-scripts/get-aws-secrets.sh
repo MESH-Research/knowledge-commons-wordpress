@@ -14,6 +14,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-touch ENV_FILE
-echo "$secret" | jq -r 'to_entries|map("\(.key|tostring)=\(.value|@sh)")|.[]' >> $ENV_FILE
-export $(cat $ENV_FILE | xargs)
+touch $ENV_FILE
+echo "$secret" | jq -r 'to_entries | map("export \(.key|@sh)=\(.value|@sh)") | .[]' >> $ENV_FILE
+. "$ENV_FILE"
