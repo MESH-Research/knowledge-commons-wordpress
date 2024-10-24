@@ -9,8 +9,6 @@ default:
     - bp-reply-by-email
     - buddypress-sitewide-activity-widget
     - classic-widgets
-    - elasticpress
-    - elasticpress-buddypress
     - elementor
     - elementor-pro
     - gd-bbpress-attachments
@@ -18,7 +16,6 @@ default:
     - hc-member-profiles
     - hc-notifications
     - hc-suggestions
-    - humcore
     - invite-anyone
     - mla-allowed-tags
     - siteorigin-panels
