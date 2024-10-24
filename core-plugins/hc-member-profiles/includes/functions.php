@@ -30,12 +30,6 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 		$fields['bp_blogs'] = 'BP_XProfile_Field_Type_Blogs';
 	}
 
-	// CORE Deposits.
-	if ( bp_is_active( 'humcore_deposits' ) ) {
-		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-core-deposits.php';
-		$fields['core_deposits'] = 'BP_XProfile_Field_Type_CORE_Deposits';
-	}
-
 	// Blog Posts.
 	require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-blog-posts.php';
 	$fields['blog_posts'] = 'BP_XProfile_Field_Type_Blog_Posts';
@@ -295,7 +289,6 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::MEMBERSHIPS,
 		HC_Member_Profiles_Component::CV,
 		HC_Member_Profiles_Component::BLOGPOSTS,
-		HC_Member_Profiles_Component::DEPOSITS,
 		HC_Member_Profiles_Component::WORKSDEPOSITS,
 		HC_Member_Profiles_Component::MASTODONFEED,
 	];
@@ -307,7 +300,6 @@ function hcmp_get_field( $field_name = '' ) {
 	$show_more_fields = [
 		HC_Member_Profiles_Component::INTERESTS,
 		HC_Member_Profiles_Component::PUBLICATIONS,
-		HC_Member_Profiles_Component::DEPOSITS,
 		HC_Member_Profiles_Component::GROUPS,
 		HC_Member_Profiles_Component::BLOGS,
 		HC_Member_Profiles_Component::BLOGPOSTS,
@@ -481,7 +473,6 @@ function _hcmp_create_xprofile_fields() {
 
 	// Create field types that have satisfied dependencies - see hcmp_register_xprofile_field_types().
 	$extra_fields = [
-		HC_Member_Profiles_Component::DEPOSITS  => 'core_deposits',
 		HC_Member_Profiles_Component::BLOGPOSTS => 'blog_posts',
 		HC_Member_Profiles_Component::CV        => 'bp_attachment',
 		HC_Member_Profiles_Component::INTERESTS => 'academic_interests',

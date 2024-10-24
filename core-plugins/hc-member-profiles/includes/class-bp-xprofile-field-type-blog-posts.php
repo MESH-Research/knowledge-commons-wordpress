@@ -1,12 +1,12 @@
 <?php
 /**
- * CORE Deposits field type.
+ * Blogs posts field type.
  *
  * @package Hc_Member_Profiles
  */
 
 /**
- * CORE Deposits field type.
+ * Blogs posts field type.
  */
 class BP_XProfile_Field_Type_Blog_Posts extends BP_XProfile_Field_Type {
 

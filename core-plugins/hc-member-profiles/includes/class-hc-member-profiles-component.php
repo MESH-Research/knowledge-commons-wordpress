@@ -26,7 +26,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const PROJECTS     = 'Projects';
 	const TALKS        = 'Upcoming Talks and Conferences';
 	const MEMBERSHIPS  = 'Memberships';
-	const DEPOSITS     = 'CORE Deposits';
 	const CV           = 'CV';
 	const INTERESTS    = 'Academic Interests';
 	const GROUPS       = 'Commons Groups';
@@ -65,7 +64,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 			self::PROJECTS     => 'Projects',
 			self::TALKS        => 'Upcoming Talks and Conferences',
 			self::MEMBERSHIPS  => 'Memberships',
-			self::DEPOSITS     => 'Work Shared in CORE',
 			self::CV           => 'CV',
 			self::INTERESTS    => 'Academic Interests',
 			self::GROUPS       => 'Commons Groups',
