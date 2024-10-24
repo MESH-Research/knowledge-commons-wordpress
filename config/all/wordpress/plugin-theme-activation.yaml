@@ -15,7 +15,6 @@ default:
     - hc-custom
     - hc-member-profiles
     - hc-notifications
-    - hc-suggestions
     - invite-anyone
     - mla-allowed-tags
     - siteorigin-panels
