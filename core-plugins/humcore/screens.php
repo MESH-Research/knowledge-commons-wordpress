@@ -37,6 +37,13 @@ function humcore_deposits_search_form() {
  */
 function humcore_new_deposit_form() {
 
+	$humcore_deposits_open = getenv( 'HUMCORE_DEPOSITS_OPEN' );
+	if ( 'false' === $humcore_deposits_open ) {
+		echo '<h3>New <em>CORE</em> Deposit</h3>';
+		echo "<p>We're sorry, but uploading to <em>CORE</em> is currently unavailable. We're working on it (and we're delighted that you want to share your work) so please come back and try again later.</p>";
+		return;
+	}
+
 	if ( ! empty( $_POST ) ) {
 		//check nonce
 		$deposit_id = humcore_deposit_file();
