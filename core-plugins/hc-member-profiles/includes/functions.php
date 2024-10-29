@@ -30,12 +30,6 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 		$fields['bp_blogs'] = 'BP_XProfile_Field_Type_Blogs';
 	}
 
-	// CORE Deposits.
-	if ( bp_is_active( 'humcore_deposits' ) ) {
-		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-core-deposits.php';
-		$fields['core_deposits'] = 'BP_XProfile_Field_Type_CORE_Deposits';
-	}
-
 	// Blog Posts.
 	require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-blog-posts.php';
 	$fields['blog_posts'] = 'BP_XProfile_Field_Type_Blog_Posts';
@@ -43,6 +37,10 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 	// Works.
 	require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-works-deposits.php';
 	$fields['works_deposits'] = 'BP_XProfile_Field_Type_Works_Deposits';
+
+	// Mastodon Feed.
+	//require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-mastodon-feed.php';
+	//$fields['mastodon_feed'] = 'BP_XProfile_Field_Type_Mastodon_Feed';
 
 	// Academic Interests.
 	if ( class_exists( 'MLA_Academic_Interests' ) ) {
@@ -231,11 +229,32 @@ function hcmp_get_normalized_mastodon_field_value() {
 
 	$username = $matches[1];
 	$domain   = $matches[2];
-
 	$url = "https://$domain/@$username/";
 	$handle = "@$username@$domain";
 	$link = "<a href='$url' rel='me'>$handle</a>";
 	return $link;
+}
+
+function hcmp_get_normalized_mastodon_url() : string {
+	remove_filter( 'bp_get_the_profile_field_value', 'make_clickable', 10 );
+	$field_value = _hcmp_get_field_data( HC_Member_Profiles_Component::MASTODON );
+	add_filter( 'bp_get_the_profile_field_value', 'make_clickable', 10 );
+	
+	$match_result = preg_match(
+		'/@?(\w*?)@([^\/]*)\/?/',
+		$field_value,
+		$matches
+	);
+
+	if ( $match_result === false || $match_result === 0 ) {
+		return '';
+	}
+
+	$username = $matches[1];
+	$domain   = $matches[2];
+	$url = "https://$domain/@$username/";
+
+	return $url;
 }
 
 /**
@@ -270,8 +289,8 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::MEMBERSHIPS,
 		HC_Member_Profiles_Component::CV,
 		HC_Member_Profiles_Component::BLOGPOSTS,
-		HC_Member_Profiles_Component::DEPOSITS,
 		HC_Member_Profiles_Component::WORKSDEPOSITS,
+		HC_Member_Profiles_Component::MASTODONFEED,
 	];
 
 	if ( in_array( $field_name, $user_hideable_fields ) ) {
@@ -281,7 +300,6 @@ function hcmp_get_field( $field_name = '' ) {
 	$show_more_fields = [
 		HC_Member_Profiles_Component::INTERESTS,
 		HC_Member_Profiles_Component::PUBLICATIONS,
-		HC_Member_Profiles_Component::DEPOSITS,
 		HC_Member_Profiles_Component::GROUPS,
 		HC_Member_Profiles_Component::BLOGS,
 		HC_Member_Profiles_Component::BLOGPOSTS,
@@ -434,6 +452,7 @@ function _hcmp_create_xprofile_fields() {
 		HC_Member_Profiles_Component::TALKS        => 'textarea',
 		HC_Member_Profiles_Component::MEMBERSHIPS  => 'textarea',
 		HC_Member_Profiles_Component::WORKSDEPOSITS => 'works_deposits',
+		//HC_Member_Profiles_Component::MASTODONFEED => 'mastodon_feed',
 	];
 
 	foreach ( $default_fields as $name => $type ) {
@@ -454,7 +473,6 @@ function _hcmp_create_xprofile_fields() {
 
 	// Create field types that have satisfied dependencies - see hcmp_register_xprofile_field_types().
 	$extra_fields = [
-		HC_Member_Profiles_Component::DEPOSITS  => 'core_deposits',
 		HC_Member_Profiles_Component::BLOGPOSTS => 'blog_posts',
 		HC_Member_Profiles_Component::CV        => 'bp_attachment',
 		HC_Member_Profiles_Component::INTERESTS => 'academic_interests',

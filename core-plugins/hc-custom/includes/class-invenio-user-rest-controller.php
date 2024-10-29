@@ -99,6 +99,7 @@ class InvenioUserRestController extends \WP_REST_Controller {
 		];
 
 		$user_data['institutional_affiliation'] = xprofile_get_field_data( 'Institutional or Other Affiliation', $user->ID );
+		$user_data['orcid'] = xprofile_get_field_data( '<em>ORCID</em> iD', $user->ID );
 
 		$user_data['groups'] = [];
 		$groups = bp_get_user_groups( 

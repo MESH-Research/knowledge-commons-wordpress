@@ -38,7 +38,7 @@
 
 	<?php if ( bp_is_active( 'forums' ) ) : ?>
 
-		<?php if ( bp_forums_is_installed_correctly() ) : ?>
+		<?php if ( function_exists('bb_forums_is_installed_correctly') && bp_forums_is_installed_correctly() ) : ?>
 
 			<div class="checkbox">
 				<label><input type="checkbox" name="group-show-forum" id="group-show-forum" value="1"<?php bp_group_show_forum_setting(); ?> /> <?php _e( 'Enable discussion forum', 'boss' ); ?></label>

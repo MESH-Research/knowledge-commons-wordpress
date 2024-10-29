@@ -30,7 +30,7 @@ class Badges {
 		return $this->add_badges( bp_get_member_type( $user_id, false ), $img );
 	}
 
-	function add_group_badges( $img ) {
+	function add_group_badges( $img, $include_link = true ) {
 		// group_id for directory, current_group_id for single
 		$group_id = bp_get_group_id();
 		if ( empty( $group_id ) ) {
@@ -52,9 +52,15 @@ class Badges {
 	}
 
 	/**
-	 * helper function used in member, group, & blog contexts
+	 * Adds badges to an image based on the group types of the object.
+	 * These badges are strings with the organization's short name, e.g "mla" or "up".
+	 *
+	 * @param array|string $types The group types of the object.
+	 * @param string $img The image tag to add badges to.
+	 * @param bool $include_link Whether to wrap the badges in a link to the organization's member directory.
+	 * @return string The image tag with badges added.
 	 */
-	function add_badges( $types, $img ) {
+	function add_badges( $types, $img, $include_link = true ) {
 		preg_match( '/width="(\d+)"/', $img, $img_width );
 
 		if ( isset( $img_width[1] ) && $img_width[1] < self::MIN_IMG_WIDTH ) {
@@ -76,7 +82,11 @@ class Badges {
 				}
 
 				if ( strpos( $img, $url ) === false ) {
-					$badges[] = "<a class=\"society-badge-wrap\" href=\"$url\"><span class=\"society-badge $type\"></span></a>";
+					$badge = "<span class=\"society-badge $type\"></span>";
+					if ( $include_link ) {
+						$badge = "<a class=\"society-badge-wrap\" href=\"$url\">$badge</a>";
+					}
+					$badges[] = $badge;
 				}
 			}
 		}
@@ -103,7 +113,7 @@ class Badges {
 			} );
 		}
 
-		if ( bp_is_groups_directory() || bp_is_group() || bp_is_user_groups() ) {
+		if ( bp_is_groups_directory() || bp_is_user_groups() ) {
 			add_filter( 'bp_get_group_avatar', [ $this, 'add_group_badges' ] );
 			add_filter( 'bp_get_group_member_avatar_thumb', [ $this, 'add_member_badges' ] );
 		}

@@ -26,7 +26,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const PROJECTS     = 'Projects';
 	const TALKS        = 'Upcoming Talks and Conferences';
 	const MEMBERSHIPS  = 'Memberships';
-	const DEPOSITS     = 'CORE Deposits';
 	const CV           = 'CV';
 	const INTERESTS    = 'Academic Interests';
 	const GROUPS       = 'Commons Groups';
@@ -34,6 +33,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const BLOGS        = 'Commons Sites';
 	const BLOGPOSTS    = 'Blog Posts';
 	const WORKSDEPOSITS = 'Works Deposits';
+	const MASTODONFEED = 'Mastodon Feed';
 
 	/**
 	 * TODO deprecate.
@@ -64,7 +64,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 			self::PROJECTS     => 'Projects',
 			self::TALKS        => 'Upcoming Talks and Conferences',
 			self::MEMBERSHIPS  => 'Memberships',
-			self::DEPOSITS     => 'Work Shared in CORE',
 			self::CV           => 'CV',
 			self::INTERESTS    => 'Academic Interests',
 			self::GROUPS       => 'Commons Groups',
@@ -72,6 +71,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 			self::BLOGS        => 'Commons Sites',
 			self::BLOGPOSTS    => 'Blog Posts',
 			self::WORKSDEPOSITS => 'KCWorks',
+			self::MASTODONFEED => 'Mastodon Feed',
 		];
 
 		parent::start(

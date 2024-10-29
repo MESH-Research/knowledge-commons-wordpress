@@ -1,6 +1,6 @@
 # Nginx container for running WordPress on production
 
-FROM --platform=linux/arm64 nginx:stable-alpine3.19
+FROM nginx:stable-alpine3.19
 
 # Ensure that important users and groups have consistent IDs across all containers.
 # 82 is the standard uid/gid for "www-data" on php-fpm Alpine.
@@ -11,3 +11,13 @@ RUN adduser -u 82 -D -S -G www-data www-data \
 
 COPY ./config/all/nginx/nginx.conf /etc/nginx/
 COPY ./config/all/nginx/templates /etc/nginx/templates
+
+RUN apk update && apk add jq aws-cli
+
+COPY scripts/build-scripts/docker-nginx-entrypoint.sh /usr/local/bin/docker-nginx-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-nginx-entrypoint.sh
+
+USER root
+
+ENTRYPOINT ["/usr/local/bin/docker-nginx-entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]

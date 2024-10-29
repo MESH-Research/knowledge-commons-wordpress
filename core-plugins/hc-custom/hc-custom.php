@@ -59,9 +59,14 @@ require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-user-rest-cont
 require_once trailingslashit( __DIR__ ) . 'includes/class-invenio-groups-rest-controller.php';
 
 /**
+ * Works update notifications.
+ */
+require_once trailingslashit( __DIR__ ) . 'includes/works-update-notifications.php';
+
+/**
  * Works Groups extension.
  */
 add_action( 'bp_init', function() {
-	//require_once trailingslashit( __DIR__ ) . 'includes/class-works-group-extension.php';
-	//bp_register_group_extension( 'Works_Groups_Extension' );
+	require_once trailingslashit( __DIR__ ) . 'includes/class-works-group-extension.php';
+	bp_register_group_extension( 'Works_Groups_Extension' );
 } );

@@ -39,7 +39,9 @@ require_once ( dirname( __FILE__ ) . '/plugin-hooks.php' );
 require_once ( dirname( __FILE__ ) . '/buddypress.php' );
 require_once ( dirname( __FILE__ ) . '/cloudfront.php' );
 require_once ( dirname( __FILE__ ) . '/mailchimp.php' );
+require_once ( dirname( __FILE__ ) . '/class-kc-ptc-command.php' );
 require_once ( dirname( __FILE__ ) . '/class-kc-command.php' );
+require_once ( dirname( __FILE__ ) . '/manage-plugins.php' );
 
 class Humanities_Commons {
 

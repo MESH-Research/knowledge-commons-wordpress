@@ -1,6 +1,6 @@
 # PHP container for running WordPress
 
-FROM --platform=linux/arm64 php:fpm-alpine3.19 AS base
+FROM php:fpm-alpine3.19 AS base
 
 RUN addgroup -g 33 xfs || true \
 	&& addgroup xfs www-data \
@@ -30,11 +30,11 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /u
 RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
 	mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
-RUN apk update && apk add mysql-client bash
+RUN apk update && apk add mysql-client bash aws-cli jq
 
 FROM base AS lando
 
-RUN apk add git mysql py3-pip py-cryptography mandoc aws-cli linux-headers
+RUN apk add git mysql py3-pip py-cryptography mandoc linux-headers
 
 EXPOSE 9000
 
@@ -44,8 +44,8 @@ FROM base AS cloud
 
 RUN apk add npm
 
-# This is a bit awkward, but we want to COPY --chown=www-data:www-data only the necessary files to the
-# container. If we COPY --chown=www-data:www-data the entire root directory of the project, there will
+# This is a bit awkward, but we want to COPY only the necessary files to the
+# container. If we COPY the entire root directory of the project, there will
 # be a lot of junk files from development that we don't need.
 COPY --chown=www-data:www-data wp-cli.yml /app/
 COPY --chown=www-data:www-data ./site /app/site
@@ -71,8 +71,7 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 	ln -s /app/core-plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/forked-plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
-	ln -s /app/themes/*/ /app/site/web/app/themes/ && \
-	ln -s /app/commons-connect/cc-client /app/site/web/app/plugins/commons-connect
+	ln -s /app/themes/*/ /app/site/web/app/themes/
 
 COPY --chown=www-data:www-data composer.json /app/
 COPY --chown=www-data:www-data composer.lock /app/
@@ -135,6 +134,14 @@ RUN composer install --no-dev --no-interaction --no-progress --optimize-autoload
 
 WORKDIR /app
 
+USER root
+RUN touch /etc/environment && \
+    chown www-data:www-data /etc/environment && \
+    chmod 664 /etc/environment
+RUN touch /etc/profile && \
+    chown root:www-data /etc/profile && \
+    chmod 664 /etc/profile
+
 ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
 CMD ["php-fpm"]
 
@@ -144,4 +151,4 @@ USER root
 RUN apk add bash
 RUN crontab -u www-data /app/scripts/cron/commons.crontab
 
-ENTRYPOINT ["crond", "-f"]
+ENTRYPOINT ["/app/scripts/build-scripts/docker-cron-entrypoint.sh"]
