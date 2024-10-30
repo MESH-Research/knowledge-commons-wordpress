@@ -1,6 +1,8 @@
 <?php
 /**
  * Generates an nginx configuration for redirecting from Humcore item URLs to the new Works URLs.
+ * 
+ * Usage: php generate-humcore-works-redirects.php <migration-file> <output-file>
  */
 
 const WORKS_BASE_URL = 'https://works.hcommons.org/records/';

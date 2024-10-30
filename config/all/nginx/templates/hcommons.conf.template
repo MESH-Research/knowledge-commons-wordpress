@@ -71,6 +71,7 @@ server {
 
   include /etc/nginx/conf.d/fedora.conf;
   include /etc/nginx/conf.d/redirects.conf;
+  include /etc/nginx/conf.d/core-works-redirects.conf;
   
   location / {
     try_files $uri $uri/ /index.php?$args;
