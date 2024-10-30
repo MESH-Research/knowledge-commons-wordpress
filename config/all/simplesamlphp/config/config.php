@@ -5,7 +5,7 @@ $httpUtils = $httpUtils = new \SimpleSAML\Utils\HTTP();
 $_requested_domain = $_SERVER['HTTP_HOST'] ?? getenv( 'DOMAIN_NAME');
 
 $_requested_domain_base = match (true) {
-    preg_match('/^.*\.*commons\.msu\.edu$/', $_requested_domain) => 'commons.msu.edu',
+    $_requested_domain === 'commons.msu.edu' || str_ends_with($_requested_domain, '.commons.msu.edu') => 'commons.msu.edu',
     $_requested_domain === 'action.mla.org' => 'action.mla.org',
     $_requested_domain === 'symposium.mla.org' => 'symposium.mla.org',
     $_requested_domain === 'commons-wordpress.lndo.site' => 'commons-wordpress.lndo.site',
