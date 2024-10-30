@@ -114,7 +114,7 @@ RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 WORKDIR /app/site/web/app/plugins/cc-client
 RUN npm install && npm run build
 
-WORKDIR /app/themes/boss-child
+WORKDIR /app/themes/boss-child-refresh
 RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
 WORKDIR /app/scripts/cron/mailchimp/
