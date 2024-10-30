@@ -15,13 +15,18 @@ function main( $args ) {
 
 	file_put_contents($output_file, '');
 
+	$existing_locations = [];
+
 	foreach ($migration_lines as $line) {
 		$data = json_decode($line, true);
 		if ( array_key_exists('invenio_recid', $data) && array_key_exists('commons_id', $data) ) {
 			$works_url = WORKS_BASE_URL . $data['invenio_recid'];
 			$commons_location = COMMONS_BASE_LOCATION . $data['commons_id'] . '/';
-			$redirect = "location $commons_location {\n\treturn 301 $works_url; \n}\n\n";
-			file_put_contents($output_file, $redirect, FILE_APPEND);
+			if ( ! in_array($commons_location, $existing_locations) ) {
+				$redirect = "location $commons_location {\n\treturn 301 $works_url; \n}\n\n";
+				file_put_contents($output_file, $redirect, FILE_APPEND);
+				$existing_locations[] = $commons_location;
+			}
 		}
 	}
 }

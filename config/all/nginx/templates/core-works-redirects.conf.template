@@ -45718,20 +45718,8 @@ location /deposits/item/hc:33179/ {
 	return 301 https://works.hcommons.org/records/8ej59-myj96; 
 }
 
-location /deposits/item/hc:33179/ {
-	return 301 https://works.hcommons.org/records/8ej59-myj96; 
-}
-
 location /deposits/item/hc:33181/ {
 	return 301 https://works.hcommons.org/records/sa8yp-sbb49; 
-}
-
-location /deposits/item/hc:33181/ {
-	return 301 https://works.hcommons.org/records/sa8yp-sbb49; 
-}
-
-location /deposits/item/hc:33183/ {
-	return 301 https://works.hcommons.org/records/pzw20-x0464; 
 }
 
 location /deposits/item/hc:33183/ {
@@ -45746,16 +45734,8 @@ location /deposits/item/hc:33187/ {
 	return 301 https://works.hcommons.org/records/1xb2c-tgk87; 
 }
 
-location /deposits/item/hc:33187/ {
-	return 301 https://works.hcommons.org/records/1xb2c-tgk87; 
-}
-
 location /deposits/item/hc:33189/ {
 	return 301 https://works.hcommons.org/records/6cnhf-n2c85; 
-}
-
-location /deposits/item/hc:33193/ {
-	return 301 https://works.hcommons.org/records/bqdce-dts42; 
 }
 
 location /deposits/item/hc:33193/ {
@@ -45774,24 +45754,12 @@ location /deposits/item/hc:33201/ {
 	return 301 https://works.hcommons.org/records/j1zkn-9yt65; 
 }
 
-location /deposits/item/hc:33201/ {
-	return 301 https://works.hcommons.org/records/j1zkn-9yt65; 
-}
-
 location /deposits/item/hc:33203/ {
 	return 301 https://works.hcommons.org/records/mts8w-42s48; 
 }
 
 location /deposits/item/hc:33205/ {
 	return 301 https://works.hcommons.org/records/ahx2n-4qt90; 
-}
-
-location /deposits/item/hc:33205/ {
-	return 301 https://works.hcommons.org/records/ahx2n-4qt90; 
-}
-
-location /deposits/item/hc:33209/ {
-	return 301 https://works.hcommons.org/records/rcy1g-ky590; 
 }
 
 location /deposits/item/hc:33209/ {
@@ -45810,16 +45778,8 @@ location /deposits/item/hc:33219/ {
 	return 301 https://works.hcommons.org/records/db042-5v922; 
 }
 
-location /deposits/item/hc:33219/ {
-	return 301 https://works.hcommons.org/records/db042-5v922; 
-}
-
 location /deposits/item/hc:33221/ {
 	return 301 https://works.hcommons.org/records/rqdpz-v1t77; 
-}
-
-location /deposits/item/hc:33223/ {
-	return 301 https://works.hcommons.org/records/ha5ja-1j062; 
 }
 
 location /deposits/item/hc:33223/ {
@@ -45832,10 +45792,6 @@ location /deposits/item/hc:33225/ {
 
 location /deposits/item/hc:33229/ {
 	return 301 https://works.hcommons.org/records/pm40t-es745; 
-}
-
-location /deposits/item/hc:33231/ {
-	return 301 https://works.hcommons.org/records/erens-qzs29; 
 }
 
 location /deposits/item/hc:33231/ {
@@ -45858,16 +45814,8 @@ location /deposits/item/hc:33241/ {
 	return 301 https://works.hcommons.org/records/gcfr4-89p93; 
 }
 
-location /deposits/item/hc:33241/ {
-	return 301 https://works.hcommons.org/records/gcfr4-89p93; 
-}
-
 location /deposits/item/hc:33243/ {
 	return 301 https://works.hcommons.org/records/b631s-r8344; 
-}
-
-location /deposits/item/hc:33245/ {
-	return 301 https://works.hcommons.org/records/sj2vm-w3161; 
 }
 
 location /deposits/item/hc:33245/ {
@@ -45882,16 +45830,8 @@ location /deposits/item/hc:33251/ {
 	return 301 https://works.hcommons.org/records/h3r12-22d41; 
 }
 
-location /deposits/item/hc:33251/ {
-	return 301 https://works.hcommons.org/records/h3r12-22d41; 
-}
-
 location /deposits/item/hc:33257/ {
 	return 301 https://works.hcommons.org/records/q117s-knf50; 
-}
-
-location /deposits/item/hc:33259/ {
-	return 301 https://works.hcommons.org/records/zvhhp-bqq29; 
 }
 
 location /deposits/item/hc:33259/ {
@@ -45910,28 +45850,12 @@ location /deposits/item/hc:33265/ {
 	return 301 https://works.hcommons.org/records/9x5f5-97y87; 
 }
 
-location /deposits/item/hc:33263/ {
-	return 301 https://works.hcommons.org/records/sfn3k-fg741; 
-}
-
-location /deposits/item/hc:33265/ {
-	return 301 https://works.hcommons.org/records/9x5f5-97y87; 
-}
-
-location /deposits/item/hc:33267/ {
-	return 301 https://works.hcommons.org/records/6gwgj-ahc59; 
-}
-
 location /deposits/item/hc:33267/ {
 	return 301 https://works.hcommons.org/records/6gwgj-ahc59; 
 }
 
 location /deposits/item/hc:33269/ {
 	return 301 https://works.hcommons.org/records/xd8qq-w3961; 
-}
-
-location /deposits/item/hc:33271/ {
-	return 301 https://works.hcommons.org/records/ppx20-9jm97; 
 }
 
 location /deposits/item/hc:33271/ {
@@ -45950,16 +45874,8 @@ location /deposits/item/hc:33279/ {
 	return 301 https://works.hcommons.org/records/7ye43-m4k60; 
 }
 
-location /deposits/item/hc:33279/ {
-	return 301 https://works.hcommons.org/records/7ye43-m4k60; 
-}
-
 location /deposits/item/hc:33281/ {
 	return 301 https://works.hcommons.org/records/xxg74-00310; 
-}
-
-location /deposits/item/hc:33283/ {
-	return 301 https://works.hcommons.org/records/rhw8t-z8471; 
 }
 
 location /deposits/item/hc:33283/ {
@@ -45978,20 +45894,8 @@ location /deposits/item/hc:33291/ {
 	return 301 https://works.hcommons.org/records/pav20-t0986; 
 }
 
-location /deposits/item/hc:33287/ {
-	return 301 https://works.hcommons.org/records/mw98j-wgb38; 
-}
-
-location /deposits/item/hc:33291/ {
-	return 301 https://works.hcommons.org/records/pav20-t0986; 
-}
-
 location /deposits/item/hc:33293/ {
 	return 301 https://works.hcommons.org/records/tvvsk-tqy77; 
-}
-
-location /deposits/item/hc:33295/ {
-	return 301 https://works.hcommons.org/records/7xhv4-pnb19; 
 }
 
 location /deposits/item/hc:33295/ {
@@ -104560,5 +104464,2261 @@ location /deposits/item/hc:38871/ {
 
 location /deposits/item/hc:41073/ {
 	return 301 https://works.hcommons.org/records/zv30p-dkq20; 
+}
+
+location /deposits/item/hc:37575/ {
+	return 301 https://works.hcommons.org/records/19jcw-nen06; 
+}
+
+location /deposits/item/hc:37735/ {
+	return 301 https://works.hcommons.org/records/sgnbn-9hj70; 
+}
+
+location /deposits/item/hc:37765/ {
+	return 301 https://works.hcommons.org/records/dw156-w8f18; 
+}
+
+location /deposits/item/hc:48313/ {
+	return 301 https://works.hcommons.org/records/xv7ce-z7e18; 
+}
+
+location /deposits/item/hc:48315/ {
+	return 301 https://works.hcommons.org/records/bag15-b8y89; 
+}
+
+location /deposits/item/hc:48327/ {
+	return 301 https://works.hcommons.org/records/9sm7r-v2658; 
+}
+
+location /deposits/item/hc:48381/ {
+	return 301 https://works.hcommons.org/records/40yns-hpq36; 
+}
+
+location /deposits/item/hc:69225/ {
+	return 301 https://works.hcommons.org/records/0s28e-dky47; 
+}
+
+location /deposits/item/hc:53051/ {
+	return 301 https://works.hcommons.org/records/wsw1m-txc20; 
+}
+
+location /deposits/item/hc:53083/ {
+	return 301 https://works.hcommons.org/records/dnt5g-e2d80; 
+}
+
+location /deposits/item/hc:53087/ {
+	return 301 https://works.hcommons.org/records/4r00f-sdg11; 
+}
+
+location /deposits/item/hc:53089/ {
+	return 301 https://works.hcommons.org/records/1084b-gvd37; 
+}
+
+location /deposits/item/hc:53139/ {
+	return 301 https://works.hcommons.org/records/k3zxk-gnw15; 
+}
+
+location /deposits/item/hc:53157/ {
+	return 301 https://works.hcommons.org/records/xykcz-eg024; 
+}
+
+location /deposits/item/hc:53249/ {
+	return 301 https://works.hcommons.org/records/q2p44-qrh92; 
+}
+
+location /deposits/item/hc:53263/ {
+	return 301 https://works.hcommons.org/records/0sv2n-ef413; 
+}
+
+location /deposits/item/hc:53291/ {
+	return 301 https://works.hcommons.org/records/0w6zw-7eq37; 
+}
+
+location /deposits/item/hc:53305/ {
+	return 301 https://works.hcommons.org/records/b809w-n1528; 
+}
+
+location /deposits/item/hc:53307/ {
+	return 301 https://works.hcommons.org/records/2pxd3-4qe40; 
+}
+
+location /deposits/item/hc:53319/ {
+	return 301 https://works.hcommons.org/records/a1qt0-6qf72; 
+}
+
+location /deposits/item/hc:53331/ {
+	return 301 https://works.hcommons.org/records/cnvv3-a8e91; 
+}
+
+location /deposits/item/hc:53337/ {
+	return 301 https://works.hcommons.org/records/8gfws-7pc21; 
+}
+
+location /deposits/item/hc:53345/ {
+	return 301 https://works.hcommons.org/records/r1rxa-5ex70; 
+}
+
+location /deposits/item/hc:53379/ {
+	return 301 https://works.hcommons.org/records/xqezr-k0k54; 
+}
+
+location /deposits/item/hc:53423/ {
+	return 301 https://works.hcommons.org/records/97xwh-crb83; 
+}
+
+location /deposits/item/hc:53437/ {
+	return 301 https://works.hcommons.org/records/spkr2-z9y28; 
+}
+
+location /deposits/item/hc:53439/ {
+	return 301 https://works.hcommons.org/records/n3p5r-zvt57; 
+}
+
+location /deposits/item/hc:53457/ {
+	return 301 https://works.hcommons.org/records/ttbqh-d1145; 
+}
+
+location /deposits/item/hc:53481/ {
+	return 301 https://works.hcommons.org/records/rxqwq-s9x05; 
+}
+
+location /deposits/item/hc:53543/ {
+	return 301 https://works.hcommons.org/records/25kvk-pdr95; 
+}
+
+location /deposits/item/hc:53571/ {
+	return 301 https://works.hcommons.org/records/nep0p-ad961; 
+}
+
+location /deposits/item/hc:53671/ {
+	return 301 https://works.hcommons.org/records/9h58d-r4b39; 
+}
+
+location /deposits/item/hc:53691/ {
+	return 301 https://works.hcommons.org/records/eydbx-19a17; 
+}
+
+location /deposits/item/hc:53693/ {
+	return 301 https://works.hcommons.org/records/b9nka-yp682; 
+}
+
+location /deposits/item/hc:53713/ {
+	return 301 https://works.hcommons.org/records/saea3-mak10; 
+}
+
+location /deposits/item/hc:53751/ {
+	return 301 https://works.hcommons.org/records/e30ba-qby98; 
+}
+
+location /deposits/item/hc:53777/ {
+	return 301 https://works.hcommons.org/records/vwgmk-sgd47; 
+}
+
+location /deposits/item/hc:53813/ {
+	return 301 https://works.hcommons.org/records/e8ksb-5b488; 
+}
+
+location /deposits/item/hc:53845/ {
+	return 301 https://works.hcommons.org/records/r4wfh-yfv70; 
+}
+
+location /deposits/item/hc:53849/ {
+	return 301 https://works.hcommons.org/records/kg779-8w021; 
+}
+
+location /deposits/item/hc:53855/ {
+	return 301 https://works.hcommons.org/records/59yyy-rjf15; 
+}
+
+location /deposits/item/hc:53863/ {
+	return 301 https://works.hcommons.org/records/0ar81-7zg48; 
+}
+
+location /deposits/item/hc:53925/ {
+	return 301 https://works.hcommons.org/records/m2cnt-zy934; 
+}
+
+location /deposits/item/hc:54005/ {
+	return 301 https://works.hcommons.org/records/mhb4w-f3870; 
+}
+
+location /deposits/item/hc:54025/ {
+	return 301 https://works.hcommons.org/records/5qncv-z5h09; 
+}
+
+location /deposits/item/hc:54039/ {
+	return 301 https://works.hcommons.org/records/fkdma-nsw68; 
+}
+
+location /deposits/item/hc:54167/ {
+	return 301 https://works.hcommons.org/records/xzgdt-x6089; 
+}
+
+location /deposits/item/hc:54301/ {
+	return 301 https://works.hcommons.org/records/k5vsz-0h469; 
+}
+
+location /deposits/item/hc:54429/ {
+	return 301 https://works.hcommons.org/records/m0fht-wh919; 
+}
+
+location /deposits/item/hc:54449/ {
+	return 301 https://works.hcommons.org/records/acmnz-nac41; 
+}
+
+location /deposits/item/hc:54565/ {
+	return 301 https://works.hcommons.org/records/32vkg-mgp12; 
+}
+
+location /deposits/item/hc:54643/ {
+	return 301 https://works.hcommons.org/records/96j52-nqp71; 
+}
+
+location /deposits/item/hc:54653/ {
+	return 301 https://works.hcommons.org/records/a2hgz-j6a39; 
+}
+
+location /deposits/item/hc:58139/ {
+	return 301 https://works.hcommons.org/records/zgsb6-rg403; 
+}
+
+location /deposits/item/hc:58145/ {
+	return 301 https://works.hcommons.org/records/eejxj-j8v41; 
+}
+
+location /deposits/item/hc:58337/ {
+	return 301 https://works.hcommons.org/records/5ebxr-pmc17; 
+}
+
+location /deposits/item/hc:58367/ {
+	return 301 https://works.hcommons.org/records/axk4q-myb60; 
+}
+
+location /deposits/item/hc:58593/ {
+	return 301 https://works.hcommons.org/records/8xy7a-yr136; 
+}
+
+location /deposits/item/hc:58737/ {
+	return 301 https://works.hcommons.org/records/r1a60-jm078; 
+}
+
+location /deposits/item/hc:58743/ {
+	return 301 https://works.hcommons.org/records/y9prf-4aw82; 
+}
+
+location /deposits/item/hc:58851/ {
+	return 301 https://works.hcommons.org/records/spamb-59p15; 
+}
+
+location /deposits/item/hc:58877/ {
+	return 301 https://works.hcommons.org/records/mvpzf-2qs33; 
+}
+
+location /deposits/item/hc:69139/ {
+	return 301 https://works.hcommons.org/records/5199x-7rd85; 
+}
+
+location /deposits/item/hc:35255/ {
+	return 301 https://works.hcommons.org/records/rk377-znj44; 
+}
+
+location /deposits/item/hc:35443/ {
+	return 301 https://works.hcommons.org/records/0ez49-fne62; 
+}
+
+location /deposits/item/hc:35487/ {
+	return 301 https://works.hcommons.org/records/w1kyn-h2528; 
+}
+
+location /deposits/item/hc:35529/ {
+	return 301 https://works.hcommons.org/records/svpnq-t3h30; 
+}
+
+location /deposits/item/hc:35731/ {
+	return 301 https://works.hcommons.org/records/yp4qm-c4861; 
+}
+
+location /deposits/item/hc:35763/ {
+	return 301 https://works.hcommons.org/records/vheh0-h6j65; 
+}
+
+location /deposits/item/hc:35801/ {
+	return 301 https://works.hcommons.org/records/xyfbw-hcm82; 
+}
+
+location /deposits/item/hc:35827/ {
+	return 301 https://works.hcommons.org/records/atmrq-vk637; 
+}
+
+location /deposits/item/hc:35887/ {
+	return 301 https://works.hcommons.org/records/xkffr-q8v80; 
+}
+
+location /deposits/item/hc:35909/ {
+	return 301 https://works.hcommons.org/records/qewyt-v1z14; 
+}
+
+location /deposits/item/hc:35923/ {
+	return 301 https://works.hcommons.org/records/gg1b0-0gm67; 
+}
+
+location /deposits/item/hc:35939/ {
+	return 301 https://works.hcommons.org/records/thepw-5vr06; 
+}
+
+location /deposits/item/hc:35971/ {
+	return 301 https://works.hcommons.org/records/8b1wa-3yg72; 
+}
+
+location /deposits/item/hc:35977/ {
+	return 301 https://works.hcommons.org/records/ec952-mgx13; 
+}
+
+location /deposits/item/hc:35985/ {
+	return 301 https://works.hcommons.org/records/qxgw0-js604; 
+}
+
+location /deposits/item/hc:36013/ {
+	return 301 https://works.hcommons.org/records/ptyas-44r48; 
+}
+
+location /deposits/item/hc:36023/ {
+	return 301 https://works.hcommons.org/records/g4c1y-a7582; 
+}
+
+location /deposits/item/hc:36057/ {
+	return 301 https://works.hcommons.org/records/4zt1a-tcz45; 
+}
+
+location /deposits/item/hc:36079/ {
+	return 301 https://works.hcommons.org/records/6877n-am312; 
+}
+
+location /deposits/item/hc:36093/ {
+	return 301 https://works.hcommons.org/records/c4ja3-r7h39; 
+}
+
+location /deposits/item/hc:36125/ {
+	return 301 https://works.hcommons.org/records/rre7n-8a260; 
+}
+
+location /deposits/item/hc:36127/ {
+	return 301 https://works.hcommons.org/records/egkn3-d1552; 
+}
+
+location /deposits/item/hc:36175/ {
+	return 301 https://works.hcommons.org/records/s89av-3mg76; 
+}
+
+location /deposits/item/hc:36203/ {
+	return 301 https://works.hcommons.org/records/0dcnt-y4679; 
+}
+
+location /deposits/item/hc:36213/ {
+	return 301 https://works.hcommons.org/records/0pjy9-xd564; 
+}
+
+location /deposits/item/hc:36217/ {
+	return 301 https://works.hcommons.org/records/p73cb-m1w17; 
+}
+
+location /deposits/item/hc:37577/ {
+	return 301 https://works.hcommons.org/records/zxz2c-7w076; 
+}
+
+location /deposits/item/hc:37593/ {
+	return 301 https://works.hcommons.org/records/y1t68-yvc92; 
+}
+
+location /deposits/item/hc:37617/ {
+	return 301 https://works.hcommons.org/records/3mym7-32h14; 
+}
+
+location /deposits/item/hc:37731/ {
+	return 301 https://works.hcommons.org/records/nawny-4ys33; 
+}
+
+location /deposits/item/hc:37737/ {
+	return 301 https://works.hcommons.org/records/6xrrk-ygb76; 
+}
+
+location /deposits/item/hc:37761/ {
+	return 301 https://works.hcommons.org/records/yvn42-dvg39; 
+}
+
+location /deposits/item/hc:37769/ {
+	return 301 https://works.hcommons.org/records/mqd2n-ree09; 
+}
+
+location /deposits/item/hc:37771/ {
+	return 301 https://works.hcommons.org/records/pwden-mxp03; 
+}
+
+location /deposits/item/hc:37959/ {
+	return 301 https://works.hcommons.org/records/qwhrb-0h694; 
+}
+
+location /deposits/item/hc:47877/ {
+	return 301 https://works.hcommons.org/records/ssk8b-dx330; 
+}
+
+location /deposits/item/hc:47881/ {
+	return 301 https://works.hcommons.org/records/g2dk3-qps39; 
+}
+
+location /deposits/item/hc:47897/ {
+	return 301 https://works.hcommons.org/records/btj4r-n8j39; 
+}
+
+location /deposits/item/hc:47901/ {
+	return 301 https://works.hcommons.org/records/8gf5t-ap427; 
+}
+
+location /deposits/item/hc:47903/ {
+	return 301 https://works.hcommons.org/records/fe29e-5ea54; 
+}
+
+location /deposits/item/hc:48235/ {
+	return 301 https://works.hcommons.org/records/bacyn-73946; 
+}
+
+location /deposits/item/hc:48263/ {
+	return 301 https://works.hcommons.org/records/pn49z-mfw76; 
+}
+
+location /deposits/item/hc:48329/ {
+	return 301 https://works.hcommons.org/records/fk61w-cyh23; 
+}
+
+location /deposits/item/hc:68849/ {
+	return 301 https://works.hcommons.org/records/xgqaw-dc787; 
+}
+
+location /deposits/item/hc:53133/ {
+	return 301 https://works.hcommons.org/records/aa6ny-8wt49; 
+}
+
+location /deposits/item/hc:53113/ {
+	return 301 https://works.hcommons.org/records/repsk-pt554; 
+}
+
+location /deposits/item/hc:53155/ {
+	return 301 https://works.hcommons.org/records/0rpzt-69r90; 
+}
+
+location /deposits/item/hc:53163/ {
+	return 301 https://works.hcommons.org/records/3c6he-41c73; 
+}
+
+location /deposits/item/hc:53199/ {
+	return 301 https://works.hcommons.org/records/bz1rx-hxf30; 
+}
+
+location /deposits/item/hc:53213/ {
+	return 301 https://works.hcommons.org/records/gwj6s-j7t97; 
+}
+
+location /deposits/item/hc:53217/ {
+	return 301 https://works.hcommons.org/records/vdp7d-kv948; 
+}
+
+location /deposits/item/hc:53223/ {
+	return 301 https://works.hcommons.org/records/nn77s-maf98; 
+}
+
+location /deposits/item/hc:53281/ {
+	return 301 https://works.hcommons.org/records/6p0am-skw44; 
+}
+
+location /deposits/item/hc:53289/ {
+	return 301 https://works.hcommons.org/records/f88bq-r6406; 
+}
+
+location /deposits/item/hc:53313/ {
+	return 301 https://works.hcommons.org/records/b0db7-6b922; 
+}
+
+location /deposits/item/hc:53411/ {
+	return 301 https://works.hcommons.org/records/kq6hr-3bg18; 
+}
+
+location /deposits/item/hc:53419/ {
+	return 301 https://works.hcommons.org/records/41p5v-wac76; 
+}
+
+location /deposits/item/hc:53431/ {
+	return 301 https://works.hcommons.org/records/x4a2s-0wh70; 
+}
+
+location /deposits/item/hc:53487/ {
+	return 301 https://works.hcommons.org/records/yaqd3-02q97; 
+}
+
+location /deposits/item/hc:53489/ {
+	return 301 https://works.hcommons.org/records/f5mph-jc067; 
+}
+
+location /deposits/item/hc:53579/ {
+	return 301 https://works.hcommons.org/records/82fbe-xf009; 
+}
+
+location /deposits/item/hc:53597/ {
+	return 301 https://works.hcommons.org/records/r6s81-z9d57; 
+}
+
+location /deposits/item/hc:53599/ {
+	return 301 https://works.hcommons.org/records/aeaxy-43040; 
+}
+
+location /deposits/item/hc:53641/ {
+	return 301 https://works.hcommons.org/records/dnfas-nkk51; 
+}
+
+location /deposits/item/hc:53663/ {
+	return 301 https://works.hcommons.org/records/m1jt6-fmm93; 
+}
+
+location /deposits/item/hc:53665/ {
+	return 301 https://works.hcommons.org/records/07xgb-ey848; 
+}
+
+location /deposits/item/hc:53669/ {
+	return 301 https://works.hcommons.org/records/btxfh-cwt13; 
+}
+
+location /deposits/item/hc:53681/ {
+	return 301 https://works.hcommons.org/records/ysxjj-kzf29; 
+}
+
+location /deposits/item/hc:53685/ {
+	return 301 https://works.hcommons.org/records/mvygm-5pp46; 
+}
+
+location /deposits/item/hc:53689/ {
+	return 301 https://works.hcommons.org/records/v3f96-8hm90; 
+}
+
+location /deposits/item/hc:53703/ {
+	return 301 https://works.hcommons.org/records/6kh7q-nk809; 
+}
+
+location /deposits/item/hc:53705/ {
+	return 301 https://works.hcommons.org/records/a072c-1rj17; 
+}
+
+location /deposits/item/hc:53725/ {
+	return 301 https://works.hcommons.org/records/fawha-yn404; 
+}
+
+location /deposits/item/hc:53731/ {
+	return 301 https://works.hcommons.org/records/7bh25-hz248; 
+}
+
+location /deposits/item/hc:53741/ {
+	return 301 https://works.hcommons.org/records/ne08c-0rm67; 
+}
+
+location /deposits/item/hc:53749/ {
+	return 301 https://works.hcommons.org/records/7ncyh-2ge96; 
+}
+
+location /deposits/item/hc:53801/ {
+	return 301 https://works.hcommons.org/records/2j0bj-9pm85; 
+}
+
+location /deposits/item/hc:53861/ {
+	return 301 https://works.hcommons.org/records/y0p11-ebc30; 
+}
+
+location /deposits/item/hc:53867/ {
+	return 301 https://works.hcommons.org/records/w7qjt-k3x34; 
+}
+
+location /deposits/item/hc:53973/ {
+	return 301 https://works.hcommons.org/records/q8evt-0js40; 
+}
+
+location /deposits/item/hc:53991/ {
+	return 301 https://works.hcommons.org/records/xz3w5-fqs41; 
+}
+
+location /deposits/item/hc:54037/ {
+	return 301 https://works.hcommons.org/records/50jcd-rwy11; 
+}
+
+location /deposits/item/hc:54047/ {
+	return 301 https://works.hcommons.org/records/t80pf-edb36; 
+}
+
+location /deposits/item/hc:54063/ {
+	return 301 https://works.hcommons.org/records/g8bdq-j9e93; 
+}
+
+location /deposits/item/hc:54087/ {
+	return 301 https://works.hcommons.org/records/qwxqh-tqm43; 
+}
+
+location /deposits/item/hc:54097/ {
+	return 301 https://works.hcommons.org/records/589c1-h2t25; 
+}
+
+location /deposits/item/hc:54311/ {
+	return 301 https://works.hcommons.org/records/0epd9-nhn13; 
+}
+
+location /deposits/item/hc:54335/ {
+	return 301 https://works.hcommons.org/records/rn5hj-4jk81; 
+}
+
+location /deposits/item/hc:54347/ {
+	return 301 https://works.hcommons.org/records/r5bdd-xna05; 
+}
+
+location /deposits/item/hc:54403/ {
+	return 301 https://works.hcommons.org/records/maag6-7ev21; 
+}
+
+location /deposits/item/hc:54427/ {
+	return 301 https://works.hcommons.org/records/zaqyw-zb595; 
+}
+
+location /deposits/item/hc:54443/ {
+	return 301 https://works.hcommons.org/records/0mdwz-0pa37; 
+}
+
+location /deposits/item/hc:54465/ {
+	return 301 https://works.hcommons.org/records/qz9gm-7bh79; 
+}
+
+location /deposits/item/hc:54473/ {
+	return 301 https://works.hcommons.org/records/4zhfk-n2d12; 
+}
+
+location /deposits/item/hc:54551/ {
+	return 301 https://works.hcommons.org/records/xrf9s-ryy83; 
+}
+
+location /deposits/item/hc:54597/ {
+	return 301 https://works.hcommons.org/records/anc68-04883; 
+}
+
+location /deposits/item/hc:58079/ {
+	return 301 https://works.hcommons.org/records/b41k4-j0230; 
+}
+
+location /deposits/item/hc:58097/ {
+	return 301 https://works.hcommons.org/records/k75cp-bn437; 
+}
+
+location /deposits/item/hc:58125/ {
+	return 301 https://works.hcommons.org/records/atye6-08927; 
+}
+
+location /deposits/item/hc:58187/ {
+	return 301 https://works.hcommons.org/records/npbzg-aep29; 
+}
+
+location /deposits/item/hc:58243/ {
+	return 301 https://works.hcommons.org/records/bwj3r-2vq31; 
+}
+
+location /deposits/item/hc:58271/ {
+	return 301 https://works.hcommons.org/records/favm2-20f17; 
+}
+
+location /deposits/item/hc:58323/ {
+	return 301 https://works.hcommons.org/records/rpjzg-gjq72; 
+}
+
+location /deposits/item/hc:58381/ {
+	return 301 https://works.hcommons.org/records/62rtv-51035; 
+}
+
+location /deposits/item/hc:58627/ {
+	return 301 https://works.hcommons.org/records/k201y-vpg57; 
+}
+
+location /deposits/item/hc:58727/ {
+	return 301 https://works.hcommons.org/records/3jaz8-hym27; 
+}
+
+location /deposits/item/hc:65697/ {
+	return 301 https://works.hcommons.org/records/nhw3r-e0f48; 
+}
+
+location /deposits/item/hc:65699/ {
+	return 301 https://works.hcommons.org/records/ggxxf-fzk55; 
+}
+
+location /deposits/item/hc:67269/ {
+	return 301 https://works.hcommons.org/records/6ny0g-qxt45; 
+}
+
+location /deposits/item/hc:68941/ {
+	return 301 https://works.hcommons.org/records/v040c-0ec87; 
+}
+
+location /deposits/item/hc:68943/ {
+	return 301 https://works.hcommons.org/records/1xnkz-mk832; 
+}
+
+location /deposits/item/hc:68981/ {
+	return 301 https://works.hcommons.org/records/2y0c3-e9z26; 
+}
+
+location /deposits/item/hc:69141/ {
+	return 301 https://works.hcommons.org/records/9vxey-pr283; 
+}
+
+location /deposits/item/hc:69183/ {
+	return 301 https://works.hcommons.org/records/a2vdg-f7733; 
+}
+
+location /deposits/item/hc:35245/ {
+	return 301 https://works.hcommons.org/records/d8xk7-pra61; 
+}
+
+location /deposits/item/hc:35319/ {
+	return 301 https://works.hcommons.org/records/mcvkx-da703; 
+}
+
+location /deposits/item/hc:35321/ {
+	return 301 https://works.hcommons.org/records/3qygj-xxb96; 
+}
+
+location /deposits/item/hc:35533/ {
+	return 301 https://works.hcommons.org/records/m9091-spy06; 
+}
+
+location /deposits/item/hc:35581/ {
+	return 301 https://works.hcommons.org/records/9mxqz-zez83; 
+}
+
+location /deposits/item/hc:35611/ {
+	return 301 https://works.hcommons.org/records/17592-yen34; 
+}
+
+location /deposits/item/hc:35629/ {
+	return 301 https://works.hcommons.org/records/a757v-3r635; 
+}
+
+location /deposits/item/hc:35867/ {
+	return 301 https://works.hcommons.org/records/3b8vh-z8685; 
+}
+
+location /deposits/item/hc:35869/ {
+	return 301 https://works.hcommons.org/records/hvr5h-90r47; 
+}
+
+location /deposits/item/hc:35871/ {
+	return 301 https://works.hcommons.org/records/571qd-s4s11; 
+}
+
+location /deposits/item/hc:35877/ {
+	return 301 https://works.hcommons.org/records/8yvt6-zr948; 
+}
+
+location /deposits/item/hc:35883/ {
+	return 301 https://works.hcommons.org/records/zmap4-ed452; 
+}
+
+location /deposits/item/hc:35917/ {
+	return 301 https://works.hcommons.org/records/5cn1w-h8083; 
+}
+
+location /deposits/item/hc:35919/ {
+	return 301 https://works.hcommons.org/records/px6xe-gjd72; 
+}
+
+location /deposits/item/hc:35921/ {
+	return 301 https://works.hcommons.org/records/awyz1-43k25; 
+}
+
+location /deposits/item/hc:35933/ {
+	return 301 https://works.hcommons.org/records/gxyav-2zy91; 
+}
+
+location /deposits/item/hc:35937/ {
+	return 301 https://works.hcommons.org/records/rcm72-5rk28; 
+}
+
+location /deposits/item/hc:35973/ {
+	return 301 https://works.hcommons.org/records/81ae2-csg55; 
+}
+
+location /deposits/item/hc:35979/ {
+	return 301 https://works.hcommons.org/records/xxcy8-xkc29; 
+}
+
+location /deposits/item/hc:35981/ {
+	return 301 https://works.hcommons.org/records/e1x36-fj627; 
+}
+
+location /deposits/item/hc:36011/ {
+	return 301 https://works.hcommons.org/records/v09cg-5bj62; 
+}
+
+location /deposits/item/hc:36095/ {
+	return 301 https://works.hcommons.org/records/b712y-7tz60; 
+}
+
+location /deposits/item/hc:36099/ {
+	return 301 https://works.hcommons.org/records/rnybc-0rq75; 
+}
+
+location /deposits/item/hc:36101/ {
+	return 301 https://works.hcommons.org/records/64h5y-qbe06; 
+}
+
+location /deposits/item/hc:36107/ {
+	return 301 https://works.hcommons.org/records/6yt7m-49n62; 
+}
+
+location /deposits/item/hc:36113/ {
+	return 301 https://works.hcommons.org/records/mrx2g-xrw58; 
+}
+
+location /deposits/item/hc:36173/ {
+	return 301 https://works.hcommons.org/records/jnqtx-k4461; 
+}
+
+location /deposits/item/hc:37741/ {
+	return 301 https://works.hcommons.org/records/165ef-vaz33; 
+}
+
+location /deposits/item/hc:37763/ {
+	return 301 https://works.hcommons.org/records/v8fje-e5493; 
+}
+
+location /deposits/item/hc:37785/ {
+	return 301 https://works.hcommons.org/records/bm0sw-t4j34; 
+}
+
+location /deposits/item/hc:37795/ {
+	return 301 https://works.hcommons.org/records/xbryp-gbd78; 
+}
+
+location /deposits/item/hc:37801/ {
+	return 301 https://works.hcommons.org/records/kz6n4-xe315; 
+}
+
+location /deposits/item/hc:48241/ {
+	return 301 https://works.hcommons.org/records/zcq8t-9et03; 
+}
+
+location /deposits/item/hc:48361/ {
+	return 301 https://works.hcommons.org/records/k59mj-jtk83; 
+}
+
+location /deposits/item/hc:69747/ {
+	return 301 https://works.hcommons.org/records/1htf8-3wd15; 
+}
+
+location /deposits/item/hc:65367/ {
+	return 301 https://works.hcommons.org/records/kg50z-44298; 
+}
+
+location /deposits/item/hc:66633/ {
+	return 301 https://works.hcommons.org/records/v1zvs-10226; 
+}
+
+location /deposits/item/hc:66813/ {
+	return 301 https://works.hcommons.org/records/cxdk3-c2n75; 
+}
+
+location /deposits/item/hc:66823/ {
+	return 301 https://works.hcommons.org/records/afwef-es239; 
+}
+
+location /deposits/item/hc:66829/ {
+	return 301 https://works.hcommons.org/records/wtw1z-mzk13; 
+}
+
+location /deposits/item/hc:66855/ {
+	return 301 https://works.hcommons.org/records/2j2yn-fvr05; 
+}
+
+location /deposits/item/hc:66881/ {
+	return 301 https://works.hcommons.org/records/q9585-z7539; 
+}
+
+location /deposits/item/hc:66971/ {
+	return 301 https://works.hcommons.org/records/t7e26-rcc21; 
+}
+
+location /deposits/item/hc:67309/ {
+	return 301 https://works.hcommons.org/records/rrae5-xf602; 
+}
+
+location /deposits/item/hc:67499/ {
+	return 301 https://works.hcommons.org/records/68ak8-wqw04; 
+}
+
+location /deposits/item/hc:67501/ {
+	return 301 https://works.hcommons.org/records/98fd7-pk560; 
+}
+
+location /deposits/item/hc:67587/ {
+	return 301 https://works.hcommons.org/records/5nexe-bf615; 
+}
+
+location /deposits/item/hc:67649/ {
+	return 301 https://works.hcommons.org/records/d1gqc-3vg57; 
+}
+
+location /deposits/item/hc:67651/ {
+	return 301 https://works.hcommons.org/records/9jkvx-9yr53; 
+}
+
+location /deposits/item/hc:67721/ {
+	return 301 https://works.hcommons.org/records/3nvkf-vhm54; 
+}
+
+location /deposits/item/hc:67723/ {
+	return 301 https://works.hcommons.org/records/cx7ge-39d42; 
+}
+
+location /deposits/item/hc:67741/ {
+	return 301 https://works.hcommons.org/records/v9ef8-cwh26; 
+}
+
+location /deposits/item/hc:67743/ {
+	return 301 https://works.hcommons.org/records/9g81v-fc209; 
+}
+
+location /deposits/item/hc:67963/ {
+	return 301 https://works.hcommons.org/records/43wth-z0y95; 
+}
+
+location /deposits/item/hc:67965/ {
+	return 301 https://works.hcommons.org/records/7ewdp-0r380; 
+}
+
+location /deposits/item/hc:68977/ {
+	return 301 https://works.hcommons.org/records/77517-nyv65; 
+}
+
+location /deposits/item/hc:68997/ {
+	return 301 https://works.hcommons.org/records/qa44a-da591; 
+}
+
+location /deposits/item/hc:69049/ {
+	return 301 https://works.hcommons.org/records/43qk8-ypq07; 
+}
+
+location /deposits/item/hc:69259/ {
+	return 301 https://works.hcommons.org/records/chh6d-acs55; 
+}
+
+location /deposits/item/hc:69261/ {
+	return 301 https://works.hcommons.org/records/q7tbj-7k076; 
+}
+
+location /deposits/item/hc:69263/ {
+	return 301 https://works.hcommons.org/records/42n7f-arj65; 
+}
+
+location /deposits/item/hc:69265/ {
+	return 301 https://works.hcommons.org/records/77rn0-5me25; 
+}
+
+location /deposits/item/hc:69269/ {
+	return 301 https://works.hcommons.org/records/t6q9w-v5x13; 
+}
+
+location /deposits/item/hc:69271/ {
+	return 301 https://works.hcommons.org/records/neaav-g7r26; 
+}
+
+location /deposits/item/hc:69273/ {
+	return 301 https://works.hcommons.org/records/jdeqk-13524; 
+}
+
+location /deposits/item/hc:69277/ {
+	return 301 https://works.hcommons.org/records/zmywc-nxz73; 
+}
+
+location /deposits/item/hc:69279/ {
+	return 301 https://works.hcommons.org/records/3b535-q4t16; 
+}
+
+location /deposits/item/hc:69281/ {
+	return 301 https://works.hcommons.org/records/2bpx9-x4782; 
+}
+
+location /deposits/item/hc:69283/ {
+	return 301 https://works.hcommons.org/records/wccdt-tm667; 
+}
+
+location /deposits/item/hc:69285/ {
+	return 301 https://works.hcommons.org/records/ggx4b-zbt81; 
+}
+
+location /deposits/item/hc:69287/ {
+	return 301 https://works.hcommons.org/records/v51es-yyc30; 
+}
+
+location /deposits/item/hc:69289/ {
+	return 301 https://works.hcommons.org/records/ccx2w-yba54; 
+}
+
+location /deposits/item/hc:69291/ {
+	return 301 https://works.hcommons.org/records/5wnqs-sp636; 
+}
+
+location /deposits/item/hc:69293/ {
+	return 301 https://works.hcommons.org/records/r5a9e-cah34; 
+}
+
+location /deposits/item/hc:69295/ {
+	return 301 https://works.hcommons.org/records/mrqjq-68a93; 
+}
+
+location /deposits/item/hc:69299/ {
+	return 301 https://works.hcommons.org/records/ndg2c-jgx38; 
+}
+
+location /deposits/item/hc:69301/ {
+	return 301 https://works.hcommons.org/records/5ak73-7za36; 
+}
+
+location /deposits/item/hc:69303/ {
+	return 301 https://works.hcommons.org/records/9h9t6-fa373; 
+}
+
+location /deposits/item/hc:69305/ {
+	return 301 https://works.hcommons.org/records/3qh6d-ev158; 
+}
+
+location /deposits/item/hc:69307/ {
+	return 301 https://works.hcommons.org/records/d809q-qbm47; 
+}
+
+location /deposits/item/hc:69309/ {
+	return 301 https://works.hcommons.org/records/c4a43-kgq27; 
+}
+
+location /deposits/item/hc:69311/ {
+	return 301 https://works.hcommons.org/records/qdftb-7x136; 
+}
+
+location /deposits/item/hc:69313/ {
+	return 301 https://works.hcommons.org/records/t6vg3-hwr25; 
+}
+
+location /deposits/item/hc:69315/ {
+	return 301 https://works.hcommons.org/records/kq3es-btm76; 
+}
+
+location /deposits/item/hc:69317/ {
+	return 301 https://works.hcommons.org/records/j9f86-b9917; 
+}
+
+location /deposits/item/hc:69319/ {
+	return 301 https://works.hcommons.org/records/5yvwm-dys51; 
+}
+
+location /deposits/item/hc:69321/ {
+	return 301 https://works.hcommons.org/records/hgb8a-fc126; 
+}
+
+location /deposits/item/hc:69323/ {
+	return 301 https://works.hcommons.org/records/dj04t-zp412; 
+}
+
+location /deposits/item/hc:69325/ {
+	return 301 https://works.hcommons.org/records/hyxma-zwf85; 
+}
+
+location /deposits/item/hc:69327/ {
+	return 301 https://works.hcommons.org/records/c5xnv-kbv45; 
+}
+
+location /deposits/item/hc:69329/ {
+	return 301 https://works.hcommons.org/records/s9p7r-jfn19; 
+}
+
+location /deposits/item/hc:69331/ {
+	return 301 https://works.hcommons.org/records/4myvy-jsf23; 
+}
+
+location /deposits/item/hc:69333/ {
+	return 301 https://works.hcommons.org/records/bskqw-het66; 
+}
+
+location /deposits/item/hc:69335/ {
+	return 301 https://works.hcommons.org/records/zrmtw-3he77; 
+}
+
+location /deposits/item/hc:69337/ {
+	return 301 https://works.hcommons.org/records/7pyr6-w8d58; 
+}
+
+location /deposits/item/hc:69339/ {
+	return 301 https://works.hcommons.org/records/qb2zq-v5z76; 
+}
+
+location /deposits/item/hc:69341/ {
+	return 301 https://works.hcommons.org/records/bp5n9-d6m44; 
+}
+
+location /deposits/item/hc:69343/ {
+	return 301 https://works.hcommons.org/records/b2nq5-yxy77; 
+}
+
+location /deposits/item/hc:69345/ {
+	return 301 https://works.hcommons.org/records/4918p-6rx33; 
+}
+
+location /deposits/item/hc:69347/ {
+	return 301 https://works.hcommons.org/records/y4hqq-5d437; 
+}
+
+location /deposits/item/hc:69349/ {
+	return 301 https://works.hcommons.org/records/g9y24-vx697; 
+}
+
+location /deposits/item/hc:69351/ {
+	return 301 https://works.hcommons.org/records/4gq6b-4k581; 
+}
+
+location /deposits/item/hc:69353/ {
+	return 301 https://works.hcommons.org/records/298gz-vd032; 
+}
+
+location /deposits/item/hc:69355/ {
+	return 301 https://works.hcommons.org/records/6d4ny-wz620; 
+}
+
+location /deposits/item/hc:69357/ {
+	return 301 https://works.hcommons.org/records/6egn3-vrr91; 
+}
+
+location /deposits/item/hc:69359/ {
+	return 301 https://works.hcommons.org/records/v5n47-7zn51; 
+}
+
+location /deposits/item/hc:69361/ {
+	return 301 https://works.hcommons.org/records/6gebs-gj963; 
+}
+
+location /deposits/item/hc:69363/ {
+	return 301 https://works.hcommons.org/records/87v55-90978; 
+}
+
+location /deposits/item/hc:69365/ {
+	return 301 https://works.hcommons.org/records/39m2f-02g57; 
+}
+
+location /deposits/item/hc:69367/ {
+	return 301 https://works.hcommons.org/records/0datq-48w85; 
+}
+
+location /deposits/item/hc:69369/ {
+	return 301 https://works.hcommons.org/records/wgk90-4m411; 
+}
+
+location /deposits/item/hc:69371/ {
+	return 301 https://works.hcommons.org/records/gqgac-kjh70; 
+}
+
+location /deposits/item/hc:69373/ {
+	return 301 https://works.hcommons.org/records/w3xss-jng20; 
+}
+
+location /deposits/item/hc:69375/ {
+	return 301 https://works.hcommons.org/records/7tvhv-hw708; 
+}
+
+location /deposits/item/hc:69377/ {
+	return 301 https://works.hcommons.org/records/drse1-tnh69; 
+}
+
+location /deposits/item/hc:69379/ {
+	return 301 https://works.hcommons.org/records/tnbpg-zd416; 
+}
+
+location /deposits/item/hc:69381/ {
+	return 301 https://works.hcommons.org/records/pgn5g-74077; 
+}
+
+location /deposits/item/hc:69383/ {
+	return 301 https://works.hcommons.org/records/gr9cx-p9b43; 
+}
+
+location /deposits/item/hc:69385/ {
+	return 301 https://works.hcommons.org/records/gwemd-8vw31; 
+}
+
+location /deposits/item/hc:69387/ {
+	return 301 https://works.hcommons.org/records/t44w3-my621; 
+}
+
+location /deposits/item/hc:69389/ {
+	return 301 https://works.hcommons.org/records/g6nn4-x0827; 
+}
+
+location /deposits/item/hc:69393/ {
+	return 301 https://works.hcommons.org/records/jt7f9-24s18; 
+}
+
+location /deposits/item/hc:69395/ {
+	return 301 https://works.hcommons.org/records/3n0vg-mcn55; 
+}
+
+location /deposits/item/hc:69397/ {
+	return 301 https://works.hcommons.org/records/17m3d-nv517; 
+}
+
+location /deposits/item/hc:69399/ {
+	return 301 https://works.hcommons.org/records/1mqcw-wn696; 
+}
+
+location /deposits/item/hc:69403/ {
+	return 301 https://works.hcommons.org/records/newm8-h4581; 
+}
+
+location /deposits/item/hc:69405/ {
+	return 301 https://works.hcommons.org/records/b2bq9-p0c02; 
+}
+
+location /deposits/item/hc:69407/ {
+	return 301 https://works.hcommons.org/records/cenk6-nv206; 
+}
+
+location /deposits/item/hc:69409/ {
+	return 301 https://works.hcommons.org/records/rgz7r-4z142; 
+}
+
+location /deposits/item/hc:69411/ {
+	return 301 https://works.hcommons.org/records/34hpg-6wg58; 
+}
+
+location /deposits/item/hc:69413/ {
+	return 301 https://works.hcommons.org/records/y41bq-83s83; 
+}
+
+location /deposits/item/hc:69415/ {
+	return 301 https://works.hcommons.org/records/b3974-vh316; 
+}
+
+location /deposits/item/hc:69417/ {
+	return 301 https://works.hcommons.org/records/zrhb2-hap21; 
+}
+
+location /deposits/item/hc:69421/ {
+	return 301 https://works.hcommons.org/records/ra2kr-dmt60; 
+}
+
+location /deposits/item/hc:69425/ {
+	return 301 https://works.hcommons.org/records/fkdew-19a61; 
+}
+
+location /deposits/item/hc:69427/ {
+	return 301 https://works.hcommons.org/records/2tc90-dz566; 
+}
+
+location /deposits/item/hc:69429/ {
+	return 301 https://works.hcommons.org/records/0q4xh-xrc30; 
+}
+
+location /deposits/item/hc:69431/ {
+	return 301 https://works.hcommons.org/records/21w3x-g5t50; 
+}
+
+location /deposits/item/hc:69433/ {
+	return 301 https://works.hcommons.org/records/1d81j-cjs76; 
+}
+
+location /deposits/item/hc:69435/ {
+	return 301 https://works.hcommons.org/records/tx4pf-ynh35; 
+}
+
+location /deposits/item/hc:69437/ {
+	return 301 https://works.hcommons.org/records/9jat8-b5158; 
+}
+
+location /deposits/item/hc:69439/ {
+	return 301 https://works.hcommons.org/records/fkqgz-hwb96; 
+}
+
+location /deposits/item/hc:69441/ {
+	return 301 https://works.hcommons.org/records/5hra4-zas75; 
+}
+
+location /deposits/item/hc:69445/ {
+	return 301 https://works.hcommons.org/records/xzmnf-vyf66; 
+}
+
+location /deposits/item/hc:69447/ {
+	return 301 https://works.hcommons.org/records/ndrzp-wfd83; 
+}
+
+location /deposits/item/hc:69449/ {
+	return 301 https://works.hcommons.org/records/09zzn-vrn18; 
+}
+
+location /deposits/item/hc:69451/ {
+	return 301 https://works.hcommons.org/records/f3e5f-fg432; 
+}
+
+location /deposits/item/hc:69453/ {
+	return 301 https://works.hcommons.org/records/xegya-1bg51; 
+}
+
+location /deposits/item/hc:69455/ {
+	return 301 https://works.hcommons.org/records/7azyb-gfx19; 
+}
+
+location /deposits/item/hc:69457/ {
+	return 301 https://works.hcommons.org/records/drb54-szz51; 
+}
+
+location /deposits/item/hc:69459/ {
+	return 301 https://works.hcommons.org/records/dj3c8-3jr88; 
+}
+
+location /deposits/item/hc:69461/ {
+	return 301 https://works.hcommons.org/records/1a1gb-7a463; 
+}
+
+location /deposits/item/hc:69463/ {
+	return 301 https://works.hcommons.org/records/darx1-p4b82; 
+}
+
+location /deposits/item/hc:69465/ {
+	return 301 https://works.hcommons.org/records/npnby-96c31; 
+}
+
+location /deposits/item/hc:69467/ {
+	return 301 https://works.hcommons.org/records/8sh0a-tsw78; 
+}
+
+location /deposits/item/hc:69469/ {
+	return 301 https://works.hcommons.org/records/re3bc-zg592; 
+}
+
+location /deposits/item/hc:69471/ {
+	return 301 https://works.hcommons.org/records/gzbee-0ds05; 
+}
+
+location /deposits/item/hc:69473/ {
+	return 301 https://works.hcommons.org/records/amsmd-mwm33; 
+}
+
+location /deposits/item/hc:69475/ {
+	return 301 https://works.hcommons.org/records/nn4s7-07b93; 
+}
+
+location /deposits/item/hc:69477/ {
+	return 301 https://works.hcommons.org/records/c4rtd-stm78; 
+}
+
+location /deposits/item/hc:69479/ {
+	return 301 https://works.hcommons.org/records/4v22q-dpa56; 
+}
+
+location /deposits/item/hc:69481/ {
+	return 301 https://works.hcommons.org/records/e6hav-z7793; 
+}
+
+location /deposits/item/hc:69483/ {
+	return 301 https://works.hcommons.org/records/dtpwv-hgp18; 
+}
+
+location /deposits/item/hc:69485/ {
+	return 301 https://works.hcommons.org/records/ryqt8-tma08; 
+}
+
+location /deposits/item/hc:69487/ {
+	return 301 https://works.hcommons.org/records/2n0m8-64s24; 
+}
+
+location /deposits/item/hc:69489/ {
+	return 301 https://works.hcommons.org/records/y9bpv-9tp21; 
+}
+
+location /deposits/item/hc:69491/ {
+	return 301 https://works.hcommons.org/records/y46td-gg326; 
+}
+
+location /deposits/item/hc:69493/ {
+	return 301 https://works.hcommons.org/records/7cjqw-77966; 
+}
+
+location /deposits/item/hc:69495/ {
+	return 301 https://works.hcommons.org/records/j3dkc-p5m70; 
+}
+
+location /deposits/item/hc:69497/ {
+	return 301 https://works.hcommons.org/records/9ez3f-0tb41; 
+}
+
+location /deposits/item/hc:69499/ {
+	return 301 https://works.hcommons.org/records/mn9hr-q0556; 
+}
+
+location /deposits/item/hc:69501/ {
+	return 301 https://works.hcommons.org/records/9q3z2-npw42; 
+}
+
+location /deposits/item/hc:69503/ {
+	return 301 https://works.hcommons.org/records/zr5fv-zx111; 
+}
+
+location /deposits/item/hc:69507/ {
+	return 301 https://works.hcommons.org/records/5j3h0-bj212; 
+}
+
+location /deposits/item/hc:69509/ {
+	return 301 https://works.hcommons.org/records/0wzxy-f0n94; 
+}
+
+location /deposits/item/hc:69511/ {
+	return 301 https://works.hcommons.org/records/bzcsx-smj25; 
+}
+
+location /deposits/item/hc:69513/ {
+	return 301 https://works.hcommons.org/records/zetz9-91302; 
+}
+
+location /deposits/item/hc:69515/ {
+	return 301 https://works.hcommons.org/records/cwfze-8sa07; 
+}
+
+location /deposits/item/hc:69517/ {
+	return 301 https://works.hcommons.org/records/74t68-p3w66; 
+}
+
+location /deposits/item/hc:69519/ {
+	return 301 https://works.hcommons.org/records/eab73-vdt83; 
+}
+
+location /deposits/item/hc:69523/ {
+	return 301 https://works.hcommons.org/records/53k8b-dnp28; 
+}
+
+location /deposits/item/hc:69525/ {
+	return 301 https://works.hcommons.org/records/d87wm-3ck16; 
+}
+
+location /deposits/item/hc:69527/ {
+	return 301 https://works.hcommons.org/records/zp8tf-en675; 
+}
+
+location /deposits/item/hc:69529/ {
+	return 301 https://works.hcommons.org/records/cynty-f4935; 
+}
+
+location /deposits/item/hc:69531/ {
+	return 301 https://works.hcommons.org/records/fn5t6-pkd54; 
+}
+
+location /deposits/item/hc:69533/ {
+	return 301 https://works.hcommons.org/records/rcq7c-6m865; 
+}
+
+location /deposits/item/hc:69535/ {
+	return 301 https://works.hcommons.org/records/m44k5-gmv86; 
+}
+
+location /deposits/item/hc:69539/ {
+	return 301 https://works.hcommons.org/records/dprw5-axv79; 
+}
+
+location /deposits/item/hc:69541/ {
+	return 301 https://works.hcommons.org/records/nwvc2-5x396; 
+}
+
+location /deposits/item/hc:69543/ {
+	return 301 https://works.hcommons.org/records/wx9mq-7qe68; 
+}
+
+location /deposits/item/hc:69547/ {
+	return 301 https://works.hcommons.org/records/pt4ve-q3738; 
+}
+
+location /deposits/item/hc:69549/ {
+	return 301 https://works.hcommons.org/records/5d12z-zzn28; 
+}
+
+location /deposits/item/hc:69551/ {
+	return 301 https://works.hcommons.org/records/rbaqt-y2a37; 
+}
+
+location /deposits/item/hc:69553/ {
+	return 301 https://works.hcommons.org/records/2245e-vw190; 
+}
+
+location /deposits/item/hc:69555/ {
+	return 301 https://works.hcommons.org/records/h6jxd-ha713; 
+}
+
+location /deposits/item/hc:69573/ {
+	return 301 https://works.hcommons.org/records/10x3p-r9955; 
+}
+
+location /deposits/item/hc:69587/ {
+	return 301 https://works.hcommons.org/records/rrw2d-4vb52; 
+}
+
+location /deposits/item/hc:69589/ {
+	return 301 https://works.hcommons.org/records/a66ey-88c11; 
+}
+
+location /deposits/item/hc:69591/ {
+	return 301 https://works.hcommons.org/records/mncem-q1x35; 
+}
+
+location /deposits/item/hc:69593/ {
+	return 301 https://works.hcommons.org/records/ccasg-5jb22; 
+}
+
+location /deposits/item/hc:69595/ {
+	return 301 https://works.hcommons.org/records/1m3xq-ars31; 
+}
+
+location /deposits/item/hc:69597/ {
+	return 301 https://works.hcommons.org/records/0rg4y-q5g59; 
+}
+
+location /deposits/item/hc:69599/ {
+	return 301 https://works.hcommons.org/records/1dbrj-qb197; 
+}
+
+location /deposits/item/hc:69601/ {
+	return 301 https://works.hcommons.org/records/zft9j-ef095; 
+}
+
+location /deposits/item/hc:69603/ {
+	return 301 https://works.hcommons.org/records/1wp5z-g4r04; 
+}
+
+location /deposits/item/hc:69607/ {
+	return 301 https://works.hcommons.org/records/k8mkp-jec95; 
+}
+
+location /deposits/item/hc:69609/ {
+	return 301 https://works.hcommons.org/records/s70gj-6q935; 
+}
+
+location /deposits/item/hc:69611/ {
+	return 301 https://works.hcommons.org/records/w7k7d-heq53; 
+}
+
+location /deposits/item/hc:69613/ {
+	return 301 https://works.hcommons.org/records/fq3td-vns57; 
+}
+
+location /deposits/item/hc:69615/ {
+	return 301 https://works.hcommons.org/records/zvgfd-96s68; 
+}
+
+location /deposits/item/hc:69617/ {
+	return 301 https://works.hcommons.org/records/ywvnw-jf785; 
+}
+
+location /deposits/item/hc:69619/ {
+	return 301 https://works.hcommons.org/records/j9pb9-ts884; 
+}
+
+location /deposits/item/hc:69621/ {
+	return 301 https://works.hcommons.org/records/an636-jyf89; 
+}
+
+location /deposits/item/hc:69623/ {
+	return 301 https://works.hcommons.org/records/0g87k-vt546; 
+}
+
+location /deposits/item/hc:69625/ {
+	return 301 https://works.hcommons.org/records/y2cyv-ps378; 
+}
+
+location /deposits/item/hc:69627/ {
+	return 301 https://works.hcommons.org/records/gzyrf-v0v62; 
+}
+
+location /deposits/item/hc:69629/ {
+	return 301 https://works.hcommons.org/records/jbj54-9p341; 
+}
+
+location /deposits/item/hc:69631/ {
+	return 301 https://works.hcommons.org/records/vyfxs-4zk09; 
+}
+
+location /deposits/item/hc:69633/ {
+	return 301 https://works.hcommons.org/records/b15va-k5b56; 
+}
+
+location /deposits/item/hc:69635/ {
+	return 301 https://works.hcommons.org/records/s1srj-a7a65; 
+}
+
+location /deposits/item/hc:69639/ {
+	return 301 https://works.hcommons.org/records/nm74s-05j82; 
+}
+
+location /deposits/item/hc:69641/ {
+	return 301 https://works.hcommons.org/records/mm75r-vd224; 
+}
+
+location /deposits/item/hc:69645/ {
+	return 301 https://works.hcommons.org/records/hzgy9-qph85; 
+}
+
+location /deposits/item/hc:69647/ {
+	return 301 https://works.hcommons.org/records/f8842-nkw07; 
+}
+
+location /deposits/item/hc:69649/ {
+	return 301 https://works.hcommons.org/records/c8h22-8ym05; 
+}
+
+location /deposits/item/hc:69651/ {
+	return 301 https://works.hcommons.org/records/qrebp-5jd82; 
+}
+
+location /deposits/item/hc:69653/ {
+	return 301 https://works.hcommons.org/records/8tbkb-t8e68; 
+}
+
+location /deposits/item/hc:69655/ {
+	return 301 https://works.hcommons.org/records/a7v4w-kwx43; 
+}
+
+location /deposits/item/hc:69659/ {
+	return 301 https://works.hcommons.org/records/6necs-7xg28; 
+}
+
+location /deposits/item/hc:69661/ {
+	return 301 https://works.hcommons.org/records/tygeb-adx28; 
+}
+
+location /deposits/item/hc:69665/ {
+	return 301 https://works.hcommons.org/records/fak2q-0bh10; 
+}
+
+location /deposits/item/hc:69669/ {
+	return 301 https://works.hcommons.org/records/mt60a-01895; 
+}
+
+location /deposits/item/hc:69671/ {
+	return 301 https://works.hcommons.org/records/b3jkn-a7324; 
+}
+
+location /deposits/item/hc:69673/ {
+	return 301 https://works.hcommons.org/records/cjpaz-k6855; 
+}
+
+location /deposits/item/hc:69675/ {
+	return 301 https://works.hcommons.org/records/fadps-z7z86; 
+}
+
+location /deposits/item/hc:69677/ {
+	return 301 https://works.hcommons.org/records/2d6m0-36z17; 
+}
+
+location /deposits/item/hc:69679/ {
+	return 301 https://works.hcommons.org/records/60p08-a2d76; 
+}
+
+location /deposits/item/hc:69681/ {
+	return 301 https://works.hcommons.org/records/eyke2-9sk47; 
+}
+
+location /deposits/item/hc:69683/ {
+	return 301 https://works.hcommons.org/records/faec1-5s874; 
+}
+
+location /deposits/item/hc:69685/ {
+	return 301 https://works.hcommons.org/records/8hf58-npz03; 
+}
+
+location /deposits/item/hc:69687/ {
+	return 301 https://works.hcommons.org/records/dv0nj-ay350; 
+}
+
+location /deposits/item/hc:69689/ {
+	return 301 https://works.hcommons.org/records/v6kcm-d1432; 
+}
+
+location /deposits/item/hc:69691/ {
+	return 301 https://works.hcommons.org/records/shmcn-aqs61; 
+}
+
+location /deposits/item/hc:69697/ {
+	return 301 https://works.hcommons.org/records/nzy4r-t0346; 
+}
+
+location /deposits/item/hc:69699/ {
+	return 301 https://works.hcommons.org/records/e7zrp-twd78; 
+}
+
+location /deposits/item/hc:69701/ {
+	return 301 https://works.hcommons.org/records/r1a2z-68d31; 
+}
+
+location /deposits/item/hc:69703/ {
+	return 301 https://works.hcommons.org/records/vca1m-ame57; 
+}
+
+location /deposits/item/hc:69705/ {
+	return 301 https://works.hcommons.org/records/ekehw-tf137; 
+}
+
+location /deposits/item/hc:69707/ {
+	return 301 https://works.hcommons.org/records/zp536-s1f96; 
+}
+
+location /deposits/item/hc:69709/ {
+	return 301 https://works.hcommons.org/records/j63ck-6bh11; 
+}
+
+location /deposits/item/hc:69711/ {
+	return 301 https://works.hcommons.org/records/ypst7-r0y36; 
+}
+
+location /deposits/item/hc:69713/ {
+	return 301 https://works.hcommons.org/records/y5nrt-f4817; 
+}
+
+location /deposits/item/hc:69715/ {
+	return 301 https://works.hcommons.org/records/gjrk1-d8a64; 
+}
+
+location /deposits/item/hc:69717/ {
+	return 301 https://works.hcommons.org/records/e478r-7r830; 
+}
+
+location /deposits/item/hc:69721/ {
+	return 301 https://works.hcommons.org/records/f1ext-m3f21; 
+}
+
+location /deposits/item/hc:69723/ {
+	return 301 https://works.hcommons.org/records/4v2ny-0nk36; 
+}
+
+location /deposits/item/hc:69725/ {
+	return 301 https://works.hcommons.org/records/ztja6-59n69; 
+}
+
+location /deposits/item/hc:69727/ {
+	return 301 https://works.hcommons.org/records/xhx12-bda68; 
+}
+
+location /deposits/item/hc:69729/ {
+	return 301 https://works.hcommons.org/records/yq81e-txn07; 
+}
+
+location /deposits/item/hc:69731/ {
+	return 301 https://works.hcommons.org/records/0c403-yrc44; 
+}
+
+location /deposits/item/hc:69741/ {
+	return 301 https://works.hcommons.org/records/cjk7s-zye60; 
+}
+
+location /deposits/item/hc:69743/ {
+	return 301 https://works.hcommons.org/records/d00e3-qnq58; 
+}
+
+location /deposits/item/hc:69745/ {
+	return 301 https://works.hcommons.org/records/35mhy-x6j76; 
+}
+
+location /deposits/item/hc:69749/ {
+	return 301 https://works.hcommons.org/records/pzykf-8r138; 
+}
+
+location /deposits/item/hc:69751/ {
+	return 301 https://works.hcommons.org/records/d3f57-85k36; 
+}
+
+location /deposits/item/hc:69753/ {
+	return 301 https://works.hcommons.org/records/jfzfn-mjf94; 
+}
+
+location /deposits/item/hc:69755/ {
+	return 301 https://works.hcommons.org/records/yc4cx-91108; 
+}
+
+location /deposits/item/hc:69765/ {
+	return 301 https://works.hcommons.org/records/nnjdy-mmn27; 
+}
+
+location /deposits/item/hc:69769/ {
+	return 301 https://works.hcommons.org/records/f12dj-f8568; 
+}
+
+location /deposits/item/hc:69773/ {
+	return 301 https://works.hcommons.org/records/svyt8-9a341; 
+}
+
+location /deposits/item/hc:69779/ {
+	return 301 https://works.hcommons.org/records/7em0k-dp527; 
+}
+
+location /deposits/item/hc:69781/ {
+	return 301 https://works.hcommons.org/records/sapcv-n8338; 
+}
+
+location /deposits/item/hc:69783/ {
+	return 301 https://works.hcommons.org/records/dzj47-s5e90; 
+}
+
+location /deposits/item/hc:69785/ {
+	return 301 https://works.hcommons.org/records/42ga2-tj033; 
+}
+
+location /deposits/item/hc:69787/ {
+	return 301 https://works.hcommons.org/records/txp7z-4yx30; 
+}
+
+location /deposits/item/hc:69789/ {
+	return 301 https://works.hcommons.org/records/1cyyn-ssr82; 
+}
+
+location /deposits/item/hc:69791/ {
+	return 301 https://works.hcommons.org/records/rwgc1-ted23; 
+}
+
+location /deposits/item/hc:69793/ {
+	return 301 https://works.hcommons.org/records/164fb-dyg89; 
+}
+
+location /deposits/item/hc:69795/ {
+	return 301 https://works.hcommons.org/records/fbfth-t0a70; 
+}
+
+location /deposits/item/hc:69797/ {
+	return 301 https://works.hcommons.org/records/ds7wa-4ck56; 
+}
+
+location /deposits/item/hc:69799/ {
+	return 301 https://works.hcommons.org/records/5dh68-97d46; 
+}
+
+location /deposits/item/hc:69801/ {
+	return 301 https://works.hcommons.org/records/w9g6f-h8g75; 
+}
+
+location /deposits/item/hc:69803/ {
+	return 301 https://works.hcommons.org/records/77vtq-rtt27; 
+}
+
+location /deposits/item/hc:69807/ {
+	return 301 https://works.hcommons.org/records/8t04e-cvy54; 
+}
+
+location /deposits/item/hc:69809/ {
+	return 301 https://works.hcommons.org/records/hq63d-wxr16; 
+}
+
+location /deposits/item/hc:69811/ {
+	return 301 https://works.hcommons.org/records/xv68n-52a25; 
+}
+
+location /deposits/item/hc:69813/ {
+	return 301 https://works.hcommons.org/records/aejcr-hw123; 
+}
+
+location /deposits/item/hc:69815/ {
+	return 301 https://works.hcommons.org/records/amb4a-7pt23; 
+}
+
+location /deposits/item/hc:69817/ {
+	return 301 https://works.hcommons.org/records/r4psy-ap004; 
+}
+
+location /deposits/item/hc:69819/ {
+	return 301 https://works.hcommons.org/records/q3yk9-kh054; 
+}
+
+location /deposits/item/hc:69821/ {
+	return 301 https://works.hcommons.org/records/pgkk9-rjm30; 
+}
+
+location /deposits/item/hc:69823/ {
+	return 301 https://works.hcommons.org/records/mnab4-ah743; 
+}
+
+location /deposits/item/hc:69825/ {
+	return 301 https://works.hcommons.org/records/6fkh4-pyg06; 
+}
+
+location /deposits/item/hc:69827/ {
+	return 301 https://works.hcommons.org/records/h579r-rke48; 
+}
+
+location /deposits/item/hc:69829/ {
+	return 301 https://works.hcommons.org/records/r8ec6-92095; 
+}
+
+location /deposits/item/hc:69831/ {
+	return 301 https://works.hcommons.org/records/s361n-nfb07; 
+}
+
+location /deposits/item/hc:69833/ {
+	return 301 https://works.hcommons.org/records/qw1jp-x9m26; 
+}
+
+location /deposits/item/hc:69835/ {
+	return 301 https://works.hcommons.org/records/dq0yz-bz252; 
+}
+
+location /deposits/item/hc:69837/ {
+	return 301 https://works.hcommons.org/records/zbtfe-p8h74; 
+}
+
+location /deposits/item/hc:69839/ {
+	return 301 https://works.hcommons.org/records/nk3df-vjp29; 
+}
+
+location /deposits/item/hc:69841/ {
+	return 301 https://works.hcommons.org/records/2ejw4-zbz90; 
+}
+
+location /deposits/item/hc:69843/ {
+	return 301 https://works.hcommons.org/records/m5n9p-pr591; 
+}
+
+location /deposits/item/hc:69845/ {
+	return 301 https://works.hcommons.org/records/nb467-d5902; 
+}
+
+location /deposits/item/hc:69847/ {
+	return 301 https://works.hcommons.org/records/9qnw9-p1y05; 
+}
+
+location /deposits/item/hc:69849/ {
+	return 301 https://works.hcommons.org/records/b8hcw-0ja85; 
+}
+
+location /deposits/item/hc:69851/ {
+	return 301 https://works.hcommons.org/records/deep9-rwq42; 
+}
+
+location /deposits/item/hc:69853/ {
+	return 301 https://works.hcommons.org/records/3sznd-z0097; 
+}
+
+location /deposits/item/hc:69861/ {
+	return 301 https://works.hcommons.org/records/1t4z3-h7s86; 
+}
+
+location /deposits/item/hc:69863/ {
+	return 301 https://works.hcommons.org/records/wm17h-gem15; 
+}
+
+location /deposits/item/hc:69867/ {
+	return 301 https://works.hcommons.org/records/ynt90-dmj64; 
+}
+
+location /deposits/item/hc:69869/ {
+	return 301 https://works.hcommons.org/records/kptc7-9md07; 
+}
+
+location /deposits/item/hc:69873/ {
+	return 301 https://works.hcommons.org/records/5ng5p-cvx90; 
+}
+
+location /deposits/item/hc:69875/ {
+	return 301 https://works.hcommons.org/records/nvq6k-5bq52; 
+}
+
+location /deposits/item/hc:69877/ {
+	return 301 https://works.hcommons.org/records/vswxg-cpm49; 
+}
+
+location /deposits/item/hc:69879/ {
+	return 301 https://works.hcommons.org/records/3q3zd-6xv65; 
+}
+
+location /deposits/item/hc:69881/ {
+	return 301 https://works.hcommons.org/records/db0vd-nc144; 
+}
+
+location /deposits/item/hc:69883/ {
+	return 301 https://works.hcommons.org/records/199hw-cm710; 
+}
+
+location /deposits/item/hc:69885/ {
+	return 301 https://works.hcommons.org/records/6gyc4-30b22; 
+}
+
+location /deposits/item/hc:69887/ {
+	return 301 https://works.hcommons.org/records/7a0d3-jyy74; 
+}
+
+location /deposits/item/hc:69889/ {
+	return 301 https://works.hcommons.org/records/gsyfn-nf658; 
+}
+
+location /deposits/item/hc:69891/ {
+	return 301 https://works.hcommons.org/records/a7t99-fs138; 
+}
+
+location /deposits/item/hc:69893/ {
+	return 301 https://works.hcommons.org/records/c69rd-ess40; 
+}
+
+location /deposits/item/hc:69895/ {
+	return 301 https://works.hcommons.org/records/p02w4-2e432; 
+}
+
+location /deposits/item/hc:69897/ {
+	return 301 https://works.hcommons.org/records/mb7px-jtd86; 
+}
+
+location /deposits/item/hc:69899/ {
+	return 301 https://works.hcommons.org/records/ppg74-g6223; 
+}
+
+location /deposits/item/hc:69901/ {
+	return 301 https://works.hcommons.org/records/6s8v8-wqe50; 
+}
+
+location /deposits/item/hc:69903/ {
+	return 301 https://works.hcommons.org/records/s8spg-32e29; 
+}
+
+location /deposits/item/hc:69905/ {
+	return 301 https://works.hcommons.org/records/v1g8r-gt542; 
+}
+
+location /deposits/item/hc:69907/ {
+	return 301 https://works.hcommons.org/records/c9gzd-gtd51; 
+}
+
+location /deposits/item/hc:69911/ {
+	return 301 https://works.hcommons.org/records/q25ey-29675; 
+}
+
+location /deposits/item/hc:69913/ {
+	return 301 https://works.hcommons.org/records/swqbc-vvk58; 
+}
+
+location /deposits/item/hc:69915/ {
+	return 301 https://works.hcommons.org/records/bx1be-6yc86; 
+}
+
+location /deposits/item/hc:69917/ {
+	return 301 https://works.hcommons.org/records/23rhd-26c53; 
+}
+
+location /deposits/item/hc:69923/ {
+	return 301 https://works.hcommons.org/records/pq6qt-sxf66; 
+}
+
+location /deposits/item/hc:69925/ {
+	return 301 https://works.hcommons.org/records/7tk29-xfe93; 
+}
+
+location /deposits/item/hc:69927/ {
+	return 301 https://works.hcommons.org/records/1bke7-vpn08; 
+}
+
+location /deposits/item/hc:69929/ {
+	return 301 https://works.hcommons.org/records/ebnvc-a5v03; 
+}
+
+location /deposits/item/hc:69937/ {
+	return 301 https://works.hcommons.org/records/5cqjd-vb951; 
+}
+
+location /deposits/item/hc:69945/ {
+	return 301 https://works.hcommons.org/records/xtz1c-vfx89; 
+}
+
+location /deposits/item/hc:69947/ {
+	return 301 https://works.hcommons.org/records/cpsr2-jjq25; 
+}
+
+location /deposits/item/hc:69959/ {
+	return 301 https://works.hcommons.org/records/17p4r-5ad52; 
+}
+
+location /deposits/item/hc:69961/ {
+	return 301 https://works.hcommons.org/records/e9y3n-69v79; 
+}
+
+location /deposits/item/hc:69963/ {
+	return 301 https://works.hcommons.org/records/zm8e7-be263; 
+}
+
+location /deposits/item/hc:69967/ {
+	return 301 https://works.hcommons.org/records/9hnv0-1mx63; 
+}
+
+location /deposits/item/hc:69973/ {
+	return 301 https://works.hcommons.org/records/f7rk4-4ym16; 
+}
+
+location /deposits/item/hc:69975/ {
+	return 301 https://works.hcommons.org/records/y155e-78753; 
+}
+
+location /deposits/item/hc:69977/ {
+	return 301 https://works.hcommons.org/records/f50zp-wx295; 
+}
+
+location /deposits/item/hc:69979/ {
+	return 301 https://works.hcommons.org/records/5c09d-vah50; 
+}
+
+location /deposits/item/hc:69981/ {
+	return 301 https://works.hcommons.org/records/xas7z-mph46; 
+}
+
+location /deposits/item/hc:69987/ {
+	return 301 https://works.hcommons.org/records/5yd7b-dvh74; 
+}
+
+location /deposits/item/hc:69995/ {
+	return 301 https://works.hcommons.org/records/2x69d-rpv33; 
+}
+
+location /deposits/item/hc:69997/ {
+	return 301 https://works.hcommons.org/records/nw867-j7p18; 
+}
+
+location /deposits/item/hc:70021/ {
+	return 301 https://works.hcommons.org/records/ep057-bbv19; 
+}
+
+location /deposits/item/hc:70025/ {
+	return 301 https://works.hcommons.org/records/kzbvv-kxd68; 
+}
+
+location /deposits/item/hc:70027/ {
+	return 301 https://works.hcommons.org/records/1chp0-k6n73; 
+}
+
+location /deposits/item/hc:70041/ {
+	return 301 https://works.hcommons.org/records/cew4y-he315; 
+}
+
+location /deposits/item/hc:70045/ {
+	return 301 https://works.hcommons.org/records/marp8-k8661; 
+}
+
+location /deposits/item/hc:70053/ {
+	return 301 https://works.hcommons.org/records/e53fn-4c602; 
+}
+
+location /deposits/item/hc:70055/ {
+	return 301 https://works.hcommons.org/records/y0zvq-b9r88; 
+}
+
+location /deposits/item/hc:70057/ {
+	return 301 https://works.hcommons.org/records/avgk9-pq953; 
+}
+
+location /deposits/item/hc:70063/ {
+	return 301 https://works.hcommons.org/records/d9kmq-8cn61; 
+}
+
+location /deposits/item/hc:70093/ {
+	return 301 https://works.hcommons.org/records/hmwg3-x8x55; 
+}
+
+location /deposits/item/hc:70107/ {
+	return 301 https://works.hcommons.org/records/4fzmy-4k338; 
+}
+
+location /deposits/item/hc:70109/ {
+	return 301 https://works.hcommons.org/records/wjc9d-dmx07; 
+}
+
+location /deposits/item/hc:70117/ {
+	return 301 https://works.hcommons.org/records/2k8x3-1ve25; 
+}
+
+location /deposits/item/hc:70129/ {
+	return 301 https://works.hcommons.org/records/hmhs1-tqj59; 
+}
+
+location /deposits/item/hc:70145/ {
+	return 301 https://works.hcommons.org/records/yygb6-vnh47; 
+}
+
+location /deposits/item/hc:70159/ {
+	return 301 https://works.hcommons.org/records/qepga-cfy67; 
+}
+
+location /deposits/item/hc:70161/ {
+	return 301 https://works.hcommons.org/records/xws7m-9wk34; 
+}
+
+location /deposits/item/hc:70163/ {
+	return 301 https://works.hcommons.org/records/ac0fv-yty63; 
+}
+
+location /deposits/item/hc:70179/ {
+	return 301 https://works.hcommons.org/records/95bwa-r3m34; 
+}
+
+location /deposits/item/hc:70181/ {
+	return 301 https://works.hcommons.org/records/yf5bg-17r72; 
+}
+
+location /deposits/item/hc:70183/ {
+	return 301 https://works.hcommons.org/records/kg4mv-66f28; 
+}
+
+location /deposits/item/hc:70185/ {
+	return 301 https://works.hcommons.org/records/89f4x-svh85; 
+}
+
+location /deposits/item/hc:70187/ {
+	return 301 https://works.hcommons.org/records/zdn9f-m8v11; 
+}
+
+location /deposits/item/hc:70191/ {
+	return 301 https://works.hcommons.org/records/hyxap-t3w10; 
+}
+
+location /deposits/item/hc:70193/ {
+	return 301 https://works.hcommons.org/records/jsxpy-z3m65; 
+}
+
+location /deposits/item/hc:70207/ {
+	return 301 https://works.hcommons.org/records/rfm86-r7k35; 
+}
+
+location /deposits/item/hc:70217/ {
+	return 301 https://works.hcommons.org/records/bf94g-np322; 
+}
+
+location /deposits/item/hc:70229/ {
+	return 301 https://works.hcommons.org/records/5pvqb-vry98; 
+}
+
+location /deposits/item/hc:70237/ {
+	return 301 https://works.hcommons.org/records/vf8ff-fty23; 
+}
+
+location /deposits/item/hc:70283/ {
+	return 301 https://works.hcommons.org/records/wa8s8-7f204; 
+}
+
+location /deposits/item/hc:70293/ {
+	return 301 https://works.hcommons.org/records/sv9qd-rph10; 
+}
+
+location /deposits/item/hc:24435/ {
+	return 301 https://works.hcommons.org/records/svq5t-hm654; 
+}
+
+location /deposits/item/hc:24595/ {
+	return 301 https://works.hcommons.org/records/yb2j8-wk549; 
+}
+
+location /deposits/item/hc:28889/ {
+	return 301 https://works.hcommons.org/records/231ac-tbv36; 
+}
+
+location /deposits/item/hc:40409/ {
+	return 301 https://works.hcommons.org/records/82hmr-a1941; 
 }
 
