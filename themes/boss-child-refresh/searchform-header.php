@@ -14,10 +14,10 @@
                     <button id="modal-1-close" aria-label="Close Search" data-micromodal-close>
                         <span class="fa fa-close"></span> 
                     </button>
-                    <form role="search" method="get" id="searchform" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <form role="search" method="get" id="searchform" class="searchform" action="/search/">
                         <div class="search-wrapper">
-                            <label class="screen-reader-text" for="s"><?php _e( 'Search for:', 'boss' ); ?></label>
-                            <input type="text" value="" name="s" id="s" placeholder="Search">
+                            <label class="screen-reader-text" for="q"><?php _e( 'Search for:', 'boss' ); ?></label>
+                            <input type="text" value="" name="q" id="q" placeholder="Search">
                             <button type="submit" id="searchsubmit" title="<?php _e( 'Search', 'boss' ); ?>"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
