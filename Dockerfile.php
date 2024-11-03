@@ -30,7 +30,9 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /u
 RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
 	mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
-RUN apk update && apk add mysql-client bash aws-cli jq
+RUN apk update && \
+    apk add --no-cache mysql-client bash aws-cli jq npm git mysql py3-pip py-cryptography mandoc linux-headers && \
+    rm -rf /var/cache/apk/*
 
 FROM base AS lando
 
@@ -98,41 +100,17 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 
 WORKDIR /app
 USER www-data
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-WORKDIR /app/core-plugins/humcore/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-WORKDIR /app/scripts/cron/mailchimp
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-WORKDIR /app
+RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/core-plugins/humcore/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/scripts/cron/mailchimp && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/scripts/dev-scripts/content-export/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/themes/dahd-tainacan/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/forked-plugins/wp-graphql-tax-query/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/themes/learningspace/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
-WORKDIR /app/site/web/app/plugins/cc-client
-RUN npm install && npm run build
-
-WORKDIR /app/themes/boss-child
-RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
-
-WORKDIR /app/site/web/app/plugins/cc-client
-RUN npm install && npm run build
-
-WORKDIR /app/themes/boss-child-refresh
-RUN npm install && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
-
-WORKDIR /app/scripts/cron/mailchimp/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-
-WORKDIR /app/scripts/dev-scripts/content-export/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-
-WORKDIR /app/themes/dahd-tainacan/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-
-WORKDIR /app/forked-plugins/wp-graphql-tax-query/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-
-WORKDIR /app/themes/learningspace/
-RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-
-WORKDIR /app
+RUN cd /app/site/web/app/plugins/cc-client && npm ci && npm run build && \
+    cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
+    cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
 USER root
 RUN touch /etc/environment && \
