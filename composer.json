@@ -153,7 +153,8 @@
       "composer/installers": true,
       "roots/wordpress-core-installer": true,
       "simplesamlphp/composer-module-installer": true,
-      "php-http/discovery": true
+      "php-http/discovery": true,
+      "tbachert/spi": true
     }
   },
   "minimum-stability": "dev",
