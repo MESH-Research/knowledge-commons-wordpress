@@ -52,23 +52,23 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 
 	public function filter_kcworks_subnav_link( string $value, \BP_Core_Nav_Item $subnav_item, string $selected_item ) {
 		if ( ! $this->enabled ) {
-			return $value;
+			return '';
 		}
 		if ( ! $this->group_id ) {
 			$this->group_id = bp_get_current_group_id() ?? 0;
 		}
 		if ( ! $this->group_id ) {
 			trigger_error( '$group_id is not set.', E_USER_WARNING );
-			return $value;
+			return '';
 		}
 		$collection_enabled = (bool) groups_get_groupmeta( $this->group_id, 'kcworks-enable' );
 		if ( ! $collection_enabled ) {
-			return $value;
+			return '';
 		}
 		$this->update_works_collection_data();
 		if ( ! $this->works_collection_slug ) {
 			trigger_error( 'collection_slug is not set.', E_USER_WARNING );
-			return $value;
+			return '';
 		}
 		$collection_url = WORKS_URL . '/collections/' . $this->works_collection_slug;
 		return preg_replace( '/href="[^"]*"/', 'href="' . $collection_url . '"', $value );
