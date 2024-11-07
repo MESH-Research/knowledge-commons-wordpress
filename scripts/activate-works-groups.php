@@ -5,6 +5,8 @@
  * Usage: wp eval-file activate-works-groups.php
  */
 
+const MAX_ROWS = 99999999;
+
 
 function main( $args ) {
 	$base_sites = get_base_sites();
@@ -61,6 +63,9 @@ function get_groups_with_deposits( $blog_id ) {
 	$groups = [];
 	foreach ( $results as $result ) {
 		$metadata = json_decode( $result->metadata, true );
+		if ( ! array_key_exists( 'group_ids', $metadata ) ) {
+			continue;
+		}
 		$group_ids = $metadata['group_ids'];
 		foreach ( $group_ids as $group_id ) {
 			if ( ! in_array( $group_id, $groups ) ) {
