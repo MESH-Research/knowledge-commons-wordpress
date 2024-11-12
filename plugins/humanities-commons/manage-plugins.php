@@ -26,7 +26,7 @@ function filter_visible_plugins($plugins) {
 			in_array($plugin_path, $allowed_plugins) ||
 			( is_plugin_active($plugin_path) && ! is_plugin_active_for_network($plugin_path) )
 		) {
-			$filtered_plugins[] = $plugin;
+			$filtered_plugins[$plugin_path] = $plugin;
 		}
 	}
 
