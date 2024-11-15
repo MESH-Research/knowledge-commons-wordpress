@@ -98,14 +98,38 @@ function get_deposit_metadata( $blog_id, $domain ) {
 		} else {
 			$deposit_file_metadata = [];
 		}
-		$pid = $deposit_metadata['pid'];
-		$downloads = get_post_meta( $row->deposit_id, "_total_downloads_CONTENT_$pid", true );
-		$views = get_post_meta( $row->deposit_id, "_total_views_CONTENT_$pid", true );
+		$pid = $deposit_file_metadata['file_pid'] ?? null;
+		$downloads = 0;
+		$views = 0;
+		if ( $pid ) {
+			$downloads = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT meta_value 
+					FROM {$wpdb->base_prefix}{$blog_prefix}postmeta 
+					WHERE post_id = %d 
+					AND meta_key = %s",
+					$row->deposit_id,
+					"_total_downloads_CONTENT_$pid"
+				)
+			);
+			$views = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT meta_value 
+					FROM {$wpdb->base_prefix}{$blog_prefix}postmeta 
+					WHERE post_id = %d 
+					AND meta_key = %s",
+					$row->deposit_id,
+					"_total_views_CONTENT_$pid"
+				)
+			);
+			$downloads = intval( $downloads );
+			$views = intval( $views );
+		}
 		$metadata_row = array_merge( 
 			[ 
 				'deposit_post_id' => $row->deposit_id,
-				'total_downloads' => $downloads ? $downloads : 0,
-				'total_views' => $views ? $views : 0,
+				'total_downloads' => $downloads,
+				'total_views' => $views,
 				'submitter_login' => $row->submitter_login, 
 				'submitter_email' => $row->submitter_email 
 			], 
