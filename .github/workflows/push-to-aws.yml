@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - production
+      - dev
 
 name: AWS ECR Build & Push
 
