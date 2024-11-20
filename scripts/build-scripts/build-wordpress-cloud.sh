@@ -6,7 +6,7 @@ cd /app
 composer install
 
 echo "Installing Composer dependencies for humcore..."
-cd /app/core-plugins/humcore/
+cd /app/plugins/humcore/
 composer install
 
 echo "Installing php.ini..."
