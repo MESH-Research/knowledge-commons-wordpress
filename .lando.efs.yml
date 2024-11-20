@@ -15,11 +15,7 @@ services:
     build_as_root:
       - adduser www-data xfs
     run_as_root:
-      - |
-        ln -sf /media/uploads /app/site/web/app/uploads && \
-        ln -sf /media/blogs.dir /app/site/web/app/blogs.dir && \
-        ln -sf /content/plugins/* /app/site/web/wp-content/plugins/ && \
-        ln -sf /content/themes/* /app/site/web/wp-content/themes/
+      - /app/scripts/build-scripts/link-efs-themes-plugins.sh
   cron:
     services:
       volumes:
