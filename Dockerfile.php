@@ -46,6 +46,18 @@ FROM base AS cloud
 
 RUN apk add npm
 
+RUN mkdir -p /app && chown www-data:www-data /app
+RUN mkdir -p /app/site && chown www-data:www-data /app/site
+RUN mkdir -p /app/site/web && chown www-data:www-data /app/site/web
+COPY --chown=www-data:www-data ./site/config /app/site/config
+COPY --chown=www-data:www-data wp-cli.yml /app/
+COPY --chown=www-data:www-data ./simplesamlphp /app/simplesamlphp
+COPY --chown=www-data:www-data ./config /app/config
+COPY --chown=www-data:www-data ./scripts /app/scripts
+
+COPY --chown=www-data:www-data composer.json /app/
+COPY --chown=www-data:www-data composer.lock /app/
+
 RUN rm -rf /app/site/web/app/plugins/* && \
 	rm -rf /app/site/web/app/themes/* && \
 	rm -rf /app/site/web/app/mu-plugins/* && \
@@ -58,18 +70,6 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 	ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
 	ln -s /app/themes/*/ /app/site/web/app/themes/
-
-RUN mkdir -p /app/site && chown www-data:www-data /app/site
-RUN mkdir -p /app/site/web && chown www-data:www-data /app/site/web
-COPY --chown=www-data:www-data ./site/config /app/site/config
-COPY --chown=www-data:www-data wp-cli.yml /app/
-COPY --chown=www-data:www-data ./simplesamlphp /app/simplesamlphp
-COPY --chown=www-data:www-data ./config /app/config
-COPY --chown=www-data:www-data ./scripts /app/scripts
-
-COPY --chown=www-data:www-data composer.json /app/
-COPY --chown=www-data:www-data composer.lock /app/
-
 
 # Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
