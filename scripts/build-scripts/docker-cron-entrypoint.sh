@@ -20,5 +20,8 @@ if [ -f /app/scripts/build-scripts/link-efs-themes-plugins.sh ]; then
     source /app/scripts/build-scripts/link-efs-themes-plugins.sh
 fi
 
+# Install the crontab
+crontab -u www-data /app/scripts/cron/commons.crontab
+
 # Run crond in the foreground with logging
 exec crond -f -L /dev/stdout

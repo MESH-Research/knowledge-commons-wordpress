@@ -2,20 +2,50 @@
 
 FROM php:fpm-alpine3.19 AS base
 
+WORKDIR /app
+
+RUN apk update && \
+    apk add --no-cache \
+        mysql-client \
+        bash \
+        aws-cli \
+        jq \
+        npm \
+        git \
+        mysql \
+        py3-pip \
+        py-cryptography \
+        mandoc \
+        linux-headers \
+        git \
+        grpc-cpp \
+        grpc-dev \
+        $PHPIZE_DEPS \
+    && rm -rf /var/cache/apk/*
+
 RUN addgroup -g 33 xfs || true \
 	&& addgroup xfs www-data \
 	&& addgroup www-data xfs
 
-COPY --chown=www-data:www-data --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-	install-php-extensions exif imagick/imagick@master zip memcached redis mysqli intl yaml opentelemetry protobuf
+	install-php-extensions \
+		exif \
+		imagick/imagick@master \
+		zip \
+		memcached \
+		redis \
+		mysqli \
+		intl \
+		yaml \
+		opentelemetry \
+		protobuf
 
 # Previously version calculated as: GRPC_VERSION=$(apk info grpc -d | grep grpc | cut -d- -f2)
 # According to this: https://github.com/grpc/grpc/issues/36025, grpc > 1.58.0 segfaults randomly.
-RUN apk add --no-cache git grpc-cpp grpc-dev $PHPIZE_DEPS && \
-    GRPC_VERSION=1.58.0 && \
+RUN GRPC_VERSION=1.58.0 && \
     git clone --depth 1 -b v${GRPC_VERSION} https://github.com/grpc/grpc /tmp/grpc && \
     cd /tmp/grpc/src/php/ext/grpc && \
     phpize && \
@@ -26,25 +56,16 @@ RUN apk add --no-cache git grpc-cpp grpc-dev $PHPIZE_DEPS && \
     apk del --no-cache git grpc-dev $PHPIZE_DEPS && \
     echo "extension=grpc.so" > /usr/local/etc/php/conf.d/grpc.ini
 
-ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/
-RUN chmod a+rx /usr/local/bin/wp-cli.phar && \
-	mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
-
-RUN apk update && \
-    apk add --no-cache mysql-client bash aws-cli jq npm git mysql py3-pip py-cryptography mandoc linux-headers && \
-    rm -rf /var/cache/apk/*
+ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
+RUN chmod a+rx /usr/local/bin/wp
 
 FROM base AS lando
-
-RUN apk add git mysql py3-pip py-cryptography mandoc linux-headers
 
 EXPOSE 9000
 
 FROM lando AS lando-efs
 
 FROM base AS cloud
-
-RUN apk add npm
 
 RUN mkdir -p /app && chown www-data:www-data /app
 RUN mkdir -p /app/site && chown www-data:www-data /app/site
@@ -79,14 +100,12 @@ RUN mkdir -p /media && \
 	chown www-data:www-data /media && \
 	ln -sf /media/uploads /app/site/web/app/uploads && \
 	ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
-	
 
 RUN rm -rf /usr/local/etc/php/php.ini && \
 	ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
 	rm -rf /usr/local/etc/php-fpm.d/www.conf && \
 	ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 	
-
 RUN rm -rf /app/config/all/simplesamlphp/log && \
 	rm -rf /app/config/all/simplesamlphp/tmp && \
 	mkdir -p /app/config/all/simplesamlphp/log && \
@@ -109,18 +128,10 @@ RUN cd /app/site/web/app/plugins/cc-client && npm ci && npm run build && \
 USER root
 RUN touch /etc/environment && \
     chown www-data:www-data /etc/environment && \
-    chmod 664 /etc/environment
-RUN touch /etc/profile && \
+    chmod 664 /etc/environment && \
+	touch /etc/profile && \
     chown root:www-data /etc/profile && \
     chmod 664 /etc/profile
 
 ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"] 
 CMD ["php-fpm"]
-
-FROM cloud AS cron
-	
-USER root
-RUN apk add bash
-RUN crontab -u www-data /app/scripts/cron/commons.crontab
-
-ENTRYPOINT ["/app/scripts/build-scripts/docker-cron-entrypoint.sh"]
