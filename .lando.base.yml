@@ -14,7 +14,6 @@ services:
       - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
       - rm -f site/web/phpinfo.php && ln -s /app/scripts/build-scripts/phpinfo.php site/web/phpinfo.php
       - /app/scripts/build-scripts/build-wordpress-lando.sh
-      - cd /app/core-plugins/humcore/ && composer update
     config:
       php: config/local/php/php.ini
   database:

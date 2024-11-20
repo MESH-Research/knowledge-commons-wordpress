@@ -46,20 +46,6 @@ FROM base AS cloud
 
 RUN apk add npm
 
-# This is a bit awkward, but we want to COPY only the necessary files to the
-# container. If we COPY the entire root directory of the project, there will
-# be a lot of junk files from development that we don't need.
-COPY --chown=www-data:www-data wp-cli.yml /app/
-COPY --chown=www-data:www-data ./site /app/site
-COPY --chown=www-data:www-data ./simplesamlphp /app/simplesamlphp
-COPY --chown=www-data:www-data ./themes /app/themes
-COPY --chown=www-data:www-data ./config /app/config
-COPY --chown=www-data:www-data ./scripts /app/scripts
-COPY --chown=www-data:www-data ./core-plugins /app/core-plugins
-COPY --chown=www-data:www-data ./forked-plugins /app/forked-plugins
-COPY --chown=www-data:www-data ./ancillary-plugins /app/ancillary-plugins
-COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
-
 RUN rm -rf /app/site/web/app/plugins/* && \
 	rm -rf /app/site/web/app/themes/* && \
 	rm -rf /app/site/web/app/mu-plugins/* && \
@@ -69,11 +55,17 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 	chown www-data:www-data /app/site/web/app/plugins && \
 	chown www-data:www-data /app/site/web/app/themes && \
 	chown www-data:www-data /app/site/web/app/mu-plugins && \
-	ln -s /app/ancillary-plugins/*/ /app/site/web/app/plugins/ && \
-	ln -s /app/core-plugins/*/ /app/site/web/app/plugins/ && \
-	ln -s /app/forked-plugins/*/ /app/site/web/app/plugins/ && \
+	ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
 	ln -s /app/themes/*/ /app/site/web/app/themes/
+
+RUN mkdir -p /app/site && chown www-data:www-data /app/site
+RUN mkdir -p /app/site/web && chown www-data:www-data /app/site/web
+COPY --chown=www-data:www-data ./site/config /app/site/config
+COPY --chown=www-data:www-data wp-cli.yml /app/
+COPY --chown=www-data:www-data ./simplesamlphp /app/simplesamlphp
+COPY --chown=www-data:www-data ./config /app/config
+COPY --chown=www-data:www-data ./scripts /app/scripts
 
 COPY --chown=www-data:www-data composer.json /app/
 COPY --chown=www-data:www-data composer.lock /app/
@@ -101,11 +93,10 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 WORKDIR /app
 USER www-data
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
-    cd /app/core-plugins/humcore/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
     cd /app/scripts/cron/mailchimp && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
     cd /app/scripts/dev-scripts/content-export/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
     cd /app/themes/dahd-tainacan/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
-    cd /app/forked-plugins/wp-graphql-tax-query/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/plugins/wp-graphql-tax-query/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
     cd /app/themes/learningspace/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
 RUN cd /app/site/web/app/plugins/cc-client && npm ci && npm run build && \
