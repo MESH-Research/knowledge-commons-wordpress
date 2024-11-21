@@ -67,6 +67,7 @@ FROM lando AS lando-efs
 
 FROM base AS cloud
 
+RUN mkdir -p /app && chown www-data:www-data /app
 COPY --chown=www-data:www-data ./site /app/site
 COPY --chown=www-data:www-data ./plugins /app/plugins
 COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
