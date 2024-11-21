@@ -114,6 +114,7 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
 WORKDIR /app
 USER www-data
 RUN composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+	cd /app/plugins/hc-styles && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
     cd /app/scripts/cron/mailchimp && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
     cd /app/scripts/dev-scripts/content-export/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \
     cd /app/themes/dahd-tainacan/ && composer install --no-dev --no-interaction --no-progress --optimize-autoloader && \

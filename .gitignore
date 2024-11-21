@@ -4,8 +4,11 @@ node_modules/
 
 # ignore composer dependency directories
 vendor/
-!forked-plugins/ninja-forms-uploads/vendor/
-!forked-plugins/bp-rbe-inbound-forum-attachments/vendor/
+!plugins/ninja-forms-uploads/vendor/
+!plugins/bp-rbe-inbound-forum-attachments/vendor/
+!plugins/humcore/vendor/
+!plugins/wp-graphql-tax-query/vendor/
+!plugins/wp-graphql/vendor/
 !themes/dahd-tainacan/**
 
 # ignore log files and databases
