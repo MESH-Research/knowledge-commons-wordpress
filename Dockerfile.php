@@ -1,6 +1,6 @@
 # PHP container for running WordPress
 
-FROM php:fpm-alpine3.19 AS base
+FROM php:8.2.26-fpm-alpine3.20 AS base
 
 WORKDIR /app
 
@@ -22,10 +22,6 @@ RUN apk update && \
         grpc-dev \
         $PHPIZE_DEPS \
     && rm -rf /var/cache/apk/*
-
-RUN addgroup -g 33 xfs || true \
-	&& addgroup xfs www-data \
-	&& addgroup www-data xfs
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
