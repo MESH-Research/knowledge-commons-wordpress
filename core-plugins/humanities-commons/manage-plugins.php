@@ -12,7 +12,7 @@ namespace KC\PTC;
  * @return array Modified array of plugin data.
  */
 function filter_visible_plugins($plugins) {
-    if ( is_network_admin() || ( defined('WP_CLI') && WP_CLI ) ) {
+    if ( current_user_can('manage_network') || ( defined('WP_CLI') && WP_CLI ) ) {
 		return $plugins;
 	}
 
