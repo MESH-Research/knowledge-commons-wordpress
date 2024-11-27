@@ -27,7 +27,7 @@ add_action( 'bp_actions', 'bp_group_documents_register_template_stack', 0 );
  * @return string
  */
 function bp_group_documents_template_directory() {
-    return BP_GROUP_DOCUMENTS_DIR . '/templates';
+    return trailingslashit(__DIR__) . '../templates';
 }
 
 /**
