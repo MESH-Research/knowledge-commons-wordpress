@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "status": "success",
+    "code": "API-1000",
+    "message": ""
+  },
+  "data": [
+    {
+      "id": "100",
+      "name": "Hungarian",
+      "type": "Forum",
+      "convention_code": "D000",
+      "exclude_from_commons": "",
+      "members": [
+        {
+          "id": "900001",
+          "username": "groupuser1",
+          "position": "Chair",
+          "primary": ""
+        },
+        {
+          "id": "900002",
+          "username": "GroupUser2",
+          "position": "Executive",
+          "primary": ""
+        },
+        {
+          "id": "900003",
+          "username": "groupuser3",
+          "position": "Chair",
+          "primary": ""
+        },
+        {
+          "id": "900004",
+          "username": "GroupUser4",
+          "position": "Chair",
+          "primary": ""
+        },
+        {
+          "id": "900005",
+          "username": "GroupUser5",
+          "position": "Member",
+          "primary": "Y"
+        },
+        {
+          "id": "900006",
+          "username": "groupuser6",
+          "position": "Member",
+          "primary": "Y"
+        },
+        {
+          "id": "900007",
+          "username": "groupuser7",
+          "position": "Member",
+          "primary": "Y"
+        },
+        {
+          "id": "900008",
+          "username": "groupuser8",
+          "position": "Member",
+          "primary": "Y"
+        },
+        {
+          "id": "900009",
+          "username": "groupuser9",
+          "position": "Member",
+          "primary": ""
+        },
+        {
+          "id": "900010",
+          "username": "groupuser10",
+          "position": "Member",
+          "primary": ""
+        },
+        {
+          "id": "900011",
+          "username": "groupuser11",
+          "position": "Member",
+          "primary": ""
+        },
+        {
+          "id": "900012",
+          "username": "groupuser12",
+          "position": "Member",
+          "primary": ""
+        }
+      ]
+    }
+  ]
+}

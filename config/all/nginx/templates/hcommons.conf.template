@@ -69,7 +69,6 @@ server {
   }
   rewrite ^/app/uploads/sites/[0-9]+/bp-attachments/([0-9]+)/(.*) https://$http_host/?p=$1&bp-attachment=$2;
 
-  include /etc/nginx/conf.d/fedora.conf;
   include /etc/nginx/conf.d/redirects.conf;
   include /etc/nginx/conf.d/core-works-redirects.conf;
   

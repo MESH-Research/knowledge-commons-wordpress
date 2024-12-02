@@ -25,6 +25,12 @@ mkdir -p /app/config/all/simplesamlphp/cert
 echo "$SAML_PEM" > /app/config/all/simplesamlphp/cert/saml.pem
 echo "$SAML_CRT" > /app/config/all/simplesamlphp/cert/saml.crt
 
+# Link EFS themes and plugins
+if [ -f /app/scripts/build-scripts/link-efs-themes-plugins.sh ]; then
+    echo "Linking EFS themes and plugins..."
+    source /app/scripts/build-scripts/link-efs-themes-plugins.sh
+fi
+
 if [ "$WP_ENV" = "production" ]; then
         cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
 fi
