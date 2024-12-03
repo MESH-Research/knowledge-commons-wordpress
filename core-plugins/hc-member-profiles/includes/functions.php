@@ -39,8 +39,8 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 	$fields['works_deposits'] = 'BP_XProfile_Field_Type_Works_Deposits';
 
 	// Mastodon Feed.
-	//require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-mastodon-feed.php';
-	//$fields['mastodon_feed'] = 'BP_XProfile_Field_Type_Mastodon_Feed';
+	require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-mastodon-feed.php';
+	$fields['mastodon_feed'] = 'BP_XProfile_Field_Type_Mastodon_Feed';
 
 	// Academic Interests.
 	if ( class_exists( 'MLA_Academic_Interests' ) ) {
