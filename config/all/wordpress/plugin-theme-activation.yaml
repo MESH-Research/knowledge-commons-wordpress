@@ -20,6 +20,8 @@ default:
     - siteorigin-panels
     - woosidebars
     - formassembly-web-forms
+    - buddypress-docs
+    - buddypress-docs-minor-edit
   network-plugins:
     - 15zine-functionality
     - akismet
@@ -31,8 +33,6 @@ default:
     - bp-mpo-activity-filter
     - bp-block-member
     - buddypress
-    - buddypress-docs
-    - buddypress-docs-minor-edit
     - bp-event-organiser
     - buddypress-followers
     - buddypress-restrict-group-creation
@@ -51,19 +51,13 @@ default:
     - wp-multi-network
     - cc-client
   allowed-user-plugins:
-    - anthologize
-    - commentpress-core
-    - fd-footnotes
     - footnotes-made-easy
-    - issuem
-    - knight-lab-timelinejs
     - mathml-block
     - pressforward
-    - printfriendly
-    - scholarpress-coins
-    - wp-google-maps
-    - google-sitemap-generator
+    - ninja-forms
+    - translatepress-multilingual
     - zotpress
+    - password-protected
   allowed-user-themes:
     - blockbase
     - dispatch
@@ -97,11 +91,8 @@ up.hcommons.org:
     - -cron-logger
     - -woosidebars
     - -formassembly-web-forms
-  network-plugins:
-    - -buddypress-restrict-group-creation
 mla.hcommons.org:
   base-site-plugins:
-    - buddypress-docs-minor-edit
     - -buddypress-messages-spam-blocker
     - classic-editor
     - -elementor
@@ -111,14 +102,12 @@ mla.hcommons.org:
   network-plugins:
     - -15zine-functionality
     - black-studio-tinymce-widget
-    - -buddypress-docs-minor-edit
     - cbox-auth
     - -buddypress-restrict-group-creation
     - woosidebars
     - -wp-accessibility
     - so-widgets-bundle
   allowed-user-plugins:
-    - password-protected
     - wordpress-importer
 sah.hcommons.org:
   base-site-plugins:
@@ -175,16 +164,4 @@ hastac.hcommons.org:
     - -redis-cache
     - -simplemag-addons
     - -15zine-functionality
-  allowed-user-plugins:
-    - -anthologize
-    - -commentpress-core
-    - -fd-footnotes
-    - -issuem
-    - -knight-lab-timelinejs
-    - -pressforward
-    - -printfriendly
-    - -scholarpress-coins
-    - -wp-google-maps
-    - -zotpress
-    - -google-sitemap-generator
 
