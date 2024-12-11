@@ -20,12 +20,12 @@ class BP_XProfile_Field_Type_Mastodon_Feed extends BP_XProfile_Field_Type {
 	}
 
 	public static function display_filter( $field_value, $field_id = '' ) {
-		$cache_key = 'hcmp_mastodon_feed_' . $field_id;
+		$url = hcmp_get_normalized_mastodon_url();
+		$cache_key = 'hcmp_mastodon_feed_' . $url;
 		$rss_feed_items_html = wp_cache_get( $cache_key );
 		if ( ! empty( $rss_feed_items_html ) ) {
 			return $rss_feed_items_html;
 		}
-		$url = hcmp_get_normalized_mastodon_url();
 		if ( empty( $url ) ) {
 			return '';
 		}
