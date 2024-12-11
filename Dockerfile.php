@@ -10,7 +10,7 @@ COPY --chown=www-data:www-data --from=composer:latest /usr/bin/composer /usr/loc
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-	install-php-extensions exif imagick/imagick@master zip memcached redis mysqli intl yaml opentelemetry protobuf
+	install-php-extensions exif imagick zip memcached redis mysqli intl yaml opentelemetry protobuf
 
 # Previously version calculated as: GRPC_VERSION=$(apk info grpc -d | grep grpc | cut -d- -f2)
 # According to this: https://github.com/grpc/grpc/issues/36025, grpc > 1.58.0 segfaults randomly.
