@@ -452,7 +452,7 @@ function _hcmp_create_xprofile_fields() {
 		HC_Member_Profiles_Component::TALKS        => 'textarea',
 		HC_Member_Profiles_Component::MEMBERSHIPS  => 'textarea',
 		HC_Member_Profiles_Component::WORKSDEPOSITS => 'works_deposits',
-		//HC_Member_Profiles_Component::MASTODONFEED => 'mastodon_feed',
+		HC_Member_Profiles_Component::MASTODONFEED => 'mastodon_feed',
 	];
 
 	foreach ( $default_fields as $name => $type ) {
