@@ -20,6 +20,7 @@ RUN apk update && \
         git \
         grpc-cpp \
         grpc-dev \
+        rsync \
         $PHPIZE_DEPS \
     && rm -rf /var/cache/apk/*
 

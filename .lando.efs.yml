@@ -25,7 +25,7 @@ services:
           read_only: true
           volume:
             nocopy: true
-        - type: volume
+        - type: volume 
           source: wp_content
           target: /content
           read_only: false
@@ -40,7 +40,7 @@ services:
         driver: local
         driver_opts:
           type: nfs
-          o: addr=10.98.11.233,rw,nfsvers=4
+          o: addr=10.98.11.233,rw,fsc,nfsvers=4
           device: ":/"
   appserver_nginx:
     overrides:
