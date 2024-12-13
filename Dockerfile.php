@@ -76,7 +76,6 @@ RUN rm -rf /app/site/web/app/plugins/* && \
 	chown www-data:www-data /app/site/web/app/themes && \
 	chown www-data:www-data /app/site/web/app/mu-plugins && \
 	ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
-	ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
 	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
 	ln -s /app/themes/*/ /app/site/web/app/themes/
 
