@@ -236,6 +236,7 @@ class KC_PTC_Command {
 			}
 			$network = $this->get_network_by_domain($network_domain);
 			$user_control_plugins = get_network_option($network->id, 'pm_user_control_list', []);
+			$user_control_plugins = $this->simplify_plugin_names($user_control_plugins);
 			$user_control_plugins[] = $plugin;
 			update_network_option($network->id, 'pm_user_control_list', $user_control_plugins);
 			\WP_CLI::success("Allowed user sites on $network_domain to activate $plugin");
@@ -247,6 +248,7 @@ class KC_PTC_Command {
 			}
 			$network = $this->get_network_by_domain($network_domain);
 			$user_control_plugins = get_network_option($network->id, 'pm_user_control_list', []);
+			$user_control_plugins = $this->simplify_plugin_names($user_control_plugins);
 			$user_control_plugins = array_diff($user_control_plugins, [$plugin]);
 			update_network_option($network->id, 'pm_user_control_list', $user_control_plugins);
 			\WP_CLI::success("Disallowed user sites on $network_domain from activating $plugin");
