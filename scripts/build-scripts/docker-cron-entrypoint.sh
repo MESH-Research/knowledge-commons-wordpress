@@ -14,5 +14,14 @@ else
     echo "AWS secrets retrieval script not found. Skipping."
 fi
 
+# Link EFS themes and plugins
+if [ -f /app/scripts/build-scripts/link-efs-themes-plugins.sh ]; then
+    echo "Linking EFS themes and plugins..."
+    source /app/scripts/build-scripts/link-efs-themes-plugins.sh
+fi
+
+# Install the crontab
+crontab -u www-data /app/scripts/cron/commons.crontab
+
 # Run crond in the foreground with logging
 exec crond -f -L /dev/stdout

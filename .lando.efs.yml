@@ -8,12 +8,14 @@ services:
           read_only: true
           volume:
             nocopy: true
+        - type: volume
+          source: wp_content
+          target: /content
+          read_only: false
     build_as_root:
       - adduser www-data xfs
     run_as_root:
-      - |
-        ln -sf /media/uploads /app/site/web/app/uploads && \
-        ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
+      - /app/scripts/build-scripts/link-efs-themes-plugins.sh
   cron:
     services:
       volumes:
@@ -23,12 +25,22 @@ services:
           read_only: true
           volume:
             nocopy: true
+        - type: volume 
+          source: wp_content
+          target: /content
+          read_only: false
     volumes:
       wp_uploads:
         driver: local
         driver_opts:
           type: nfs
-          o: addr=10.100.11.189,ro,nfsvers=4
+          o: addr=10.98.11.28,ro,nfsvers=4
+          device: ":/"
+      wp_content:
+        driver: local
+        driver_opts:
+          type: nfs
+          o: addr=10.98.11.233,rw,fsc,nfsvers=4
           device: ":/"
   appserver_nginx:
     overrides:
@@ -39,5 +51,9 @@ services:
           read_only: true
           volume:
             nocopy: true
+        - type: volume
+          source: wp_content
+          target: /content
+          read_only: false
     build_as_root:
       - adduser daemon www-data

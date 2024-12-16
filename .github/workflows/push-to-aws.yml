@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - production
+      - dev
 
 name: AWS ECR Build & Push
 
@@ -51,11 +52,9 @@ jobs:
           docker buildx create --use
           docker buildx build --platform linux/arm64 --load -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-nginx:${{env.BRANCH_NAME}} -f Dockerfile.nginx .
           docker buildx build --platform linux/arm64 --load -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-app:${{env.BRANCH_NAME}} -f Dockerfile.php --target cloud .
-          docker buildx build --platform linux/arm64 --load -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-cron:${{env.BRANCH_NAME}} -f Dockerfile.php --target cron .
 
       - name: Push images
         id: push
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-nginx:${{env.BRANCH_NAME}}
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-app:${{env.BRANCH_NAME}}
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-cron:${{env.BRANCH_NAME}}

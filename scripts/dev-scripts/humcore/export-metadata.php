@@ -98,6 +98,7 @@ function get_deposit_metadata( $blog_id, $domain ) {
 		} else {
 			$deposit_file_metadata = [];
 		}
+<<<<<<< Updated upstream
 		$pid = $deposit_file_metadata['file_pid'] ?? null;
 		$downloads = 0;
 		$views = 0;
@@ -125,6 +126,11 @@ function get_deposit_metadata( $blog_id, $domain ) {
 			$downloads = intval( $downloads );
 			$views = intval( $views );
 		}
+=======
+		$file_pid = $deposit_file_metadata['file_pid'] ?? null;
+		$downloads = $file_pid ? get_post_meta( $row->deposit_id, "_total_downloads_CONTENT_{$file_pid}", true ) : 0;
+		$views = $file_pid ? get_post_meta( $row->deposit_id, "_total_views_CONTENT_{$file_pid}", true ) : 0;
+>>>>>>> Stashed changes
 		$metadata_row = array_merge( 
 			[ 
 				'deposit_post_id' => $row->deposit_id,

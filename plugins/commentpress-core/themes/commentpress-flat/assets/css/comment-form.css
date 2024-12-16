@@ -1,0 +1,59 @@
+/*
+================================================================================
+CommentPress Flat Comment Form Stylesheet
+================================================================================
+AUTHOR: Christian Wach <needle@haystack.co.uk>
+--------------------------------------------------------------------------------
+NOTES
+
+These styles amend the WP-themed TinyMCE editor.
+
+This stylesheet is also included whenever TinyMCE is included on the front-end
+e.g. by BuddyPress Docs.
+
+--------------------------------------------------------------------------------
+*/
+
+body
+{
+	margin: 0; /* prevent initial scrolling state */
+	padding: 0 7px;
+	line-height: 1;
+	background-color: #fff;
+}
+
+p,
+ul,
+ol
+{
+	font-size: 14px;
+	margin: 0;
+	padding: 7px 0 7px 0;
+}
+
+.post-type-bp_doc.wp-editor p,
+.post-type-bp_doc.wp-editor ul,
+.post-type-bp_doc.wp-editor ol
+{
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+ul li
+{
+	list-style-type: disc;
+	margin: 2px 0 10px 28px;
+}
+
+ol li
+{
+	list-style-type: decimal;
+	margin: 2px 0 10px 28px;
+}
+
+img
+{
+	max-width: 97%;
+	height: auto;
+}
+
