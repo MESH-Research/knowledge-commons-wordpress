@@ -149,6 +149,7 @@
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
+    "process-timeout": 3600,
     "allow-plugins": {
       "composer/installers": true,
       "roots/wordpress-core-installer": true,
