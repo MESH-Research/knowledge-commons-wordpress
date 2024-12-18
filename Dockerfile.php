@@ -67,19 +67,6 @@ FROM base AS cloud
 
 RUN apk add npm
 
-RUN rm -rf /app/site/web/app/plugins/* && \
-	rm -rf /app/site/web/app/themes/* && \
-	rm -rf /app/site/web/app/mu-plugins/* && \
-	mkdir -p /app/site/web/app/plugins && \
-	mkdir -p /app/site/web/app/themes && \
-	mkdir -p /app/site/web/app/mu-plugins && \
-	chown www-data:www-data /app/site/web/app/plugins && \
-	chown www-data:www-data /app/site/web/app/themes && \
-	chown www-data:www-data /app/site/web/app/mu-plugins && \
-	ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
-	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
-	ln -s /app/themes/*/ /app/site/web/app/themes/
-
 RUN mkdir -p /app && chown www-data:www-data /app
 RUN mkdir -p /app/site && chown www-data:www-data /app/site
 RUN mkdir -p /app/site/web && chown www-data:www-data /app/site/web
@@ -95,6 +82,19 @@ COPY --chown=www-data:www-data ./config /app/config
 
 COPY --chown=www-data:www-data composer.json /app/
 COPY --chown=www-data:www-data composer.lock /app/
+
+RUN rm -rf /app/site/web/app/plugins/* && \
+	rm -rf /app/site/web/app/themes/* && \
+	rm -rf /app/site/web/app/mu-plugins/* && \
+	mkdir -p /app/site/web/app/plugins && \
+	mkdir -p /app/site/web/app/themes && \
+	mkdir -p /app/site/web/app/mu-plugins && \
+	chown www-data:www-data /app/site/web/app/plugins && \
+	chown www-data:www-data /app/site/web/app/themes && \
+	chown www-data:www-data /app/site/web/app/mu-plugins && \
+	ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
+	ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
+	ln -s /app/themes/*/ /app/site/web/app/themes/
 
 #Linking uploads folders to EFS volume mounted at /media
 RUN mkdir -p /media && \
@@ -120,7 +120,8 @@ RUN php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-
     cd /app/scripts/dev-scripts/content-export/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
     cd /app/themes/dahd-tainacan/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
     cd /app/plugins/wp-graphql-tax-query/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
-    cd /app/themes/learningspace/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache
+    cd /app/themes/learningspace/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
+    cd /app/plugins/hc-styles/ && composer install --no-dev --no-interaction --no-progress --no-cache 
 
 RUN cd /app/site/web/app/plugins/cc-client && npm ci && npm run build && \
     cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
