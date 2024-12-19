@@ -1724,7 +1724,7 @@ class Humanities_Commons {
 			if ( ! function_exists( 'bp_get_member_type' ) ) {
 				return [];
 			}
-			$member_types = bp_get_member_type( bp_get_displayed_user_id(), false );
+			$member_types = bp_get_member_type( get_current_user_id(), false );
 			if ( empty( $member_types ) ) {
 				return [];
 			}
