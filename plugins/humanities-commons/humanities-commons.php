@@ -1721,7 +1721,14 @@ class Humanities_Commons {
 	 */
 	public static function hcommons_get_user_org_memberships() {
 		if ( ! isset( $_SERVER['HTTP_ISMEMBEROF'] ) ) {
-			return [];
+			if ( ! function_exists( 'bp_get_member_type' ) ) {
+				return [];
+			}
+			$member_types = bp_get_member_type( bp_get_displayed_user_id(), false );
+			if ( empty( $member_types ) ) {
+				return [];
+			}
+			return $member_types;
 		}
 
 		$server_membership_strings = explode( ';', $_SERVER['HTTP_ISMEMBEROF'] );
