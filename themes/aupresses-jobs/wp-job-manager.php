@@ -19,6 +19,9 @@ function hc_custom_wp_jobs_can_post_job_up( $can_post ) {
 	if ( ! $can_post || strpos( $current_site, 'jobs.up.hcommons' ) === False ) {
 		return $can_post;
 	}
+	if ( ! class_exists( 'Humanities_Commons' ) ) {
+		return false;
+	}
 	
 	$memberships = Humanities_Commons::hcommons_get_user_memberships();
 	if ( is_array($memberships['societies'] ) && in_array( 'up', $memberships['societies'] ) ) {
