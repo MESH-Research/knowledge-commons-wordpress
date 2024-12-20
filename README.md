@@ -1,6 +1,8 @@
 # The Knowledge Commons WordPress stack
 
-## Getting Started
+This is the repository for the [Knowledge Commons Wordpress](https://hcommons.org/) site. It is not a re-usable application and should not be expected to work in any other context than for running the Knowledge Commons site. 
+
+## Developer Getting Started
 
 Note: These instructions and many helper scripts assume you are running a Linux-like environment.
 
