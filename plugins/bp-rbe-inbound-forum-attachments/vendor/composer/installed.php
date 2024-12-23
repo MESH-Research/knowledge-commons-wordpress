@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'r-a-y/bp-rbe-inbound-forum-attachments',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '17c7194830b54bb7ab25ba1fce865ead74b721af',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'bashkarev/email' => array(
+            'pretty_version' => '1.0',
+            'version' => '1.0.0.0',
+            'reference' => '38cb11e5961f0b81e98c7e2be9e28cebd2e51846',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bashkarev/email',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'composer/installers' => array(
+            'pretty_version' => 'v2.3.0',
+            'version' => '2.3.0.0',
+            'reference' => '12fb2dfe5e16183de69e784a7b84046c43d97e8e',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/./installers',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'r-a-y/bp-rbe-inbound-forum-attachments' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '17c7194830b54bb7ab25ba1fce865ead74b721af',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);
