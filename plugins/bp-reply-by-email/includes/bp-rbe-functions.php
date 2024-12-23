@@ -495,7 +495,7 @@ function bp_rbe_log( $message ) {
 	if ( empty( $message ) )
 		return;
 
-	error_log( '[' . gmdate( 'd-M-Y H:i:s' ) . '] ' . $message . "\n", 3, BP_RBE_DEBUG_LOG_PATH );
+	error_log( '[' . gmdate( 'd-M-Y H:i:s' ) . '] BP RBE: ' . $message );
 }
 
 /**

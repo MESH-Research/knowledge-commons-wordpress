@@ -346,6 +346,7 @@ Config::define( 'BP_DEFAULT_COMPONENT', 'profile' ); // make "profile" default r
  * BuddyPress Reply By Email
  */
 Config::define( 'BP_RBE_SPARKPOST_WEBHOOK_TOKEN', getenv( 'BP_RBE_SPARKPOST_WEBHOOK_TOKEN' ) );
+Config::define( 'BP_RBE_DEBUG', getenv( 'BP_RBE_DEBUG' ) );
 
 /**
  * Social Accounts
