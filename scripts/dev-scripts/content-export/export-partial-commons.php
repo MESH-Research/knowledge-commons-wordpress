@@ -7,7 +7,7 @@
  * This script should be run on the source server. DB and Uploads files will be saved to the current directory.
  * 
  * Usage:
- * wp eval-file export-partial-commons.php [args]
+ * export-partial-commons.php [args]
  * 	domain=<new domain>
  * 	uploads=true|false] [s3-prefix=<s3 prefix>]
  * 
