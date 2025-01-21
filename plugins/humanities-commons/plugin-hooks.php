@@ -29,4 +29,4 @@ add_action( 'admin_notices', 'hc_suppress_simplemag_alert', 10, 0 );
 function hc_poseidon_font_base_directory() {
 	return '/media/uploads/poseidon/';
 }
-add_filter( 'wptt_get_local_fonts_base_path' );
+add_filter( 'wptt_get_local_fonts_base_path', 'hc_poseidon_font_base_directory' );
