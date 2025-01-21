@@ -23,5 +23,8 @@ fi
 # Install the crontab
 crontab -u www-data /app/scripts/cron/commons.crontab
 
+# Change to the /app directory before starting cron
+cd /app
+
 # Run crond in the foreground with logging
 exec crond -f -L /dev/stdout
