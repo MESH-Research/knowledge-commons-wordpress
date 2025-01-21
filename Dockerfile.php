@@ -12,7 +12,6 @@ RUN apk update && \
         aws-cli \
         jq \
         npm \
-        git \
         mysql \
         py3-pip \
         py-cryptography \
@@ -51,7 +50,7 @@ RUN GRPC_VERSION=1.58.0 && \
     make && \
     make install && \
     rm -rf /tmp/grpc && \
-    apk del --no-cache git grpc-dev $PHPIZE_DEPS && \
+    apk del --no-cache grpc-dev $PHPIZE_DEPS && \
     echo "extension=grpc.so" > /usr/local/etc/php/conf.d/grpc.ini
 
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp

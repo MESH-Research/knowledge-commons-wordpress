@@ -1,3 +1,1 @@
-<?php
-phpinfo();
-?>
+/app/scripts/build-scripts/phpinfo.php
