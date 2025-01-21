@@ -30,7 +30,7 @@ class InvenioUserRestController extends \WP_REST_Controller {
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<username>[a-zA-Z0-9-]+)',
+			'/' . $this->rest_base . '/(?P<username>[a-zA-Z0-9-_]+)',
 			[
 				[
 					'methods' => \WP_REST_Server::READABLE,
