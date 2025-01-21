@@ -50,8 +50,9 @@ nohup.out
 # don't ignore vscode xdebug settings
 !.vscode/launch.json
 
-# ignore temp directories
+# ignore temp directories and files
 kc-scripts-*/
+site/.env
 
 # ignore macos files
 .DS_Store

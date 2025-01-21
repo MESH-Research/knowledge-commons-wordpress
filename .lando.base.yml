@@ -28,9 +28,9 @@ services:
     type: lando
     app_mount: disabled
     services:
-      image: lando-wordpress-cron:latest
+      image: lando-wordpress-php:latest
       pull_policy: never
-      command: "crond -f"
+      command: "/app/scripts/build-scripts/docker-cron-entrypoint.sh"
     build_as_root:
       - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
   appserver_nginx:
