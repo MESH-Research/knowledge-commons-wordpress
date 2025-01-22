@@ -1,19 +1,15 @@
 # Boop every hour
 0 * * * * echo "$(date) boop"
 
-# Elasticpress
-# 0 0 * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/index_elasticpress.bash
-# 0 0 * * SAT [ "$RUN_CRON" = "true" ] && /app/scripts/cron/index_elasticpress.bash setup
-
 # BuddyPress email subscription digests added 2017-12-20
 0 5 * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/all_networks_wp.bash eval-file /app/scripts/cron/ass_digest_event.php
 0 5 * * 4 [ "$RUN_CRON" = "true" ] && /app/scripts/cron/all_networks_wp.bash eval-file /app/scripts/cron/ass_digest_event_weekly.php
 
 # Update mailchimp subscriptions weekly
-0 0 * * 0 [ "$RUN_CRON" = "true" ] && cd /tmp && wp eval-file /app/scripts/cron/mailchimp/update-mailchimp.php weeks=52 csv-all=all_users.csv mail=$MAILCHIMP_UPDATE_EMAIL --url=$WP_DOMAIN
+0 0 * * 0 [ "$RUN_CRON" = "true" ] && cd /tmp && wp --path=/app/site/web/wp eval-file /app/scripts/cron/mailchimp/update-mailchimp.php weeks=52 csv-all=all_users.csv mail=$MAILCHIMP_UPDATE_EMAIL --url=$WP_DOMAIN
 
 # Run wp-cron for base sites once per hour
 0 * * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/all_networks_wp.bash cron event run --due-now
 
 # Run wp-cron for all sites every 3 hours
-30 */3 * * * [ "$RUN_CRON" = "true" ] && wp site list --field=url | xargs -i -n1 wp cron event run --due-now --url="{}"
+30 */3 * * * [ "$RUN_CRON" = "true" ] && wp site list --field=url --path=/app/site/web/wp | xargs -i -n1 wp cron event run --path=/app/site/web/wp --due-now --url="{}"
