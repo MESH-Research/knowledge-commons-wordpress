@@ -606,4 +606,6 @@ if ($http_host = "stemedplus.commons.msu.edu") {
 	rewrite ^/(.*)$ https://stemedplus.hcommons.org/ permanent;
 }
 
-
+if ($http_host = "sofiabacasen.commons.msu.edu") {
+	rewrite ^/(.*)$ https://sofiabacasen.hcommons.org/ permanent;
+}
