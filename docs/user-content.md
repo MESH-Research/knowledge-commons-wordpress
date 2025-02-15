@@ -2,12 +2,12 @@
 
 ## Accessing Content
 
-To work with user content, you need to import the WordPress database and uploads directory. 
+To work with user content, you need to import the WordPress database and uploads directory.
 
 The uploads directory can be accessed through AWS EFS via an NFS mount. You can do this by:
 
 1. Ensure that your local machine can mount NFS v4 shares.
-2. Copy the `.lando.efs.yml` file to `.lando.yml` in the root of the project. This configuration should work for macOS, but may need to be adjusted for other OSes, depending on the NFS client being used. (See [NFS configuration](#NFS-Configuration) below.)
+2. Copy the `.lando.efs.yml` file to `.lando.yml` in the root of the project. This configuration should work for macOS, but may need to be adjusted for other OSes, depending on the NFS client being used. (See [NFS configuration](#nfs-configuration) below.)
 3. Connect to the Commons OpenVPN.
 4. Rebuild with `./lando-rebuild.sh`.
 
@@ -23,11 +23,11 @@ For ubuntu, you may need to install the `nfs-common` package. You may also need 
 
 ```yaml
 wp_uploads:
-	driver: local
-	driver_opts:
-		type: nfs4
-		o: addr=10.100.11.189,ro
-		device: ":/"
+    driver: local
+    driver_opts:
+        type: nfs4
+        o: addr=10.100.11.189,ro
+        device: ":/"
 ```
 
 ## Logging in to the site
