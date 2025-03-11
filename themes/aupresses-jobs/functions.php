@@ -29,7 +29,7 @@ add_filter( 'elementor_pro/utils/get_public_post_types', function($post_types) {
 function dm_display_wpjm_single_categories () {
 	$terms = wp_get_post_terms( get_the_ID(), 'job_listing_category' );
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
-			echo '<div class="job-categories-wrapper"><span>Catgeory:</span><ul>';
+			echo '<div class="job-categories-wrapper"><span>Category:</span><ul>';
 			foreach ( $terms as $term ) {
 					echo '<li>' . $term->name . '</li>';
 			}
@@ -51,6 +51,7 @@ add_filter( 'submit_job_form_fields', 'custom_submit_job_form_fields_dm' );
 function custom_submit_job_form_fields_dm( $fields ) {
 	unset($fields['company']['company_tagline']);
 	unset($fields['company']['company_video']);
+	unset($fields['company']['company_twitter']);
 	
 	$fields['job']['application']['label'] = "URL or email for the 'Apply for job' button";
   $fields['job']['application']['description'] = "Defaults to your email address.";
