@@ -21,6 +21,15 @@ server {
 }
 
 server {
+  listen [::]:80;
+  listen 80;
+  server_name recallthisbook.org;
+  location ^~ /wp-content/uploads/ {
+    rewrite ^/wp-content/uploads/(.*)$ https://hcommons.org/app/uploads/sites/1004474/$1 permanent;
+  }
+}
+
+server {
   listen [::]:80 default_server;
   listen 80 default_server;
   server_name ~^(?<sitename>[\w-]+\.)?(?<subdomain>[\w-]+)\.${DOMAIN_NAME}$ action.mla.org symposium.mla.org *.action.mla.org *.symposium.mla.org commons.msu.edu *.commons.msu.edu;
