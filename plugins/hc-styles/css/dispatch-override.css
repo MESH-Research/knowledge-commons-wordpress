@@ -12,4 +12,6 @@
 	}
 }
 
-
+.block-editor-block-list__layout::selection {
+	background: green !important;
+}
