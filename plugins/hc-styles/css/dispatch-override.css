@@ -11,7 +11,3 @@
     	  z-index: 99996999 !important;;
 	}
 }
-
-.block-editor-block-list__layout::selection {
-	background: green !important;
-}
