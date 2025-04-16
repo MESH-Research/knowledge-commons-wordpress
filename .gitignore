@@ -59,7 +59,10 @@ site/.env
 ._*
 
 # ignore local composer exec
-composer.phar 
+composer.phar
+
+.idea
+.idea/*
 
 # ignore copied .lando.yml
 .lando.yml
