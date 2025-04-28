@@ -38,7 +38,6 @@
 <ul class="msu_footer">
     <li>Call MSU: <strong><span class="msu_footer_green">(517) 355-1855</span></strong></li>
     <li>Visit: <strong><a href="http://msu.edu" rel="nofollow"><span class="msu_footer_green">msu.edu</span></a></strong></li>
-    <li>MSU is an affirmative-action, <span>equal-opportunity employer.</span></li>
 </ul>
 </div>
 <div class="panel-panel grid-9 alpha omega">
