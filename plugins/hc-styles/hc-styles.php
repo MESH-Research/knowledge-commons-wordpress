@@ -27,6 +27,13 @@ if('dispatch' === $theme_name ) {
   wp_enqueue_style( 'hc-styles-dispatch' );
 }
 
+// later versions of Chrome do not allow for highlighting text in the block editor
+// this stylesheet registers a fix
+wp_register_style( 'hc-styles-fix-highlight', plugins_url( '/hc-styles/css/fix-for-highlight-bug.css' ) );
+wp_enqueue_style( 'hc-styles-fix-highlight' );
+
+wp_enqueue_script("hc-append", plugins_url( '/hc-styles/js/append.js' ));
+
 /* This is not in prod, let's not break anything by deploying this
 add_filter( 'comment_form_defaults', function ( $args ) {
 	// i.e. different themes may have different form structures.

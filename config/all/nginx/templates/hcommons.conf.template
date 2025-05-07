@@ -21,6 +21,15 @@ server {
 }
 
 server {
+  listen [::]:80;
+  listen 80;
+  server_name recallthisbook.org;
+  location ^~ /wp-content/uploads/ {
+    rewrite ^/wp-content/uploads/(.*)$ https://hcommons.org/app/uploads/sites/1004474/$1 permanent;
+  }
+}
+
+server {
   listen [::]:80 default_server;
   listen 80 default_server;
   server_name ~^(?<sitename>[\w-]+\.)?(?<subdomain>[\w-]+)\.${DOMAIN_NAME}$ action.mla.org symposium.mla.org *.action.mla.org *.symposium.mla.org commons.msu.edu *.commons.msu.edu;
@@ -71,7 +80,19 @@ server {
 
   include /etc/nginx/conf.d/redirects.conf;
   include /etc/nginx/conf.d/core-works-redirects.conf;
-  
+
+  location /core/ {
+  	return 301 https://works.hcommons.org;
+  }
+
+  location /deposits/ {
+  	return 301 https://works.hcommons.org;
+  }
+
+  location /core/ {
+   return 301 https://works.hcommons.org;
+  }
+
   location / {
     try_files $uri $uri/ /index.php?$args;
   }
