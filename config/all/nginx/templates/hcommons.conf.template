@@ -80,7 +80,11 @@ server {
 
   include /etc/nginx/conf.d/redirects.conf;
   include /etc/nginx/conf.d/core-works-redirects.conf;
-  
+
+  location /core/ {
+  	return 301 https://works.hcommons.org;
+  }
+
   location / {
     try_files $uri $uri/ /index.php?$args;
   }
