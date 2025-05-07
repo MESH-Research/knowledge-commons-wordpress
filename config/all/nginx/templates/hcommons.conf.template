@@ -85,6 +85,14 @@ server {
   	return 301 https://works.hcommons.org;
   }
 
+  location /deposits/ {
+  	return 301 https://works.hcommons.org;
+  }
+
+  location /core/ {
+   return 301 https://works.hcommons.org;
+  }
+
   location / {
     try_files $uri $uri/ /index.php?$args;
   }
