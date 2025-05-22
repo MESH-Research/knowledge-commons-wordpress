@@ -10,23 +10,22 @@
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/elasticpress/includes/classes" isTestSource="false" packagePrefix="ElasticPress" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/elementor-pro" isTestSource="false" packagePrefix="ElementorPro" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/elementor/includes" isTestSource="false" packagePrefix="Elementor" />
+      <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/elementor/includes/elements" isTestSource="false" packagePrefix="Elementor" />
+      <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/elementor/includes/settings" isTestSource="false" packagePrefix="Elementor" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/essential-addons-for-elementor-lite/includes" isTestSource="false" packagePrefix="Essential_Addons_Elementor" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/events-manager" isTestSource="false" packagePrefix="EM" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/mailpoet/generated" isTestSource="false" packagePrefix="MailPoetGenerated" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/mailpoet/lib" isTestSource="false" packagePrefix="MailPoet" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/mailpoet/lib-3rd-party" isTestSource="false" packagePrefix="MailPoetVendor" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/ninja-forms" isTestSource="false" packagePrefix="NinjaForms" />
-      <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/ninja-forms/services" isTestSource="false" packagePrefix="NinjaForms" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/participants-database/classes" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/plugins/elementor-pro" isTestSource="false" packagePrefix="ElementorPro" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/pressforward/Libraries" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/redis-cache/dependencies/predis/predis/src" isTestSource="false" packagePrefix="Predis" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/smart-slider-3" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/app/plugins/wp-piwik/classes" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/site/web/app/themes/astra/inc/lib/utm-analytics" isTestSource="false" packagePrefix="BSF_UTM_Analytics" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/plugins" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/plugins/cc-client/src" isTestSource="false" packagePrefix="MeshResearch\CCClient\" />
-      <sourceFolder url="file://$MODULE_DIR$/site/web/plugins/cc-client/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/plugins/cc-client/tests" isTestSource="true" packagePrefix="MeshResearch\CCClient\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/plugins/commons-in-a-box/includes" isTestSource="false" packagePrefix="CBOX" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/plugins/elasticpress/includes/classes" isTestSource="false" packagePrefix="ElasticPress" />
@@ -48,6 +47,7 @@
       <sourceFolder url="file://$MODULE_DIR$/site/web/plugins/smart-slider-3" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/plugins/wp-piwik/classes" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/wp/wp-includes" isTestSource="false" packagePrefix="PHPMailer" />
+      <sourceFolder url="file://$MODULE_DIR$/site/web/wp/wp-includes/SimplePie/src" isTestSource="false" packagePrefix="SimplePie" />
       <sourceFolder url="file://$MODULE_DIR$/themes" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/firebase/php-jwt" />
