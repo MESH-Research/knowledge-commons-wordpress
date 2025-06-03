@@ -120474,3 +120474,6 @@ location /deposits/item/hc:58383/ {
 	return 301 https://works.hcommons.org/records/y24r3-xbe86; 
 }
 
+location /deposits {
+        return 302 http://knowledge-commons-static.s3-website-us-east-1.amazonaws.com;
+}
