@@ -2176,7 +2176,7 @@ class Humanities_Commons {
         if (!defined("KC_404")) {
             return;
         }
-        wp_redirect(getenv("KC_404"), 301);
+        wp_redirect(KC_404, 301);
         exit();
     }
 }
