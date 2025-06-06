@@ -2165,8 +2165,6 @@ class Humanities_Commons {
 	
 	/**
      * Redirects 404s to url defined by KC_404.
-     *
-     * @param WP $wp The WordPress object.
      */
     public function redirect_404()
     {
