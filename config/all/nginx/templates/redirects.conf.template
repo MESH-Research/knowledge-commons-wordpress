@@ -614,3 +614,7 @@ if ($http_host = "sofiabacasen.commons.msu.edu") {
 if ($http_host = "status.hcommons.org") {                                                                                
         rewrite ^/(.*)$ https://secure-stats.pingdom.com/7gz7crc560qs permanent;                                                        
 }  
+
+if ($http_host = "ecokritike.hcommons.org") {
+    rewrite ^/(.*)$ https://journals.h-net.org/ecokritike permanent;
+}
