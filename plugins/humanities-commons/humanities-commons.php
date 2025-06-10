@@ -159,6 +159,7 @@ class Humanities_Commons {
 
 		// Add filter to suppress activity for test users
 		add_filter('bp_activity_before_save', array($this, 'suppress_test_user_activity'), 10, 1);
+		add_action("template_redirect", [$this, "redirect_404"], 9, 0);
 	}
 
 	public function allow_external_hcommons( $external, $host, $url ) {
@@ -2161,6 +2162,21 @@ class Humanities_Commons {
 		wp_cache_set( 'test_user_ids', $test_user_ids, 'hcommons_settings', 24 * HOUR_IN_SECONDS );
 		return $test_user_ids;
 	}
+	
+	/**
+     * Redirects 404s to url defined by KC_404.
+     */
+    public function redirect_404()
+    {
+        if (!is_404()) {
+            return;
+        }
+        if (!defined("KC_404")) {
+            return;
+        }
+        wp_redirect(KC_404, 301);
+        exit();
+    }
 }
 
 $humanities_commons = new Humanities_Commons;
