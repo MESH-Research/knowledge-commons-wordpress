@@ -1,0 +1,194 @@
+{
+    "family": "commons-wordpress-dev-app",
+    "containerDefinitions": [
+        {
+            "name": "app",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-app:dev",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "ENV",
+                    "value": "/etc/environment"
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "commons-app",
+                    "containerPath": "/app",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "content",
+                    "containerPath": "/content",
+                    "readOnly": false
+                }
+            ],
+            "volumesFrom": [],
+            "secrets": [
+                {
+                    "name": "AWS_ACCESS_KEY_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_ACCESS_KEY_ID::"
+                },
+                {
+                    "name": "AWS_ACCOUNT_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_ACCOUNT_ID::"
+                },
+                {
+                    "name": "AWS_REGION",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_REGION::"
+                },
+                {
+                    "name": "AWS_SECRETS_ARN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_SECRETS_ARN::"
+                },
+                {
+                    "name": "AWS_SECRET_ACCESS_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_SECRET_ACCESS_KEY::"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "nginx",
+            "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-nginx:dev",
+            "cpu": 0,
+            "links": [
+                "app"
+            ],
+            "portMappings": [
+                {
+                    "name": "nginx-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                },
+                {
+                    "name": "nginx-443-tcp",
+                    "containerPort": 443,
+                    "hostPort": 443,
+                    "protocol": "tcp",
+                    "appProtocol": "http2"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "ENV",
+                    "value": "/etc/environment"
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "media",
+                    "containerPath": "/media",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "content",
+                    "containerPath": "/content",
+                    "readOnly": false
+                }
+            ],
+            "volumesFrom": [
+                {
+                    "sourceContainer": "app",
+                    "readOnly": true
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "AWS_ACCESS_KEY_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_ACCESS_KEY_ID::"
+                },
+                {
+                    "name": "AWS_ACCOUNT_ID",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_ACCOUNT_ID::"
+                },
+                {
+                    "name": "AWS_REGION",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_REGION::"
+                },
+                {
+                    "name": "AWS_SECRETS_ARN",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_SECRETS_ARN::"
+                },
+                {
+                    "name": "AWS_SECRET_ACCESS_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:AWS_SECRET_ACCESS_KEY::"
+                },
+                {
+                    "name": "CORE_FEDORA_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:CORE_FEDORA_HOST::"
+                },
+                {
+                    "name": "DOMAIN_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/secrets.env-IjR4kB:DOMAIN_NAME::"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/commons-wordpress-dev",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",
+    "networkMode": "bridge",
+    "volumes": [
+        {
+            "name": "media",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-08928dc9301c040f1",
+                "rootDirectory": "/"
+            }
+        },
+        {
+            "name": "content",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-01cdd2e3f9a83ada2",
+                "rootDirectory": "/"
+            }
+        },
+        {
+            "name": "commons-app",
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "driver": "local"
+            }
+        }
+    ],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "2048",
+    "memory": "10240",
+    "runtimePlatform": {
+        "cpuArchitecture": "ARM64",
+        "operatingSystemFamily": "LINUX"
+    }
+}

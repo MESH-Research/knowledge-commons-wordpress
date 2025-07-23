@@ -59,7 +59,10 @@ site/.env
 ._*
 
 # ignore local composer exec
-composer.phar 
+composer.phar
+
+.idea
+.idea/*
 
 # ignore copied .lando.yml
 .lando.yml
@@ -73,3 +76,5 @@ cc-client/
 # ignore composer.lock for 15zine-functionality because it has no dependencies
 # and we never run composer install on it
 forked-plugins/15zine-functionality/composer.lock
+
+site

@@ -35,7 +35,7 @@ function bps_bp_spam_stop() {
             $abort = true;
         } else {
             // exclude friends from spam mechanism
-            if (function_exists(friends_get_friend_user_ids)) {
+            if (function_exists('friends_get_friend_user_ids')) {
                 $friendsArray = friends_get_friend_user_ids($current_user->ID);
             } else {
                 $friendsArray = array();
