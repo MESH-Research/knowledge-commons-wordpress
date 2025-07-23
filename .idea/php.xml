@@ -7,7 +7,10 @@
     <option name="transferred" value="true" />
   </component>
   <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="codingStandard" value="PHPCompatibility" />
     <option name="highlightLevel" value="WARNING" />
+    <option name="installedPaths" value="$PROJECT_DIR$/vendor/phpcompatibility/php-compatibility/PHPCompatibility" />
+    <option name="useInstalledPaths" value="true" />
     <option name="transferred" value="true" />
   </component>
   <component name="PhpCodeSniffer">

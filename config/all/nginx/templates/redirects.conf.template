@@ -610,6 +610,10 @@ if ($http_host = "sofiabacasen.commons.msu.edu") {
 	rewrite ^/(.*)$ https://sofiabacasen.hcommons.org/ permanent;
 }
 
+if ($http_host = "research.commons.msu.edu") {
+	rewrite ^/(.*)$ https://rfn.commons.msu.edu/ permanent;
+}
+
 # Public status page
 if ($http_host = "status.hcommons.org") {                                                                                
         rewrite ^/(.*)$ https://secure-stats.pingdom.com/7gz7crc560qs permanent;                                                        
