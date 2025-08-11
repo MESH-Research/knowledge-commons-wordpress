@@ -159,7 +159,7 @@ class Humanities_Commons {
 
 		// Add filter to suppress activity for test users
 		add_filter('bp_activity_before_save', array($this, 'suppress_test_user_activity'), 10, 1);
-		add_action("template_redirect", [$this, "redirect_404"], 9, 0);
+		add_action("wp", [$this, "redirect_404"], 10, 0);
 	}
 
 	public function allow_external_hcommons( $external, $host, $url ) {
