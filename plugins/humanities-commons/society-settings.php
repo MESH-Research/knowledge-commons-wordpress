@@ -123,6 +123,15 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 ),
                                 'has_directory' => 'dhri'
                         ) );
+                bp_register_member_type(
+                        'stemedplus',
+                        array(
+                                'labels' => array(
+                                        'name' => 'STEM Ed+',
+                                        'singular_name' => 'STEM Ed+',
+                                ),
+                                'has_directory' => 'stemedplus'
+                        ) );
         }
         add_action( 'bp_register_member_types', 'hcommons_register_member_types' );
 
@@ -218,15 +227,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 				),
 				'has_directory' => 'up'
 			) );
-                bp_groups_register_group_type(
-                        'hastac',
-                        array(
-                                'labels' => array(
-                                        'name' => 'HASTAC',
-                                        'singular_name' => 'HASTAC',
-                                ),
-                                'has_directory' => 'hastac'
-                        ) );
+        bp_groups_register_group_type(
+                'hastac',
+                array(
+                        'labels' => array(
+                                'name' => 'HASTAC',
+                                'singular_name' => 'HASTAC',
+                        ),
+                        'has_directory' => 'hastac'
+                ) );
+        bp_groups_register_group_type(
+                'stemedplus',
+                array(
+                        'labels' => array(
+                                'name' => 'STEM Ed+',
+                                'singular_name' => 'STEM Ed+',
+                        ),
+                        'has_directory' => 'stemedplus'
+                ) );
                 bp_groups_register_group_type(
                         'dhri',
                         array(
