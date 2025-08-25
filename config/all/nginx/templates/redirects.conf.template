@@ -622,3 +622,8 @@ if ($http_host = "ecokritike.hcommons.org") {
 if ($http_host = "research.commons.msu.edu") {
 	rewrite ^/(.*)$ https://rfn.commons.msu.edu/$1 permanent;
 }
+
+# ASEEES retired in 2022
+if ( $host ~* "aseees.hcommons.org" ) {
+        rewrite ^/(.*)$ https://hcommons.org/ permanent;
+}
