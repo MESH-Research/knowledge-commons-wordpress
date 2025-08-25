@@ -200,9 +200,9 @@ Config::define('PATH_CURRENT_SITE', '/');
 Config::define('PRIMARY_NETWORK_ID', 1);
 
 /**
- * Redirect nonexistent blogs
+ * Redirect 404s to url defined by KC_404.
  */
-Config::define('NOBLOGREDIRECT', getenv('WP_HOME'));
+Config::define("KC_404", getenv("KC_404"));
 
 /**
  * Akismet

@@ -67,7 +67,7 @@
     "wpackagist-plugin/invite-anyone": "1.4.3",
     "wpackagist-plugin/issuem": "^2.8.7",
     "wpackagist-plugin/jetpack": "^12.2",
-    "wpackagist-plugin/linked-open-profiles": "^0.3.15",
+    "wpackagist-plugin/linked-open-profiles": "^0.3.17",
     "wpackagist-plugin/mathml-block": "^1.2.1",
     "wpackagist-plugin/multisite-plugin-manager": "^3.1.6",
     "wpackagist-plugin/ninja-forms": "^3.6.16",
@@ -137,12 +137,7 @@
     "wpackagist-plugin/tainacan": "^0.21.7",
     "mesh-research/cc-client": "dev-main",
     "wpackagist-plugin/feedzy-rss-feeds": "^4.4",
-    "open-telemetry/opentelemetry-auto-wordpress": "^0.0.16",
-    "open-telemetry/sdk": "^1.0",
-    "php-http/guzzle7-adapter": "^1.0",
-    "open-telemetry/exporter-otlp": "^1.0",
-    "grpc/grpc": "^1.57",
-    "open-telemetry/transport-grpc": "^1.0"
+    "php-http/guzzle7-adapter": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
