@@ -138,15 +138,15 @@ class components extends \WP_Widget {
 				if ( array_key_exists( 'before_widget', $args ) ) {
 					echo $args['before_widget'];
 				}
-				echo $_SESSION['blade'][0]->make( $file, [ 'title' => $instance['title'], 'data' => $data ] )->render();
+				echo blade()->make( $file, [ 'title' => $instance['title'], 'data' => $data ] )->render();
 				if ( array_key_exists( 'after_widget', $args ) ) {
 					echo $args['after_widget'];
 				}
 			} else {
-				echo $_SESSION['blade'][0]->make( "/widgets/lists_none", [ 'title' => $instance['title'] ] )->render();
+				echo blade()->make( "/widgets/lists_none", [ 'title' => $instance['title'] ] )->render();
 			}
 		} else {
-			echo $_SESSION['blade'][0]->make( "/widgets/lists_none" )->render();
+			echo blade()->make( "/widgets/lists_none" )->render();
 		}
 	}
 

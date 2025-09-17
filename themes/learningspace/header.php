@@ -75,8 +75,7 @@
                     <div class="course-card col-md-8"
 					     <?php if ( has_header_image() ) { ?>style="background-image: url('<?php header_image(); ?>');" <?php } ?> >
 						<?php
-						$blade = $_SESSION['blade'][0];
-						echo $blade->make( 'header_card',
+						echo blade()->make( 'header_card',
 							[
 								'title' => $blog_title,
 								'name'  => get_theme_mod( 'header_banner_title_setting' ),
