@@ -228,7 +228,12 @@ add_filter( 'the_permalink', 'hcommons_fix_group_forum_permalinks', 20 );
 function filter_bp_xprofile_add_xprofile_query_to_user_query( BP_User_Query $q ) {
 
 	if ( bp_is_group_members() ) {
-		$members_search = ! empty( $_REQUEST['members_search'] ) ? sanitize_text_field( $_REQUEST['members_search'] ) : sanitize_text_field( $_REQUEST['search_terms'] );
+		if (array_key_exists('search_terms', $_REQUEST)) {
+			$members_search = sanitize_text_field($_REQUEST['search_terms']);
+		}
+	    if (array_key_exists('members_search', $_REQUEST)) {
+			$members_search = sanitize_text_field($_REQUEST['members_search']);
+		}
 
 		if ( isset( $members_search ) && ! empty( $members_search ) ) {
 
@@ -454,7 +459,7 @@ function hc_custom_private_title_format( $prepend, $post ) {
 	/* translators: %s: topic title */
 	if( 'topic' === $post->post_type ) {
 	    $prepend = "<span class='badge-admin-only'>Admin Only </span>  " . __( ' %s' );
-	
+
 	return $prepend;
 	} else {
 	  return $post->post_title;
@@ -500,7 +505,7 @@ add_filter( 'buddypress_messages_spamblocker_24d', 'hc_custom_buddypress_message
  *
  * There is not a good interface for comment moderation, so it is better to
  * bypass it unless spam starts to become a problem.
- * 
+ *
  * @see https://github.com/MESH-Research/boss-child/issues/113
  *
  * @see bbpress/includes/common/functions.php::bbp_check_for_moderation()
@@ -532,7 +537,7 @@ add_filter( 'bbp_bypass_check_for_moderation', 'hc_custom_bypass_moderation', 10
  * active_id when arguments are being parsed, taking advantage of the fact that
  * child forums are only iterated through if the topic_id or reply_id are not
  * set.
- * 
+ *
  * @see https://github.com/MESH-Research/commons/issues/242
  * @see https://github.com/MESH-Research/commons/issues/434
  *
@@ -540,7 +545,7 @@ add_filter( 'bbp_bypass_check_for_moderation', 'hc_custom_bypass_moderation', 10
  * @see bbpress/includes/forums/functions.php::bbp_update_forum_last_reply_id
  * @see bbpress/includes/forums/functions.php::bbp_update_forum_last_active_id
  * @see bbpress/includes/common/functions.php::bbp_parse_args
- * 
+ *
  * @author Mike Thicke
  *
  * @param Array $r        The current arguments
@@ -575,10 +580,10 @@ function hc_custom_calc_parent_latest_topic( $r, $args, $defaults ) {
 			: max( $topic_ids );
 	}
 
-	if ( 
-		array_key_exists( 'last_topic_id', $r ) && 
-		$r['last_topic_id'] !== 0 && 
-		$r['last_topic_id'] > $latest_topic_id 
+	if (
+		array_key_exists( 'last_topic_id', $r ) &&
+		$r['last_topic_id'] !== 0 &&
+		$r['last_topic_id'] > $latest_topic_id
 	) {
 		wp_cache_set( 'hc_custom_calc_parent_latest_topic_id', $r['last_topic_id'] );
 		if ( $reply_id > $latest_reply_id ) {
