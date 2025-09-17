@@ -12,7 +12,7 @@ get_header(); ?>
 <div class="container-fluid <?php echo get_post_type(); ?>--header">
 	<div class="row">
 		<div class="mx-auto col-10">
-			<?php echo $_SESSION['blade'][0]->make('components/cpt-header'); ?>
+			<?php echo blade()->make('components/cpt-header'); ?>
 		</div>
 	</div>
 </div>

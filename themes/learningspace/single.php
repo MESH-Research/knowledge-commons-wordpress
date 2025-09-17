@@ -18,7 +18,7 @@ get_header(); ?>
 		<?php
 		while ( have_posts() ) : the_post();
 
-			echo $_SESSION['blade'][0]->make('components/doc-header');
+			echo blade()->make('components/doc-header');
 			get_template_part( 'template-parts/content', get_post_format() );
 
 		endwhile; // End of the loop.
