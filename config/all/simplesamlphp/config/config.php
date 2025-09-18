@@ -1237,7 +1237,7 @@ $config = [
      *
      * The default datastore is 'phpsession'.
      */
-    'store.type'                    => 'phpsession',
+    'store.type'                    => 'redis',
 
     /*
      * The DSN the sql datastore should connect to.
@@ -1261,7 +1261,7 @@ $config = [
     /*
      * The hostname and port of the Redis datastore instance.
      */
-    'store.redis.host' => 'localhost',
+    'store.redis.host' => getenv('WP_REDIS_HOST'),
     'store.redis.port' => 6379,
 
     /*

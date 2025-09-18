@@ -55,7 +55,6 @@
     "wpackagist-plugin/commons-in-a-box": "1.4.0",
     "wpackagist-plugin/disable-password-reset-extended": "^1.0",
     "wpackagist-plugin/edit-flow": "^0.9.6",
-    "wpackagist-plugin/elasticpress": "4.7.1",
     "wpackagist-plugin/elementor": "3.13.4",
     "wpackagist-plugin/essential-addons-for-elementor-lite": "^5.9",
     "wpackagist-plugin/event-organiser": "3.12.3",
@@ -137,7 +136,8 @@
     "wpackagist-plugin/tainacan": "^0.21.7",
     "mesh-research/cc-client": "dev-main",
     "wpackagist-plugin/feedzy-rss-feeds": "^4.4",
-    "php-http/guzzle7-adapter": "^1.0"
+    "php-http/guzzle7-adapter": "^1.0",
+    "predis/predis": "^3.2"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

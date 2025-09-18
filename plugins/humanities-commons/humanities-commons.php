@@ -153,13 +153,14 @@ class Humanities_Commons {
 		add_filter( 'bp_loggedin_user_id', array( $this, 'hcommons_bp_loggedin_user_id'), 10, 1 );
 		add_filter( 'bp_follow_blogs_show_footer_button', array( $this, 'hcommons_filter_show_footer_button' ), 10, 1 );
 		add_filter( 'bp_follow_blogs_get_follow_button', array( $this, 'hcommons_filter_get_follow_button' ), 10, 3 );
-	
+
 		add_action( 'init', array( $this, 'add_hide_site_option' ), 10 , 0 );
 		add_action( 'wp_update_site', array( $this, 'hcommons_delete_test_site' ), 10, 2 );
 
 		// Add filter to suppress activity for test users
 		add_filter('bp_activity_before_save', array($this, 'suppress_test_user_activity'), 10, 1);
-		add_action("template_redirect", [$this, "redirect_404"], 20, 0);
+		// Check for 404 redirect after bp_template_redirect and before maybe_redirect_404
+		add_action("template_redirect", [$this, "redirect_404"], 99, 0);
 	}
 
 	public function allow_external_hcommons( $external, $host, $url ) {
@@ -205,7 +206,7 @@ class Humanities_Commons {
 	 * Prevent 'Follow Site' and 'Followed Sites' buttons from appearing in footer.
 	 *
 	 * @see buddypress-followers/_inc/modules/blogs.php::show_footer_button()
-	 * 
+	 *
 	 * @param boolean $retval Whether buttons should appear
 	 * @return boolean Whether buttons should appear (false)
 	 */
@@ -214,11 +215,11 @@ class Humanities_Commons {
 	}
 
 	/**
-	 * 
+	 *
 	 * @see buddypress-followers/_inc/modules/blogs.php::get_button()
-	 * 
+	 *
 	 * @return array Empty array to prevent button from showing.
-	 * 
+	 *
 	 */
 	public function hcommons_filter_get_follow_button( $button, $r, $is_following ) {
 		return [];
@@ -958,7 +959,7 @@ class Humanities_Commons {
 		if ( ! is_object( $row ) ) {
 			return $link;
 		}
-		
+
 		$society_network = get_network( $row->site_id );
 		$scheme = ( is_ssl() ) ? 'https://' : 'http://';
 		$activity_root_domain = $scheme . $society_network->domain . $society_network->path;
@@ -1289,7 +1290,7 @@ class Humanities_Commons {
 				'   font-family: lexia,serif; font-weight: 300; text-transform: unset !important; line-height: 1.2;} ' .
 				' #entry-content p { line-height: 1.5; margin-top: 12px !important; } ' .
 				' #login form p.submit input { background-color: #0085ba !important; } ' .
-				' .login label { display: inherit !important; } ' . 
+				' .login label { display: inherit !important; } ' .
 				' .login form { margin-top: 0px; !important; }</style>';
 			echo '<div class="entry-content entry-summary"><p>Welcome to the future home of MSU Commons. Please forgive our appearance while we get ready for our big debut.</p></div>';
 		}
@@ -1299,7 +1300,7 @@ class Humanities_Commons {
                                 '   font-family: lexia,serif; font-weight: 300; text-transform: unset !important; line-height: 1.2;} ' .
                                 ' #entry-content p { line-height: 1.5; margin-top: 12px !important; } ' .
                                 ' #login form p.submit input { background-color: #0085ba !important; } ' .
-				' .login label { display: inherit !important; } ' . 
+				' .login label { display: inherit !important; } ' .
                                 ' .login form { margin-top: 0px; !important; }</style>';
                         echo '<div class="entry-content entry-summary"><p>Welcome to the future home of ARLIS/NA Commons. Please forgive our appearance while we get ready for our big debut.</p></div>';
                 }
@@ -1309,7 +1310,7 @@ class Humanities_Commons {
                                 '   font-family: lexia,serif; font-weight: 300; text-transform: unset !important; line-height: 1.2;} ' .
                                 ' #entry-content p { line-height: 1.5; margin-top: 12px !important; } ' .
                                 ' #login form p.submit input { background-color: #0085ba !important; } ' .
-				' .login label { display: inherit !important; } ' . 
+				' .login label { display: inherit !important; } ' .
                                 ' .login form { margin-top: 0px; !important; }</style>';
                         echo '<div class="entry-content entry-summary"><p>Welcome to the future home of SAH Commons. Please forgive our appearance while we get ready for our big debut.</p></div>';
                 }
@@ -1719,7 +1720,7 @@ class Humanities_Commons {
 	/**
 	 * Return user organization / society memberships from session.
 	 *
-	 * @return Array List of organization slugs that user is member of. 
+	 * @return Array List of organization slugs that user is member of.
 	 *               Eg. [ 'hc', 'mla', 'msu' ]
 	 */
 	public static function hcommons_get_user_org_memberships() {
@@ -1794,7 +1795,7 @@ class Humanities_Commons {
 						$group_memberships[$society_key] = [];
 					}
 					$group_memberships[$society_key][] = $matches[2];
-				} 
+				}
 			}
 		}
 		return $group_memberships;
@@ -1896,7 +1897,7 @@ class Humanities_Commons {
 	}
 
 	public static function hcommons_user_in_current_society() {
-		// If user has active society session, return true. 
+		// If user has active society session, return true.
 		if ( ! self::hcommons_non_member_active_session() ) {
 			return True;
 		}
@@ -2019,9 +2020,9 @@ class Humanities_Commons {
 
 		if ( false === $managed_group_names || empty( $managed_group_names ) ) {
 			$managed_group_names = [];
-			$autopopulate_groups = groups_get_groups( 
+			$autopopulate_groups = groups_get_groups(
 				[
-					'show_hidden' => true, 
+					'show_hidden' => true,
 					'per_page'    => -1,
 					'meta_query'  => [
 						[
@@ -2029,13 +2030,13 @@ class Humanities_Commons {
 							'value' => 'Y',
 						],
 					],
-				] 
+				]
 			);
 			foreach( $autopopulate_groups['groups'] as $group ) {
 				$group_society_id = bp_groups_get_group_type( $group->id, true );
 				$managed_group_names[ $group_society_id ][ strip_tags( stripslashes( html_entity_decode( $group->name ) ) ) ] = $group->id;
 			}
-			wp_cache_set( 
+			wp_cache_set(
 				'managed_group_names',
 				$managed_group_names,
 				'hcommons_settings',
@@ -2059,7 +2060,7 @@ class Humanities_Commons {
 
 		$managed_group_names = self::hcommons_get_managed_groups();
 
-		if ( 
+		if (
 			array_key_exists( $society_id, $managed_group_names ) &&
 			array_key_exists( $group_name, $managed_group_names[ $society_id ] )
 		) {
@@ -2109,7 +2110,7 @@ class Humanities_Commons {
 	 * Expunges temporary testing site from the db when the site is deleted.
 	 *
 	 * Triggered by the `wp_update_site` action.
-	 * 
+	 *
 	 * @param WP_Site $new_site New site object.
 	 * @param WP_Site $old_site Old site object.
 	 */
@@ -2164,7 +2165,7 @@ class Humanities_Commons {
 		wp_cache_set( 'test_user_ids', $test_user_ids, 'hcommons_settings', 24 * HOUR_IN_SECONDS );
 		return $test_user_ids;
 	}
-	
+
 	/**
      * Redirects 404s to url defined by KC_404.
      */

@@ -103,7 +103,7 @@ function boss_child_theme_enqueue_script() {
 
         $user_profile = null;
 
-	if ( is_object( $bp ) && is_object( $bp->displayed_user ) && !empty( $bp->displayed_user->domain ) ) {
+	if ( isset($bp) && is_object( $bp ) && is_object( $bp->displayed_user ) && !empty( $bp->displayed_user->domain ) ) {
 		$user_profile = $bp->displayed_user->domain;
 	}
 
@@ -123,7 +123,7 @@ function boss_child_theme_enqueue_script() {
 	wp_localize_script( 'buddyboss-main-override', 'BuddyBossOptions', $buddyboss_js_vars );
 
         //override social-learner.js from parent theme
-        wp_dequeue_script( 'social-learner' );  
+        wp_dequeue_script( 'social-learner' );
         wp_enqueue_script(
                 'social-learner-override',
                 get_stylesheet_directory_uri() . '/js/social-learner.js',
@@ -615,10 +615,10 @@ add_action( 'widgets_init', 'hc_boss_child_register_sidebars' );
 
 /**
  * Filters out sites with the hide-site-from-listing option set to '1'.
- * 
+ *
  * This can be set in the Settings screen when editing a site through wp-admin.
  *
- * @see https://github.com/MESH-Research/hastac-migration/issues/88 
+ * @see https://github.com/MESH-Research/hastac-migration/issues/88
  */
 function hc_filter_hidden_sites_from_sites_page( $blogs, $r ) {
         if ( strpos( get_page_template(), 'page-sites.php' ) === false ) {
