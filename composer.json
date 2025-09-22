@@ -66,7 +66,7 @@
     "wpackagist-plugin/invite-anyone": "1.4.3",
     "wpackagist-plugin/issuem": "^2.8.7",
     "wpackagist-plugin/jetpack": "^12.2",
-    "wpackagist-plugin/linked-open-profiles": "^0.3.17",
+    "wpackagist-plugin/linked-open-profiles": "^0.4.0",
     "wpackagist-plugin/mathml-block": "^1.2.1",
     "wpackagist-plugin/multisite-plugin-manager": "^3.1.6",
     "wpackagist-plugin/ninja-forms": "^3.6.16",

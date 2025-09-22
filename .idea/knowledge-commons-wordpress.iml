@@ -49,6 +49,9 @@
       <sourceFolder url="file://$MODULE_DIR$/site/web/wp/wp-includes" isTestSource="false" packagePrefix="PHPMailer" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/wp/wp-includes/SimplePie/src" isTestSource="false" packagePrefix="SimplePie" />
       <sourceFolder url="file://$MODULE_DIR$/themes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/plugins/cbox-auth/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/plugins/wp-graphql/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/firebase/php-jwt" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/google/apiclient" />
@@ -98,32 +101,18 @@
       <excludeFolder url="file://$MODULE_DIR$/themes/dahd-tainacan/vendor/twbs/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/aws/aws-crt-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/aws/aws-sdk-php" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/gettext/gettext" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/gettext/languages" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/gettext/translator" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/google/protobuf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/graham-campbell/result-type" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/grpc/grpc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mtdowling/jmespath.php" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7-server" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/api" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/context" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/exporter-otlp" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/gen-otlp-protobuf" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/opentelemetry-auto-wordpress" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/sdk" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/sem-conv" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/transport-grpc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/oscarotero/env" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/discovery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/guzzle7-adapter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/httplug" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/promise" />
@@ -138,8 +127,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/collection" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/uuid" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/robrichards/xmlseclibs" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/roots/bedrock-autoloader" />
@@ -177,7 +164,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php82" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/routing" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
@@ -187,11 +173,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/tbachert/spi" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/intl-extra" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/predis/predis" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
