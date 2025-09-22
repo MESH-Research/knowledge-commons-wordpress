@@ -21,14 +21,12 @@
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/vendor/simplesamlphp/assert" />
       <path value="$PROJECT_DIR$/vendor/simplesamlphp/composer-module-installer" />
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/vendor/tbachert/spi" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
@@ -83,11 +81,8 @@
       <path value="$PROJECT_DIR$/site/web/plugins/participants-database/vendor/composer" />
       <path value="$PROJECT_DIR$/site/web/plugins/participants-database/vendor/collizo4sky/persist-admin-notices-dismissal" />
       <path value="$PROJECT_DIR$/vendor/aws/aws-crt-php" />
-      <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
-      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/vendor/aws/aws-sdk-php" />
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php82" />
       <path value="$PROJECT_DIR$/vendor/psr/http-client" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
@@ -97,28 +92,15 @@
       <path value="$PROJECT_DIR$/vendor/php-http/promise" />
       <path value="$PROJECT_DIR$/vendor/php-http/guzzle7-adapter" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/context" />
       <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
-      <path value="$PROJECT_DIR$/vendor/brick/math" />
-      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/vendor/gettext/languages" />
       <path value="$PROJECT_DIR$/vendor/roots/bedrock-autoloader" />
       <path value="$PROJECT_DIR$/vendor/roots/wp-password-bcrypt" />
       <path value="$PROJECT_DIR$/vendor/roots/wp-config" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/transport-grpc" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/sem-conv" />
-      <path value="$PROJECT_DIR$/vendor/nyholm/psr7-server" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/sdk" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/api" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/gen-otlp-protobuf" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/opentelemetry-auto-wordpress" />
-      <path value="$PROJECT_DIR$/vendor/open-telemetry/exporter-otlp" />
       <path value="$PROJECT_DIR$/vendor/react/promise" />
       <path value="$PROJECT_DIR$/vendor/oscarotero/env" />
-      <path value="$PROJECT_DIR$/vendor/grpc/grpc" />
       <path value="$PROJECT_DIR$/vendor/robrichards/xmlseclibs" />
-      <path value="$PROJECT_DIR$/vendor/google/protobuf" />
       <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
       <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
       <path value="$PROJECT_DIR$/vendor/phpcompatibility/php-compatibility" />
@@ -165,6 +147,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/vendor/simplesamlphp/simplesamlphp" />
       <path value="$PROJECT_DIR$/vendor/marc-mabe/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/predis/predis" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
@@ -175,6 +158,11 @@
   </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/plugins/cbox-auth/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+    </phpunit_settings>
   </component>
   <component name="Psalm">
     <Psalm_settings>
