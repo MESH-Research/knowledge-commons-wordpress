@@ -640,3 +640,30 @@ function hc_filter_hidden_sites_from_sites_page( $blogs, $r ) {
         return $filtered_blogs;
 }
 add_filter( 'bp_blogs_get_blogs', 'hc_filter_hidden_sites_from_sites_page', 10, 2 );
+
+function hc_filter_redux_url(string $url): string {
+    $parsed = parse_url($url);
+    if (!isset($parsed['scheme']) || !isset($parsed['host']) || !isset($parsed['path'])) {
+        return $url;
+    }
+
+    $path = $parsed['path'];
+    if (preg_match('#^(/[^/]+)?/boss/#', $path, $matches)) {
+        $path = preg_replace('#^(/[^/]+)?/boss/#', '/app/themes/boss/', $path);
+    }
+
+    $new_url = $parsed['scheme'] . '://' . $parsed['host'];
+    if (isset($parsed['port'])) {
+        $new_url .= ':' . $parsed['port'];
+    }
+    $new_url .= $path;
+    if (isset($parsed['query'])) {
+        $new_url .= '?' . $parsed['query'];
+    }
+    if (isset($parsed['fragment'])) {
+        $new_url .= '#' . $parsed['fragment'];
+    }
+
+    return $new_url;
+}
+add_filter( 'redux/_url', 'hc_filter_redux_url' );
