@@ -10,19 +10,17 @@ services:
       environment:
         XDEBUG_MODE:
         XDEBUG_CONFIG:
-    build_as_root:
-      - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
-      - rm -f site/web/phpinfo.php && ln -s /app/scripts/build-scripts/phpinfo.php site/web/phpinfo.php
-      - /app/scripts/build-scripts/build-wordpress-lando.sh
     config:
       php: config/local/php/php.ini
+    build_as_root:
+      - rm -f site/.env && ln -s /app/config/local/wordpress/.env site/.env
+      - /app/scripts/build-scripts/build-wordpress-lando.sh
   database:
     type: mariadb
     creds:
       user: wordpress
       password: wordpress
       database: wordpress
-    healthcheck: false
   cron:
     api: 3
     type: lando
@@ -87,7 +85,7 @@ tooling:
     service: appserver
     description: Imports database from .sql file.
     user: root
-    cmd: /app/scripts/db-import.php 
+    cmd: /app/scripts/db-import.php
   reset-local-passwords:
     service: appserver
     description: Resets local WordPress passwords to "password" for all users
