@@ -33,8 +33,9 @@
         text-decoration: underline;
     }
 
-    li.menu-item-has-children::after {
+    li.menu-item-has-children > a::after {
         content: "▼";
+        font-size: 0.8rem;
     }
 
     .skip-navigation {
