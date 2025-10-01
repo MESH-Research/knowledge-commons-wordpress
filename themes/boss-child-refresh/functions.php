@@ -648,9 +648,8 @@ function hc_filter_redux_url(string $url): string {
     }
 
     $path = $parsed['path'];
-    if (preg_match('#^(/[^/]+)?/boss/#', $path, $matches)) {
-        $path = preg_replace('#^(/[^/]+)?/boss/#', '/app/themes/boss/', $path);
-    }
+    // Remove /content/ from the path
+    $path = str_replace('/content/', '/', $path);
 
     $new_url = $parsed['scheme'] . '://' . $parsed['host'];
     if (isset($parsed['port'])) {
