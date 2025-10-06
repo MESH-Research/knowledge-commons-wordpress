@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8b961e9adbf9bfd07660347becdca7e",
+    "content-hash": "67de07887c0abeb700387d985e0382a4",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -7424,15 +7424,15 @@
         },
         {
             "name": "wpackagist-plugin/redux-framework",
-            "version": "4.5.7",
+            "version": "4.5.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redux-framework/",
-                "reference": "tags/4.5.7"
+                "reference": "tags/4.5.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redux-framework.4.5.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/redux-framework.4.5.8.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -7568,7 +7568,7 @@
         },
         {
             "name": "wpackagist-plugin/wp-google-maps",
-            "version": "9.0.47",
+            "version": "9.0.48",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-google-maps/",
@@ -7576,7 +7576,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-google-maps.zip?timestamp=1759307669"
+                "url": "https://downloads.wordpress.org/plugin/wp-google-maps.zip?timestamp=1759735245"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -7655,6 +7655,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-saml-auth/"
+        },
+        {
+            "name": "wpackagist-plugin/zotpress",
+            "version": "7.4.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/zotpress/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/zotpress.zip?timestamp=1751413253"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/zotpress/"
         },
         {
             "name": "wpackagist-theme/armando",
@@ -8398,16 +8416,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.356.29",
+            "version": "3.356.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3e413221956aa969f379ff6fa67a303ce76aad13"
+                "reference": "c564fb87e180da5ae45185a4526bb05a69998d05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3e413221956aa969f379ff6fa67a303ce76aad13",
-                "reference": "3e413221956aa969f379ff6fa67a303ce76aad13",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c564fb87e180da5ae45185a4526bb05a69998d05",
+                "reference": "c564fb87e180da5ae45185a4526bb05a69998d05",
                 "shasum": ""
             },
             "require": {
@@ -8489,9 +8507,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.356.29"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.356.32"
             },
-            "time": "2025-09-30T18:12:45+00:00"
+            "time": "2025-10-03T18:12:05+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -8627,12 +8645,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "684ef27cdce62b6562f77a92dc76bdfb46542a2d"
+                "reference": "60ac6a710b7b0527786041ba96200bd49aa8de7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/684ef27cdce62b6562f77a92dc76bdfb46542a2d",
-                "reference": "684ef27cdce62b6562f77a92dc76bdfb46542a2d",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/60ac6a710b7b0527786041ba96200bd49aa8de7e",
+                "reference": "60ac6a710b7b0527786041ba96200bd49aa8de7e",
                 "shasum": ""
             },
             "conflict": {
@@ -8674,10 +8692,10 @@
                 "athlon1600/php-proxy-app": "<=3",
                 "athlon1600/youtube-downloader": "<=4",
                 "austintoddj/canvas": "<=3.4.2",
-                "auth0/auth0-php": ">=8.0.0.0-beta1,<8.14",
-                "auth0/login": "<7.17",
-                "auth0/symfony": "<5.4",
-                "auth0/wordpress": "<5.3",
+                "auth0/auth0-php": ">=3.3,<=8.16",
+                "auth0/login": "<=7.18",
+                "auth0/symfony": "<=5.4.1",
+                "auth0/wordpress": "<=5.3",
                 "automad/automad": "<2.0.0.0-alpha5",
                 "automattic/jetpack": "<9.8",
                 "awesome-support/awesome-support": "<=6.0.7",
@@ -8794,7 +8812,7 @@
                 "doctrine/mongodb-odm": "<1.0.2",
                 "doctrine/mongodb-odm-bundle": "<3.0.1",
                 "doctrine/orm": ">=1,<1.2.4|>=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
-                "dolibarr/dolibarr": "<=21.0.2",
+                "dolibarr/dolibarr": "<21.0.3",
                 "dompdf/dompdf": "<2.0.4",
                 "doublethreedigital/guest-entries": "<3.1.2",
                 "drupal/admin_audit_trail": "<1.0.5",
@@ -8983,7 +9001,7 @@
                 "joomla/archive": "<1.1.12|>=2,<2.0.1",
                 "joomla/database": ">=1,<2.2|>=3,<3.4",
                 "joomla/filesystem": "<1.6.2|>=2,<2.0.1",
-                "joomla/filter": "<1.4.4|>=2,<2.0.1",
+                "joomla/filter": "<2.0.6|>=3,<3.0.5|==4",
                 "joomla/framework": "<1.5.7|>=2.5.4,<=3.8.12",
                 "joomla/input": ">=2,<2.0.2",
                 "joomla/joomla-cms": "<3.9.12|>=4,<4.4.13|>=5,<5.2.6",
@@ -9401,7 +9419,7 @@
                 "thelia/thelia": ">=2.1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<6.0.8",
-                "thorsten/phpmyfaq": "<=4.0.1",
+                "thorsten/phpmyfaq": "<=4.0.1|>=4.0.7,<4.0.13",
                 "tikiwiki/tiki-manager": "<=17.1",
                 "timber/timber": ">=0.16.6,<1.23.1|>=1.24,<1.24.1|>=2,<2.1",
                 "tinymce/tinymce": "<7.2",
@@ -9593,7 +9611,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-24T21:05:21+00:00"
+            "time": "2025-10-03T15:05:30+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -9691,6 +9709,6 @@
     "platform": {
         "php": ">=8.1"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
