@@ -73,6 +73,8 @@ class Plugin {
         $client_id = getenv('CILOGON_CLIENT_ID');
         $client_secret = getenv('CILOGON_CLIENT_SECRET');
 
+        echo $client_id;
+
         if (!$client_id || !$client_secret) {
             error_log('CI Logon Plugin: Missing required environment variables. Please set CILOGON_CLIENT_ID and CILOGON_CLIENT_SECRET.');
         } else {

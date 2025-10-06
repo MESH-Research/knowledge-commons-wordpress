@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WordPress CI Logon
- * Description: A proof-of-concept WordPress plugin for integrating with CI Logon through OIDC
+ * Description: A WordPress plugin for integrating with CI Logon through OIDC
  * Requires at least: 6.7
  * Requires PHP: 8.2
  * Version: 1.0.0
@@ -23,6 +23,9 @@ define ("CILOGON_REST_BASE", "ci-logon/v1");
 if (file_exists(CILOGON_BASE_DIR . 'vendor/autoload.php')) {
     require_once CILOGON_BASE_DIR . 'vendor/autoload.php';
 }
+
+include 'Plugin.php';
+include 'CILogonAuth.php';
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

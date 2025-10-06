@@ -16,10 +16,10 @@ ln -sf /app/themes/*/ /app/site/web/app/themes/
 
 echo "Copying plugins and themes from EFS..."
 echo "Copying plugins..."
-rsync -a --info=progress2 /content/plugins/* /app/site/web/app/plugins/
+#rsync -a --info=progress2 /content/plugins/* /app/site/web/app/plugins/
 
 echo "Copying themes..."
-rsync -a --info=progress2 /content/themes/* /app/site/web/app/themes/
+#rsync -a --info=progress2 /content/themes/* /app/site/web/app/themes/
 
 echo "Installing Composer dependencies..."
 cd /app

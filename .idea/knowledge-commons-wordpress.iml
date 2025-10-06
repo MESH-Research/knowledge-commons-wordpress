@@ -49,6 +49,9 @@
       <sourceFolder url="file://$MODULE_DIR$/site/web/wp/wp-includes" isTestSource="false" packagePrefix="PHPMailer" />
       <sourceFolder url="file://$MODULE_DIR$/site/web/wp/wp-includes/SimplePie/src" isTestSource="false" packagePrefix="SimplePie" />
       <sourceFolder url="file://$MODULE_DIR$/themes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/plugins/cbox-auth/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/plugins/wp-graphql/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/firebase/php-jwt" />
       <excludeFolder url="file://$MODULE_DIR$/site/web/plugins/beehive-analytics/dependencies/vendor/google/apiclient" />
