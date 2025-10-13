@@ -7,7 +7,7 @@
 
 namespace MeshResearch\CILogon;
 
-use Jumbojett\OpenIDConnectClient;
+use MeshResearch\CILogon\CustomOpenIDConnectClient;
 use WP_Error;
 use WP_User;
 use Exception;
@@ -20,7 +20,7 @@ class CILogonAuth
     /**
      * OpenID Connect client instance
      *
-     * @var OpenIDConnectClient
+     * @var CustomOpenIDConnectClient
      */
     private $oidc_client;
 
@@ -43,12 +43,12 @@ class CILogonAuth
             "client_secret" => getenv("CILOGON_CLIENT_SECRET"),
             "redirect_uri" =>
                 getenv("CILOGON_REDIRECT_URI") ?:
-                "https://wordpress-ci-logon.lndo.site/wp-login.php",
+                "https://profile.hcommons.org/cilogon/callback/",
             "callback_next" =>
                 getenv("CILOGON_CALLBACK_NEXT") ?:
-                "https://wordpress-ci-logon.lndo.site/wp-login.php",
+                "https://commons-wordpress.lndo.site//wp-login.php",
             "scopes" => ["openid", "email", "profile"],
-            "profiles_url" => getenv("PROFILES_URL") ?: "",
+            "profiles_url" => getenv("PROFILES_URL") ?: "https://profile.hcommons.org/",
             "profiles_api_bearer_token" =>
                 getenv("PROFILES_API_BEARER_TOKEN") ?: "",
         ];
@@ -71,8 +71,33 @@ class CILogonAuth
     public function do_cilogon()
     {
         // Don't redirect if this is a callback or specific WP login action
-        if (isset($_GET["action"]) && $_GET["action"] === "cilogon_callback") {
-            return;
+        if (isset($_GET["code"]) && isset($_GET["state"])) {
+
+            $this->oidc_client = new CustomOpenIDConnectClient(
+                $this->config["provider_url"],
+                $this->config["client_id"],
+                $this->config["client_secret"]
+            );
+
+            $this->oidc_client->setRedirectURL($this->config["redirect_uri"]);
+            $this->oidc_client->addScope($this->config["scopes"]);
+
+            $authenticated = $this->oidc_client->authenticate();
+
+
+            if ($authenticated) {
+                $user_info = $this->get_user_info();
+            }
+            if ($user_info) {
+                $user = $this->find_or_create_user($user_info);
+            }
+            if ($user) {
+                wp_set_current_user($user->ID);
+                wp_set_auth_cookie($user->ID);
+                $redirect_to = admin_url();
+                wp_safe_redirect($redirect_to);
+                exit();
+            }
         }
 
         // Don't redirect for logout, lostpassword, etc.
@@ -108,6 +133,14 @@ class CILogonAuth
                 );
             }
 
+            error_log("CI Logon: Redirecting to CI Logon");
+
+            $reflection = new \ReflectionMethod($this->oidc_client, 'getState');
+            $reflection->setAccessible(true);
+            $current_state = $reflection->invoke($this->oidc_client);
+
+            error_log($current_state);
+
             $authenticated = $this->oidc_client->authenticate();
         } catch (Exception $e) {
             error_log("CI Logon authentication error: " . $e->getMessage());
@@ -115,6 +148,7 @@ class CILogonAuth
                 "CI Logon authentication error: " . esc_html($e->getMessage())
             );
         }
+
         if ($authenticated) {
             $user_info = $this->get_user_info();
         }
@@ -147,7 +181,12 @@ class CILogonAuth
                 $this->config["provider_url"]
         );
 
-        $this->oidc_client = new OpenIDConnectClient(
+        error_log(
+            "CI Logon: Using remote endpoint: " .
+            $this->config["redirect_uri"]
+        );
+
+        $this->oidc_client = new CustomOpenIDConnectClient(
             $this->config["provider_url"],
             $this->config["client_id"],
             $this->config["client_secret"]
@@ -156,17 +195,27 @@ class CILogonAuth
         $this->oidc_client->setRedirectURL($this->config["redirect_uri"]);
         $this->oidc_client->addScope($this->config["scopes"]);
 
-        $current_state = $this->oidc_client->getState();
-        if (!$current_state) {
-            error_log("CI Logon: No state found");
-            $state = [
-                "session_key" => bin2hex(random_bytes(16)),
-                "callback_next" => $this->config["callback_next"],
-            ];
-            $encoded_state = base64_encode(json_encode($state));
-            error_log("Setting state: " . var_export($encoded_state, true));
-            $this->oidc_client->setState($encoded_state);
-        }
+        $reflection = new \ReflectionMethod($this->oidc_client, 'getState');
+        $reflection->setAccessible(true);
+        $current_state = $reflection->invoke($this->oidc_client);
+
+        $state = [
+            "session_key" => bin2hex(random_bytes(16)),
+            "callback_next" => $this->config["callback_next"],
+        ];
+        // $encoded_state = base64_encode(json_encode($state));
+        $encoded_state = strtr(base64_encode(json_encode($state)), '+/', '-_');
+
+        error_log("Setting state: " . var_export($encoded_state, true));
+
+        $reflection_set = new \ReflectionMethod($this->oidc_client, 'setState');
+        $reflection_set->setAccessible(true);
+        $reflection_set->invoke($this->oidc_client, $encoded_state);
+
+        $reflection = new \ReflectionMethod($this->oidc_client, 'getState');
+        $reflection->setAccessible(true);
+        $current_state = $reflection->invoke($this->oidc_client);
+
     }
 
     /**
@@ -237,7 +286,9 @@ class CILogonAuth
             OPENSSL_RAW_DATA,
             $iv
         );
-        $payload = base64_encode($iv . $cipherRaw);
+        $payload = strtr(base64_encode($iv . $cipherRaw), '+/', '-_');
+
+        // $payload = base64_encode($iv . $cipherRaw);
         $url =
             $this->config["profiles_url"] .
             "associate?userinfo=" .

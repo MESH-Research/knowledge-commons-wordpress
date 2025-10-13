@@ -26,6 +26,7 @@ if (file_exists(CILOGON_BASE_DIR . 'vendor/autoload.php')) {
 
 include 'Plugin.php';
 include 'CILogonAuth.php';
+include "CustomOpenIDConnectClient.php";
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
