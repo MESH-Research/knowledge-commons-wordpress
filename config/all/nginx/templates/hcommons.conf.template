@@ -32,7 +32,7 @@ server {
 server {
   listen [::]:80 default_server;
   listen 80 default_server;
-  server_name ~^(?<sitename>[\w-]+\.)?(?<subdomain>[\w-]+)\.${DOMAIN_NAME}$ action.mla.org symposium.mla.org *.action.mla.org *.symposium.mla.org commons.msu.edu *.commons.msu.edu;
+  server_name ~^(?<sitename>[\w-]+\.)?(?<subdomain>[\w-]+)\.${DOMAIN_NAME}$ action.mla.org symposium.mla.org *.action.mla.org *.symposium.mla.org commons.msu.edu *.commons.msu.edu iteach.msu.edu;
   
   #if ( $subdomain = "msu" ) {
   #  rewrite ^ "https://${sitename}commons.msu.edu$uri" permanent;
