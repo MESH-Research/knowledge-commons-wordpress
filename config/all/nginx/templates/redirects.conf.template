@@ -518,9 +518,6 @@ rewrite ^/groups/gay-studies-in-language-and-literature/(.*) https://mla.${DOMAI
 rewrite ^/groups/translation/(.*) https://mla.${DOMAIN_NAME}/groups/translation-studies/$1 permanent;
 rewrite ^/groups/womens-studies-in-language-and-literature/(.*) https://mla.${DOMAIN_NAME}/groups/womens-and-gender-studies/$1 permanent;
 
-# mla style user redirect
-rewrite ^/members/mlastyle(.*) https://style.mla.org permanent;
-
 # redirect iTeach URLs
 
 rewrite ^/$ https://iteach.commons.msu.edu/ permanent;
@@ -547,6 +544,9 @@ rewrite ^/pathways/414/playlist$ https://iteach.commons.msu.edu/playlists/pl-act
 rewrite ^/pathways/405/playlist$ https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/ permanent;
 rewrite ^/pathways/248/playlist$ https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/ permanent;
 rewrite ^/pathways/235/playlist$ https://iteach.commons.msu.edu/playlists/assessment/ permanent;
+
+# mla style user redirect
+rewrite ^/members/mlastyle(.*) https://style.mla.org permanent;
 
 if ($http_host = "profession.mla.${DOMAIN_NAME}") {
         rewrite ^/(\d*)\/(\d*)\/(\d*)\/([A-Za-z0-9-]*)/ https://profession.mla.org/$4/ permanent;
