@@ -177,6 +177,8 @@
                     }
 
                     li {
+                        white-space: nowrap;
+
                         a {
                             background-color: transparent;
                             color: black;
@@ -303,6 +305,7 @@
                         li {
                             display: block;
                             width: 100%;
+                            white-space: nowrap;
 
                             ul {
                                 display: none;
