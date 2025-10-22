@@ -631,32 +631,28 @@ if ( $host ~* "aseees.hcommons.org" ) {
 # iteach.msu.edu redirects
 
 if ($host ~* "iteach.msu.edu") {
+        rewrite ^/pathways/252/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/417/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/259/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/421/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/286/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/364/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/528/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/346/playlist/?(.*) https://iteach.commons.msu.edu/playlists/course-design/$1 permanent;
+        rewrite ^/pathways/532/playlist/?(.*) https://iteach.commons.msu.edu/playlists/edtech-genai/$1 permanent;
+        rewrite ^/pathways/273/playlist/?(.*) https://iteach.commons.msu.edu/playlists/edtech-genai/$1 permanent;
+        rewrite ^/pathways/391/playlist/?(.*) https://iteach.commons.msu.edu/playlists/edtech-genai/$1 permanent;
+        rewrite ^/pathways/372/playlist/?(.*) https://iteach.commons.msu.edu/playlists/edtech-genai/$1 permanent;
+        rewrite ^/pathways/367/playlist/?(.*) https://iteach.commons.msu.edu/playlists/edtech-genai/$1 permanent;
+        rewrite ^/pathways/399/playlist/?(.*) https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/$1 permanent;
+        rewrite ^/pathways/495/playlist/?(.*) https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/$1 permanent;
+        rewrite ^/pathways/486/playlist/?(.*) https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/$1 permanent;
+        rewrite ^/pathways/473/playlist/?(.*) https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/$1 permanent;
+        rewrite ^/pathways/460/playlist/?(.*) https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/$1 permanent;
+        rewrite ^/pathways/437/playlist/?(.*) https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/$1 permanent;
+        rewrite ^/pathways/414/playlist/?(.*) https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/$1 permanent;
+        rewrite ^/pathways/405/playlist/?(.*) https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/$1 permanent;
+        rewrite ^/pathways/248/playlist/?(.*) https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/$1 permanent;
+        rewrite ^/pathways/235/playlist/?(.*) https://iteach.commons.msu.edu/playlists/assessment/$1 permanent;
         rewrite ^/(.*)$ https://iteach.commons.msu.edu/$1 permanent;
-}
-
-if ($host ~* "iteach.msu.edu") {
-        rewrite ^/$ https://iteach.commons.msu.edu/ permanent;
-        rewrite ^/pathways/252/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/417/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/259/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/421/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/286/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/364/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/528/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/346/playlist$ https://iteach.commons.msu.edu/playlists/course-design/ permanent;
-        rewrite ^/pathways/532/playlist$ https://iteach.commons.msu.edu/playlists/edtech-genai/ permanent;
-        rewrite ^/pathways/273/playlist$ https://iteach.commons.msu.edu/playlists/edtech-genai/ permanent;
-        rewrite ^/pathways/391/playlist$ https://iteach.commons.msu.edu/playlists/edtech-genai/ permanent;
-        rewrite ^/pathways/372/playlist$ https://iteach.commons.msu.edu/playlists/edtech-genai/ permanent;
-        rewrite ^/pathways/367/playlist$ https://iteach.commons.msu.edu/playlists/edtech-genai/ permanent;
-        rewrite ^/pathways/399/playlist$ https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/ permanent;
-        rewrite ^/pathways/495/playlist$ https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/ permanent;
-        rewrite ^/pathways/486/playlist$ https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/ permanent;
-        rewrite ^/pathways/473/playlist$ https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/ permanent;
-        rewrite ^/pathways/460/playlist$ https://iteach.commons.msu.edu/playlists/inclusive-pedagogy/ permanent;
-        rewrite ^/pathways/437/playlist$ https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/ permanent;
-        rewrite ^/pathways/414/playlist$ https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/ permanent;
-        rewrite ^/pathways/405/playlist$ https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/ permanent;
-        rewrite ^/pathways/248/playlist$ https://iteach.commons.msu.edu/playlists/pl-active-learning-engaging-practices/ permanent;
-        rewrite ^/pathways/235/playlist$ https://iteach.commons.msu.edu/playlists/assessment/ permanent;
 }
