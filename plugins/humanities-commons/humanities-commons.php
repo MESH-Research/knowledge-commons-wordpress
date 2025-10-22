@@ -1661,7 +1661,7 @@ class Humanities_Commons {
 	 * @return boolean
 	 */
 	public static function hcommons_vet_user() {
-		return true; // disable spammer check for now
+		//return true; // disable spammer check for now
 		$current_user = wp_get_current_user();
 		$member_types = (array)bp_get_member_type( $current_user->ID, false );
 		if ( empty( $member_types ) || ( 1 == count( $member_types ) && in_array( 'hc', $member_types ) ) ) {
@@ -1672,7 +1672,7 @@ class Humanities_Commons {
 
 		$timeDiff = time() - strtotime( $current_user->user_registered );
 
-		if ( $timeDiff < ( 60 * 60 * 48 ) ) {
+		if ( $timeDiff < ( 60 * 60 * 24 ) ) {
 			return false;
 		} else {
 			return true;
