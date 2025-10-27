@@ -15,7 +15,6 @@ git remote add hc-styles-legacy https://github.com/MESH-Research/hc-styles.git
 git remote add hc-suggestions-legacy https://github.com/MESH-Research/hc-suggestions.git
 git remote add humanities-commons-legacy https://github.com/MESH-Research/humanities-commons.git
 git remote add humcore-legacy https://github.com/MESH-Research/humcore.git
-git remote add idpsamlmdattributes-legacy https://github.com/MESH-Research/simplesamlphp-module-idpsamlmdattributes.git
 git remote add mla-academic-interests-legacy https://github.com/MESH-Research/mla-academic-interests.git
 git remote add mla-allowed-tags-legacy https://github.com/MESH-Research/mla-allowed-tags.git
 git remote add sparkpost-bp-mailer-legacy https://github.com/MESH-Research/sparkpost-bp-mailer.git

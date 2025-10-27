@@ -21,10 +21,6 @@
         "wpackagist-plugin/*",
         "wpackagist-theme/*"
       ]
-    },
-    {
-      "type": "path",
-      "url": "simplesamlphp/idpsamlmdattributes"
     }
   ],
   "require": {
@@ -119,9 +115,6 @@
     "wpackagist-theme/wabi": "^1.1.0",
     "monolog/monolog": "^3.3",
     "psr/log": "^2.0",
-    "wpackagist-plugin/wp-saml-auth": "^2.1",
-    "simplesamlphp/simplesamlphp": "^2.0.4",
-    "skoranda/simplesamlphp-module-idpsamlmdattributes": "*",
     "wpackagist-plugin/knight-lab-timelinejs": "3.9.3.4",
     "wpackagist-plugin/mailpoet": "^4.48",
     "wpackagist-plugin/more-privacy-options": "^4.6",
@@ -158,7 +151,6 @@
     "allow-plugins": {
       "composer/installers": true,
       "roots/wordpress-core-installer": true,
-      "simplesamlphp/composer-module-installer": true,
       "php-http/discovery": true,
       "tbachert/spi": true
     }
@@ -167,10 +159,6 @@
   "prefer-stable": true,
   "extra": {
     "installer-paths": {
-      "site/web/app/mu-plugins/{$name}/": [
-        "type:wordpress-muplugin",
-        "wpackagist-plugin/wp-saml-auth"
-      ],
       "site/web/app/plugins/{$name}/": [
         "type:wordpress-plugin"
       ],

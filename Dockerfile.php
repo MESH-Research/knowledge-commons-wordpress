@@ -76,7 +76,6 @@ COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
 COPY --chown=www-data:www-data ./themes /app/themes
 COPY --chown=www-data:www-data ./site/config /app/site/config
 COPY --chown=www-data:www-data wp-cli.yml /app/
-COPY --chown=www-data:www-data ./simplesamlphp /app/simplesamlphp
 COPY --chown=www-data:www-data ./config /app/config
 
 COPY --chown=www-data:www-data composer.json /app/
@@ -105,12 +104,6 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
 	ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
 	rm -rf /usr/local/etc/php-fpm.d/www.conf && \
 	ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
-	
-RUN rm -rf /app/config/all/simplesamlphp/log && \
-	rm -rf /app/config/all/simplesamlphp/tmp && \
-	mkdir -p /app/config/all/simplesamlphp/log && \
-	mkdir -p /app/config/all/simplesamlphp/tmp && \
-	chown -R www-data:www-data /app/config/all/simplesamlphp
 
 WORKDIR /app
 USER www-data

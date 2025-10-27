@@ -8,10 +8,6 @@
  */
 
 	//must set cookies before header
-	setcookie( 'SimpleSAMLCommons', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), false, true );
-	setcookie( 'SimpleSAMLAuthToken', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), false, true );
-	setcookie( '_saml_idp', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), false, true );
-	setcookie( 'stickyIdPSelection', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), true, true );
 	setcookie( 'redirect_to', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), true, true );
 	setcookie( 'wordpress_sec_', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), true, true );
 	setcookie( 'wordpress_logged_in_', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), true, true );
@@ -32,7 +28,6 @@
 		// SPs
 		//getenv('REGISTRY_SP_URL') . '/Shibboleth.sso/Logout',
 		//get_site_url() . '/Shibboleth.sso/Logout',
-		get_site_url() . '/simplesaml/module.php/core/as_logout.php?AuthId=default-sp',
 	]; ?>
 
 	<?php get_header(); ?>

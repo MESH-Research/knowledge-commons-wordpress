@@ -32,7 +32,6 @@ function hcommons_write_error_log( $error_type, $error_message, $info = null ) {
 require_once ( dirname( __FILE__ ) . '/society-settings.php' );
 require_once ( dirname( __FILE__ ) . '/wpmn-taxonomy-functions.php' );
 require_once ( dirname( __FILE__ ) . '/admin-toolbar.php' );
-require_once ( dirname( __FILE__ ) . '/hc-simplesaml.php' );
 require_once ( dirname( __FILE__ ) . '/class.comanage-api.php' );
 require_once ( dirname( __FILE__ ) . '/frontend-filters.php' );
 require_once ( dirname( __FILE__ ) . '/plugin-hooks.php' );
@@ -974,13 +973,14 @@ class Humanities_Commons {
 	 */
 	public function hcommons_society_body_class_name( $classes ) {
 
-		if ( hcommons_saml_session_active() ) {
-			$classes[] = 'active-session';
-			$user_memberships = self::hcommons_get_user_memberships();
-			if ( ! in_array( self::$society_id, $user_memberships['societies'] ) ) {
-				$classes[] = 'non-member';
-			}
-		}
+        // TODO: this needs rewriting for OIDC flow
+
+        $classes[] = 'active-session';
+        $user_memberships = self::hcommons_get_user_memberships();
+        if ( ! in_array( self::$society_id, $user_memberships['societies'] ) ) {
+            $classes[] = 'non-member';
+        }
+
 		$classes[] = 'society-' . self::$society_id;
 		return $classes;
 	}
@@ -1807,6 +1807,8 @@ class Humanities_Commons {
 	 * @return bool|string|array $login_methods
 	 */
 	public static function hcommons_get_user_login_methods( $user_id ) {
+
+        // TODO: excise SAML
 
 		$user_login_methods = array_filter( (array) maybe_unserialize( get_usermeta( $user_id, 'saml_login_methods', true ) ) );
 		if ( ! empty( $user_login_methods ) ) {
