@@ -23,6 +23,10 @@
       ]
     },
     {
+      "type": "vcs",
+      "url": "https://github.com/MESH-Research/kcworks-wp-plugin"
+    },
+    {
       "type": "path",
       "url": "simplesamlphp/idpsamlmdattributes"
     }
@@ -135,6 +139,7 @@
     "wpackagist-plugin/hide-admin-bar-from-non-admins": "^1.0",
     "wpackagist-plugin/tainacan": "^0.21.7",
     "mesh-research/cc-client": "dev-main",
+    "mesh-research/kcworks-wp-plugin": "0.4.2",
     "wpackagist-plugin/feedzy-rss-feeds": "^4.4",
     "wpackagist-plugin/zotpress": "^7.4.1",
     "php-http/guzzle7-adapter": "^1.0",

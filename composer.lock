@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67de07887c0abeb700387d985e0382a4",
+    "content-hash": "c67bb473751f90a74c7fb9fa0f791ed9",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1592,6 +1592,37 @@
                 "source": "https://github.com/MESH-Research/commons-connect-client/tree/main"
             },
             "time": "2025-07-18T16:55:00+00:00"
+        },
+        {
+            "name": "mesh-research/kcworks-wp-plugin",
+            "version": "0.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MESH-Research/kcworks-wp-plugin.git",
+                "reference": "38f374c6a7093395dbfa5d319dc50cf5d4d473b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MESH-Research/kcworks-wp-plugin/zipball/38f374c6a7093395dbfa5d319dc50cf5d4d473b6",
+                "reference": "38f374c6a7093395dbfa5d319dc50cf5d4d473b6",
+                "shasum": ""
+            },
+            "type": "wordpress-plugin",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grant Eben",
+                    "email": "ebengran@msu.edu"
+                }
+            ],
+            "description": "WordPress plugin for displaying bibliographies of works from KCWorks on pages, posts, and sites.",
+            "support": {
+                "source": "https://github.com/MESH-Research/kcworks-wp-plugin/tree/0.4.2",
+                "issues": "https://github.com/MESH-Research/kcworks-wp-plugin/issues"
+            },
+            "time": "2025-10-22T14:21:11+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3274,16 +3305,16 @@
         },
         {
             "name": "simplesamlphp/assert",
-            "version": "v1.9.0",
+            "version": "v1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/assert.git",
-                "reference": "13fe96d9f10ed340bc4fe11e03fed01c6dab8470"
+                "reference": "d0e7b9c12e4f613c6f32e1242cc08838cdeb39d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/assert/zipball/13fe96d9f10ed340bc4fe11e03fed01c6dab8470",
-                "reference": "13fe96d9f10ed340bc4fe11e03fed01c6dab8470",
+                "url": "https://api.github.com/repos/simplesamlphp/assert/zipball/d0e7b9c12e4f613c6f32e1242cc08838cdeb39d3",
+                "reference": "d0e7b9c12e4f613c6f32e1242cc08838cdeb39d3",
                 "shasum": ""
             },
             "require": {
@@ -3293,7 +3324,7 @@
                 "ext-spl": "*",
                 "guzzlehttp/psr7": "~2.8.0",
                 "php": "^8.2",
-                "webmozart/assert": "~1.11.0"
+                "webmozart/assert": "~1.12.0"
             },
             "require-dev": {
                 "ext-intl": "*",
@@ -3327,32 +3358,33 @@
             "description": "A wrapper around webmozart/assert to make it useful beyond checking method arguments",
             "support": {
                 "issues": "https://github.com/simplesamlphp/assert/issues",
-                "source": "https://github.com/simplesamlphp/assert/tree/v1.9.0"
+                "source": "https://github.com/simplesamlphp/assert/tree/v1.9.1"
             },
-            "time": "2025-09-17T08:56:19+00:00"
+            "time": "2025-10-20T22:29:33+00:00"
         },
         {
             "name": "simplesamlphp/composer-module-installer",
-            "version": "v1.4.0",
+            "version": "v1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/composer-module-installer.git",
-                "reference": "edb2155d200e2a208816d06f42cfa78bfd9e7cf4"
+                "reference": "75f204f9f2bb370f76952947f5b35bf2c855cc0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/composer-module-installer/zipball/edb2155d200e2a208816d06f42cfa78bfd9e7cf4",
-                "reference": "edb2155d200e2a208816d06f42cfa78bfd9e7cf4",
+                "url": "https://api.github.com/repos/simplesamlphp/composer-module-installer/zipball/75f204f9f2bb370f76952947f5b35bf2c855cc0b",
+                "reference": "75f204f9f2bb370f76952947f5b35bf2c855cc0b",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^2.6",
-                "php": "^8.1",
-                "simplesamlphp/assert": "^1.6"
+                "composer-plugin-api": "~2.6.0",
+                "ext-mbstring": "*",
+                "php": "^8.2",
+                "simplesamlphp/assert": "~1.9.1"
             },
             "require-dev": {
-                "composer/composer": "^2.8.3",
-                "simplesamlphp/simplesamlphp-test-framework": "^1.8.0"
+                "composer/composer": "~2.8.12",
+                "simplesamlphp/simplesamlphp-test-framework": "~1.10.3"
             },
             "type": "composer-plugin",
             "extra": {
@@ -3370,9 +3402,9 @@
             "description": "A Composer plugin that allows installing SimpleSAMLphp modules through Composer.",
             "support": {
                 "issues": "https://github.com/simplesamlphp/composer-module-installer/issues",
-                "source": "https://github.com/simplesamlphp/composer-module-installer/tree/v1.4.0"
+                "source": "https://github.com/simplesamlphp/composer-module-installer/tree/v1.5.1"
             },
-            "time": "2024-12-08T16:57:03+00:00"
+            "time": "2025-10-27T08:35:21+00:00"
         },
         {
             "name": "simplesamlphp/saml2",
@@ -6591,28 +6623,28 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.11.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991"
+                "reference": "541057574806f942c94662b817a50f63f7345360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/11cb2199493b2f8a3b53e7f19068fc6aac760991",
-                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/541057574806f942c94662b817a50f63f7345360",
+                "reference": "541057574806f942c94662b817a50f63f7345360",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
+                "ext-date": "*",
+                "ext-filter": "*",
                 "php": "^7.2 || ^8.0"
             },
-            "conflict": {
-                "phpstan/phpstan": "<0.12.20",
-                "vimeo/psalm": "<4.6.1 || 4.6.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5.13"
+            "suggest": {
+                "ext-intl": "",
+                "ext-simplexml": "",
+                "ext-spl": ""
             },
             "type": "library",
             "extra": {
@@ -6643,9 +6675,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.11.0"
+                "source": "https://github.com/webmozarts/assert/tree/1.12.0"
             },
-            "time": "2022-06-03T18:03:27+00:00"
+            "time": "2025-10-20T12:43:39+00:00"
         },
         {
             "name": "wpackagist-plugin/activitypub",
@@ -7225,15 +7257,15 @@
         },
         {
             "name": "wpackagist-plugin/linked-open-profiles",
-            "version": "0.4.0",
+            "version": "0.4.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/linked-open-profiles/",
-                "reference": "tags/0.4.0"
+                "reference": "tags/0.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/linked-open-profiles.0.4.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/linked-open-profiles.0.4.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -7657,15 +7689,15 @@
         },
         {
             "name": "wpackagist-plugin/zotpress",
-            "version": "7.4.1",
+            "version": "7.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/zotpress/",
-                "reference": "trunk"
+                "reference": "tags/7.4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/zotpress.zip?timestamp=1751413253"
+                "url": "https://downloads.wordpress.org/plugin/zotpress.7.4.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -8415,16 +8447,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.356.42",
+            "version": "3.357.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c886d60206d2f100c2d132052875f53ce3f999f7"
+                "reference": "7020346835259ad07ce320b04bea912055d4a5bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c886d60206d2f100c2d132052875f53ce3f999f7",
-                "reference": "c886d60206d2f100c2d132052875f53ce3f999f7",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7020346835259ad07ce320b04bea912055d4a5bc",
+                "reference": "7020346835259ad07ce320b04bea912055d4a5bc",
                 "shasum": ""
             },
             "require": {
@@ -8506,9 +8538,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.356.42"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.357.2"
             },
-            "time": "2025-10-17T18:17:41+00:00"
+            "time": "2025-10-24T19:16:19+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -8644,18 +8676,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "7a8f128281289412092c450a5eb3df5cabbc89e1"
+                "reference": "d8a6a765b23a6877089086ead3d4d415a3310068"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7a8f128281289412092c450a5eb3df5cabbc89e1",
-                "reference": "7a8f128281289412092c450a5eb3df5cabbc89e1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d8a6a765b23a6877089086ead3d4d415a3310068",
+                "reference": "d8a6a765b23a6877089086ead3d4d415a3310068",
                 "shasum": ""
             },
             "conflict": {
                 "3f/pygmentize": "<1.2",
                 "adaptcms/adaptcms": "<=1.3",
-                "admidio/admidio": "<4.3.12",
+                "admidio/admidio": "<=4.3.16",
                 "adodb/adodb-php": "<=5.22.9",
                 "aheinze/cockpit": "<2.2",
                 "aimeos/ai-admin-graphql": ">=2022.04.1,<2022.10.10|>=2023.04.1,<2023.10.6|>=2024.04.1,<2024.07.2",
@@ -8758,6 +8790,7 @@
                 "clickstorm/cs-seo": ">=6,<6.8|>=7,<7.5|>=8,<8.4|>=9,<9.3",
                 "co-stack/fal_sftp": "<0.2.6",
                 "cockpit-hq/cockpit": "<2.11.4",
+                "code16/sharp": "<9.7",
                 "codeception/codeception": "<3.1.3|>=4,<4.1.22",
                 "codeigniter/framework": "<3.1.10",
                 "codeigniter4/framework": "<4.6.2",
@@ -9063,7 +9096,7 @@
                 "luyadev/yii-helpers": "<1.2.1",
                 "macropay-solutions/laravel-crud-wizard-free": "<3.4.17",
                 "maestroerror/php-heic-to-jpg": "<1.0.5",
-                "magento/community-edition": "<=2.4.5.0-patch14|==2.4.6|>=2.4.6.0-patch1,<=2.4.6.0-patch12|>=2.4.7.0-beta1,<=2.4.7.0-patch7|>=2.4.8.0-beta1,<=2.4.8.0-patch2|>=2.4.9.0-alpha1,<=2.4.9.0-alpha2|==2.4.9",
+                "magento/community-edition": "<2.4.6.0-patch13|>=2.4.7.0-beta1,<2.4.7.0-patch8|>=2.4.8.0-beta1,<2.4.8.0-patch3|>=2.4.9.0-alpha1,<2.4.9.0-alpha3|==2.4.9",
                 "magento/core": "<=1.9.4.5",
                 "magento/magento1ce": "<1.9.4.3-dev",
                 "magento/magento1ee": ">=1,<1.14.4.3-dev",
@@ -9084,7 +9117,7 @@
                 "maximebf/debugbar": "<1.19",
                 "mdanter/ecc": "<2",
                 "mediawiki/abuse-filter": "<1.39.9|>=1.40,<1.41.3|>=1.42,<1.42.2",
-                "mediawiki/cargo": "<3.6.1",
+                "mediawiki/cargo": "<3.8.3",
                 "mediawiki/core": "<1.39.5|==1.40",
                 "mediawiki/data-transfer": ">=1.39,<1.39.11|>=1.41,<1.41.3|>=1.42,<1.42.2",
                 "mediawiki/matomo": "<2.4.3",
@@ -9109,7 +9142,7 @@
                 "mojo42/jirafeau": "<4.4",
                 "mongodb/mongodb": ">=1,<1.9.2",
                 "monolog/monolog": ">=1.8,<1.12",
-                "moodle/moodle": "<4.3.12|>=4.4,<4.4.8|>=4.5.0.0-beta,<4.5.4",
+                "moodle/moodle": "<4.4.11|>=4.5.0.0-beta,<4.5.7|>=5.0.0.0-beta,<5.0.3",
                 "moonshine/moonshine": "<=3.12.5",
                 "mos/cimage": "<0.7.19",
                 "movim/moxl": ">=0.8,<=0.10",
@@ -9244,7 +9277,7 @@
                 "prestashop/ps_facetedsearch": "<3.4.1",
                 "prestashop/ps_linklist": "<3.1",
                 "privatebin/privatebin": "<1.4|>=1.5,<1.7.4",
-                "processwire/processwire": "<=3.0.229",
+                "processwire/processwire": "<=3.0.246",
                 "propel/propel": ">=2.0.0.0-alpha1,<=2.0.0.0-alpha7",
                 "propel/propel1": ">=1,<=1.7.1",
                 "pterodactyl/panel": "<=1.11.10",
@@ -9287,8 +9320,8 @@
                 "setasign/fpdi": "<2.6.4",
                 "sfroemken/url_redirect": "<=1.2.1",
                 "sheng/yiicms": "<1.2.1",
-                "shopware/core": "<6.5.8.18-dev|>=6.6,<6.6.10.3-dev|>=6.7,<6.7.2.1-dev",
-                "shopware/platform": "<=6.6.10.4|>=6.7.0.0-RC1-dev,<6.7.0.0-RC2-dev",
+                "shopware/core": "<6.6.10.7-dev|>=6.7,<6.7.3.1-dev",
+                "shopware/platform": "<6.6.10.7-dev|>=6.7,<6.7.3.1-dev",
                 "shopware/production": "<=6.3.5.2",
                 "shopware/shopware": "<=5.7.17|>=6.7,<6.7.2.1-dev",
                 "shopware/storefront": "<=6.4.8.1|>=6.5.8,<6.5.8.7-dev",
@@ -9341,11 +9374,12 @@
                 "spatie/image-optimizer": "<1.7.3",
                 "spencer14420/sp-php-email-handler": "<1",
                 "spipu/html2pdf": "<5.2.8",
+                "spiral/roadrunner": "<2025.1",
                 "spoon/library": "<1.4.1",
                 "spoonity/tcpdf": "<6.2.22",
                 "squizlabs/php_codesniffer": ">=1,<2.8.1|>=3,<3.0.1",
                 "ssddanbrown/bookstack": "<24.05.1",
-                "starcitizentools/citizen-skin": ">=1.9.4,<3.4",
+                "starcitizentools/citizen-skin": ">=1.9.4,<3.9",
                 "starcitizentools/short-description": ">=4,<4.0.1",
                 "starcitizentools/tabber-neue": ">=1.9.1,<2.7.2|>=3,<3.1.1",
                 "starcitizenwiki/embedvideo": "<=4",
@@ -9616,7 +9650,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-10-17T18:06:27+00:00"
+            "time": "2025-10-24T21:05:23+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -9714,6 +9748,6 @@
     "platform": {
         "php": ">=8.1"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
