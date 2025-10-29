@@ -113,6 +113,9 @@ RUN php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-
     cd /app/plugins/hc-styles/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache
 RUN echo "Finished installing Composer dependencies"
 
+RUN cd /app/site/web/app/plugins/kcworks-on-wp && npm install @wordpress/scripts --save-dev && \
+    cd /app/site/web/app/plugins/kcworks-on-wp && npm ci && npm run build
+
 RUN cd /app/site/web/app/plugins/cc-client && npm ci && npm run build && \
     cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
     cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
