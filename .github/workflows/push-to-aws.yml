@@ -6,6 +6,7 @@ on:
       - main
       - production
       - dev
+      - wordpress-cilogon
 
 name: AWS ECR Build & Push
 
