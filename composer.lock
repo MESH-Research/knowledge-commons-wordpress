@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45de5bdf6ea96c97f2ecc64a51d78ec1",
+    "content-hash": "e9e6da90bcd9d1773ac6145aa67a70f3",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -6734,6 +6734,24 @@
             "homepage": "https://wordpress.org/plugins/anthologize/"
         },
         {
+            "name": "wpackagist-plugin/awesome-footnotes",
+            "version": "3.8.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/awesome-footnotes/",
+                "reference": "tags/3.8.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/awesome-footnotes.3.8.5.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/awesome-footnotes/"
+        },
+        {
             "name": "wpackagist-plugin/bbpress",
             "version": "2.6.14",
             "source": {
@@ -7491,15 +7509,15 @@
         },
         {
             "name": "wpackagist-plugin/so-widgets-bundle",
-            "version": "1.70.0",
+            "version": "1.70.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/so-widgets-bundle/",
-                "reference": "tags/1.70.0"
+                "reference": "tags/1.70.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/so-widgets-bundle.1.70.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/so-widgets-bundle.1.70.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
