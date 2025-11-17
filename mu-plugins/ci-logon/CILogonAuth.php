@@ -46,7 +46,7 @@ class CILogonAuth
                 "https://profile.hcommons.org/cilogon/callback/",
             "callback_next" =>
                 getenv("CILOGON_CALLBACK_NEXT") ?:
-                "https://commons-wordpress.lndo.site//wp-login.php",
+                "https://commons-wordpress.lndo.site/wp-login.php",
             "scopes" => ["openid", "email", "profile"],
             "profiles_url" => getenv("PROFILES_URL") ?: "https://profile.hcommons.org/",
             "profiles_api_bearer_token" =>

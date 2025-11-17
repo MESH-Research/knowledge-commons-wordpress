@@ -2,7 +2,7 @@
 /**
  * COmanage API
  *
- * A limited set of functions to access the COmanage REST API from Humanities Commons
+ * A limited set of functions to access the IDMS REST API from Humanities Commons
  *
  * @package Humanities Commons
  * @subpackage Configuration
@@ -49,34 +49,19 @@ class comanageApi {
 	 * @return array|object $req   json decoded array of objects from the request to comanage api        
 	 */
 	public function get_co_person( $username ) {
-		$req = wp_remote_get( $this->url . '/users/' . $username, $this->api_args );
+		$req = wp_remote_get( $this->url . 'users/' . $username, $this->api_args );
 		if ( is_wp_error( $req ) ) {
 			return false;
 		}
 
-		$data = json_decode( $req['body'] );
+        $body = (string) wp_remote_retrieve_body( $req );
 
-		return $data;
+		$data = json_decode( $body, true );
 
-	}
-
-	/**
-	 * Gets role from co_person by passing in person_id
-	 * 
-	 * @param  int    $co_person_id  CO user id
-	 * 
-	 * @return object $req			  object from api if request is successful               
-	 */
-	public function get_co_person_role( $co_person_id ) {
-		
-		//GET /co_person_roles.<format>?copersonid=
-		$req = wp_remote_get( $this->url . '/co_person_roles.' . $this->format . '?copersonid=' . $co_person_id,  $this->api_args );
-
-		$data = json_decode( $req['body'] );
-		
-		return $data;
+        return $data["results"];
 
 	}
+
 
 	/**
 	 * Gets COU for output into global class variable, returns all cous by default
@@ -164,49 +149,34 @@ class comanageApi {
 	 */
 	public function get_person_roles( $wordpress_username, $society_id = '' ) {
 
-		//lets get the ID in comanage for the current logged in user
+		// get the ID in IDMS for the current logged-in user
 		$co_person = $this->get_co_person( $wordpress_username );
-		
-		if ( false === $co_person ) {
-			return false;
-		}
-		//multiple records - find first active
-		foreach( $co_person as $person_record ) {
-			if ( $person_record[0]->CoId == "2" && $person_record[0]->Status == 'Active' ) {
-				$co_person_id = $person_record[0]->Id;
-				break 1;
-			}
-		}
-		//gets all of the roles the person currently has
-		$co_person_roles = $this->get_co_person_role( $co_person_id );
 
-		$roles = $co_person_roles->CoPersonRoles;
+        // get the roles from the external_sync_memberships key
+		$roles = $co_person["external_sync_memberships"];
 
-		//retrieve current society COU from API or retrieve all
+		// retrieve current society COU from API or retrieve all
 		$cous = $this->get_cous( $society_id );
 		$roles_found = array();
 
-		foreach( $cous as $cou ) {
-
-			//loop through each role
-			foreach( $roles as $role ) {
-				//check if each role matches the cou id of the society and provide a case for each status
-				if( $role->CouId == $cou['id'] ) {
-
-					$roles_found[$cou['name']] = [
-						'status' => $role->Status,
-						'affiliation' => $role->Affiliation,
-						'title' => $role->Title,
-						'o' => $role->O,
-						'valid_from' => substr( $role->ValidFrom, 0, 10 ),
-						'valid_through' => substr( $role->ValidThrough, 0, 10 ),
-					];
-
-				}
-
-			}
-
-		}
+        foreach( $cous as $cou ) {
+            // loop over external_sync_memberships
+            foreach ( $roles as $key => $value ) {
+                if ($key == strtoupper($cou['name']) && $value) {
+                    $roles_found[$cou['name']] = [
+                        'status' => "ACTIVE",
+                        'affiliation' => $key,
+                        'o' => $key,
+                    ];
+                } else if ($key == strtoupper($cou['name']) && !$value) {
+                    $roles_found[$cou['name']] = [
+                        'status' => "INACTIVE",
+                        'affiliation' => $key,
+                        'o' => $key,
+                    ];
+                }
+            }
+        }
 
 		ksort( $roles_found );
 		return $roles_found;
