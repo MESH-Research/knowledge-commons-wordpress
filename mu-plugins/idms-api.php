@@ -35,6 +35,54 @@ if ( defined( 'WP_CLI' ) && class_exists( 'WP_CLI' ) ) {
         public $url;
         public $api_args;
 
+        public static function hcommons_get_user_org_memberships($user) {
+            if ( ! isset( $_SERVER['HTTP_ISMEMBEROF'] ) ) {
+                if ( ! function_exists( 'bp_get_member_type' ) ) {
+                    return [];
+                }
+                $member_types = bp_get_member_type( $user->ID, false );
+                if ( empty( $member_types ) ) {
+                    return [];
+                }
+                return $member_types;
+            }
+
+            $server_membership_strings = explode( ';', $_SERVER['HTTP_ISMEMBEROF'] );
+
+            $server_memberships = [];
+            $pattern = '/CO:COU:(.*?):members:(.*)/';
+            foreach ( $server_membership_strings as $membership_string ) {
+                if ( preg_match( $pattern, $membership_string, $matches ) ) {
+                    $server_memberships[strtolower($matches[1])] = $matches[2];
+                }
+            }
+
+            $member_types = array_keys( bp_get_member_types() );
+            $active_memberships = array_keys(
+                array_filter( $server_memberships, function( $value ) {
+                    return $value === 'active';
+                } )
+            );
+
+            // Fallback for legacy organizational memberships. If this is finding
+            // memberships that are not being found above, something is going wrong.
+            // This code should be removed once Grouper is retired.
+            $pattern = '/Humanities Commons:(.*?):members_(.*?)/';
+            foreach ( $server_membership_strings as $membership_string ) {
+                if ( preg_match( $pattern, $membership_string, $matches ) ) {
+                    $member_org = strtolower( $matches[1] );
+                    if ( ! in_array( $member_org, $active_memberships ) ) {
+                        $active_memberships[] = $member_org;
+                        hcommons_write_error_log( 'info', "hcommons_get_user_org_memberships - adding fallback society membership - $member_org" );
+                    }
+                }
+            }
+
+            $org_memberships = array_intersect( $member_types, $active_memberships );
+
+            return $org_memberships;
+        }
+
 
         /**
          * Main subcommand.
@@ -49,6 +97,11 @@ if ( defined( 'WP_CLI' ) && class_exists( 'WP_CLI' ) ) {
             if ( ! $user ) {
                 WP_CLI::error( sprintf( 'User with username "%s" not found.', $username ) );
             }
+
+            $role_list = Sync_Memberships_Command::hcommons_get_user_org_memberships($user);
+
+            WP_CLI::error(print_r($role_list, true));
+            return;
 
             $this->url = getenv( 'PROFILES_API_URL' );
             $this->shared_bearer_key = getenv( 'PROFILES_API_BEARER' );
