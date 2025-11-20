@@ -3631,10 +3631,10 @@
             "dist": {
                 "type": "path",
                 "url": "simplesamlphp/idpsamlmdattributes",
-                "reference": "42090788d89cb169fddb017ef7fc80e6841ab117"
+                "reference": "97441563e86ce364fc70bd55950989f0e33f2e75"
             },
             "require": {
-                "simplesamlphp/composer-module-installer": "^1.1"
+                "simplesamlphp/composer-module-installer": "1.5.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "~3.7",
