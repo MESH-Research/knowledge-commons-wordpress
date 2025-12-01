@@ -273,6 +273,7 @@ class Plugin {
 
         // always set hc
         bp_set_member_type( $user_id, "hc", true );
+
     }
 
 
@@ -302,8 +303,8 @@ class Plugin {
 
         // build the endpoint and add filters for overrides
         $endpoint = trailingslashit($url . 'members') . $username;
-        $endpoint     = apply_filters( 'IDMS/sync_endpoint', $endpoint, $user, $assoc_args );
-        $request_args = apply_filters( 'IDMS/sync_request_args', $request_args, $user, $assoc_args );
+        $endpoint     = apply_filters( 'IDMS/sync_endpoint', $endpoint, $user );
+        $request_args = apply_filters( 'IDMS/sync_request_args', $request_args, $user );
 
         // make the request
         error_log( sprintf( 'CILogon Plugin: GET %s (timeout=%ds) …', $endpoint, $timeout ) );
@@ -368,6 +369,14 @@ class Plugin {
 
         // synchronise with BuddyPress
         Plugin::kc_sync_bp_member_types_for_username($user, $roles_found);
+
+        // set other user features
+        wp_update_user([
+            'ID'         => $user->ID,
+            'first_name' => $json["results"]["first_name"],
+            'last_name'  => $json["results"]["last_name"],
+            'display_name' => $json["results"]["first_name"] . $json["results"]["last_name"],
+        ]);
 
         return self::$instance;
     }
