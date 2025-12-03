@@ -143,20 +143,20 @@ if ( defined( 'WP_CLI' ) && class_exists( 'WP_CLI' ) ) {
                 WP_CLI::error( sprintf( 'JSON decode error: %s', json_last_error_msg() ) );
             }
 
-            WP_CLI::print_value( $json["results"]["external_sync_memberships"], [ 'json' => true ] );
+            WP_CLI::print_value( $json["results"]["memberships"], [ 'json' => true ] );
 
-            if ( ! isset( $json["results"]["external_sync_memberships"] ) ) {
-                WP_CLI::warning( 'Response did not include a valid "external_sync_memberships" array.' );
+            if ( ! isset( $json["results"]["memberships"] ) ) {
+                WP_CLI::warning( 'Response did not include a valid "memberships" array.' );
                 $memberships = [];
                 return;
             } else {
-                $memberships = $json["results"]["external_sync_memberships"];
+                $memberships = $json["results"]["memberships"];
             }
 
             // Output.
             $this->render_output( $memberships, "table" );
 
-            $roles = $json["results"]["external_sync_memberships"];
+            $roles = $json["results"]["memberships"];
 
             // retrieve current society COU from API or retrieve all
             $cous = $this->get_cous( "" );
@@ -164,7 +164,7 @@ if ( defined( 'WP_CLI' ) && class_exists( 'WP_CLI' ) ) {
 
             // loop over COUs
             foreach( $cous as $cou ) {
-                // loop over external_sync_memberships
+                // loop over memberships
                 foreach ( $roles as $key => $value ) {
                     if ($key == strtoupper($cou['name']) && $value) {
                         $roles_found[$cou['name']] = [

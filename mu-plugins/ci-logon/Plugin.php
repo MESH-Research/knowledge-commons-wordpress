@@ -332,13 +332,13 @@ class Plugin {
         }
 
         // test for external sync memberships
-        if ( ! isset( $json["results"]["external_sync_memberships"] ) ) {
-            error_log('CILogon Plugin: Response did not include a valid "external_sync_memberships" array.');
+        if ( ! isset( $json["results"]["memberships"] ) ) {
+            error_log('CILogon Plugin: Response did not include a valid "memberships" array.');
             return false;
         }
 
         // extract external sync memberships
-        $roles = $json["results"]["external_sync_memberships"];
+        $roles = $json["results"]["memberships"];
 
         // retrieve current society COU from API or retrieve all
         $cous = Plugin::get_cous( "" );
@@ -346,7 +346,7 @@ class Plugin {
 
         // loop over COUs
         foreach( $cous as $cou ) {
-            // loop over external_sync_memberships
+            // loop over memberships
             foreach ( $roles as $key => $value ) {
                 if ($key == strtoupper($cou['name']) && $value) {
                     $roles_found[$cou['name']] = [
@@ -364,18 +364,20 @@ class Plugin {
             }
         }
 
-        // print the API response
-        error_log(print_r($roles_found, true));
-
         // synchronise with BuddyPress
         Plugin::kc_sync_bp_member_types_for_username($user, $roles_found);
+
+        error_log( sprintf( 'CILogon Plugin: Updating user info: %s', $json["results"]["first_name"]) );
+
+        $field_id = xprofile_get_field_id_from_name( 'Name' );
+        xprofile_set_field_data( $field_id, $user->ID, $json["results"]["first_name"] . " " . $json["results"]["last_name"] );
 
         // set other user features
         wp_update_user([
             'ID'         => $user->ID,
             'first_name' => $json["results"]["first_name"],
             'last_name'  => $json["results"]["last_name"],
-            'display_name' => $json["results"]["first_name"] . $json["results"]["last_name"],
+            'display_name' => $json["results"]["first_name"] . " " . $json["results"]["last_name"],
         ]);
 
         return self::$instance;

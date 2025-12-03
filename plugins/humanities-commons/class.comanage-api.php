@@ -152,15 +152,15 @@ class comanageApi {
 		// get the ID in IDMS for the current logged-in user
 		$co_person = $this->get_co_person( $wordpress_username );
 
-        // get the roles from the external_sync_memberships key
-		$roles = $co_person["external_sync_memberships"];
+        // get the roles from the memberships key
+		$roles = $co_person["memberships"];
 
 		// retrieve current society COU from API or retrieve all
 		$cous = $this->get_cous( $society_id );
 		$roles_found = array();
 
         foreach( $cous as $cou ) {
-            // loop over external_sync_memberships
+            // loop over memberships
             foreach ( $roles as $key => $value ) {
                 if ($key == strtoupper($cou['name']) && $value) {
                     $roles_found[$cou['name']] = [
