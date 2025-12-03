@@ -105,6 +105,8 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
 	rm -rf /usr/local/etc/php-fpm.d/www.conf && \
 	ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
+RUN composer self-update 2.6.6
+
 WORKDIR /app
 USER www-data
 RUN php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
