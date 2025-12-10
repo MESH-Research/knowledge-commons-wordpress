@@ -77,6 +77,134 @@ class Plugin {
     }
 
     /**
+     * @param int $code
+     * @param string $body
+     * @param $username
+     * @param \WP_User|bool $user
+     * @return false|Plugin|null
+     */
+    public static function process_sync(int $code, string $body, $username, \WP_User|bool $user): null|false|Plugin
+    {
+// test the response code for bad responses
+        if ($code < 200 || $code >= 300) {
+            error_log(sprintf('CILogon Plugin: HTTP %d — Body: %s', $code, Plugin::truncate($body)));
+            return false;
+        }
+
+        // decode the JSON
+        $json = json_decode($body, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            error_log(sprintf('CILogon Plugin: JSON decode error: %s', json_last_error_msg()));
+        }
+
+        // check if we have a remote API error (1005 = user not found)
+        if (isset($json["meta"]["error"]["code"]) and $json["meta"]["error"]["code"] == 1005) {
+            error_log(sprintf('CILogon Plugin: User with username "%s" not found in remote API.', $username));
+            return false;
+        }
+
+        // basically, if we have come from the sub endpoint, we get "data" not "results" so we need to put it in there
+        error_log('CILogon Plugin: Testing form of API response.');
+        if ( isset($json["data"])) {
+            error_log('CILogon Plugin: Injecting array for login sync.');
+            $results_array = $json['data'][0]['profile'];
+
+        } else {
+            error_log('CILogon Plugin: Using standard results field.');
+            $results_array = $json['results'];
+        }
+
+        // so we have no WordPress user but a remote API user
+        if (!$user) {
+            $user_data = array(
+                'user_login' => $results_array["username"],
+                'user_pass' => wp_generate_password(12, true),
+                'user_email' => $results_array["email"],
+                'first_name' => $results_array["first_name"],
+                'last_name' => $results_array["last_name"],
+                'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
+                'role' => 'subscriber',
+            );
+
+            $user_id = wp_insert_user($user_data);
+
+            if (is_wp_error($user_id)) {
+                error_log('CILogon Plugin: User creation failed: ' . $user_id->get_error_message());
+                return false;
+            } else {
+                // Success; $user_id is the new user's ID.
+                error_log('CILogon Plugin: User creation succeeded, ID: ' . $user_id);
+                $user = get_user_by('id', $user_id);
+            }
+        }
+
+        if (!$user) {
+            error_log(sprintf('CILogon Plugin: User with username "%s" not found in WordPress after creation attempt.', $username));
+            return false;
+        }
+
+        // test for external sync memberships
+        if (!isset($results_array["memberships"])) {
+            error_log('CILogon Plugin: Response did not include a valid "memberships" array.');
+            return false;
+        }
+
+        // extract external sync memberships
+        $roles = $results_array["memberships"];
+
+        // retrieve current society COU from API or retrieve all
+        $cous = Plugin::get_cous("");
+        $roles_found = array();
+
+        // loop over COUs
+        foreach ($cous as $cou) {
+            // loop over memberships
+            foreach ($roles as $key => $value) {
+                if ($key == strtoupper($cou['name']) && $value) {
+                    $roles_found[$cou['name']] = [
+                        'status' => "ACTIVE",
+                        'affiliation' => $key,
+                        'o' => $key,
+                    ];
+                } else if ($key == strtoupper($cou['name']) && !$value) {
+                    $roles_found[$cou['name']] = [
+                        'status' => "INACTIVE",
+                        'affiliation' => $key,
+                        'o' => $key,
+                    ];
+                }
+            }
+        }
+
+        // synchronise with BuddyPress
+        Plugin::kc_sync_bp_member_types_for_username($user, $roles_found);
+
+        error_log(sprintf('CILogon Plugin: Updating user info: %s', $results_array["username"]));
+
+        $field_id = xprofile_get_field_id_from_name('Name');
+        xprofile_set_field_data($field_id, $user->ID, $results_array["first_name"] . " " . $results_array["last_name"]);
+
+        // set other user features
+        wp_update_user([
+            'ID' => $user->ID,
+            'first_name' => $results_array["first_name"],
+            'last_name' => $results_array["last_name"],
+            'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
+        ]);
+
+        // set superuser status if flag exists in API response
+        if (isset($results_array["is_superadmin"]) && $results_array["is_superadmin"]) {
+            grant_super_admin($user->ID);
+            error_log(sprintf('CILogon Plugin: Updating user to be SUPERADMIN: %s', $results_array["username"]));
+        } else {
+            revoke_super_admin($user->ID);
+            error_log(sprintf('CILogon Plugin: Updating user, NOT SUPERADMIN: %s', $results_array["username"]));
+        }
+
+        return self::$instance;
+    }
+
+    /**
      * Load plugin textdomain for translations
      */
     public function load_textdomain() {
@@ -276,7 +404,6 @@ class Plugin {
 
     }
 
-
     public static function sync_user($username) {
         error_log(sprintf( 'CILogon Plugin: Attempting sync for: %s', $username ) );
 
@@ -318,103 +445,6 @@ class Plugin {
         // extract the response code and body
         $code = (int) wp_remote_retrieve_response_code( $res );
         $body = (string) wp_remote_retrieve_body( $res );
-
-        // test the response code for bad responses
-        if ( $code < 200 || $code >= 300 ) {
-            error_log( sprintf( 'CILogon Plugin: HTTP %d — Body: %s', $code, Plugin::truncate($body) ) );
-            return false;
-        }
-
-        // decode the JSON
-        $json = json_decode( $body, true );
-        if ( json_last_error() !== JSON_ERROR_NONE ) {
-            error_log( sprintf( 'CILogon Plugin: JSON decode error: %s', json_last_error_msg() ) );
-        }
-
-        // check if we have a remote API error (1005 = user not found)
-        if ( isset( $json["meta"]["error"]["code"] ) and $json["meta"]["error"]["code"] == 1005 ) {
-            error_log( sprintf( 'CILogon Plugin: User with username "%s" not found in remote API.', $username ) );
-            return false;
-        }
-
-        // so we have no WordPress user but a remote API user
-        if ( ! $user ) {
-            $user_data = array(
-                'user_login'   => $json["results"]["username"],
-                'user_pass'    => wp_generate_password( 12, true ),
-                'user_email'   => $json["results"]["email"],
-                'first_name'   => $json["results"]["first_name"],
-                'last_name'    => $json["results"]["last_name"],
-                'display_name' => $json["results"]["first_name"] . " " . $json["results"]["last_name"],
-                'role'         => 'subscriber',
-            );
-
-            $user_id = wp_insert_user( $user_data );
-
-            if ( is_wp_error( $user_id ) ) {
-                error_log( 'CILogon Plugin: User creation failed: ' . $user_id->get_error_message() );
-                return false;
-            } else {
-                // Success; $user_id is the new user's ID.
-                error_log( 'CILogon Plugin: User creation succeeded, ID: ' . $user_id );
-                $user = get_user_by( 'id', $user_id );
-            }
-        }
-
-        if (!$user) {
-            error_log( sprintf( 'CILogon Plugin: User with username "%s" not found in WordPress after creation attempt.', $username ) );
-            return false;
-        }
-
-        // test for external sync memberships
-        if ( ! isset( $json["results"]["memberships"] ) ) {
-            error_log('CILogon Plugin: Response did not include a valid "memberships" array.');
-            return false;
-        }
-
-        // extract external sync memberships
-        $roles = $json["results"]["memberships"];
-
-        // retrieve current society COU from API or retrieve all
-        $cous = Plugin::get_cous( "" );
-        $roles_found = array();
-
-        // loop over COUs
-        foreach( $cous as $cou ) {
-            // loop over memberships
-            foreach ( $roles as $key => $value ) {
-                if ($key == strtoupper($cou['name']) && $value) {
-                    $roles_found[$cou['name']] = [
-                        'status' => "ACTIVE",
-                        'affiliation' => $key,
-                        'o' => $key,
-                    ];
-                } else if ($key == strtoupper($cou['name']) && !$value) {
-                    $roles_found[$cou['name']] = [
-                        'status' => "INACTIVE",
-                        'affiliation' => $key,
-                        'o' => $key,
-                    ];
-                }
-            }
-        }
-
-        // synchronise with BuddyPress
-        Plugin::kc_sync_bp_member_types_for_username($user, $roles_found);
-
-        error_log( sprintf( 'CILogon Plugin: Updating user info: %s', $json["results"]["first_name"]) );
-
-        $field_id = xprofile_get_field_id_from_name( 'Name' );
-        xprofile_set_field_data( $field_id, $user->ID, $json["results"]["first_name"] . " " . $json["results"]["last_name"] );
-
-        // set other user features
-        wp_update_user([
-            'ID'         => $user->ID,
-            'first_name' => $json["results"]["first_name"],
-            'last_name'  => $json["results"]["last_name"],
-            'display_name' => $json["results"]["first_name"] . " " . $json["results"]["last_name"],
-        ]);
-
-        return self::$instance;
+        return self::process_sync($code, $body, $username, $user);
     }
 }

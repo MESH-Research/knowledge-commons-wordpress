@@ -62,7 +62,28 @@ class CILogonAuth
     private function init_hooks()
     {
         // Redirect login page to CI Logon
-        add_action("login_init", [$this, "do_cilogon"]);
+        add_action("login_init", [$this, "do_cilogon_wrapper"]);
+    }
+
+    public function do_cilogon_wrapper() {
+        // Figure out what WP thinks is happening on this request
+        $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'login';
+
+        // Bail out for any non-login actions
+        if (
+            isset($_GET['loggedout'])             // second step of logout
+            || in_array(
+                $action,
+                [ 'logout', 'lostpassword', 'resetpass', 'rp', 'register', 'confirmaction' ],
+                true
+            )
+        ) {
+            error_log( 'CILogon Plugin: skipping, action=' . $action . ', loggedout=' . (isset($_GET['loggedout']) ? '1' : '0') );
+            return;
+        }
+
+        // Only now run the actual CILogon logic
+        $this->do_cilogon();
     }
 
     /**
@@ -70,6 +91,25 @@ class CILogonAuth
      */
     public function do_cilogon()
     {
+        // Don't do anything if user is already logged out
+        if ( isset($_GET['loggedout']) ) {
+            error_log('CILogon: loggedout flag set, skipping.');
+            return;
+        }
+
+        $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'login';
+
+        // Don't redirect for logout, lostpassword, reset, etc.
+        if ( in_array(
+            $action,
+            [ 'logout', 'lostpassword', 'resetpass', 'rp', 'register', 'confirmaction' ],
+            true
+        )
+        ) {
+            error_log( 'CILogon Plugin received action: ' . $action . ' – skipping.' );
+            return;
+        }
+
         // Don't redirect if this is a callback or specific WP login action
         if (isset($_GET["code"]) && isset($_GET["state"])) {
 
@@ -84,33 +124,17 @@ class CILogonAuth
 
             $authenticated = $this->oidc_client->authenticate();
 
-
             if ($authenticated) {
                 $user_info = $this->get_user_info();
             }
-            if ($user_info) {
+
+            if (isset($user_info)) {
                 $user = $this->find_or_create_user($user_info);
             }
-            if ($user) {
-                wp_set_current_user($user->ID);
-                wp_set_auth_cookie($user->ID);
-                $redirect_to = admin_url();
-                wp_safe_redirect($redirect_to);
-                exit();
-            }
-        }
 
-        // Don't redirect for logout, lostpassword, etc.
-        if (
-            isset($_GET["action"]) &&
-            in_array($_GET["action"], [
-                "logout",
-                "lostpassword",
-                "resetpass",
-                "rp",
-            ])
-        ) {
-            return;
+            if (isset($user)) {
+                $this->synchronise_user($user);
+            }
         }
 
         // Don't redirect if user is already logged in and accessing wp-admin
@@ -133,7 +157,7 @@ class CILogonAuth
                 );
             }
 
-            error_log("CI Logon: Redirecting to CI Logon");
+            error_log("CILogon PLugin: Redirecting to CI Logon");
 
             $reflection = new \ReflectionMethod($this->oidc_client, 'getState');
             $reflection->setAccessible(true);
@@ -156,11 +180,7 @@ class CILogonAuth
             $user = $this->find_or_create_user($user_info);
         }
         if ($user) {
-            wp_set_current_user($user->ID);
-            wp_set_auth_cookie($user->ID);
-            $redirect_to = admin_url();
-            wp_safe_redirect($redirect_to);
-            exit();
+            $this->synchronise_user($user);
         }
     }
 
@@ -170,19 +190,19 @@ class CILogonAuth
     private function init_oidc_client()
     {
         if (!$this->config["client_id"] || !$this->config["client_secret"]) {
-            error_log("CI Logon: Missing client credentials");
+            error_log("CILogon Plugin: Missing client credentials");
             throw new Exception(
-                "CI Logon client credentials not configured. Please set CILOGON_CLIENT_ID and CILOGON_CLIENT_SECRET environment variables."
+                "CILogon Plugin client credentials not configured. Please set CILOGON_CLIENT_ID and CILOGON_CLIENT_SECRET environment variables."
             );
         }
 
         error_log(
-            "CI Logon: Initializing OIDC client with provider: " .
+            "CILogon Plugin: Initializing OIDC client with provider: " .
                 $this->config["provider_url"]
         );
 
         error_log(
-            "CI Logon: Using remote endpoint: " .
+            "CILogon Plugin: Using remote endpoint: " .
             $this->config["redirect_uri"]
         );
 
@@ -218,6 +238,20 @@ class CILogonAuth
 
     }
 
+    public function synchronise_user($user) {
+        error_log("CILogon Plugin got a user.");
+        wp_set_current_user($user->ID);
+
+        error_log("CILogon Plugin setting auth cookie.");
+        wp_set_auth_cookie($user->ID);
+
+        error_log("CILogon redirecting.");
+        $redirect_to = admin_url();
+
+        wp_safe_redirect($redirect_to);
+        exit();
+    }
+
     /**
      * Get user info from Profiles subs endpoint
      */
@@ -232,7 +266,7 @@ class CILogonAuth
         $sub = $this->oidc_client->getVerifiedClaims()->sub;
         error_log("Sub: " . var_export($sub, true));
         if (!$sub) {
-            error_log("CI Logon: No sub found in verified claims");
+            error_log("CILogon Plugin: No sub found in verified claims");
             return false;
         }
 
@@ -242,17 +276,20 @@ class CILogonAuth
 
         if (is_wp_error($response)) {
             error_log(
-                "CI Logon: Error fetching user info from Profiles API: " .
+                "CILogon Plugin: Error fetching user info from Profiles API: " .
                     $response->get_error_message()
             );
             return false;
         }
 
+        $code = (int) wp_remote_retrieve_response_code( $response );
+        $body = (string) wp_remote_retrieve_body( $response );
+
         $user_info = json_decode(wp_remote_retrieve_body($response));
         error_log("Received user info: " . print_r($user_info, true));
 
         if (!$user_info) {
-            error_log("CI Logon: Invalid response from Profiles API");
+            error_log("CILogon Plugin: Invalid response from Profiles API");
             return false;
         }
 
@@ -262,12 +299,20 @@ class CILogonAuth
             count($user_info->data) == 0
         ) {
             error_log(
-                "CI Logon: No user data found in Profiles API response. Redirecting to link account page."
+                "CILogon Plugin: No user data found in Profiles API response. Redirecting to link account page."
             );
             $this->link_account();
         }
 
-        return $user_info->data[0];
+        // synchronise the user data
+        $user_info_final = $user_info->data[0];
+        $profile = $user_info_final->profile;
+
+        $user = get_user_by("login", $profile->username);
+        $username = $user->user_login;
+        Plugin::process_sync($code, $body, $username, $user);
+
+        return $user_info_final;
     }
 
     public function link_account()
@@ -310,7 +355,7 @@ class CILogonAuth
             error_log(
                 "CI Logon: Updating user meta for existing user: " . $user->ID
             );
-            $this->update_user_meta($user, $profile);
+            $this->update_user_meta($user, $user_info);
             return $user;
         }
 
@@ -340,7 +385,7 @@ class CILogonAuth
 
         error_log("CI Logon: Successfully created user with ID: " . $user_id);
         $user = get_user_by("id", $user_id);
-        $this->update_user_meta($user, $profile);
+        $this->update_user_meta($user, $user_info);
 
         return $user;
     }
@@ -377,7 +422,10 @@ class CILogonAuth
     private function update_user_meta(WP_User $user, $user_info)
     {
         update_user_meta($user->ID, "cilogon_sub", $user_info->sub);
-        update_user_meta($user->ID, "cilogon_iss", $user_info->iss);
+
+        if (isset($user_info->iss)) {
+            update_user_meta($user->ID, "cilogon_iss", $user_info->iss);
+        }
 
         if (isset($user_info->eppn)) {
             update_user_meta($user->ID, "cilogon_eppn", $user_info->eppn);
