@@ -283,14 +283,14 @@ class Plugin {
         // get the WordPress user
         $user = get_user_by( 'login', $username );
 
+        // if there is no user, we may have to create one later
         if ( ! $user ) {
-            error_log( sprintf( 'CILogon Plugin: User with username "%s" not found.', $username ) );
-            return false;
+            error_log( sprintf( 'CILogon Plugin: User with username "%s" not found... checking API response.', $username ) );
         }
 
         // get environment and other variables
         $url = getenv( 'PROFILES_API_URL' );
-        $shared_bearer_key = getenv( 'PROFILES_API_BEARER' );
+        $shared_bearer_key = getenv( 'PROFILES_API_BEARER_TOKEN' );
         $timeout  = 15;
 
         // build the arguments for the remote request
@@ -329,6 +329,41 @@ class Plugin {
         $json = json_decode( $body, true );
         if ( json_last_error() !== JSON_ERROR_NONE ) {
             error_log( sprintf( 'CILogon Plugin: JSON decode error: %s', json_last_error_msg() ) );
+        }
+
+        // check if we have a remote API error (1005 = user not found)
+        if ( isset( $json["meta"]["error"]["code"] ) and $json["meta"]["error"]["code"] == 1005 ) {
+            error_log( sprintf( 'CILogon Plugin: User with username "%s" not found in remote API.', $username ) );
+            return false;
+        }
+
+        // so we have no WordPress user but a remote API user
+        if ( ! $user ) {
+            $user_data = array(
+                'user_login'   => $json["results"]["username"],
+                'user_pass'    => wp_generate_password( 12, true ),
+                'user_email'   => $json["results"]["email"],
+                'first_name'   => $json["results"]["first_name"],
+                'last_name'    => $json["results"]["last_name"],
+                'display_name' => $json["results"]["first_name"] . " " . $json["results"]["last_name"],
+                'role'         => 'subscriber',
+            );
+
+            $user_id = wp_insert_user( $user_data );
+
+            if ( is_wp_error( $user_id ) ) {
+                error_log( 'CILogon Plugin: User creation failed: ' . $user_id->get_error_message() );
+                return false;
+            } else {
+                // Success; $user_id is the new user's ID.
+                error_log( 'CILogon Plugin: User creation succeeded, ID: ' . $user_id );
+                $user = get_user_by( 'id', $user_id );
+            }
+        }
+
+        if (!$user) {
+            error_log( sprintf( 'CILogon Plugin: User with username "%s" not found in WordPress after creation attempt.', $username ) );
+            return false;
         }
 
         // test for external sync memberships
