@@ -85,7 +85,7 @@ class Plugin {
      */
     public static function process_sync(int $code, string $body, $username, \WP_User|bool $user): null|false|Plugin
     {
-// test the response code for bad responses
+        // test the response code for bad responses
         if ($code < 200 || $code >= 300) {
             error_log(sprintf('CILogon Plugin: HTTP %d — Body: %s', $code, Plugin::truncate($body)));
             return false;
@@ -116,17 +116,7 @@ class Plugin {
 
         // so we have no WordPress user but a remote API user
         if (!$user) {
-            $user_data = array(
-                'user_login' => $results_array["username"],
-                'user_pass' => wp_generate_password(12, true),
-                'user_email' => $results_array["email"],
-                'first_name' => $results_array["first_name"],
-                'last_name' => $results_array["last_name"],
-                'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
-                'role' => 'subscriber',
-            );
-
-            $user_id = wp_insert_user($user_data);
+            $user_id = self::createNewWordPressUser($results_array);
 
             if (is_wp_error($user_id)) {
                 error_log('CILogon Plugin: User creation failed: ' . $user_id->get_error_message());
@@ -148,9 +138,65 @@ class Plugin {
             error_log('CILogon Plugin: Response did not include a valid "memberships" array.');
             return false;
         }
+        $roles_found = self::processMemberships($results_array["memberships"]);
 
-        // extract external sync memberships
-        $roles = $results_array["memberships"];
+        // synchronise with BuddyPress
+        self::kc_sync_bp_member_types_for_username($user, $roles_found);
+
+        // set user data
+        self::setUserData($results_array, $user);
+
+        // set superuser status if flag exists in API response
+        self::setSuperuserStatusIfFlagExistsInAPIResponse($results_array, $user);
+
+        return self::$instance;
+    }
+
+    /**
+     * @param mixed $results_array
+     * @param \WP_User|bool $user
+     * @return void
+     */
+    public static function setSuperuserStatusIfFlagExistsInAPIResponse(mixed $results_array, \WP_User|bool $user): void
+    {
+        if (isset($results_array["is_superadmin"]) && $results_array["is_superadmin"]) {
+            grant_super_admin($user->ID);
+            error_log(sprintf('CILogon Plugin: Updating user to be SUPERADMIN: %s', $results_array["username"]));
+        } else {
+            revoke_super_admin($user->ID);
+            error_log(sprintf('CILogon Plugin: Updating user, NOT SUPERADMIN: %s', $results_array["username"]));
+        }
+    }
+
+    /**
+     * @param mixed $results_array
+     * @param \WP_User|bool $user
+     * @return void
+     */
+    public static function setUserData(mixed $results_array, \WP_User|bool $user): void
+    {
+        error_log(sprintf('CILogon Plugin: Updating user info: %s', $results_array["username"]));
+
+        $field_id = xprofile_get_field_id_from_name('Name');
+        xprofile_set_field_data($field_id, $user->ID, $results_array["first_name"] . " " . $results_array["last_name"]);
+
+        // set other user features
+        wp_update_user([
+            'ID' => $user->ID,
+            'first_name' => $results_array["first_name"],
+            'last_name' => $results_array["last_name"],
+            'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
+        ]);
+    }
+
+    /**
+     * @param $memberships
+     * @return array
+     */
+    public static function processMemberships($memberships): array
+    {
+// extract external sync memberships
+        $roles = $memberships;
 
         // retrieve current society COU from API or retrieve all
         $cous = Plugin::get_cous("");
@@ -175,33 +221,27 @@ class Plugin {
                 }
             }
         }
+        return $roles_found;
+    }
 
-        // synchronise with BuddyPress
-        Plugin::kc_sync_bp_member_types_for_username($user, $roles_found);
-
-        error_log(sprintf('CILogon Plugin: Updating user info: %s', $results_array["username"]));
-
-        $field_id = xprofile_get_field_id_from_name('Name');
-        xprofile_set_field_data($field_id, $user->ID, $results_array["first_name"] . " " . $results_array["last_name"]);
-
-        // set other user features
-        wp_update_user([
-            'ID' => $user->ID,
+    /**
+     * @param mixed $results_array
+     * @return int|\WP_Error
+     */
+    public static function createNewWordPressUser(mixed $results_array): int|\WP_Error
+    {
+        $user_data = array(
+            'user_login' => $results_array["username"],
+            'user_pass' => wp_generate_password(12, true),
+            'user_email' => $results_array["email"],
             'first_name' => $results_array["first_name"],
             'last_name' => $results_array["last_name"],
             'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
-        ]);
+            'role' => 'subscriber',
+        );
 
-        // set superuser status if flag exists in API response
-        if (isset($results_array["is_superadmin"]) && $results_array["is_superadmin"]) {
-            grant_super_admin($user->ID);
-            error_log(sprintf('CILogon Plugin: Updating user to be SUPERADMIN: %s', $results_array["username"]));
-        } else {
-            revoke_super_admin($user->ID);
-            error_log(sprintf('CILogon Plugin: Updating user, NOT SUPERADMIN: %s', $results_array["username"]));
-        }
-
-        return self::$instance;
+        $user_id = wp_insert_user($user_data);
+        return $user_id;
     }
 
     /**
