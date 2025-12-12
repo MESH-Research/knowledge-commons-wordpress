@@ -48,7 +48,7 @@ class CILogonAuth
                 getenv("CILOGON_CALLBACK_NEXT") ?:
                 "https://commons-wordpress.lndo.site/wp-login.php",
             "scopes" => ["openid", "email", "profile"],
-            "profiles_url" => getenv("PROFILES_URL") ?: "https://profile.hcommons.org/",
+            "profiles_url" => getenv("PROFILES_API_URL") ?: "https://profile.hcommons.org/",
             "profiles_api_bearer_token" =>
                 getenv("PROFILES_API_BEARER_TOKEN") ?: "",
         ];
@@ -74,16 +74,104 @@ class CILogonAuth
             isset($_GET['loggedout'])             // second step of logout
             || in_array(
                 $action,
-                [ 'logout', 'lostpassword', 'resetpass', 'rp', 'register', 'confirmaction' ],
+                [ 'lostpassword', 'resetpass', 'rp', 'register', 'confirmaction' ],
                 true
             )
         ) {
             error_log( 'CILogon Plugin: skipping, action=' . $action . ', loggedout=' . (isset($_GET['loggedout']) ? '1' : '0') );
             return;
+        } elseif (
+            in_array(
+                $action,
+                [ 'logout' ],
+                true
+            )
+        ) {
+            // handle logout
+            $this->handle_logout();
+            return;
         }
 
         // Only now run the actual CILogon logic
         $this->do_cilogon();
+    }
+
+    public function handle_logout() {
+        // send signal to remote API to invalidate token
+        // this is at api/v1/actions/logout/ on profiles_api_url
+        // it needs a bearer token that is from profiles_api_bearer_token
+        // it also needs POST data of user_name and user_agent
+        $user = wp_get_current_user();
+        if ( ! $user || 0 === $user->ID ) {
+            error_log( 'CILogon Plugin: handle_logout called but no current user.' );
+            return;
+        }
+
+        // Build endpoint: {profiles_url}api/v1/actions/logout/
+        $endpoint = trailingslashit( $this->config['profiles_url'] ) . 'api/v1/actions/logout/';
+
+        // Prepare headers with bearer token.
+        $token = $this->config['profiles_api_bearer_token'];
+        if ( empty( $token ) ) {
+            error_log( 'CILogon Plugin: handle_logout – missing PROFILES_API_BEARER_TOKEN.' );
+            return;
+        }
+
+        $headers = array(
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type'  => 'application/json',
+            'Accept'        => 'application/json',
+        );
+
+        // Collect POST data.
+        $user_name  = $user->user_login;
+        $user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? (string) $_SERVER['HTTP_USER_AGENT'] : '';
+
+        $body = array(
+            'user_name'  => $user_name,
+            'user_agent' => $user_agent,
+        );
+
+        $args = array(
+            'method'      => 'POST',
+            'headers'     => $headers,
+            'timeout'     => 15,
+            'body'        => wp_json_encode( $body ),
+        );
+
+        error_log( sprintf(
+            'CILogon Plugin: Sending logout for "%s" to Profiles API endpoint: %s',
+            $user_name,
+            $endpoint
+        ) );
+
+        $response = wp_remote_post( $endpoint, $args );
+
+        if ( is_wp_error( $response ) ) {
+            error_log(
+                'CILogon Plugin: Error sending logout to Profiles API: ' .
+                $response->get_error_message()
+            );
+            return;
+        }
+
+        $code = (int) wp_remote_retrieve_response_code( $response );
+        $resp_body = (string) wp_remote_retrieve_body( $response );
+
+        if ( $code < 200 || $code >= 300 ) {
+            error_log( sprintf(
+                'CILogon Plugin: Logout API returned HTTP %d – Body: %s',
+                $code,
+                mb_substr( trim( $resp_body ), 0, 400 ) . ( strlen( trim( $resp_body ) ) > 400 ? '…' : '' )
+            ) );
+            return;
+        }
+
+        error_log( sprintf(
+            'CILogon Plugin: Logout API success for "%s" (HTTP %d).',
+            $user_name,
+            $code
+        ) );
     }
 
     /**
@@ -126,14 +214,20 @@ class CILogonAuth
 
             if ($authenticated) {
                 $user_info = $this->get_user_info();
+            } else {
+                return;
             }
 
-            if (isset($user_info)) {
+            if (isset($user_info) and $user_info) {
                 $user = $this->find_or_create_user($user_info);
+            } else {
+                return;
             }
 
             if (isset($user)) {
                 $this->synchronise_user($user);
+            } else {
+                return;
             }
         }
 
@@ -175,12 +269,26 @@ class CILogonAuth
 
         if ($authenticated) {
             $user_info = $this->get_user_info();
+        } else {
+            return;
         }
-        if ($user_info) {
+
+        if (isset($user_info) and $user_info) {
+            // make sure there's a profile field in $user_info
+            if (!isset($user_info->profile)) {
+                error_log("CILogon Plugin: No profile field in user info. API misconfiguration.");
+                return;
+            }
+
             $user = $this->find_or_create_user($user_info);
+        } else {
+            return;
         }
+
         if ($user) {
             $this->synchronise_user($user);
+        } else {
+            return;
         }
     }
 
@@ -262,8 +370,9 @@ class CILogonAuth
             "Authorization" =>
                 "Bearer " . $this->config["profiles_api_bearer_token"],
         ];
-        error_log("Headers: " . var_export($headers, true));
+        // error_log("Headers: " . var_export($headers, true));
         $sub = $this->oidc_client->getVerifiedClaims()->sub;
+        error_log("Sending request to: " . $subs_endpoint . "?sub=" . $sub);
         error_log("Sub: " . var_export($sub, true));
         if (!$sub) {
             error_log("CILogon Plugin: No sub found in verified claims");
@@ -289,6 +398,7 @@ class CILogonAuth
         error_log("Received user info: " . print_r($user_info, true));
 
         if (!$user_info) {
+            error_log("CILogon Plugin: CRITICAL ERROR: Profiles API appears misconfigured");
             error_log("CILogon Plugin: Invalid response from Profiles API");
             return false;
         }
@@ -421,6 +531,10 @@ class CILogonAuth
      */
     private function update_user_meta(WP_User $user, $user_info)
     {
+        error_log("CILogon Plugin: Updating user meta for user: " . $user->ID);
+        // log the full object
+        error_log("CILogon Plugin: User info: " . json_encode($user_info));
+
         update_user_meta($user->ID, "cilogon_sub", $user_info->sub);
 
         if (isset($user_info->iss)) {

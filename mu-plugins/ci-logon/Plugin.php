@@ -487,4 +487,31 @@ class Plugin {
         $body = (string) wp_remote_retrieve_body( $res );
         return self::process_sync($code, $body, $username, $user);
     }
+
+    public static function logout($request) {
+        // check whether the bearer token is valid
+        $shared_bearer_key = getenv( 'PROFILES_API_BEARER_TOKEN' );
+
+        if ($request->get_header('Authorization') != 'Bearer ' . $shared_bearer_key) {
+            error_log( 'CILogon Plugin: Logout request failed: Invalid bearer token' );
+            return false;
+        }
+
+        // get the username from the querystring
+        $username = $request->get_param('username');
+        $user = get_user_by( 'login', $username );
+        if ( ! $user ) {
+            return false;
+        }
+
+        if ( ! class_exists( '\WP_Session_Tokens' ) ) {
+            require_once ABSPATH . 'wp-includes/class-wp-session-tokens.php';
+        }
+
+        $manager = \WP_Session_Tokens::get_instance( $user->ID );
+        $manager->destroy_all();
+
+        error_log( 'CILogon Plugin: Logout request' );
+        return true;
+    }
 }

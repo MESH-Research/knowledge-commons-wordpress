@@ -40,7 +40,7 @@ add_action('muplugins_loaded', function () {
     Plugin::get_instance();
 });
 
-// add the webhook
+// add the webhook for pings
 add_action('rest_api_init', function () {
     register_rest_route('idms', '/user-updated', [
         'methods' => 'GET',
@@ -48,6 +48,21 @@ add_action('rest_api_init', function () {
             $params = $request->get_query_params();
             Plugin::sync_user($params["username"]);
             return ['message' => "SYNC REQUEST FOR " . $params["username"]];
+        },
+        'permission_callback' => '__return_true',
+    ]);
+});
+
+add_action('rest_api_init', function () {
+    register_rest_route('idms', '/logout', [
+        'methods' => 'GET',
+        'callback' => function (WP_REST_Request $request) {
+            if (Plugin::logout($request)) {
+                return ['message' => "LOGOUT"];
+            } else {
+                return ['message' => "LOGOUT FAILED"];
+            }
+
         },
         'permission_callback' => '__return_true',
     ]);
