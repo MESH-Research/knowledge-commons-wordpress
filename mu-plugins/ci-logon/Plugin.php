@@ -489,6 +489,8 @@ class Plugin {
     }
 
     public static function logout($request) {
+        error_log( 'CILogon Plugin: Logout request via API' );
+
         // check whether the bearer token is valid
         $shared_bearer_key = getenv( 'PROFILES_API_BEARER_TOKEN' );
 
@@ -511,7 +513,6 @@ class Plugin {
         $manager = \WP_Session_Tokens::get_instance( $user->ID );
         $manager->destroy_all();
 
-        error_log( 'CILogon Plugin: Logout request' );
         return true;
     }
 }

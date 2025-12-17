@@ -142,7 +142,9 @@
     "squizlabs/php_codesniffer": "^3.7.1",
     "roave/security-advisories": "dev-latest",
     "phpcompatibility/php-compatibility": "^9.3",
-    "aws/aws-sdk-php": "^3.273"
+    "aws/aws-sdk-php": "^3.273",
+    "phpunit/phpunit": "^9.5",
+    "mockery/mockery": "^1.4"
   },
   "config": {
     "optimize-autoloader": true,
@@ -171,6 +173,9 @@
   "scripts": {
     "test": [
       "phpcs"
-    ]
+    ],
+    "test:unit": "phpunit --configuration=mu-plugins/ci-logon/tests/phpunit.xml",
+    "test:unit-verbose": "phpunit --configuration=mu-plugins/ci-logon/tests/phpunit.xml -v",
+    "test:unit-coverage": "phpunit --configuration=mu-plugins/ci-logon/tests/phpunit.xml --coverage-html=mu-plugins/ci-logon/tests/coverage-report"
   }
 }

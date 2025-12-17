@@ -181,7 +181,7 @@ class CILogonAuth
     {
         // Don't do anything if user is already logged out
         if ( isset($_GET['loggedout']) ) {
-            error_log('CILogon: loggedout flag set, skipping.');
+            error_log('CILogon Plugin: loggedout flag set, skipping.');
             return;
         }
 
@@ -354,7 +354,7 @@ class CILogonAuth
         wp_set_auth_cookie($user->ID);
 
         error_log("CILogon redirecting.");
-        $redirect_to = admin_url();
+        $redirect_to = home_url();
 
         wp_safe_redirect($redirect_to);
         exit();
