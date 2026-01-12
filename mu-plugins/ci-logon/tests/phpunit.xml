@@ -17,6 +17,9 @@
             <file>PluginProcessSyncTest.php</file>
             <file>PluginProcessSyncIntegrationTest.php</file>
         </testsuite>
+        <testsuite name="Bearer Token Auth Tests">
+            <file>BearerTokenAuthTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

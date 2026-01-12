@@ -11,8 +11,10 @@
 // Get the plugin directory (parent of tests directory)
 $plugin_dir = dirname(__DIR__);
 
-// Define the plugin base directory
-define('CILOGON_BASE_DIR', $plugin_dir . '/');
+// Define the plugin base directory (only if not already defined)
+if (!defined('CILOGON_BASE_DIR')) {
+    define('CILOGON_BASE_DIR', $plugin_dir . '/');
+}
 
 // Find the root vendor directory (traverse up from plugin directory)
 $vendor_file = null;
@@ -369,6 +371,83 @@ if (!class_exists('WP_User')) {
     }
 }
 
+// Mock WP_REST_Request class if it doesn't exist
+if (!class_exists('WP_REST_Request')) {
+    /**
+     * Mock WP_REST_Request class for testing REST API endpoints
+     */
+    class WP_REST_Request {
+        private $params = [];
+        private $query_params = [];
+        private $headers = [];
+        private $method = 'GET';
+
+        public function __construct($method = 'GET', $route = '') {
+            $this->method = $method;
+        }
+
+        public function set_header($key, $value) {
+            $this->headers[strtolower($key)] = $value;
+        }
+
+        public function get_header($key) {
+            $key = strtolower($key);
+            return $this->headers[$key] ?? null;
+        }
+
+        public function set_param($key, $value) {
+            $this->params[$key] = $value;
+        }
+
+        public function get_param($key) {
+            return $this->params[$key] ?? $this->query_params[$key] ?? null;
+        }
+
+        public function set_query_params($params) {
+            $this->query_params = $params;
+        }
+
+        public function get_query_params() {
+            return $this->query_params;
+        }
+
+        public function get_method() {
+            return $this->method;
+        }
+    }
+}
+
+if (!function_exists('__')) {
+    /**
+     * Mock __ (translate) function
+     */
+    function __($text, $domain = 'default') {
+        return $text;
+    }
+}
+
+if (!function_exists('sanitize_user')) {
+    /**
+     * Mock sanitize_user function
+     */
+    function sanitize_user($username, $strict = false) {
+        // Basic sanitization - remove whitespace and convert to lowercase
+        $username = trim($username);
+        $username = preg_replace('/\s+/', '', $username);
+        return $username;
+    }
+}
+
+if (!function_exists('register_rest_route')) {
+    /**
+     * Mock register_rest_route function
+     */
+    function register_rest_route($namespace, $route, $args = array(), $override = false) {
+        // No-op in tests, but could store routes for testing
+        return true;
+    }
+}
+
 // Register autoloader for plugin classes
 // This looks for classes in the plugin directory, not in src/
 spl_autoload_register(function ($class) {
@@ -379,7 +458,7 @@ spl_autoload_register(function ($class) {
 
     // Remove the namespace prefix
     $class_path = substr($class, strlen('MeshResearch\\CILogon\\'));
-    
+
     // Convert namespace to file path
     // For example: Plugin -> Plugin.php, CILogonAuth -> CILogonAuth.php
     $file = CILOGON_BASE_DIR . str_replace('\\', '/', $class_path) . '.php';
@@ -388,3 +467,24 @@ spl_autoload_register(function ($class) {
         require_once $file;
     }
 });
+
+// Load the main cilogon.php file to get the cilogon_verify_bearer_token function
+// We need to define constants first
+if (!defined('WPMU_PLUGIN_DIR')) {
+    define('WPMU_PLUGIN_DIR', dirname(CILOGON_BASE_DIR));
+}
+if (!defined('WPMU_PLUGIN_URL')) {
+    define('WPMU_PLUGIN_URL', 'https://example.com/wp-content/mu-plugins');
+}
+if (!defined('WP_PLUGIN_URL')) {
+    define('WP_PLUGIN_URL', 'https://example.com/wp-content/plugins');
+}
+if (!defined('ABSPATH')) {
+    define('ABSPATH', '/var/www/html/');
+}
+if (!defined('HOUR_IN_SECONDS')) {
+    define('HOUR_IN_SECONDS', 3600);
+}
+
+// Include the main plugin file to get the cilogon_verify_bearer_token function
+require_once dirname(CILOGON_BASE_DIR) . '/cilogon.php';

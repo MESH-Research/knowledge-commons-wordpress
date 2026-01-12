@@ -491,13 +491,7 @@ class Plugin {
     public static function logout($request) {
         error_log( 'CILogon Plugin: Logout request via API' );
 
-        // check whether the bearer token is valid
-        $shared_bearer_key = getenv( 'PROFILES_API_BEARER_TOKEN' );
-
-        if ($request->get_header('Authorization') != 'Bearer ' . $shared_bearer_key) {
-            error_log( 'CILogon Plugin: Logout request failed: Invalid bearer token' );
-            return false;
-        }
+        // Note: Bearer token validation is handled by the permission_callback in cilogon.php
 
         // get the username from the querystring
         $username = $request->get_param('username');
