@@ -480,7 +480,7 @@ class CILogonAuth
             "first_name" => $profile->first_name ?? "",
             "last_name" => $profile->last_name ?? "",
             "display_name" => $profile->name ?? $profile->email,
-            "role" => "administrator", // Default role
+            "role" => "subscriber", // Default role - elevated permissions granted via sync
         ];
 
         $user_id = wp_insert_user($user_data);

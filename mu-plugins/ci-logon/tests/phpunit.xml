@@ -20,6 +20,9 @@
         <testsuite name="Bearer Token Auth Tests">
             <file>BearerTokenAuthTest.php</file>
         </testsuite>
+        <testsuite name="User Role Tests">
+            <file>UserRoleTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

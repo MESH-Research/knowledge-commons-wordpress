@@ -65,14 +65,46 @@ if (!function_exists('get_user_by')) {
     }
 }
 
+if (!function_exists('username_exists')) {
+    /**
+     * Mock username_exists function
+     */
+    function username_exists($username) {
+        // Return false by default (username does not exist)
+        return false;
+    }
+}
+
 if (!function_exists('wp_insert_user')) {
     /**
      * Mock wp_insert_user function
+     *
+     * Captures user data for testing and returns a WP_Error to simulate
+     * failure in test environment (since we don't have a real database).
      */
     function wp_insert_user($userdata) {
+        // Store captured data in global for test verification
+        $GLOBALS['_wp_insert_user_captured_data'] = $userdata;
+
         // Return a WP_Error to simulate failure in test environment
         return new \WP_Error('test_error', 'User creation failed in test environment');
     }
+}
+
+/**
+ * Helper function to get captured wp_insert_user data
+ *
+ * @return array|null The user data passed to wp_insert_user, or null if not called
+ */
+function get_captured_wp_insert_user_data(): ?array {
+    return $GLOBALS['_wp_insert_user_captured_data'] ?? null;
+}
+
+/**
+ * Helper function to clear captured wp_insert_user data
+ */
+function clear_captured_wp_insert_user_data(): void {
+    $GLOBALS['_wp_insert_user_captured_data'] = null;
 }
 
 if (!function_exists('wp_update_user')) {
@@ -485,6 +517,9 @@ if (!defined('ABSPATH')) {
 if (!defined('HOUR_IN_SECONDS')) {
     define('HOUR_IN_SECONDS', 3600);
 }
+
+// Include namespaced error_log override to suppress log output during tests
+require_once __DIR__ . '/test-error-log-override.php';
 
 // Include the main plugin file to get the cilogon_verify_bearer_token function
 require_once dirname(CILOGON_BASE_DIR) . '/cilogon.php';
