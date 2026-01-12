@@ -493,10 +493,19 @@ class Plugin {
 
         // Note: Bearer token validation is handled by the permission_callback in cilogon.php
 
-        // get the username from the querystring
+        // Get and validate the username from the querystring
         $username = $request->get_param('username');
+        if ( empty( $username ) ) {
+            error_log( 'CILogon Plugin: Logout request missing username parameter' );
+            return false;
+        }
+
+        // Sanitize the username
+        $username = sanitize_user( $username );
+
         $user = get_user_by( 'login', $username );
         if ( ! $user ) {
+            error_log( 'CILogon Plugin: Logout request for non-existent user: ' . $username );
             return false;
         }
 

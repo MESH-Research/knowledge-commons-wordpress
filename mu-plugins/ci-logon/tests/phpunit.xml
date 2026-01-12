@@ -26,6 +26,9 @@
         <testsuite name="Open Redirect Tests">
             <file>OpenRedirectTest.php</file>
         </testsuite>
+        <testsuite name="Logout Input Validation Tests">
+            <file>LogoutInputValidationTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
