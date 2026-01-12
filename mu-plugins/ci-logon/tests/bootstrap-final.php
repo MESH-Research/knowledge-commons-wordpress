@@ -307,7 +307,92 @@ if (!function_exists('wp_safe_redirect')) {
      * Mock wp_safe_redirect function
      */
     function wp_safe_redirect($location = '', $status = 302) {
-        // No-op in tests
+        // Store for test verification
+        $GLOBALS['_wp_safe_redirect_location'] = $location;
+        $GLOBALS['_wp_safe_redirect_status'] = $status;
+    }
+}
+
+if (!function_exists('wp_redirect')) {
+    /**
+     * Mock wp_redirect function
+     */
+    function wp_redirect($location = '', $status = 302) {
+        // Store for test verification
+        $GLOBALS['_wp_redirect_location'] = $location;
+        $GLOBALS['_wp_redirect_status'] = $status;
+    }
+}
+
+if (!function_exists('wp_sanitize_redirect')) {
+    /**
+     * Mock wp_sanitize_redirect function
+     *
+     * Sanitizes a URL for use in a redirect.
+     */
+    function wp_sanitize_redirect($location) {
+        // Basic sanitization - remove dangerous characters
+        $location = trim($location);
+        // Remove any newlines which could be used for header injection
+        $location = preg_replace('/[\r\n]/', '', $location);
+        return $location;
+    }
+}
+
+if (!function_exists('wp_validate_redirect')) {
+    /**
+     * Mock wp_validate_redirect function
+     *
+     * Validates a URL for use in a redirect. Only allows local redirects by default.
+     *
+     * @param string $location The redirect URL
+     * @param string $fallback_url URL to use if $location is not valid (default: '')
+     * @return string The validated redirect URL or fallback
+     */
+    function wp_validate_redirect($location, $fallback_url = '') {
+        // Empty location is invalid
+        if (empty($location)) {
+            return $fallback_url;
+        }
+
+        // Parse the URL
+        $parsed = parse_url($location);
+
+        // Relative URLs (starting with /) are always allowed
+        if (isset($parsed['path']) && strpos($location, '/') === 0 && strpos($location, '//') !== 0) {
+            return $location;
+        }
+
+        // Get allowed hosts (in real WP this checks against site URL)
+        $home_url = home_url();
+        $home_parsed = parse_url($home_url);
+        $allowed_hosts = [$home_parsed['host'] ?? 'example.com'];
+
+        // Apply allowed_redirect_hosts filter if any callbacks are registered
+        $allowed_hosts = apply_filters('allowed_redirect_hosts', $allowed_hosts, $location);
+
+        // Check if the host is allowed
+        if (isset($parsed['host'])) {
+            if (in_array($parsed['host'], $allowed_hosts, true)) {
+                return $location;
+            }
+            // Host not in allowed list
+            return $fallback_url;
+        }
+
+        // No host specified and not a relative URL - likely invalid
+        return $fallback_url;
+    }
+}
+
+if (!function_exists('apply_filters')) {
+    /**
+     * Mock apply_filters function
+     */
+    function apply_filters($tag, $value, ...$args) {
+        // Simple mock - just return the value unchanged
+        // In real tests that need filter support, this could be enhanced
+        return $value;
     }
 }
 

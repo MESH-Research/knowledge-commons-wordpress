@@ -23,6 +23,9 @@
         <testsuite name="User Role Tests">
             <file>UserRoleTest.php</file>
         </testsuite>
+        <testsuite name="Open Redirect Tests">
+            <file>OpenRedirectTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

@@ -240,14 +240,19 @@ class CILogonAuth
             error_log("CI Logon: Starting authentication redirect");
             $this->init_oidc_client();
 
-            // Store redirect URL in session if provided
+            // Store redirect URL in session if provided (validated to prevent open redirect)
             if (isset($_GET["redirect_to"])) {
                 if (!session_id()) {
                     session_start();
                 }
-                $_SESSION["cilogon_redirect_to"] = $_GET["redirect_to"];
+                // Validate redirect URL - only allow local redirects to prevent open redirect attacks
+                $validated_redirect = wp_validate_redirect(
+                    wp_sanitize_redirect($_GET["redirect_to"]),
+                    home_url()
+                );
+                $_SESSION["cilogon_redirect_to"] = $validated_redirect;
                 error_log(
-                    "CI Logon: Stored redirect URL: " . $_GET["redirect_to"]
+                    "CI Logon: Stored validated redirect URL: " . $validated_redirect
                 );
             }
 
@@ -354,7 +359,14 @@ class CILogonAuth
         wp_set_auth_cookie($user->ID);
 
         error_log("CILogon redirecting.");
+
+        // Use stored redirect URL if available, otherwise default to home
         $redirect_to = home_url();
+        if (!empty($_SESSION["cilogon_redirect_to"])) {
+            $redirect_to = $_SESSION["cilogon_redirect_to"];
+            unset($_SESSION["cilogon_redirect_to"]); // Clean up session
+            error_log("CILogon Plugin: Redirecting to stored URL: " . $redirect_to);
+        }
 
         wp_safe_redirect($redirect_to);
         exit();
@@ -449,7 +461,17 @@ class CILogonAuth
             "associate?userinfo=" .
             rawurlencode($payload);
         error_log("CI Logon: Redirecting to link account page: " . $url);
-        wp_redirect($url);
+
+        // Add profiles URL host to allowed redirect hosts for wp_safe_redirect
+        add_filter('allowed_redirect_hosts', function($hosts) use ($url) {
+            $parsed = parse_url($url);
+            if (!empty($parsed['host'])) {
+                $hosts[] = $parsed['host'];
+            }
+            return $hosts;
+        });
+
+        wp_safe_redirect($url);
         exit();
     }
 
