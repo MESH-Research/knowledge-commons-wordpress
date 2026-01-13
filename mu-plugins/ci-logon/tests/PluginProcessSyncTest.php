@@ -227,17 +227,12 @@ class PluginProcessSyncTest extends TestCase
     /**
      * Test: Invalid JSON response returns false and does NOT log user in
      *
-     * NOTE: This test currently fails because Plugin::process_sync doesn't check
-     * for JSON parsing errors before accessing array keys. It should return false
-     * after the json_last_error() check.
+     * SECURITY: Invalid JSON must be rejected gracefully without causing errors
      *
      * @test
      */
     public function test_invalid_json_response_returns_false()
     {
-        $this->expectWarning();
-        $this->expectWarningMessage('Trying to access array offset on null');
-
         $code = 200;
         $body = 'This is not valid JSON {invalid}';
         $username = 'testuser';
@@ -245,23 +240,18 @@ class PluginProcessSyncTest extends TestCase
 
         $result = Plugin::process_sync($code, $body, $username, $user);
 
-        // The code should return false, but currently it throws a warning instead
-        // This test documents the bug
+        $this->assertFalse($result, 'process_sync should return false for invalid JSON');
     }
 
     /**
      * Test: Empty JSON response returns false and does NOT log user in
      *
-     * NOTE: This test currently fails because Plugin::process_sync doesn't check
-     * for JSON parsing errors before accessing array keys.
+     * SECURITY: Empty responses must be rejected gracefully
      *
      * @test
      */
     public function test_empty_json_response_returns_false()
     {
-        $this->expectWarning();
-        $this->expectWarningMessage('Trying to access array offset on null');
-
         $code = 200;
         $body = '';
         $username = 'testuser';
@@ -269,22 +259,18 @@ class PluginProcessSyncTest extends TestCase
 
         $result = Plugin::process_sync($code, $body, $username, $user);
 
-        // The code should return false, but currently it throws a warning instead
+        $this->assertFalse($result, 'process_sync should return false for empty body');
     }
 
     /**
      * Test: Malformed JSON (unclosed brace) returns false
      *
-     * NOTE: This test currently fails because Plugin::process_sync doesn't check
-     * for JSON parsing errors before accessing array keys.
+     * SECURITY: Malformed JSON must be rejected gracefully
      *
      * @test
      */
     public function test_malformed_json_response_returns_false()
     {
-        $this->expectWarning();
-        $this->expectWarningMessage('Trying to access array offset on null');
-
         $code = 200;
         $body = '{"error": "unclosed';
         $username = 'testuser';
@@ -292,7 +278,7 @@ class PluginProcessSyncTest extends TestCase
 
         $result = Plugin::process_sync($code, $body, $username, $user);
 
-        // The code should return false, but currently it throws a warning instead
+        $this->assertFalse($result, 'process_sync should return false for malformed JSON');
     }
 
     // ========================================================================
@@ -324,18 +310,14 @@ class PluginProcessSyncTest extends TestCase
     }
 
     /**
-     * Test: API error code 1001 (generic error) - currently not caught
+     * Test: API error code 1001 (generic error) returns false
      *
-     * NOTE: This test currently fails because the code only checks for error code 1005.
-     * Other error codes are not handled, which is a potential security issue.
+     * SECURITY: Any API error code should cause the sync to fail gracefully
      *
      * @test
      */
     public function test_api_error_code_1001_returns_false()
     {
-        $this->expectWarning();
-        $this->expectWarningMessage('Undefined array key "results"');
-
         $code = 200;
         $body = json_encode([
             'meta' => [
@@ -350,8 +332,7 @@ class PluginProcessSyncTest extends TestCase
 
         $result = Plugin::process_sync($code, $body, $username, $user);
 
-        // The code doesn't check for error code 1001, so it tries to access
-        // $json['results'] which doesn't exist, causing a warning
+        $this->assertFalse($result, 'process_sync should return false for any API error code');
     }
 
     // ========================================================================

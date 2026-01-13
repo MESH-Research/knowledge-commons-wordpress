@@ -112,15 +112,10 @@ class PluginProcessSyncIntegrationTest extends TestCase
      *
      * Expected: User is NOT logged in, process_sync returns false
      *
-     * NOTE: This test expects a warning because the code doesn't properly
-     * handle JSON parsing errors.
-     *
      * @test
      */
     public function test_corrupted_api_response_prevents_login()
     {
-        $this->expectWarning();
-
         $code = 200;
         $body = 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<html>Error</html>';
         $username = 'testuser';
@@ -128,7 +123,7 @@ class PluginProcessSyncIntegrationTest extends TestCase
 
         $result = Plugin::process_sync($code, $body, $username, $user);
 
-        // The code should return false, but currently it throws a warning
+        $this->assertFalse($result, 'process_sync should return false for corrupted API response');
     }
 
     /**
@@ -299,23 +294,20 @@ class PluginProcessSyncIntegrationTest extends TestCase
     /**
      * Test: Invalid JSON responses prevent login
      *
-     * NOTE: These tests expect warnings because the code doesn't properly
-     * handle JSON parsing errors before accessing array keys.
+     * SECURITY: Invalid JSON must be rejected gracefully without errors
      *
      * @test
      * @dataProvider invalidJsonResponses
      */
     public function test_invalid_json_responses_prevent_login($body)
     {
-        $this->expectWarning();
-
         $code = 200;
         $username = 'testuser';
         $user = false;
 
         $result = Plugin::process_sync($code, $body, $username, $user);
 
-        // The code should return false, but currently it throws a warning instead
+        $this->assertFalse($result, 'process_sync should return false for invalid JSON');
     }
 
     /**
@@ -368,15 +360,12 @@ class PluginProcessSyncIntegrationTest extends TestCase
     /**
      * Test: Response with missing data field prevents login
      *
-     * NOTE: This test expects a warning because the code doesn't check
-     * for the existence of 'data' or 'results' fields before accessing them.
+     * SECURITY: Missing required fields must be rejected gracefully
      *
      * @test
      */
     public function test_missing_data_field_with_no_results_prevents_login()
     {
-        $this->expectWarning();
-
         $code = 200;
         $body = json_encode([
             'error' => 'No data'
@@ -387,7 +376,7 @@ class PluginProcessSyncIntegrationTest extends TestCase
 
         $result = Plugin::process_sync($code, $body, $username, $user);
 
-        // The code should return false, but currently it throws a warning
+        $this->assertFalse($result, 'Missing data/results field must prevent login');
     }
 
     // ========================================================================

@@ -107,23 +107,33 @@ class Plugin {
         $json = json_decode($body, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             error_log(sprintf('CILogon Plugin: JSON decode error: %s', json_last_error_msg()));
+            return false;
         }
 
-        // check if we have a remote API error (1005 = user not found)
-        if (isset($json["meta"]["error"]["code"]) and $json["meta"]["error"]["code"] == 1005) {
-            error_log(sprintf('CILogon Plugin: User with username "%s" not found in remote API.', $username));
+        // check if we have any remote API error
+        if (isset($json["meta"]["error"]["code"])) {
+            $error_code = $json["meta"]["error"]["code"];
+            $error_message = $json["meta"]["error"]["message"] ?? 'Unknown error';
+            error_log(sprintf(
+                'CILogon Plugin: API error %d for username "%s": %s',
+                $error_code,
+                $username,
+                $error_message
+            ));
             return false;
         }
 
         // basically, if we have come from the sub endpoint, we get "data" not "results" so we need to put it in there
         error_log('CILogon Plugin: Testing form of API response.');
-        if ( isset($json["data"])) {
+        if (isset($json["data"]) && isset($json["data"][0]["profile"])) {
             error_log('CILogon Plugin: Injecting array for login sync.');
             $results_array = $json['data'][0]['profile'];
-
-        } else {
+        } elseif (isset($json['results'])) {
             error_log('CILogon Plugin: Using standard results field.');
             $results_array = $json['results'];
+        } else {
+            error_log('CILogon Plugin: Response missing required data or results field.');
+            return false;
         }
 
         // so we have no WordPress user but a remote API user
