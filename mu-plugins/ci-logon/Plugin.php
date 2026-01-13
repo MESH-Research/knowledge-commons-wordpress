@@ -360,11 +360,6 @@ class Plugin {
             $temp_cous['Cous'][] = [ 'Id' => '13', 'Name' => 'STEM',
                 'Description' => 'STEM' ];
             $temp_cous['Cous'][] = [
-                'Id'          => '13',
-                'Name'        => 'STEM',
-                'Description' => 'STEM'
-            ];
-            $temp_cous['Cous'][] = [
                 'Id'          => '14',
                 'Name'        => 'HASTAC',
                 'Description' => 'HASTAC'
