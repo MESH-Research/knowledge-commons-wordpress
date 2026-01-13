@@ -418,13 +418,24 @@ class CILogonAuth
                 "CILogon Plugin: No user data found in Profiles API response. Redirecting to link account page."
             );
             $this->link_account();
+            return false; // Safety: link_account() exits, but return for defensive coding
         }
 
         // synchronise the user data
         $user_info_final = $user_info->data[0];
+
+        // Validate profile data exists
+        if (!isset($user_info_final->profile) || !isset($user_info_final->profile->username)) {
+            error_log("CILogon Plugin: Invalid profile data in API response - missing profile or username");
+            return false;
+        }
         $profile = $user_info_final->profile;
 
         $user = get_user_by("login", $profile->username);
+        if (!$user) {
+            error_log("CILogon Plugin: User not found for username: " . $profile->username);
+            return false;
+        }
         $username = $user->user_login;
         Plugin::process_sync($code, $body, $username, $user);
 
