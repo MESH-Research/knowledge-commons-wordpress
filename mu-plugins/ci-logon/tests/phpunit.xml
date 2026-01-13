@@ -35,6 +35,9 @@
         <testsuite name="Null Check Safety Tests">
             <file>NullCheckTest.php</file>
         </testsuite>
+        <testsuite name="Undefined Array Index Tests">
+            <file>UndefinedArrayIndexTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
