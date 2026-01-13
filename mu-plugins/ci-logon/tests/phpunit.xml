@@ -29,6 +29,9 @@
         <testsuite name="Logout Input Validation Tests">
             <file>LogoutInputValidationTest.php</file>
         </testsuite>
+        <testsuite name="Debug Logging Tests">
+            <file>DebugLoggingTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

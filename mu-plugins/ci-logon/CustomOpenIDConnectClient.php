@@ -312,7 +312,7 @@ class CustomOpenIDConnectClient
 
             // Throw an error if the server returns one
             if (isset($token_json->error)) {
-                error_log('CILogon: JSON Token: ' . json_encode($token_json));
+                \MeshResearch\CILogon\Plugin::debug_log('JSON Token error: ' . json_encode($token_json));
                 if (isset($token_json->error_description)) {
                     throw new OpenIDConnectClientException($token_json->error_description);
                 }
@@ -793,7 +793,7 @@ class CustomOpenIDConnectClient
 
         $state = $this->getState();
 
-        error_log("Final state sent was: ". $state);
+        \MeshResearch\CILogon\Plugin::debug_log("Final state sent was: " . $state);
 
         $this->redirect($auth_endpoint);
     }

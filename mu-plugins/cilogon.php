@@ -29,6 +29,9 @@ if (!defined('CILOGON_BASE_URL')) {
 if (!defined('CILOGON_REST_BASE')) {
     define('CILOGON_REST_BASE', 'ci-logon/v1');
 }
+if (!defined('CILOGON_DEBUG')) {
+    define('CILOGON_DEBUG', filter_var(getenv('CILOGON_DEBUG'), FILTER_VALIDATE_BOOLEAN));
+}
 
 // Require implementation files (no duplicate class defs).
 require_once CILOGON_MU_DIR . '/Plugin.php';

@@ -251,18 +251,16 @@ class CILogonAuth
                     home_url()
                 );
                 $_SESSION["cilogon_redirect_to"] = $validated_redirect;
-                error_log(
-                    "CI Logon: Stored validated redirect URL: " . $validated_redirect
-                );
+                Plugin::debug_log("Stored validated redirect URL: " . $validated_redirect);
             }
 
-            error_log("CILogon PLugin: Redirecting to CI Logon");
+            error_log("CILogon Plugin: Redirecting to CI Logon");
 
             $reflection = new \ReflectionMethod($this->oidc_client, 'getState');
             $reflection->setAccessible(true);
             $current_state = $reflection->invoke($this->oidc_client);
 
-            error_log($current_state);
+            Plugin::debug_log("OIDC state: " . $current_state);
 
             $authenticated = $this->oidc_client->authenticate();
         } catch (Exception $e) {
@@ -339,7 +337,7 @@ class CILogonAuth
         // $encoded_state = base64_encode(json_encode($state));
         $encoded_state = strtr(base64_encode(json_encode($state)), '+/', '-_');
 
-        error_log("Setting state: " . var_export($encoded_state, true));
+        Plugin::debug_log("Setting state: " . var_export($encoded_state, true));
 
         $reflection_set = new \ReflectionMethod($this->oidc_client, 'setState');
         $reflection_set->setAccessible(true);
@@ -382,10 +380,8 @@ class CILogonAuth
             "Authorization" =>
                 "Bearer " . $this->config["profiles_api_bearer_token"],
         ];
-        // error_log("Headers: " . var_export($headers, true));
         $sub = $this->oidc_client->getVerifiedClaims()->sub;
-        error_log("Sending request to: " . $subs_endpoint . "?sub=" . $sub);
-        error_log("Sub: " . var_export($sub, true));
+        Plugin::debug_log("Sending request to subs endpoint with sub: " . $sub);
         if (!$sub) {
             error_log("CILogon Plugin: No sub found in verified claims");
             return false;
@@ -407,7 +403,7 @@ class CILogonAuth
         $body = (string) wp_remote_retrieve_body( $response );
 
         $user_info = json_decode(wp_remote_retrieve_body($response));
-        error_log("Received user info: " . print_r($user_info, true));
+        Plugin::debug_log("Received user info: " . print_r($user_info, true));
 
         if (!$user_info) {
             error_log("CILogon Plugin: CRITICAL ERROR: Profiles API appears misconfigured");
@@ -440,7 +436,7 @@ class CILogonAuth
     public function link_account()
     {
         $id_token = $this->oidc_client->getIdToken();
-        error_log(
+        Plugin::debug_log(
             "ID Token payload:" .
                 print_r($this->oidc_client->getIdTokenPayload(), true)
         );
@@ -492,7 +488,7 @@ class CILogonAuth
         }
 
         // Create new user
-        error_log("CI Logon: Creating new user for email: " . $profile->email);
+        Plugin::debug_log("Creating new user for email: " . $profile->email);
         $username = $this->generate_username($profile);
 
         $user_data = [
@@ -554,8 +550,7 @@ class CILogonAuth
     private function update_user_meta(WP_User $user, $user_info)
     {
         error_log("CILogon Plugin: Updating user meta for user: " . $user->ID);
-        // log the full object
-        error_log("CILogon Plugin: User info: " . json_encode($user_info));
+        Plugin::debug_log("User info: " . json_encode($user_info));
 
         update_user_meta($user->ID, "cilogon_sub", $user_info->sub);
 

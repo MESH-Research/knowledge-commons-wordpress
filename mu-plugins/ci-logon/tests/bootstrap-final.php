@@ -602,6 +602,9 @@ if (!defined('ABSPATH')) {
 if (!defined('HOUR_IN_SECONDS')) {
     define('HOUR_IN_SECONDS', 3600);
 }
+if (!defined('CILOGON_DEBUG')) {
+    define('CILOGON_DEBUG', false); // Disable debug logging during tests
+}
 
 // Include namespaced error_log override to suppress log output during tests
 require_once __DIR__ . '/test-error-log-override.php';

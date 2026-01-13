@@ -37,6 +37,19 @@ class Plugin {
     }
 
     /**
+     * Log debug messages only when CILOGON_DEBUG is enabled
+     *
+     * Use this for sensitive data that should not appear in production logs.
+     *
+     * @param string $message The debug message to log
+     */
+    public static function debug_log($message) {
+        if (defined('CILOGON_DEBUG') && CILOGON_DEBUG) {
+            error_log('CILogon DEBUG: ' . $message);
+        }
+    }
+
+    /**
      * Constructor
      */
     private function __construct() {
@@ -416,26 +429,26 @@ class Plugin {
             $current_types = $current_types ? [ $current_types ] : [];
         }
 
-        error_log('CILogon Plugin: Current types: ' . var_export($current_types, true));
-        error_log('CILogon Plugin: Desired types: ' . var_export($desired_types, true));
+        self::debug_log('Current types: ' . var_export($current_types, true));
+        self::debug_log('Desired types: ' . var_export($desired_types, true));
 
         // Add missing types.
         foreach ( $desired_types as $type ) {
-            error_log( sprintf( 'CILogon Plugin: Checking: %s for addition', $type ) );
+            self::debug_log( sprintf( 'Checking: %s for addition', $type ) );
             if ( ! in_array( $type, $current_types, true ) ) {
                 // append = true means "add, don't overwrite existing types"
                 bp_set_member_type( $user_id, $type, true );
-                error_log( sprintf( 'CILogon Plugin: Added: %s', $type ) );
+                self::debug_log( sprintf( 'Added: %s', $type ) );
             }
         }
 
         // Remove types that are no longer valid.
         foreach ( $all_known_types as $type ) {
-            error_log( sprintf( 'CILogon Plugin: Checking: %s for removal', $type ) );
+            self::debug_log( sprintf( 'Checking: %s for removal', $type ) );
             if ( in_array( $type, $current_types, true ) && ! in_array( $type, $desired_types, true ) && $type != "hc") {
                 bp_remove_member_type( $user_id, $type );
                 // Alternatively: bp_set_member_type( $user_id, '' ) to clear ALL, but here we just remove one.
-                error_log( sprintf( 'CILogon Plugin: Removed: %s', $type ) );
+                self::debug_log( sprintf( 'Removed: %s', $type ) );
             }
         }
 
