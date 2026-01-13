@@ -60,10 +60,9 @@ class Plugin {
      * Initialize the plugin
      */
     private function init() {
-        // Start session if not already started
-        if (!session_id()) {
-            session_start();
-        }
+        // Note: We use WordPress transients instead of PHP sessions
+        // for compatibility with load balancers and object caching.
+        // See CustomOpenIDConnectClient.php for session storage implementation.
 
         // Check configuration and log warnings
         $this->check_configuration();

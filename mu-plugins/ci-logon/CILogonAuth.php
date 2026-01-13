@@ -240,17 +240,14 @@ class CILogonAuth
             error_log("CI Logon: Starting authentication redirect");
             $this->init_oidc_client();
 
-            // Store redirect URL in session if provided (validated to prevent open redirect)
+            // Store redirect URL in transient if provided (validated to prevent open redirect)
             if (isset($_GET["redirect_to"])) {
-                if (!session_id()) {
-                    session_start();
-                }
                 // Validate redirect URL - only allow local redirects to prevent open redirect attacks
                 $validated_redirect = wp_validate_redirect(
                     wp_sanitize_redirect($_GET["redirect_to"]),
                     home_url()
                 );
-                $_SESSION["cilogon_redirect_to"] = $validated_redirect;
+                $this->setSessionValue("cilogon_redirect_to", $validated_redirect);
                 Plugin::debug_log("Stored validated redirect URL: " . $validated_redirect);
             }
 
@@ -360,9 +357,10 @@ class CILogonAuth
 
         // Use stored redirect URL if available, otherwise default to home
         $redirect_to = home_url();
-        if (!empty($_SESSION["cilogon_redirect_to"])) {
-            $redirect_to = $_SESSION["cilogon_redirect_to"];
-            unset($_SESSION["cilogon_redirect_to"]); // Clean up session
+        $stored_redirect = $this->getSessionValue("cilogon_redirect_to");
+        if (!empty($stored_redirect)) {
+            $redirect_to = $stored_redirect;
+            $this->unsetSessionValue("cilogon_redirect_to"); // Clean up transient
             error_log("CILogon Plugin: Redirecting to stored URL: " . $redirect_to);
         }
 
@@ -577,5 +575,110 @@ class CILogonAuth
                 ? "[REDACTED]"
                 : null,
         ]);
+    }
+
+    // =========================================================================
+    // Transient-based session storage (replaces PHP sessions)
+    // =========================================================================
+
+    /**
+     * Cookie name for the transient session ID
+     */
+    private const SESSION_COOKIE_NAME = 'cilogon_auth_session_id';
+
+    /**
+     * Transient expiration time in seconds (1 hour)
+     */
+    private const SESSION_EXPIRATION = 3600;
+
+    /**
+     * Get or create a unique session ID stored in a cookie
+     *
+     * This replaces PHP sessions with WordPress transients, which work
+     * properly with load balancers and object caching.
+     *
+     * @return string The session ID
+     */
+    private function getTransientSessionId(): string {
+        if (isset($_COOKIE[self::SESSION_COOKIE_NAME])) {
+            return sanitize_key($_COOKIE[self::SESSION_COOKIE_NAME]);
+        }
+
+        // Generate a new session ID
+        $session_id = 'cilogon_auth_' . bin2hex(random_bytes(16));
+
+        // Set cookie (httponly, secure if on HTTPS, samesite=Lax)
+        $secure = is_ssl();
+        $options = [
+            'expires' => time() + self::SESSION_EXPIRATION,
+            'path' => COOKIEPATH,
+            'domain' => COOKIE_DOMAIN,
+            'secure' => $secure,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ];
+
+        if (PHP_VERSION_ID >= 70300) {
+            setcookie(self::SESSION_COOKIE_NAME, $session_id, $options);
+        } else {
+            setcookie(
+                self::SESSION_COOKIE_NAME,
+                $session_id,
+                $options['expires'],
+                $options['path'],
+                $options['domain'],
+                $options['secure'],
+                $options['httponly']
+            );
+        }
+
+        // Also set in $_COOKIE for immediate use in this request
+        $_COOKIE[self::SESSION_COOKIE_NAME] = $session_id;
+
+        return $session_id;
+    }
+
+    /**
+     * Get the transient key for a session variable
+     *
+     * @param string $key The session key name
+     * @return string The transient key
+     */
+    private function getTransientKey(string $key): string {
+        $session_id = $this->getTransientSessionId();
+        return $session_id . '_' . $key;
+    }
+
+    /**
+     * Get a session value from WordPress transients
+     *
+     * @param string $key The session key
+     * @return mixed The value or false if not found
+     */
+    private function getSessionValue(string $key) {
+        $transient_key = $this->getTransientKey($key);
+        $value = get_transient($transient_key);
+        return $value !== false ? $value : false;
+    }
+
+    /**
+     * Set a session value in WordPress transients
+     *
+     * @param string $key The session key
+     * @param mixed $value The value to store
+     */
+    private function setSessionValue(string $key, $value): void {
+        $transient_key = $this->getTransientKey($key);
+        set_transient($transient_key, $value, self::SESSION_EXPIRATION);
+    }
+
+    /**
+     * Remove a session value from WordPress transients
+     *
+     * @param string $key The session key
+     */
+    private function unsetSessionValue(string $key): void {
+        $transient_key = $this->getTransientKey($key);
+        delete_transient($transient_key);
     }
 }

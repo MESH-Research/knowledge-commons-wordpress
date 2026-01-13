@@ -1913,39 +1913,120 @@ class CustomOpenIDConnectClient
     }
 
     /**
-     * Use session to manage a nonce
+     * Cookie name for the transient session ID
+     */
+    private const SESSION_COOKIE_NAME = 'cilogon_session_id';
+
+    /**
+     * Transient expiration time in seconds (1 hour)
+     */
+    private const SESSION_EXPIRATION = 3600;
+
+    /**
+     * Get or create a unique session ID stored in a cookie
+     *
+     * This replaces PHP sessions with WordPress transients, which work
+     * properly with load balancers and object caching.
+     *
+     * @return string The session ID
+     */
+    protected function getTransientSessionId(): string {
+        if (isset($_COOKIE[self::SESSION_COOKIE_NAME])) {
+            return sanitize_key($_COOKIE[self::SESSION_COOKIE_NAME]);
+        }
+
+        // Generate a new session ID
+        $session_id = 'cilogon_' . bin2hex(random_bytes(16));
+
+        // Set cookie (httponly, secure if on HTTPS, samesite=Lax)
+        $secure = is_ssl();
+        $options = [
+            'expires' => time() + self::SESSION_EXPIRATION,
+            'path' => COOKIEPATH,
+            'domain' => COOKIE_DOMAIN,
+            'secure' => $secure,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ];
+
+        if (PHP_VERSION_ID >= 70300) {
+            setcookie(self::SESSION_COOKIE_NAME, $session_id, $options);
+        } else {
+            setcookie(
+                self::SESSION_COOKIE_NAME,
+                $session_id,
+                $options['expires'],
+                $options['path'],
+                $options['domain'],
+                $options['secure'],
+                $options['httponly']
+            );
+        }
+
+        // Also set in $_COOKIE for immediate use in this request
+        $_COOKIE[self::SESSION_COOKIE_NAME] = $session_id;
+
+        return $session_id;
+    }
+
+    /**
+     * Get the transient key for a session variable
+     *
+     * @param string $key The session key name
+     * @return string The transient key
+     */
+    protected function getTransientKey(string $key): string {
+        $session_id = $this->getTransientSessionId();
+        return $session_id . '_' . $key;
+    }
+
+    /**
+     * Start session - now a no-op since we use transients
+     *
+     * Kept for compatibility with parent class expectations.
      */
     protected function startSession() {
-        if (session_status() === PHP_SESSION_NONE) {
-            @session_start();
-        }
+        // No-op: We use WordPress transients instead of PHP sessions
     }
 
+    /**
+     * Commit session - now a no-op since transients auto-persist
+     */
     protected function commitSession() {
-        $this->startSession();
-
-        session_write_close();
+        // No-op: WordPress transients auto-persist
     }
 
+    /**
+     * Get a session value from WordPress transients
+     *
+     * @param string $key The session key
+     * @return mixed The value or false if not found
+     */
     protected function getSessionKey(string $key) {
-        $this->startSession();
-
-        if (array_key_exists($key, $_SESSION)) {
-            return $_SESSION[$key];
-        }
-        return false;
+        $transient_key = $this->getTransientKey($key);
+        $value = get_transient($transient_key);
+        return $value !== false ? $value : false;
     }
 
+    /**
+     * Set a session value in WordPress transients
+     *
+     * @param string $key The session key
+     * @param mixed $value The value to store
+     */
     protected function setSessionKey(string $key, $value) {
-        $this->startSession();
-
-        $_SESSION[$key] = $value;
+        $transient_key = $this->getTransientKey($key);
+        set_transient($transient_key, $value, self::SESSION_EXPIRATION);
     }
 
+    /**
+     * Remove a session value from WordPress transients
+     *
+     * @param string $key The session key
+     */
     protected function unsetSessionKey(string $key) {
-        $this->startSession();
-
-        unset($_SESSION[$key]);
+        $transient_key = $this->getTransientKey($key);
+        delete_transient($transient_key);
     }
 
     /**

@@ -30,7 +30,7 @@ class OpenRedirectTest extends TestCase
         // Clear any stored redirect data
         unset($GLOBALS['_wp_safe_redirect_location']);
         unset($GLOBALS['_wp_redirect_location']);
-        unset($_SESSION['cilogon_redirect_to']);
+        // Note: Redirect storage now uses WordPress transients instead of $_SESSION
     }
 
     /**
@@ -40,7 +40,6 @@ class OpenRedirectTest extends TestCase
     {
         unset($GLOBALS['_wp_safe_redirect_location']);
         unset($GLOBALS['_wp_redirect_location']);
-        unset($_SESSION['cilogon_redirect_to']);
         parent::tearDown();
     }
 
