@@ -1060,8 +1060,8 @@ class Humanities_Commons {
 
 		$member_types = bp_get_member_type( $user_id, false );
 
-		if ( in_array( self::$society_id, $member_types ) ) {
-			return $member_permalink;
+        if ( is_array( $member_types ) && in_array( self::$society_id, $member_types ) ) {
+            return $member_permalink;
 		}
 		$after_domain = bp_core_enable_root_profiles() ? $user_login : bp_get_members_root_slug() . '/' . $user_login;
 

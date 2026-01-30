@@ -102,6 +102,8 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
     chown -R www-data:www-data /app/config/all/simplesamlphp
 
 RUN echo "Installing Composer dependencies..."
+RUN composer self-update 2.6.6
+
 WORKDIR /app
 USER www-data
 RUN php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
