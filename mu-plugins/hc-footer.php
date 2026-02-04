@@ -56,25 +56,16 @@ function hcommons_wp_footer() {
 			esc_attr( implode( ';', $styles ) )
 		);
 
-		printf(
-			'This site is part of %s<em><a href="%s">Knowledge Commons</a></em>. ',
-			( 'hc' === $society_id ) ? '' : sprintf( 'the %s network on ', esc_html( strtoupper( $society_id ) ) ),
-			esc_url( $root_url )
-		);
+            printf('<ul style="list-style: none;margin: 0;padding: 0;">');
+                printf('<li style="display: inline;">This site is part of <em><a href="https://hcommons.org">Knowledge Commons</a></em>.</li>');
+                printf('<li style="display: inline;"><a href="https://hcommons.org/sites">Explore other sites on this network</a> or <a href="https://hcommons.org">register to build your own</a>.</li>';
+            printf('</ul>');
 
-		printf(
-			'<a href="%s">Explore other sites on this network</a> or <a href="%s">register to build your own</a>.<br>',
-			esc_url( trailingslashit( $society_url ) . 'sites' ),
-			esc_url( $society_url )
-		);
-
-		printf(
-			'<a href="%2$s">Terms of Service</a>%1$s<a href="%3$s">Privacy Policy</a>%1$s<a href="%4$s">Guidelines for Participation</a>',
-			'<span style="margin:0 1em"></span>',
-			esc_url( 'https://about.hcommons.org/terms-of-service/' ),
-			esc_url( 'https://sustaining.hcommons.org/policies/privacy/' ),
-			esc_url( 'https://sustaining.hcommons.org/policies/guidelines/' )
-		);
+            printf('<ul style="list-style: none;margin: 0;padding: 0;">');
+                printf('<li style="display: inline;"><a href="https://about.hcommons.org/terms-of-service/">Terms of Service</a></li>');
+                printf('<li style="display: inline;margin: 0 1em;"><a href="https://sustaining.hcommons.org/policies/privacy/">Privacy Policy</a></li>');
+                printf('<li style="display: inline;"><a href="https://sustaining.hcommons.org/policies/guidelines/">Guidelines for Participation</a></li>');
+            printf('</ul>');
 
 		// Close #hcommons-network-footer.
 		echo '</div>';

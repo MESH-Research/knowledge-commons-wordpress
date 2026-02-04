@@ -3367,20 +3367,20 @@
         },
         {
             "name": "simplesamlphp/composer-module-installer",
-            "version": "v1.5.1",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/composer-module-installer.git",
-                "reference": "75f204f9f2bb370f76952947f5b35bf2c855cc0b"
+                "reference": "9543c32a0711fb63b637fe75fc08f0309d1c0b32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/composer-module-installer/zipball/75f204f9f2bb370f76952947f5b35bf2c855cc0b",
-                "reference": "75f204f9f2bb370f76952947f5b35bf2c855cc0b",
+                "url": "https://api.github.com/repos/simplesamlphp/composer-module-installer/zipball/9543c32a0711fb63b637fe75fc08f0309d1c0b32",
+                "reference": "9543c32a0711fb63b637fe75fc08f0309d1c0b32",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "~2.6.0",
+                "composer-plugin-api": "~2.9.0",
                 "ext-mbstring": "*",
                 "php": "^8.2",
                 "simplesamlphp/assert": "~1.9.1"
@@ -3405,9 +3405,9 @@
             "description": "A Composer plugin that allows installing SimpleSAMLphp modules through Composer.",
             "support": {
                 "issues": "https://github.com/simplesamlphp/composer-module-installer/issues",
-                "source": "https://github.com/simplesamlphp/composer-module-installer/tree/v1.5.1"
+                "source": "https://github.com/simplesamlphp/composer-module-installer/tree/v1.6.0"
             },
-            "time": "2025-10-27T08:35:21+00:00"
+            "time": "2025-11-13T11:11:03+00:00"
         },
         {
             "name": "simplesamlphp/saml2",
@@ -8556,16 +8556,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.369.23",
+            "version": "3.369.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c45d13c95b188b6fc9f31c77083fad6e7dbc3efd"
+                "reference": "17f404a47879c1fb47175ac2b61881ab0dc2dc5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c45d13c95b188b6fc9f31c77083fad6e7dbc3efd",
-                "reference": "c45d13c95b188b6fc9f31c77083fad6e7dbc3efd",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/17f404a47879c1fb47175ac2b61881ab0dc2dc5c",
+                "reference": "17f404a47879c1fb47175ac2b61881ab0dc2dc5c",
                 "shasum": ""
             },
             "require": {
@@ -8647,9 +8647,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.23"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.24"
             },
-            "time": "2026-01-29T19:15:41+00:00"
+            "time": "2026-01-30T19:14:32+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -8785,12 +8785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "c4162b6092bc6170cc6d0758ba6ee7d29d0dfbb8"
+                "reference": "8457f2008fc6396be788162c4e04228028306534"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c4162b6092bc6170cc6d0758ba6ee7d29d0dfbb8",
-                "reference": "c4162b6092bc6170cc6d0758ba6ee7d29d0dfbb8",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8457f2008fc6396be788162c4e04228028306534",
+                "reference": "8457f2008fc6396be788162c4e04228028306534",
                 "shasum": ""
             },
             "conflict": {
@@ -9420,6 +9420,7 @@
                 "processwire/processwire": "<=3.0.246",
                 "propel/propel": ">=2.0.0.0-alpha1,<=2.0.0.0-alpha7",
                 "propel/propel1": ">=1,<=1.7.1",
+                "psy/psysh": "<=0.11.22|>=0.12,<=0.12.18",
                 "pterodactyl/panel": "<1.12",
                 "ptheofan/yii2-statemachine": ">=2.0.0.0-RC1-dev,<=2",
                 "ptrofimov/beanstalk_console": "<1.7.14",
@@ -9792,7 +9793,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-28T22:08:32+00:00"
+            "time": "2026-01-30T22:06:58+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -9885,6 +9886,6 @@
     "platform": {
         "php": ">=8.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
