@@ -41,9 +41,10 @@ function hcommons_wp_footer() {
 
 		$theme      = wp_get_theme();
 
-		$styles = [
-			'background-color: white',
-			'color: black',
+		// 'background-color: white',
+        // 'color: black',
+
+        $styles = [
 			'line-height: 3em',
 			'position: relative',
 			'text-align: center',
@@ -58,7 +59,7 @@ function hcommons_wp_footer() {
 
             printf('<ul style="list-style: none;margin: 0;padding: 0;">');
                 printf('<li style="display: inline;">This site is part of <em><a href="https://hcommons.org">Knowledge Commons</a></em>.</li>');
-                printf('<li style="display: inline;"><a href="https://hcommons.org/sites">Explore other sites on this network</a> or <a href="https://hcommons.org">register to build your own</a>.</li>';
+                printf('<li style="display: inline;"><a href="https://hcommons.org/sites"> Explore other sites on this network</a> or <a href="https://hcommons.org">register to build your own</a>.</li>');
             printf('</ul>');
 
             printf('<ul style="list-style: none;margin: 0;padding: 0;">');
