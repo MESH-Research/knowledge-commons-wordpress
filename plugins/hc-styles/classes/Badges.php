@@ -78,7 +78,7 @@ class Badges {
 				$url = ( defined( 'HC_SITE_URL' ) ) ? HC_SITE_URL : get_blogaddress_by_id( \Humanities_Commons::$main_site->blog_id );
 
 				if ( $type !== 'hc' ) {
-					$url = 'https://' . $type . '.' . str_replace( 'https://', '', $url ) . '/members';
+					$url = 'https://' . $type . '.' . str_replace( 'https://', '', $url ) . '/';
 				}
 
 				if ( strpos( $img, $url ) === false ) {
