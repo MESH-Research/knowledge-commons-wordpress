@@ -20,6 +20,7 @@ function hcommons_wp_footer() {
 			constant( 'MSU_ROOT_BLOG_ID' ),
 			constant( 'SAH_ROOT_BLOG_ID' ),
 			constant( 'UP_ROOT_BLOG_ID' ),
+            constant( 'STEMEDPLUS_ROOT_BLOG_ID' ),
 		];
 
 		return in_array( (string) get_current_blog_id(), $society_blog_ids, true );
