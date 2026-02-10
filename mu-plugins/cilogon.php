@@ -114,7 +114,7 @@ add_action('rest_api_init', function () {
 
 add_action('rest_api_init', function () {
     register_rest_route('idms', '/logout', [
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => function (WP_REST_Request $request) {
             if (Plugin::logout($request)) {
                 return ['message' => "LOGOUT"];
