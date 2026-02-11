@@ -7240,15 +7240,15 @@
         },
         {
             "name": "wpackagist-plugin/google-sitemap-generator",
-            "version": "4.1.22",
+            "version": "4.1.23",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/google-sitemap-generator/",
-                "reference": "tags/4.1.22"
+                "reference": "tags/4.1.23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-sitemap-generator.4.1.22.zip"
+                "url": "https://downloads.wordpress.org/plugin/google-sitemap-generator.4.1.23.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -8556,16 +8556,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.369.28",
+            "version": "3.369.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d19d88c4d9d709eb119f2d85a385a9e40b834e33"
+                "reference": "c7bf53dfb09bea3ebfd19b89213625aa134dcc71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d19d88c4d9d709eb119f2d85a385a9e40b834e33",
-                "reference": "d19d88c4d9d709eb119f2d85a385a9e40b834e33",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c7bf53dfb09bea3ebfd19b89213625aa134dcc71",
+                "reference": "c7bf53dfb09bea3ebfd19b89213625aa134dcc71",
                 "shasum": ""
             },
             "require": {
@@ -8647,9 +8647,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.28"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.31"
             },
-            "time": "2026-02-05T19:09:46+00:00"
+            "time": "2026-02-10T19:13:30+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -8785,12 +8785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "7ea2d110787f6807213e27a1255c6b858ad99d89"
+                "reference": "0c751a6ae38247a99675c8210d6a9d570314c87f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7ea2d110787f6807213e27a1255c6b858ad99d89",
-                "reference": "7ea2d110787f6807213e27a1255c6b858ad99d89",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0c751a6ae38247a99675c8210d6a9d570314c87f",
+                "reference": "0c751a6ae38247a99675c8210d6a9d570314c87f",
                 "shasum": ""
             },
             "conflict": {
@@ -8821,6 +8821,7 @@
                 "amphp/artax": "<1.0.6|>=2,<2.0.6",
                 "amphp/http": "<=1.7.2|>=2,<=2.1",
                 "amphp/http-client": ">=4,<4.4",
+                "amphp/http-server": ">=2.0.0.0-RC1-dev,<2.1.10|>=3.0.0.0-beta1,<3.4.4",
                 "anchorcms/anchor-cms": "<=0.12.7",
                 "andreapollastri/cipi": "<=3.1.15",
                 "andrewhaine/silverstripe-form-capture": ">=0.2,<=0.2.3|>=1,<1.0.2|>=2,<2.2.5",
@@ -8931,9 +8932,10 @@
                 "cosenary/instagram": "<=2.3",
                 "couleurcitron/tarteaucitron-wp": "<0.3",
                 "cpsit/typo3-mailqueue": "<0.4.3|>=0.5,<0.5.1",
-                "craftcms/cms": "<=4.16.16|>=5,<=5.8.20",
+                "craftcms/cms": "<4.17.0.0-beta1|>=5,<5.9.0.0-beta1",
                 "craftcms/commerce": ">=4.0.0.0-RC1-dev,<=4.10|>=5,<=5.5.1",
                 "craftcms/composer": ">=4.0.0.0-RC1-dev,<=4.10|>=5.0.0.0-RC1-dev,<=5.5.1",
+                "craftcms/craft": ">=3.5,<=4.16.17|>=5.0.0.0-RC1-dev,<=5.8.21",
                 "croogo/croogo": "<=4.0.7",
                 "cuyz/valinor": "<0.12",
                 "czim/file-handling": "<1.5|>=2,<2.3",
@@ -9086,6 +9088,7 @@
                 "friendsoftypo3/mediace": ">=7.6.2,<7.6.5",
                 "friendsoftypo3/openid": ">=4.5,<4.5.31|>=4.7,<4.7.16|>=6,<6.0.11|>=6.1,<6.1.6",
                 "froala/wysiwyg-editor": "<=4.3",
+                "frosh/adminer-platform": "<2.2.1",
                 "froxlor/froxlor": "<=2.2.5",
                 "frozennode/administrator": "<=5.0.12",
                 "fuel/core": "<1.8.1",
@@ -9666,7 +9669,7 @@
                 "vertexvaar/falsftp": "<0.2.6",
                 "villagedefrance/opencart-overclocked": "<=1.11.1",
                 "vova07/yii2-fileapi-widget": "<0.1.9",
-                "vrana/adminer": "<=4.8.1",
+                "vrana/adminer": "<5.4.2",
                 "vufind/vufind": ">=2,<9.1.1",
                 "waldhacker/hcaptcha": "<2.1.2",
                 "wallabag/tcpdf": "<6.2.22",
@@ -9796,7 +9799,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-05T22:08:29+00:00"
+            "time": "2026-02-10T00:36:12+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
