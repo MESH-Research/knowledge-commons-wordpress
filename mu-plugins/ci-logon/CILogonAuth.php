@@ -201,33 +201,44 @@ class CILogonAuth
         // Don't redirect if this is a callback or specific WP login action
         if (isset($_GET["code"]) && isset($_GET["state"])) {
 
-            $this->oidc_client = new CustomOpenIDConnectClient(
-                $this->config["provider_url"],
-                $this->config["client_id"],
-                $this->config["client_secret"]
-            );
+            try {
+                $this->oidc_client = new CustomOpenIDConnectClient(
+                    $this->config["provider_url"],
+                    $this->config["client_id"],
+                    $this->config["client_secret"]
+                );
 
-            $this->oidc_client->setRedirectURL($this->config["redirect_uri"]);
-            $this->oidc_client->addScope($this->config["scopes"]);
+                $this->oidc_client->setRedirectURL($this->config["redirect_uri"]);
+                $this->oidc_client->addScope($this->config["scopes"]);
 
-            $authenticated = $this->oidc_client->authenticate();
+                $authenticated = $this->oidc_client->authenticate();
+            } catch (Exception $e) {
+                error_log("CI Logon callback error: " . $e->getMessage());
+                wp_die("CI Logon authentication error: " . esc_html($e->getMessage()));
+            }
 
             if ($authenticated) {
                 $user_info = $this->get_user_info();
             } else {
-                return;
+                error_log("CI Logon: authenticate() returned false during callback");
+                wp_die("CI Logon authentication failed.");
             }
 
             if (isset($user_info) and $user_info) {
                 $user = $this->find_or_create_user($user_info);
             } else {
-                return;
+                error_log("CI Logon: get_user_info() returned falsy during callback");
+                wp_die("CI Logon: Unable to retrieve user information.");
             }
 
-            if (isset($user)) {
+            if ($user instanceof WP_User) {
                 $this->synchronise_user($user);
+            } elseif (is_wp_error($user)) {
+                error_log("CI Logon: User creation failed: " . $user->get_error_message());
+                wp_die("CI Logon: Unable to create user account. " . esc_html($user->get_error_message()));
             } else {
-                return;
+                error_log("CI Logon: find_or_create_user returned unexpected type: " . gettype($user));
+                wp_die("CI Logon: Unable to complete authentication.");
             }
         }
 
@@ -432,12 +443,12 @@ class CILogonAuth
         $profile = $user_info_final->profile;
 
         $user = get_user_by("login", $profile->username);
-        if (!$user) {
-            error_log("CILogon Plugin: User not found for username: " . $profile->username);
-            return false;
+        if ($user) {
+            $username = $user->user_login;
+            Plugin::process_sync($code, $body, $username, $user);
+        } else {
+            error_log("CILogon Plugin: WordPress user not yet created for: " . $profile->username . ". Will be created on login.");
         }
-        $username = $user->user_login;
-        Plugin::process_sync($code, $body, $username, $user);
 
         return $user_info_final;
     }
@@ -523,6 +534,7 @@ class CILogonAuth
         error_log("CI Logon: Successfully created user with ID: " . $user_id);
         $user = get_user_by("id", $user_id);
         $this->update_user_meta($user, $user_info);
+        Plugin::sync_user($user->user_login);
 
         return $user;
     }
