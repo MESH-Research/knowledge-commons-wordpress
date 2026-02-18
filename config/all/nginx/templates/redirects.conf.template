@@ -622,3 +622,9 @@ if ($http_host = "ecokritike.hcommons.org") {
 if ($http_host = "research.commons.msu.edu") {
 	rewrite ^/(.*)$ https://rfn.commons.msu.edu/$1 permanent;
 }
+
+# Member profile redirects to new Profiles application
+
+location /members/ {
+        return 301 https://profile.hcommons-dev.org$request_uri;
+}
