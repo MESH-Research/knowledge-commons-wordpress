@@ -10,13 +10,13 @@
  * (2) Establish a common cookie domain for sites accross the network so that
  * logins persist between networks and sites.
  *
- * If a site has a mapped domain, the cookie domain will be set according to
- * that mapping. Otherwise it will be set to the most general domain that
- * matches that site. For example, mla.hcommons.org and hcommons.org will both
- * have the cookie domain of hcommons.org, the domain of the HC netork, while
- * somesite.commons.msu.edu will have the cookie domain of commons.msu.edu, the
- * domain of the MSU network. If no matching domain is found, the cookie domain
- * will fall back to the domain defined in .env.
+ * The cookie domain is always set to the most general (shortest) matching
+ * network domain, regardless of domain mapping. For example,
+ * mla.hcommons.org, up.hcommons.org, and hcommons.org all get the cookie
+ * domain hcommons.org, while somesite.commons.msu.edu gets commons.msu.edu.
+ * For external mapped domains (e.g. blog.eve.gd) that don't match any
+ * network, the cookie domain is the mapped domain itself. If no match is
+ * found at all, the cookie domain falls back to the domain defined in .env.
  *
  * Note: This file runs in the global context---it is not contained in a
  * function. All of these variables are global.
@@ -43,14 +43,13 @@ $wpdb->suppress_errors();
 $domain_mapping_id = $wpdb->get_var( "SELECT blog_id FROM {$wpdb->dmtable} WHERE {$where} ORDER BY CHAR_LENGTH(domain) DESC LIMIT 1" );
 $wpdb->suppress_errors( false );
 
+// (1) Domain mapping: resolve blog/site context for mapped domains.
 if ( $domain_mapping_id ) {
 	$current_blog = $wpdb->get_row("SELECT * FROM {$wpdb->blogs} WHERE blog_id = '$domain_mapping_id' LIMIT 1");
 	$current_blog->domain = $dm_domain;
 	$current_blog->path = '/';
 	$blog_id = $domain_mapping_id;
 	$site_id = $current_blog->site_id;
-
-	define( 'COOKIE_DOMAIN', $dm_domain );
 
 	$current_site = $wpdb->get_row( "SELECT * from {$wpdb->site} WHERE id = '{$current_blog->site_id}' LIMIT 0,1" );
 	$current_site->blog_id = $wpdb->get_var( "SELECT blog_id FROM {$wpdb->blogs} WHERE domain='{$current_site->domain}' AND path='{$current_site->path}'" );
@@ -61,22 +60,31 @@ if ( $domain_mapping_id ) {
 	}
 
 	define( 'DOMAIN_MAPPING', 1 );
-} else {
-	$networks = get_networks();
-	$matched_domain = '';
-	foreach ( $networks as $network ) {
-		if ( strpos( $dm_domain, $network->domain ) !== false ) {
-			$network_subdomain_count = count( explode( '.', $network->domain ) );
-			$current_subdomain_count = count( explode( '.', $matched_domain ) );
-			if ( ! $matched_domain || $network_subdomain_count < $current_subdomain_count ) {
-				$matched_domain = $network->domain;
-			}
+}
+
+// (2) Cookie domain: find the most general (shortest) matching network domain.
+// This runs for ALL requests, including domain-mapped sites, so that cookies
+// are shared across subdomains of the same network.
+$networks = get_networks();
+$matched_domain = '';
+foreach ( $networks as $network ) {
+	if (
+		$dm_domain === $network->domain ||
+		str_ends_with( $dm_domain, '.' . $network->domain )
+	) {
+		$network_subdomain_count = count( explode( '.', $network->domain ) );
+		$current_subdomain_count = count( explode( '.', $matched_domain ) );
+		if ( ! $matched_domain || $network_subdomain_count < $current_subdomain_count ) {
+			$matched_domain = $network->domain;
 		}
 	}
-	
-	if ( $matched_domain ) {
-		define( 'COOKIE_DOMAIN', $matched_domain );
-	} else {
-		define( 'COOKIE_DOMAIN', getenv( 'WP_DOMAIN' ) );
-	}
+}
+
+if ( $matched_domain ) {
+	define( 'COOKIE_DOMAIN', $matched_domain );
+} elseif ( $domain_mapping_id ) {
+	// External domain not matching any network; use mapped domain directly.
+	define( 'COOKIE_DOMAIN', $dm_domain );
+} else {
+	define( 'COOKIE_DOMAIN', getenv( 'WP_DOMAIN' ) );
 }
