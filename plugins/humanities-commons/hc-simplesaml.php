@@ -390,6 +390,9 @@ if ( class_exists( 'WP_SAML_Auth' ) ) {
 
 	// After hcommons_set_env_saml_attributes().
 	add_action( 'bp_init', 'hcommons_auto_login', 3 );
+
+	// Handle wp-login.php: auto-authenticate if SAML session exists.
+	add_action( 'login_init', 'hcommons_saml_login_auto_authenticate' );
 }
 
 /**
@@ -529,19 +532,45 @@ function hcommons_auto_login() {
 	$result = WP_SAML_Auth::get_instance()->do_saml_authentication();
 
 	if ( is_a( $result, 'WP_User' ) ) {
-		// Make sure this user is a member of the current site.
-		// $member_societies = Humanities_Commons::hcommons_get_user_org_memberships();
-		// if ( ! in_array( Humanities_Commons::$society_id, $member_societies ) ) {
-		// 	return;
-		// }
-
-		// If we made it this far, we know this user is a member of the current site and has an existing session.
 		wp_set_current_user( $result->ID );
+		wp_set_auth_cookie( $result->ID, true, is_ssl() );
+		do_action( 'wp_login', $result->user_login, $result );
 	} else {
 		if ( is_wp_error( $result ) ) {
 			hcommons_write_error_log( 'info', sprintf( '%s: %s', __METHOD__, $result->get_error_message() ) );
 		} else {
 			hcommons_write_error_log( 'info', sprintf( '%s: failed to authenticate', __METHOD__ ) );
 		}
+	}
+}
+
+/**
+ * On wp-login.php, auto-authenticate users who have a SAML session but no
+ * WordPress cookies. This prevents users from seeing the login page when they
+ * already have an active SAML session (e.g. after navigating to a new subdomain).
+ */
+function hcommons_saml_login_auto_authenticate() {
+	if ( isset( $_GET['action'] ) && in_array( $_GET['action'], [ 'logout', 'wp-saml-auth', 'loggedout' ], true ) ) {
+		return;
+	}
+	if ( isset( $_GET['loggedout'] ) ) {
+		return;
+	}
+	if ( ! is_ssl() || is_user_logged_in() || ! class_exists( 'WP_SAML_Auth' ) ) {
+		return;
+	}
+	if ( ! WP_SAML_Auth::get_instance()->get_provider()->isAuthenticated() ) {
+		return;
+	}
+
+	$result = WP_SAML_Auth::get_instance()->do_saml_authentication();
+	if ( is_a( $result, 'WP_User' ) ) {
+		wp_set_current_user( $result->ID );
+		wp_set_auth_cookie( $result->ID, true, is_ssl() );
+		do_action( 'wp_login', $result->user_login, $result );
+
+		$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : home_url();
+		wp_safe_redirect( wp_validate_redirect( $redirect_to, home_url() ) );
+		exit;
 	}
 }
