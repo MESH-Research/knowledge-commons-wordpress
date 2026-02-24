@@ -32,6 +32,11 @@ if ( defined( 'COOKIE_DOMAIN' ) ) {
 $wpdb->dmtable = $wpdb->base_prefix . 'domain_mapping';
 $dm_domain = array_key_exists( 'HTTP_HOST', $_SERVER ) ? $_SERVER[ 'HTTP_HOST' ] : null;
 
+if ( $dm_domain === null ) {
+	define( 'COOKIE_DOMAIN', getenv( 'WP_DOMAIN' ) ?: '' );
+	return;
+}
+
 $no_www = preg_replace( '|^www\.|', '', $dm_domain );
 if ( $no_www != $dm_domain ) {
 	$where = $wpdb->prepare( 'domain IN (%s,%s)', $dm_domain, $no_www );
@@ -45,21 +50,27 @@ $wpdb->suppress_errors( false );
 
 // (1) Domain mapping: resolve blog/site context for mapped domains.
 if ( $domain_mapping_id ) {
-	$current_blog = $wpdb->get_row("SELECT * FROM {$wpdb->blogs} WHERE blog_id = '$domain_mapping_id' LIMIT 1");
-	$current_blog->domain = $dm_domain;
-	$current_blog->path = '/';
-	$blog_id = $domain_mapping_id;
-	$site_id = $current_blog->site_id;
+	$current_blog = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->blogs} WHERE blog_id = %d LIMIT 1", $domain_mapping_id ) );
 
-	$current_site = $wpdb->get_row( "SELECT * from {$wpdb->site} WHERE id = '{$current_blog->site_id}' LIMIT 0,1" );
-	$current_site->blog_id = $wpdb->get_var( "SELECT blog_id FROM {$wpdb->blogs} WHERE domain='{$current_site->domain}' AND path='{$current_site->path}'" );
-	if ( function_exists( 'get_site_option' ) ) {
-		$current_site->site_name = get_site_option( 'site_name' );
-	} elseif ( function_exists( 'get_current_site_name' ) ) {
-		$current_site = get_current_site_name( $current_site );
+	if ( ! $current_blog ) {
+		// Blog was deleted but domain mapping entry persists; treat as unmapped.
+		$domain_mapping_id = null;
+	} else {
+		$current_blog->domain = $dm_domain;
+		$current_blog->path = '/';
+		$blog_id = $domain_mapping_id;
+		$site_id = $current_blog->site_id;
+
+		$current_site = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->site} WHERE id = %d LIMIT 1", $current_blog->site_id ) );
+		$current_site->blog_id = $wpdb->get_var( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE domain = %s AND path = %s", $current_site->domain, $current_site->path ) );
+		if ( function_exists( 'get_site_option' ) ) {
+			$current_site->site_name = get_site_option( 'site_name' );
+		} elseif ( function_exists( 'get_current_site_name' ) ) {
+			$current_site = get_current_site_name( $current_site );
+		}
+
+		define( 'DOMAIN_MAPPING', 1 );
 	}
-
-	define( 'DOMAIN_MAPPING', 1 );
 }
 
 // (2) Cookie domain: find the most general (shortest) matching network domain.
