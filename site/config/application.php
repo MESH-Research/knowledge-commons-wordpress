@@ -186,9 +186,8 @@ Config::define('WP_ALLOW_MULTISITE', true);
 Config::define('MULTISITE', true);
 Config::define('SUBDOMAIN_INSTALL', true);
 
-// ms-settings.php only checks if SUNRISE is defined, not what it's value is. So
-// we need to not set it (and hope nothing else does)
-// Config::define('SUNRISE', 'off');
+// ms-settings.php only checks if SUNRISE is defined, not what its value is.
+Config::define('SUNRISE', true);
 Config::define('PLUGINDIR', 'app/plugins');
 
 // all paths should be on the root to avoid cookies which are duplicates aside from path

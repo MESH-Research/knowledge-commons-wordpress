@@ -60,6 +60,7 @@ RUN mkdir -p /app/site && chown www-data:www-data /app/site
 RUN mkdir -p /app/site/web && chown www-data:www-data /app/site/web
 COPY --chown=www-data:www-data ./scripts /app/scripts
 COPY --chown=www-data:www-data ./site/web/*.* /app/site/web/
+COPY --chown=www-data:www-data ./site/web/app/sunrise.php /app/site/web/app/sunrise.php
 COPY --chown=www-data:www-data ./plugins /app/plugins
 COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
 COPY --chown=www-data:www-data ./themes /app/themes
