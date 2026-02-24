@@ -32,7 +32,8 @@ if [ -f /app/scripts/build-scripts/link-efs-themes-plugins.sh ]; then
 fi
 
 if [ "$WP_ENV" = "production" ]; then
-        cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
+        # cp /app/site/web/app/plugins/redis-cache/includes/object-cache.php /app/site/web/app/object-cache.php
+        echo "Object cache installation: skipped."
 fi
 
 exec "$@"

@@ -296,6 +296,7 @@ Config::define('MLA_ROOT_BLOG_ID', getenv('MLA_ROOT_BLOG_ID'));
 Config::define('MSU_ROOT_BLOG_ID', getenv('MSU_ROOT_BLOG_ID'));
 Config::define('SAH_ROOT_BLOG_ID', getenv('SAH_ROOT_BLOG_ID'));
 Config::define('UP_ROOT_BLOG_ID', getenv('UP_ROOT_BLOG_ID'));
+Config::define('STEMEDPLUS_ROOT_BLOG_ID', getenv('STEMEDPLUS_ROOT_BLOG_ID'));
 Config::define('GLOBAL_SUPER_ADMINS', getenv('GLOBAL_SUPER_ADMINS'));
 Config::define('GOOGLE_IDP_URL', getenv('GOOGLE_IDP_URL'));
 Config::define('TWITTER_IDP_URL', getenv('TWITTER_IDP_URL'));
