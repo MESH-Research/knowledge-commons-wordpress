@@ -1060,8 +1060,8 @@ class Humanities_Commons {
 
 		$member_types = bp_get_member_type( $user_id, false );
 
-		if ( in_array( self::$society_id, $member_types ) ) {
-			return $member_permalink;
+        if ( is_array( $member_types ) && in_array( self::$society_id, $member_types ) ) {
+            return $member_permalink;
 		}
 		$after_domain = bp_core_enable_root_profiles() ? $user_login : bp_get_members_root_slug() . '/' . $user_login;
 
@@ -1669,15 +1669,21 @@ class Humanities_Commons {
 		} else {
 			return true;
 		}
-
-		$timeDiff = time() - strtotime( $current_user->user_registered );
-
-		if ( $timeDiff < ( 60 * 60 * 48 ) ) {
-			return false;
+		
+		// Check if today is Saturday (6) or Sunday (0)
+    	$dayOfWeek = date('w');
+    	if ( $dayOfWeek == 0 || $dayOfWeek == 6 ) {
+        	$timeDiff = time() - strtotime( $current_user->user_registered );	
+			if ( $timeDiff < ( 60 * 60 * 24 ) ) {
+				return false;
+			} else {
+				return true;
+			}
 		} else {
-			return true;
-		}
-	}
+        // If it's not the weekend, return true (skip age check)
+        return true;
+    }
+}
 
 	/**
 	 * Unserializes the shib_email meta to return to the user as an array

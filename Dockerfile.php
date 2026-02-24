@@ -102,6 +102,8 @@ RUN rm -rf /app/config/all/simplesamlphp/log && \
     chown -R www-data:www-data /app/config/all/simplesamlphp
 
 RUN echo "Installing Composer dependencies..."
+RUN composer self-update 2.6.6
+
 WORKDIR /app
 USER www-data
 RUN php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
@@ -112,6 +114,9 @@ RUN php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-
     cd /app/themes/learningspace/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
     cd /app/plugins/hc-styles/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache
 RUN echo "Finished installing Composer dependencies"
+
+RUN cd /app/site/web/app/plugins/kcworks-on-wp && npm install @wordpress/scripts --save-dev && \
+    cd /app/site/web/app/plugins/kcworks-on-wp && npm ci && npm run build
 
 RUN cd /app/site/web/app/plugins/cc-client && npm ci && npm run build && \
     cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \

@@ -125,7 +125,7 @@ function boss_child_theme_enqueue_script() {
 	wp_localize_script( 'buddyboss-main-override', 'BuddyBossOptions', $buddyboss_js_vars );
 
         //override social-learner.js from parent theme
-        wp_dequeue_script( 'social-learner' );  
+        wp_dequeue_script( 'social-learner' );
         wp_enqueue_script(
                 'social-learner-override',
                 get_stylesheet_directory_uri() . '/js/social-learner.js',
@@ -590,3 +590,30 @@ function is_msu_boss() {
 	$current_site_id = get_current_site()->id;
 	return ( $msu_site_id === $current_site_id );
 }
+
+function hc_filter_redux_url(string $url): string {
+    $parsed = parse_url($url);
+    if (!isset($parsed['scheme']) || !isset($parsed['host']) || !isset($parsed['path'])) {
+        return $url;
+    }
+    
+    $path = $parsed['path'];
+    if (preg_match('#^(/[^/]+)?/boss/#', $path, $matches)) {
+        $path = preg_replace('#^(/[^/]+)?/boss/#', '/app/themes/boss/', $path);
+    }
+    
+    $new_url = $parsed['scheme'] . '://' . $parsed['host'];
+    if (isset($parsed['port'])) {
+        $new_url .= ':' . $parsed['port'];
+    }
+    $new_url .= $path;
+    if (isset($parsed['query'])) {
+        $new_url .= '?' . $parsed['query'];
+    }
+    if (isset($parsed['fragment'])) {
+        $new_url .= '#' . $parsed['fragment'];
+    }
+    
+    return $new_url;
+}
+add_filter( 'redux/_url', 'hc_filter_redux_url' );
