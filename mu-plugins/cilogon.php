@@ -113,6 +113,16 @@ add_action('rest_api_init', function () {
 });
 
 add_action('rest_api_init', function () {
+    register_rest_route('idms', '/update-email', [
+        'methods' => 'POST',
+        'callback' => function (WP_REST_Request $request) {
+            return Plugin::update_email($request);
+        },
+        'permission_callback' => 'cilogon_verify_bearer_token',
+    ]);
+});
+
+add_action('rest_api_init', function () {
     register_rest_route('idms', '/logout', [
         'methods' => 'POST',
         'callback' => function (WP_REST_Request $request) {

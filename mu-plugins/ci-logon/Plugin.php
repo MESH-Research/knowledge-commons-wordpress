@@ -203,12 +203,18 @@ class Plugin {
         xprofile_set_field_data($field_id, $user->ID, $results_array["first_name"] . " " . $results_array["last_name"]);
 
         // set other user features
-        wp_update_user([
+        $update_data = [
             'ID' => $user->ID,
             'first_name' => $results_array["first_name"],
             'last_name' => $results_array["last_name"],
             'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
-        ]);
+        ];
+
+        if (!empty($results_array["email"])) {
+            $update_data['user_email'] = $results_array["email"];
+        }
+
+        wp_update_user($update_data);
     }
 
     /**
@@ -503,6 +509,59 @@ class Plugin {
         $code = (int) wp_remote_retrieve_response_code( $res );
         $body = (string) wp_remote_retrieve_body( $res );
         return self::process_sync($code, $body, $username, $user);
+    }
+
+    /**
+     * Update a user's email address via API request.
+     *
+     * @param \WP_REST_Request $request The REST request containing username and email.
+     * @return \WP_REST_Response|\WP_Error
+     */
+    public static function update_email(\WP_REST_Request $request) {
+        $username = $request->get_param('username');
+        $email = $request->get_param('email');
+
+        if (empty($username)) {
+            return new \WP_Error(
+                'rest_invalid_param',
+                __('Username parameter is required.', 'ci-logon'),
+                ['status' => 400]
+            );
+        }
+
+        if (empty($email) || !is_email($email)) {
+            return new \WP_Error(
+                'rest_invalid_param',
+                __('A valid email parameter is required.', 'ci-logon'),
+                ['status' => 400]
+            );
+        }
+
+        $username = sanitize_user($username);
+        $email = sanitize_email($email);
+
+        $user = get_user_by('login', $username);
+        if (!$user) {
+            error_log(sprintf('CILogon Plugin: update-email request for non-existent user: %s', $username));
+            return new \WP_Error(
+                'rest_not_found',
+                __('User not found.', 'ci-logon'),
+                ['status' => 404]
+            );
+        }
+
+        $result = wp_update_user([
+            'ID' => $user->ID,
+            'user_email' => $email,
+        ]);
+
+        if (is_wp_error($result)) {
+            error_log(sprintf('CILogon Plugin: Failed to update email for %s: %s', $username, $result->get_error_message()));
+            return $result;
+        }
+
+        error_log(sprintf('CILogon Plugin: Updated email for %s to %s', $username, $email));
+        return new \WP_REST_Response(['message' => 'Email updated for ' . $username], 200);
     }
 
     public static function logout($request) {
