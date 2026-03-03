@@ -13,10 +13,10 @@ use function Env\env;
 
 /**
  * Disable WP_DEBUG mode
- * 
+ *
  * We set error reporting for each environment ourselves, so we don't want WordPress
  * to override that. This filter will disable the WP_DEBUG mode checks in WordPress.
- * 
+ *
  * @see wp/wp-includes/load.php::wp_debug_mode()
  */
 $GLOBALS['wp_filter'] = array(
@@ -32,7 +32,7 @@ $GLOBALS['wp_filter'] = array(
     ),
 );
 
-if ( 
+if (
     defined('WP_CLI') && WP_CLI ||
     function_exists('wp_is_cli') && wp_is_cli()
 ) {
@@ -186,8 +186,8 @@ Config::define('WP_ALLOW_MULTISITE', true);
 Config::define('MULTISITE', true);
 Config::define('SUBDOMAIN_INSTALL', true);
 
-
-Config::define('SUNRISE', 'on');
+// ms-settings.php only checks if SUNRISE is defined, not what its value is.
+Config::define('SUNRISE', true);
 Config::define('PLUGINDIR', 'app/plugins');
 
 // all paths should be on the root to avoid cookies which are duplicates aside from path
@@ -295,6 +295,7 @@ Config::define('MLA_ROOT_BLOG_ID', getenv('MLA_ROOT_BLOG_ID'));
 Config::define('MSU_ROOT_BLOG_ID', getenv('MSU_ROOT_BLOG_ID'));
 Config::define('SAH_ROOT_BLOG_ID', getenv('SAH_ROOT_BLOG_ID'));
 Config::define('UP_ROOT_BLOG_ID', getenv('UP_ROOT_BLOG_ID'));
+Config::define('STEMEDPLUS_ROOT_BLOG_ID', getenv('STEMEDPLUS_ROOT_BLOG_ID'));
 Config::define('GLOBAL_SUPER_ADMINS', getenv('GLOBAL_SUPER_ADMINS'));
 Config::define('GOOGLE_IDP_URL', getenv('GOOGLE_IDP_URL'));
 Config::define('TWITTER_IDP_URL', getenv('TWITTER_IDP_URL'));

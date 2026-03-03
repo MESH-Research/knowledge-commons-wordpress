@@ -157,7 +157,7 @@ if ( ! function_exists( 'wp_bootstrap_starter_setup' ) ) :
 			$srv = '/srv/www/commons/current/web/app/cache';
 			if ( file_exists( $srv ) && is_dir( $srv ) ) {
 				//echo "server cache!";
-				$cache = '/srv/www/commons/current/web/app/cache';
+				$cache = '/app/site/web/app/cache';
 			} else {
 				//echo "local mode!";
 				$cache = "$template/inc/blade/local_cache";
@@ -169,12 +169,21 @@ if ( ! function_exists( 'wp_bootstrap_starter_setup' ) ) :
 			if ( ! defined( 'B_CACHE' ) ) {
 				define( 'B_CACHE', $cache );
 			}
-			$blade             = array(
-				0       => new Jenssegers\Blade\Blade( B_VIEWS, B_CACHE ),
-				'views' => B_VIEWS,
-				'cache' => B_CACHE
-			);
-			$_SESSION['blade'] = $blade;
+			$_SESSION['blade'] = [
+			    'views' => B_VIEWS,
+			    'cache' => B_CACHE
+			];
+			if (!function_exists('blade')) {
+			    function blade(): Jenssegers\Blade\Blade {
+			        static $instance;
+					if (!$instance) {
+                        $views = $_SESSION['blade']['views'] ?? (defined('B_VIEWS') ? B_VIEWS : null);
+                        $cache = $_SESSION['blade']['cache'] ?? (defined('B_CACHE') ? B_CACHE : null);
+                        $instance = new Jenssegers\Blade\Blade($views, $cache);
+					}
+					return $instance;
+				}
+			}
 		} );
 
 

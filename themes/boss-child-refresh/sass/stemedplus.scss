@@ -1,0 +1,27 @@
+@import 'variables';
+
+$button-background-color: #00afec;
+
+$link-color: #00afec;
+$link-color-hover: #006386;
+
+@mixin button-material-hover() {
+  background-color: white;
+  box-shadow: $box-shadow-material;
+  color: $button-background-color;
+  text-decoration: none;
+
+  &:before {
+    content: none;
+  }
+}
+
+.directory.groups #primary #buddypress {
+  ul#groups-list.item-list {
+    li.hidden {
+      display: none;
+    }
+  }
+}
+
+@import 'global';

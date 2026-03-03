@@ -21,6 +21,10 @@
         "wpackagist-plugin/*",
         "wpackagist-theme/*"
       ]
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/MESH-Research/kcworks-on-wp"
     }
   ],
   "require": {
@@ -51,19 +55,18 @@
     "wpackagist-plugin/commons-in-a-box": "1.4.0",
     "wpackagist-plugin/disable-password-reset-extended": "^1.0",
     "wpackagist-plugin/edit-flow": "^0.9.6",
-    "wpackagist-plugin/elasticpress": "4.7.1",
     "wpackagist-plugin/elementor": "3.13.4",
     "wpackagist-plugin/essential-addons-for-elementor-lite": "^5.9",
     "wpackagist-plugin/event-organiser": "3.12.3",
     "wpackagist-plugin/fd-footnotes": "^1.36",
-    "wpackagist-plugin/footnotes-made-easy": "^3.0",
+    "wpackagist-plugin/awesome-footnotes": "3.8.5",
     "wpackagist-plugin/gd-bbpress-attachments": "4.5",
     "wpackagist-plugin/google-sitemap-generator": "^4.1.5",
     "wpackagist-plugin/health-check": "^1.4.5",
     "wpackagist-plugin/invite-anyone": "1.4.3",
     "wpackagist-plugin/issuem": "^2.8.7",
     "wpackagist-plugin/jetpack": "^12.2",
-    "wpackagist-plugin/linked-open-profiles": "^0.3.17",
+    "wpackagist-plugin/linked-open-profiles": "^0.4.0",
     "wpackagist-plugin/mathml-block": "^1.2.1",
     "wpackagist-plugin/multisite-plugin-manager": "^3.1.6",
     "wpackagist-plugin/ninja-forms": "^3.6.16",
@@ -96,7 +99,7 @@
     "wpackagist-theme/reykjavik": "2.3.1",
     "wpackagist-theme/sparkling": "^2.4.9",
     "wpackagist-theme/suits": "^1.5.2",
-    "wpackagist-theme/tainacan-interface": "^2.4.4",
+    "wpackagist-theme/tainacan-interface": "^2.8.1",
     "wpackagist-theme/twentyeleven": "4.3",
     "wpackagist-theme/twentyfifteen": "3.4",
     "wpackagist-theme/twentyfourteen": "3.6",
@@ -127,15 +130,14 @@
     "wpackagist-plugin/formassembly-web-forms": "^2.0",
     "wpackagist-theme/stewart": "1.15",
     "wpackagist-plugin/hide-admin-bar-from-non-admins": "^1.0",
-    "wpackagist-plugin/tainacan": "^0.21.7",
+    "wpackagist-plugin/tainacan": "^1.0.1",
+    "wpackagist-plugin/cool-timeline": "^3.0.8",
     "mesh-research/cc-client": "dev-main",
+    "mesh-research/kcworks-on-wp": "1.0.3",
     "wpackagist-plugin/feedzy-rss-feeds": "^4.4",
-    "open-telemetry/opentelemetry-auto-wordpress": "^0.0.16",
-    "open-telemetry/sdk": "^1.0",
+    "wpackagist-plugin/zotpress": "^7.4.1",
     "php-http/guzzle7-adapter": "^1.0",
-    "open-telemetry/exporter-otlp": "^1.0",
-    "grpc/grpc": "^1.57",
-    "open-telemetry/transport-grpc": "^1.0",
+    "predis/predis": "^3.2",
     "jumbojett/openid-connect-php": "dev-master"
   },
   "require-dev": {

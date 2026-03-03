@@ -36,8 +36,7 @@ get_header(); ?>
 	</section><!-- #primary -->
     <aside id="secondary" class="widget-area col-sm-12 col-lg-4" role="complementary">
         <?php
-            $blade = $_SESSION['blade'][0];
-            echo $blade->make('header_card',
+            echo blade()->make('header_card',
                 [
                         'name'=>get_theme_mod( 'header_banner_title_setting' ),
                         'email' => get_theme_mod( 'header_banner_tagline_setting' )
