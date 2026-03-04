@@ -443,12 +443,12 @@ class CILogonAuth
         $profile = $user_info_final->profile;
 
         $user = get_user_by("login", $profile->username);
-        if ($user) {
-            $username = $user->user_login;
-            Plugin::process_sync($code, $body, $username, $user);
-        } else {
-            error_log("CILogon Plugin: WordPress user not yet created for: " . $profile->username . ". Will be created on login.");
+        if (!$user) {
+            error_log("CILogon Plugin: User not found for username: " . $profile->username);
+            return false;
         }
+        $username = $user->user_login;
+        Plugin::process_sync($code, $body, $username, $user);
 
         return $user_info_final;
     }
