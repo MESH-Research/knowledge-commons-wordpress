@@ -1,0 +1,48 @@
+#!/bin/bash
+set -e
+
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+COMPOSE="docker compose -f $REPO_ROOT/docker-compose.test.yml"
+
+cleanup() {
+    echo "==> Tearing down containers..."
+    $COMPOSE down -v --remove-orphans 2>/dev/null || true
+}
+
+trap cleanup EXIT
+
+echo "==> Building containers..."
+$COMPOSE build
+
+echo "==> Starting services..."
+$COMPOSE up -d db app nginx
+
+echo "==> Waiting for app to be ready..."
+sleep 5
+
+echo "==> Phase 1: WordPress setup (install, plugins, users)..."
+$COMPOSE run --rm setup
+
+echo "==> Phase 2: Triggering BuddyPress initialization via web request..."
+# BP auto-initializes on first web request through PHP-FPM.
+# We must let this happen BEFORE configuring BP, because it overwrites
+# any CLI-set options (active components, pages, etc).
+# Hit an admin page to trigger bp_admin_init (where bp_version_updater runs).
+$COMPOSE exec app curl -s -o /dev/null -H "Host: hcommons.test" \
+    -H "Cookie: wordpress_logged_in_dummy=1" \
+    "http://nginx:80/wp/wp-admin/" || true
+sleep 3
+# Second admin request to ensure all init hooks have fired
+$COMPOSE exec app curl -s -o /dev/null -H "Host: hcommons.test" \
+    -H "Cookie: wordpress_logged_in_dummy=1" \
+    "http://nginx:80/wp/wp-admin/" || true
+sleep 1
+
+echo "==> Phase 3: Configuring BuddyPress (from app container)..."
+# Must run from the app container so BP's PHP state is consistent
+$COMPOSE exec app bash /app/scripts/test-scripts/setup-bp.sh
+
+echo "==> Running Playwright tests..."
+$COMPOSE run --rm playwright
+
+echo "==> Tests complete."
