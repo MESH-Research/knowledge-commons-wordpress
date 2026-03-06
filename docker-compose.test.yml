@@ -26,6 +26,9 @@ x-env: &common-env
   PHP_POST_MAX_SIZE: "25M"
   CILOGON_CLIENT_ID: "test-not-for-production"
   CILOGON_CLIENT_SECRET: "test-not-for-production"
+  WORKS_URL: "http://works-mock.test"
+  WORKS_API_KEY: "test-works-api-key-not-for-production"
+  WORKS_KNOWLEDGE_COMMONS_INSTANCE: "knowledgecommons"
 
 services:
   db:

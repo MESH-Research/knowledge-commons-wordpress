@@ -16,6 +16,13 @@ $WP bp component activate members || true
 $WP bp component activate settings || true
 $WP bp component activate xprofile || true
 
+echo "==> Activating additional plugins (after BP components)..."
+$WP plugin activate humanities-commons --network || true
+$WP plugin activate hc-custom || true
+
+echo "==> Activating theme..."
+$WP theme activate hcommons-mpe-theme || true
+
 echo "==> Verifying components:"
 $WP eval '
 $components = bp_get_option("bp-active-components", array());

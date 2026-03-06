@@ -25,6 +25,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/MESH-Research/kcworks-on-wp"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/MESH-Research/hcommons-mpe-theme"
     }
   ],
   "require": {
@@ -138,7 +142,8 @@
     "wpackagist-plugin/zotpress": "^7.4.1",
     "php-http/guzzle7-adapter": "^1.0",
     "predis/predis": "^3.2",
-    "jumbojett/openid-connect-php": "dev-master"
+    "jumbojett/openid-connect-php": "dev-master",
+    "mesh-research/hcommons-mpe-theme": "dev-main"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

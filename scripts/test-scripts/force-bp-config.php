@@ -11,6 +11,14 @@
  * Only activates when the bp_test_config option is set.
  */
 
+// Log fatal errors to a file that tests can read, without breaking HTTP redirects.
+register_shutdown_function(function () {
+    $error = error_get_last();
+    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        file_put_contents('/tmp/php-fatal.log', date('c') . ' ' . $error['message'] . ' in ' . $error['file'] . ':' . $error['line'] . "\n", FILE_APPEND);
+    }
+});
+
 // Prevent BP version updater from running at all.
 // bp_setup_updater is added to bp_admin_init at priority 1000.
 // We remove it at priority 0 (before it can run).

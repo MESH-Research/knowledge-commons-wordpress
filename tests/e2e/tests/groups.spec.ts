@@ -24,13 +24,21 @@ test.describe.serial("Groups", () => {
     await capture("03-group-after-first-submit");
 
     // Walk through the creation wizard — click through remaining steps
-    // Each step may have Next or Finish buttons; check for forum checkbox on each step
+    // Each step may have Next or Finish buttons; check for special steps
     for (let i = 0; i < 7; i++) {
-      // Enable forum if the bbPress create checkbox exists (appears on Forum step)
-      const forumCheckbox = page.locator("#bbp-create-group-forum");
+      // Enable forum if the bbPress create checkbox exists (appears on Forum/Settings step)
+      // Theme may use #group-show-forum; bbPress uses #bbp-create-group-forum
+      const forumCheckbox = page.locator("#bbp-create-group-forum, #group-show-forum").first();
       if (await forumCheckbox.isVisible({ timeout: 500 }).catch(() => false)) {
         await forumCheckbox.check();
         await capture(`04-group-forum-step-${i}`);
+      }
+
+      // Detect KCWorks step by its checkbox
+      const kcworksCheckbox = page.locator("#kcworks-enable");
+      if (await kcworksCheckbox.isVisible({ timeout: 500 }).catch(() => false)) {
+        await capture(`04-group-kcworks-step-${i}`);
+        // Don't check it — just proceed
       }
 
       const finish = page.locator("#group-creation-finish");
@@ -50,9 +58,19 @@ test.describe.serial("Groups", () => {
     await capture("05-group-creation-complete");
 
     // Verify the group was created by navigating to it
-    await page.goto(`/groups/${groupSlug}/`);
+    const response = await page.goto(`/groups/${groupSlug}/`);
     await page.waitForLoadState("networkidle");
     await capture("06-group-page");
+
+    // Log diagnostic info if the page is blank
+    const bodyText = await page.locator("body").innerText();
+    if (!bodyText.trim()) {
+      const status = response?.status() ?? "unknown";
+      const url = page.url();
+      console.log(`Group page blank — status: ${status}, url: ${url}`);
+      console.log(`Page HTML: ${await page.content()}`);
+    }
+
     await expect(page.locator("body")).toContainText(groupName);
   });
 

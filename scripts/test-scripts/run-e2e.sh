@@ -4,7 +4,15 @@ set -e
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 COMPOSE="docker compose -f $REPO_ROOT/docker-compose.test.yml"
 
+dump_logs() {
+    echo "==> PHP fatal error log (if any):"
+    $COMPOSE exec app cat /tmp/php-fatal.log 2>/dev/null || echo "(none)"
+    echo "==> PHP-FPM error log (last 50 lines):"
+    $COMPOSE logs --tail=50 app 2>&1 | grep -i -E "fatal|error|exception" || echo "(none)"
+}
+
 cleanup() {
+    dump_logs
     echo "==> Tearing down containers..."
     $COMPOSE down -v --remove-orphans 2>/dev/null || true
 }
@@ -43,6 +51,11 @@ echo "==> Phase 3: Configuring BuddyPress (from app container)..."
 $COMPOSE exec app bash /app/scripts/test-scripts/setup-bp.sh
 
 echo "==> Running Playwright tests..."
+# Disable set -e so we can capture the exit code and dump logs before cleanup
+set +e
 $COMPOSE run --rm playwright
+TEST_EXIT=$?
+set -e
 
 echo "==> Tests complete."
+exit $TEST_EXIT

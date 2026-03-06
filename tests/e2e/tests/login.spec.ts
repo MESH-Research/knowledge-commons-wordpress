@@ -9,6 +9,12 @@ test.describe("Login bypass", () => {
     // Confirm we can access the admin bar or dashboard.
     const adminBar = page.locator("#wpadminbar");
     await expect(adminBar).toBeVisible({ timeout: 10000 });
+
+    // Navigate to homepage and verify the hcommons-mpe-theme hero text
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator("body")).toContainText("Resist");
+    await expect(page.locator("body")).toContainText("enclosure.");
     await capture("authenticated-homepage");
   });
 

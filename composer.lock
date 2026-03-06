@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80ef5786890a506b1a0189b8d9c0ae7a",
+    "content-hash": "21056a4fceda419bf368467a6567e9c9",
     "packages": [
         {
             "name": "composer/installers",
@@ -642,6 +642,35 @@
                 "source": "https://github.com/MESH-Research/commons-connect-client/tree/main"
             },
             "time": "2025-07-18T16:55:00+00:00"
+        },
+        {
+            "name": "mesh-research/hcommons-mpe-theme",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MESH-Research/hcommons-mpe-theme.git",
+                "reference": "8785c8d4b082b426813dc61aea2b2470b112bff7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MESH-Research/hcommons-mpe-theme/zipball/8785c8d4b082b426813dc61aea2b2470b112bff7",
+                "reference": "8785c8d4b082b426813dc61aea2b2470b112bff7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "default-branch": true,
+            "type": "wordpress-theme",
+            "license": [
+                "MIT"
+            ],
+            "description": "A WordPress block theme for Knowledge Commons (2026)",
+            "support": {
+                "source": "https://github.com/MESH-Research/hcommons-mpe-theme/tree/main",
+                "issues": "https://github.com/MESH-Research/hcommons-mpe-theme/issues"
+            },
+            "time": "2026-03-05T17:56:48+00:00"
         },
         {
             "name": "mesh-research/kcworks-on-wp",
@@ -7565,6 +7594,7 @@
     "stability-flags": {
         "mesh-research/cc-client": 20,
         "jumbojett/openid-connect-php": 20,
+        "mesh-research/hcommons-mpe-theme": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,
