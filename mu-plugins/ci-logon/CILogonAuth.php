@@ -66,6 +66,12 @@ class CILogonAuth
     }
 
     public function do_cilogon_wrapper() {
+        // Secret-key login bypass for automated testing.
+        // Only active when SECRET_LOGIN_KEY env var is set (never in production).
+        if ($this->maybe_secret_key_login()) {
+            return;
+        }
+
         // Figure out what WP thinks is happening on this request
         $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'login';
 
@@ -355,6 +361,45 @@ class CILogonAuth
         $reflection->setAccessible(true);
         $current_state = $reflection->invoke($this->oidc_client);
 
+    }
+
+    /**
+     * Check for secret-key login bypass (testing only).
+     *
+     * When the SECRET_LOGIN_KEY env var is set and the request contains a
+     * matching `secret_key` query parameter on wp-login.php, log in the
+     * user specified by SECRET_LOGIN_IDENTITY (default: "gihctester")
+     * without going through the OIDC flow.
+     *
+     * @return bool True if the bypass was triggered, false otherwise.
+     */
+    public function maybe_secret_key_login(): bool {
+        $secret = getenv('SECRET_LOGIN_KEY');
+        if (empty($secret)) {
+            return false;
+        }
+
+        $provided = $_GET['secret_key'] ?? '';
+        if (empty($provided) || !hash_equals($secret, $provided)) {
+            return false;
+        }
+
+        $identity = getenv('SECRET_LOGIN_IDENTITY') ?: 'gihctester';
+        $user = get_user_by('login', $identity);
+        if (!$user) {
+            error_log('CILogon Plugin: secret-key bypass failed – user "' . $identity . '" not found.');
+            return false;
+        }
+
+        wp_set_current_user($user->ID);
+        wp_set_auth_cookie($user->ID);
+
+        $redirect_to = isset($_GET['redirect_to'])
+            ? wp_validate_redirect(wp_sanitize_redirect($_GET['redirect_to']), home_url())
+            : home_url();
+
+        wp_safe_redirect($redirect_to);
+        exit();
     }
 
     public function synchronise_user($user) {

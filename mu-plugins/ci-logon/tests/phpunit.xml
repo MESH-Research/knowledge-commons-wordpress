@@ -38,6 +38,9 @@
         <testsuite name="Undefined Array Index Tests">
             <file>UndefinedArrayIndexTest.php</file>
         </testsuite>
+        <testsuite name="Login Bypass Tests">
+            <file>LoginBypassTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

@@ -605,6 +605,42 @@ if (!defined('HOUR_IN_SECONDS')) {
 if (!defined('CILOGON_DEBUG')) {
     define('CILOGON_DEBUG', false); // Disable debug logging during tests
 }
+if (!defined('COOKIEPATH')) {
+    define('COOKIEPATH', '/');
+}
+if (!defined('COOKIE_DOMAIN')) {
+    define('COOKIE_DOMAIN', 'example.com');
+}
+
+if (!function_exists('is_ssl')) {
+    function is_ssl() {
+        return false;
+    }
+}
+
+if (!function_exists('update_user_meta')) {
+    function update_user_meta($user_id, $meta_key, $meta_value, $prev_value = '') {
+        return true;
+    }
+}
+
+if (!function_exists('get_transient')) {
+    function get_transient($transient) {
+        return false;
+    }
+}
+
+if (!function_exists('set_transient')) {
+    function set_transient($transient, $value, $expiration = 0) {
+        return true;
+    }
+}
+
+if (!function_exists('delete_transient')) {
+    function delete_transient($transient) {
+        return true;
+    }
+}
 
 // Include namespaced error_log override to suppress log output during tests
 require_once __DIR__ . '/test-error-log-override.php';
