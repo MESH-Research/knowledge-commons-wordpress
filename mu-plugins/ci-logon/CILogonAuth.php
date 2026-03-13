@@ -479,17 +479,32 @@ class CILogonAuth
 
         // synchronise the user data
         $user_info_final = $user_info->data[0];
+        Plugin::debug_log("user_info_final object: " . print_r($user_info_final, true));
 
-        // Validate profile data exists
+        // Validate profile  exists
         if (!isset($user_info_final->profile) || !isset($user_info_final->profile->username)) {
             error_log("CILogon Plugin: Invalid profile data in API response - missing profile or username");
+            Plugin::debug_log("user_info_final keys: " . print_r(array_keys((array) $user_info_final), true));
+            if (isset($user_info_final->profile)) {
+                Plugin::debug_log("profile object keys: " . print_r(array_keys((array) $user_info_final->profile), true));
+                Plugin::debug_log("profile object: " . print_r($user_info_final->profile, true));
+            }
             return false;
         }
         $profile = $user_info_final->profile;
+        Plugin::debug_log("CILogon sub: " . $sub);
+        Plugin::debug_log("Profile username: '" . $profile->username . "'");
+        Plugin::debug_log("Profile object: " . print_r($profile, true));
 
         $user = get_user_by("login", $profile->username);
+        Plugin::debug_log("get_user_by('login', '" . $profile->username . "') result: " . ($user ? "found user ID " . $user->ID . " (login: " . $user->user_login . ", email: " . $user->user_email . ")" : "NOT FOUND"));
         if (!$user) {
             error_log("CILogon Plugin: User not found for username: " . $profile->username);
+            // Try alternative lookups for debugging
+            $by_email = isset($profile->email) ? get_user_by("email", $profile->email) : null;
+            Plugin::debug_log("Fallback lookup by email '" . ($profile->email ?? 'N/A') . "': " . ($by_email ? "found user ID " . $by_email->ID . " (login: " . $by_email->user_login . ")" : "NOT FOUND"));
+            $by_slug = get_user_by("slug", $profile->username);
+            Plugin::debug_log("Fallback lookup by slug '" . $profile->username . "': " . ($by_slug ? "found user ID " . $by_slug->ID . " (login: " . $by_slug->user_login . ")" : "NOT FOUND"));
             return false;
         }
         $username = $user->user_login;
