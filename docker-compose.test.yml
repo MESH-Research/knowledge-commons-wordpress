@@ -24,8 +24,6 @@ x-env: &common-env
   PHP_MEMORY_LIMIT: "512M"
   PHP_UPLOAD_MAX_FILESIZE: "25M"
   PHP_POST_MAX_SIZE: "25M"
-  CILOGON_CLIENT_ID: "test-not-for-production"
-  CILOGON_CLIENT_SECRET: "test-not-for-production"
   WORKS_URL: "http://works-mock.test"
   WORKS_API_KEY: "test-works-api-key-not-for-production"
   WORKS_KNOWLEDGE_COMMONS_INSTANCE: "knowledgecommons"
@@ -60,8 +58,6 @@ services:
       <<: *common-env
       SECRET_LOGIN_KEY: e2e-test-key-change-me
       SECRET_LOGIN_IDENTITY: gihctester
-      CILOGON_CLIENT_ID: "test-not-for-production"
-      CILOGON_CLIENT_SECRET: "test-not-for-production"
     volumes:
       - ./scripts/test-scripts:/app/scripts/test-scripts
       - ./scripts/test-scripts/force-bp-config.php:/app/mu-plugins/force-bp-config.php:ro

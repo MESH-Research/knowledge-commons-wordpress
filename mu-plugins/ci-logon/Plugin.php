@@ -20,9 +20,9 @@ class Plugin {
     private static $instance = null;
 
     /**
-     * CI Logon authentication handler
+     * Authentication handler
      *
-     * @var CILogonAuth
+     * @var BrokerAuth
      */
     private $auth_handler;
 
@@ -68,7 +68,7 @@ class Plugin {
         $this->check_configuration();
 
         // Initialize authentication handler
-        $this->auth_handler = new CILogonAuth();
+        $this->auth_handler = new BrokerAuth();
 
         // Hook into WordPress
         add_action('init', [$this, 'load_textdomain']);
@@ -78,13 +78,13 @@ class Plugin {
      * Check configuration and log any issues
      */
     private function check_configuration() {
-        $client_id = getenv('CILOGON_CLIENT_ID');
-        $client_secret = getenv('CILOGON_CLIENT_SECRET');
+        $profiles_url = getenv('PROFILES_API_URL');
+        $bearer_token = getenv('PROFILES_API_BEARER_TOKEN');
 
-        if (!$client_id || !$client_secret) {
-            error_log('CI Logon Plugin: Missing required environment variables. Please set CILOGON_CLIENT_ID and CILOGON_CLIENT_SECRET.');
+        if (!$profiles_url || !$bearer_token) {
+            error_log('CILogon Plugin: Missing required environment variables. Please set PROFILES_API_URL and PROFILES_API_BEARER_TOKEN.');
         } else {
-            error_log('CI Logon Plugin: Configuration loaded successfully.');
+            error_log('CILogon Plugin: Configuration loaded successfully.');
         }
     }
 
@@ -306,10 +306,10 @@ class Plugin {
      * Check if plugin is properly configured
      */
     public function is_configured() {
-        $client_id = getenv('CILOGON_CLIENT_ID');
-        $client_secret = getenv('CILOGON_CLIENT_SECRET');
+        $profiles_url = getenv('PROFILES_API_URL');
+        $bearer_token = getenv('PROFILES_API_BEARER_TOKEN');
 
-        return !empty($client_id) && !empty($client_secret);
+        return !empty($profiles_url) && !empty($bearer_token);
     }
 
     private static function build_headers( ?string $token ) : array {

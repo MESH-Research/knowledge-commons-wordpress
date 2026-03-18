@@ -58,8 +58,14 @@ if (!function_exists('error_log')) {
 if (!function_exists('get_user_by')) {
     /**
      * Mock get_user_by function
+     *
+     * If $GLOBALS['_mock_get_user_by_callback'] is set to a callable,
+     * it will be invoked with ($field, $value) and its return value used.
      */
     function get_user_by($field, $value) {
+        if (isset($GLOBALS['_mock_get_user_by_callback']) && is_callable($GLOBALS['_mock_get_user_by_callback'])) {
+            return call_user_func($GLOBALS['_mock_get_user_by_callback'], $field, $value);
+        }
         // Return false by default (user not found)
         return false;
     }
@@ -245,8 +251,14 @@ if (!function_exists('wp_remote_get')) {
 if (!function_exists('wp_remote_post')) {
     /**
      * Mock wp_remote_post function
+     *
+     * If $GLOBALS['_mock_wp_remote_post_callback'] is set to a callable,
+     * it will be invoked with ($url, $args) and its return value used.
      */
     function wp_remote_post($url, $args = array()) {
+        if (isset($GLOBALS['_mock_wp_remote_post_callback']) && is_callable($GLOBALS['_mock_wp_remote_post_callback'])) {
+            return call_user_func($GLOBALS['_mock_wp_remote_post_callback'], $url, $args);
+        }
         return new \WP_Error('http_request_failed', 'A valid URL was not provided.');
     }
 }
@@ -615,6 +627,78 @@ if (!defined('COOKIE_DOMAIN')) {
 if (!function_exists('is_ssl')) {
     function is_ssl() {
         return false;
+    }
+}
+
+if (!function_exists('get_query_var')) {
+    /**
+     * Mock get_query_var function
+     */
+    function get_query_var($var, $default = '') {
+        return $GLOBALS['_mock_query_vars'][$var] ?? $default;
+    }
+}
+
+if (!function_exists('add_rewrite_rule')) {
+    /**
+     * Mock add_rewrite_rule function
+     */
+    function add_rewrite_rule($regex, $query, $after = 'bottom') {
+        // No-op in tests
+    }
+}
+
+if (!function_exists('add_filter')) {
+    /**
+     * Mock add_filter function
+     */
+    function add_filter($tag, $function_to_add, $priority = 10, $accepted_args = 1) {
+        // No-op in tests
+    }
+}
+
+if (!function_exists('wp_die')) {
+    /**
+     * Mock wp_die function — captures message to global for test assertions
+     */
+    function wp_die($message = '', $title = '', $args = array()) {
+        $GLOBALS['_wp_die_message'] = $message;
+    }
+}
+
+if (!function_exists('esc_html')) {
+    /**
+     * Mock esc_html function
+     */
+    function esc_html($text) {
+        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    }
+}
+
+if (!function_exists('sanitize_email')) {
+    /**
+     * Mock sanitize_email function
+     */
+    function sanitize_email($email) {
+        return filter_var($email, FILTER_SANITIZE_EMAIL);
+    }
+}
+
+if (!function_exists('is_email')) {
+    /**
+     * Mock is_email function
+     */
+    function is_email($email) {
+        return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+}
+
+if (!function_exists('sanitize_key')) {
+    /**
+     * Mock sanitize_key function
+     */
+    function sanitize_key($key) {
+        return preg_replace('/[^a-z0-9_\-]/', '', strtolower($key));
     }
 }
 

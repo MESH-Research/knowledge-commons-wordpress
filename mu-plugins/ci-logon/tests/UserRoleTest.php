@@ -10,77 +10,53 @@
 
 namespace MeshResearch\CILogon\Tests;
 
-use MeshResearch\CILogon\CILogonAuth;
+use MeshResearch\CILogon\BrokerAuth;
 use MeshResearch\CILogon\Plugin;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * Test suite for User Role Assignment
- *
- * This test suite ensures that users created through CILogon authentication
- * are assigned safe default roles (subscriber) and not administrator.
  *
  * SECURITY: This is a regression test for a critical security vulnerability
  * where new users were being created with administrator privileges.
  */
 class UserRoleTest extends TestCase
 {
-    /**
-     * Set up test fixtures
-     */
     protected function setUp(): void
     {
         parent::setUp();
         clear_captured_wp_insert_user_data();
     }
 
-    /**
-     * Tear down after each test
-     */
     protected function tearDown(): void
     {
         clear_captured_wp_insert_user_data();
         parent::tearDown();
     }
 
+    private function brokerPayload(array $overrides = []): array
+    {
+        return array_merge([
+            'kc_username' => 'newuser_' . time(),
+            'email' => 'newuser_' . time() . '@example.com',
+            'first_name' => 'New',
+            'last_name' => 'User',
+            'name' => 'New User',
+            'nonce' => 'test-nonce',
+            'exp' => time() + 300,
+        ], $overrides);
+    }
+
     // ========================================================================
-    // CILogonAuth::find_or_create_user TESTS
+    // BrokerAuth::find_or_create_user TESTS
     // ========================================================================
 
-    /**
-     * Test: New users created via CILogonAuth have subscriber role
-     *
-     * SECURITY REGRESSION TEST: Previously users were created with 'administrator' role
-     *
-     * @test
-     */
+    /** @test */
     public function test_cilogonauth_creates_user_with_subscriber_role()
     {
-        // Create a mock user_info object that mimics what CILogon returns
-        $user_info = (object) [
-            'sub' => 'test-sub-123',
-            'profile' => (object) [
-                'username' => 'newuser_' . time(),
-                'email' => 'newuser_' . time() . '@example.com',
-                'first_name' => 'New',
-                'last_name' => 'User',
-                'name' => 'New User',
-            ],
-        ];
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
 
-        // Create CILogonAuth instance
-        $auth = new CILogonAuth();
-
-        // Use reflection to access the private find_or_create_user method
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        // Call the method
-        $result = $method->invoke($auth, $user_info);
-
-        // Get captured data from wp_insert_user
         $capturedData = get_captured_wp_insert_user_data();
 
         $this->assertNotNull($capturedData, 'wp_insert_user should have been called');
@@ -92,32 +68,11 @@ class UserRoleTest extends TestCase
         );
     }
 
-    /**
-     * Test: New users created via CILogonAuth do NOT have administrator role
-     *
-     * SECURITY REGRESSION TEST: Explicit check that administrator is not used
-     *
-     * @test
-     */
+    /** @test */
     public function test_cilogonauth_does_not_create_administrator()
     {
-        $user_info = (object) [
-            'sub' => 'test-sub-456',
-            'profile' => (object) [
-                'username' => 'anotheruser_' . time(),
-                'email' => 'anotheruser_' . time() . '@example.com',
-                'first_name' => 'Another',
-                'last_name' => 'User',
-                'name' => 'Another User',
-            ],
-        ];
-
-        $auth = new CILogonAuth();
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        $method->invoke($auth, $user_info);
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
 
         $capturedData = get_captured_wp_insert_user_data();
 
@@ -129,30 +84,11 @@ class UserRoleTest extends TestCase
         );
     }
 
-    /**
-     * Test: New users created via CILogonAuth do NOT have editor role
-     *
-     * @test
-     */
+    /** @test */
     public function test_cilogonauth_does_not_create_editor()
     {
-        $user_info = (object) [
-            'sub' => 'test-sub-789',
-            'profile' => (object) [
-                'username' => 'editortest_' . time(),
-                'email' => 'editortest_' . time() . '@example.com',
-                'first_name' => 'Editor',
-                'last_name' => 'Test',
-                'name' => 'Editor Test',
-            ],
-        ];
-
-        $auth = new CILogonAuth();
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        $method->invoke($auth, $user_info);
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
 
         $capturedData = get_captured_wp_insert_user_data();
 
@@ -164,30 +100,11 @@ class UserRoleTest extends TestCase
         );
     }
 
-    /**
-     * Test: New users created via CILogonAuth do NOT have author role
-     *
-     * @test
-     */
+    /** @test */
     public function test_cilogonauth_does_not_create_author()
     {
-        $user_info = (object) [
-            'sub' => 'test-sub-author',
-            'profile' => (object) [
-                'username' => 'authortest_' . time(),
-                'email' => 'authortest_' . time() . '@example.com',
-                'first_name' => 'Author',
-                'last_name' => 'Test',
-                'name' => 'Author Test',
-            ],
-        ];
-
-        $auth = new CILogonAuth();
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        $method->invoke($auth, $user_info);
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
 
         $capturedData = get_captured_wp_insert_user_data();
 
@@ -203,11 +120,7 @@ class UserRoleTest extends TestCase
     // Plugin::createNewWordPressUser TESTS
     // ========================================================================
 
-    /**
-     * Test: New users created via Plugin::createNewWordPressUser have subscriber role
-     *
-     * @test
-     */
+    /** @test */
     public function test_plugin_creates_user_with_subscriber_role()
     {
         $results_array = [
@@ -230,11 +143,7 @@ class UserRoleTest extends TestCase
         );
     }
 
-    /**
-     * Test: Plugin::createNewWordPressUser does NOT create administrator
-     *
-     * @test
-     */
+    /** @test */
     public function test_plugin_does_not_create_administrator()
     {
         $results_array = [
@@ -260,34 +169,13 @@ class UserRoleTest extends TestCase
     // CONSISTENCY TESTS
     // ========================================================================
 
-    /**
-     * Test: Both user creation methods use the same role
-     *
-     * Ensures CILogonAuth and Plugin use consistent role assignment
-     *
-     * @test
-     */
+    /** @test */
     public function test_both_methods_use_same_role()
     {
-        // Test CILogonAuth
-        $user_info = (object) [
-            'sub' => 'consistency-test',
-            'profile' => (object) [
-                'username' => 'consistencytest1_' . time(),
-                'email' => 'consistencytest1_' . time() . '@example.com',
-                'first_name' => 'Test',
-                'last_name' => 'User',
-                'name' => 'Test User',
-            ],
-        ];
-
-        $auth = new CILogonAuth();
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        $method->invoke($auth, $user_info);
-        $cilogonRole = get_captured_wp_insert_user_data()['role'] ?? null;
+        // Test BrokerAuth
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
+        $brokerRole = get_captured_wp_insert_user_data()['role'] ?? null;
 
         // Clear and test Plugin
         clear_captured_wp_insert_user_data();
@@ -303,40 +191,21 @@ class UserRoleTest extends TestCase
         $pluginRole = get_captured_wp_insert_user_data()['role'] ?? null;
 
         $this->assertEquals(
-            $cilogonRole,
+            $brokerRole,
             $pluginRole,
-            'CILogonAuth and Plugin must use the same default role for consistency'
+            'BrokerAuth and Plugin must use the same default role for consistency'
         );
     }
 
-    /**
-     * Test: Both methods use 'subscriber' specifically
-     *
-     * @test
-     */
+    /** @test */
     public function test_both_methods_use_subscriber_specifically()
     {
-        // Test CILogonAuth
-        $user_info = (object) [
-            'sub' => 'subscriber-test',
-            'profile' => (object) [
-                'username' => 'subscribertest1_' . time(),
-                'email' => 'subscribertest1_' . time() . '@example.com',
-                'first_name' => 'Test',
-                'last_name' => 'User',
-                'name' => 'Test User',
-            ],
-        ];
+        // Test BrokerAuth
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
+        $brokerRole = get_captured_wp_insert_user_data()['role'] ?? null;
 
-        $auth = new CILogonAuth();
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        $method->invoke($auth, $user_info);
-        $cilogonRole = get_captured_wp_insert_user_data()['role'] ?? null;
-
-        $this->assertEquals('subscriber', $cilogonRole, 'CILogonAuth must use subscriber role');
+        $this->assertEquals('subscriber', $brokerRole, 'BrokerAuth must use subscriber role');
 
         // Clear and test Plugin
         clear_captured_wp_insert_user_data();
@@ -358,30 +227,20 @@ class UserRoleTest extends TestCase
     // ELEVATED ROLE ASSIGNMENT TESTS
     // ========================================================================
 
-    /**
-     * Test: Superadmin is only granted via setSuperuserStatusIfFlagExistsInAPIResponse
-     *
-     * Verifies that superadmin status comes from API, not default creation
-     *
-     * @test
-     */
+    /** @test */
     public function test_superadmin_only_from_api_flag()
     {
-        // Create a mock user
         $user = new \WP_User(999);
         $user->ID = 999;
         $user->user_login = 'testuser';
 
-        // Test with is_superadmin = false
         $results_without_superadmin = [
             'username' => 'testuser',
             'is_superadmin' => false,
         ];
 
-        // This should call revoke_super_admin, not grant_super_admin
         Plugin::setSuperuserStatusIfFlagExistsInAPIResponse($results_without_superadmin, $user);
 
-        // Test with is_superadmin = true
         $results_with_superadmin = [
             'username' => 'testuser',
             'is_superadmin' => true,
@@ -389,30 +248,22 @@ class UserRoleTest extends TestCase
 
         Plugin::setSuperuserStatusIfFlagExistsInAPIResponse($results_with_superadmin, $user);
 
-        // If we got here without errors, the method handles both cases
         $this->assertTrue(true, 'Superadmin status is controlled by API flag');
     }
 
-    /**
-     * Test: Missing is_superadmin flag does not grant superadmin
-     *
-     * @test
-     */
+    /** @test */
     public function test_missing_superadmin_flag_revokes_superadmin()
     {
         $user = new \WP_User(888);
         $user->ID = 888;
         $user->user_login = 'testuser2';
 
-        // Results without is_superadmin key at all
         $results_without_key = [
             'username' => 'testuser2',
         ];
 
-        // This should NOT grant superadmin (implicit false)
         Plugin::setSuperuserStatusIfFlagExistsInAPIResponse($results_without_key, $user);
 
-        // If we got here without errors, the method handles missing key
         $this->assertTrue(true, 'Missing is_superadmin flag does not cause errors');
     }
 
@@ -420,30 +271,11 @@ class UserRoleTest extends TestCase
     // USER DATA STRUCTURE TESTS
     // ========================================================================
 
-    /**
-     * Test: User data includes all required fields
-     *
-     * @test
-     */
+    /** @test */
     public function test_user_data_includes_required_fields()
     {
-        $user_info = (object) [
-            'sub' => 'fields-test',
-            'profile' => (object) [
-                'username' => 'fieldstest_' . time(),
-                'email' => 'fieldstest_' . time() . '@example.com',
-                'first_name' => 'Fields',
-                'last_name' => 'Test',
-                'name' => 'Fields Test',
-            ],
-        ];
-
-        $auth = new CILogonAuth();
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        $method->invoke($auth, $user_info);
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
 
         $capturedData = get_captured_wp_insert_user_data();
 
@@ -456,30 +288,11 @@ class UserRoleTest extends TestCase
         $this->assertArrayHasKey('role', $capturedData);
     }
 
-    /**
-     * Test: Generated password is not empty
-     *
-     * @test
-     */
+    /** @test */
     public function test_generated_password_not_empty()
     {
-        $user_info = (object) [
-            'sub' => 'password-test',
-            'profile' => (object) [
-                'username' => 'passwordtest_' . time(),
-                'email' => 'passwordtest_' . time() . '@example.com',
-                'first_name' => 'Password',
-                'last_name' => 'Test',
-                'name' => 'Password Test',
-            ],
-        ];
-
-        $auth = new CILogonAuth();
-        $reflection = new ReflectionClass($auth);
-        $method = $reflection->getMethod('find_or_create_user');
-        $method->setAccessible(true);
-
-        $method->invoke($auth, $user_info);
+        $auth = new BrokerAuth();
+        $auth->find_or_create_user($this->brokerPayload());
 
         $capturedData = get_captured_wp_insert_user_data();
 

@@ -32,14 +32,14 @@
         <testsuite name="Debug Logging Tests">
             <file>DebugLoggingTest.php</file>
         </testsuite>
-        <testsuite name="Null Check Safety Tests">
-            <file>NullCheckTest.php</file>
-        </testsuite>
         <testsuite name="Undefined Array Index Tests">
             <file>UndefinedArrayIndexTest.php</file>
         </testsuite>
         <testsuite name="Login Bypass Tests">
             <file>LoginBypassTest.php</file>
+        </testsuite>
+        <testsuite name="BrokerAuth Tests">
+            <file>BrokerAuthTest.php</file>
         </testsuite>
     </testsuites>
 

@@ -35,8 +35,7 @@ if (!defined('CILOGON_DEBUG')) {
 
 // Require implementation files (no duplicate class defs).
 require_once CILOGON_MU_DIR . '/Plugin.php';
-require_once CILOGON_MU_DIR . '/CILogonAuth.php';
-require_once CILOGON_MU_DIR . '/CustomOpenIDConnectClient.php';
+require_once CILOGON_MU_DIR . '/BrokerAuth.php';
 
 // Load translations for MU plugins.
 add_action('muplugins_loaded', function () {

@@ -2,7 +2,7 @@
 /**
  * Unit Tests for Secret-Key Login Bypass
  *
- * Tests verify that CILogonAuth::maybe_secret_key_login() properly gates
+ * Tests verify that BrokerAuth::maybe_secret_key_login() properly gates
  * access behind the SECRET_LOGIN_KEY environment variable and performs
  * timing-safe comparison of the provided key.
  *
@@ -12,13 +12,13 @@
 namespace MeshResearch\CILogon\Tests;
 
 use PHPUnit\Framework\TestCase;
-use MeshResearch\CILogon\CILogonAuth;
+use MeshResearch\CILogon\BrokerAuth;
 
 class LoginBypassTest extends TestCase
 {
     private string|false $originalSecretKey;
     private string|false $originalIdentity;
-    private CILogonAuth $auth;
+    private BrokerAuth $auth;
 
     private const TEST_SECRET = 'e2e-test-key-12345';
 
@@ -31,9 +31,9 @@ class LoginBypassTest extends TestCase
         $GLOBALS['_wp_safe_redirect_location'] = null;
         $GLOBALS['_wp_safe_redirect_status'] = null;
 
-        // CILogonAuth constructor calls init_hooks() which registers the
-        // login_init action. The mock add_action is a no-op, so this is safe.
-        $this->auth = new CILogonAuth();
+        // BrokerAuth constructor calls init_hooks() which registers actions.
+        // The mock add_action/add_filter are no-ops, so this is safe.
+        $this->auth = new BrokerAuth();
     }
 
     protected function tearDown(): void
