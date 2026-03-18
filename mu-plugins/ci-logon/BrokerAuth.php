@@ -26,6 +26,18 @@ class BrokerAuth
     private const SESSION_COOKIE_NAME = 'cilogon_auth_session_id';
     private const SESSION_EXPIRATION = 3600;
 
+    private const SSO_CHECK_COOKIE = 'broker_sso_checked';
+    private const SSO_CHECK_TTL = 1800; // 30 minutes
+    private const SSO_OPTOUT_COOKIE = 'broker_sso_optout';
+    private const SSO_OPTOUT_TTL = 86400; // 24 hours
+
+    private const BOT_SIGNATURES = [
+        'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baidu',
+        'yandex', 'sogou', 'exabot', 'facebot', 'ia_archiver',
+        'semrush', 'ahrefsbot', 'mj12bot', 'dotbot', 'petalbot',
+        'bytespider', 'gptbot', 'chatgpt', 'claudebot',
+    ];
+
     public function __construct()
     {
         $this->config = [
@@ -40,6 +52,7 @@ class BrokerAuth
     {
         add_action('login_init', [$this, 'do_login_redirect_wrapper']);
         add_action('init', [$this, 'maybe_handle_broker_callback']);
+        add_action('template_redirect', [$this, 'maybe_silent_login']);
     }
 
     /**
@@ -59,7 +72,7 @@ class BrokerAuth
         }
 
         $this->handle_broker_callback();
-        exit();
+        $this->terminate();
     }
 
     // =========================================================================
@@ -102,7 +115,7 @@ class BrokerAuth
             return;
         }
 
-        // Store redirect_to in transient before redirecting
+        // Store redirect_to in transient before redirecting (fallback for no_session)
         if (isset($_GET['redirect_to'])) {
             $validated_redirect = wp_validate_redirect(
                 wp_sanitize_redirect($_GET['redirect_to']),
@@ -111,9 +124,29 @@ class BrokerAuth
             $this->setSessionValue('broker_redirect_to', $validated_redirect);
         }
 
+        // Determine the user's original page for final_redirect
+        $final_redirect = home_url();
+        if (!empty($_GET['redirect_to'])) {
+            $final_redirect = wp_validate_redirect(
+                wp_sanitize_redirect($_GET['redirect_to']),
+                home_url()
+            );
+        } elseif (!empty($_SERVER['HTTP_REFERER'])) {
+            $referer = $_SERVER['HTTP_REFERER'];
+            $referer_host = parse_url($referer, PHP_URL_HOST);
+            $site_host = parse_url(home_url(), PHP_URL_HOST);
+            if ($referer_host === $site_host) {
+                $final_redirect = wp_validate_redirect(
+                    wp_sanitize_redirect($referer),
+                    home_url()
+                );
+            }
+        }
+
         $callback_url = home_url('/broker-callback/');
         $profiles_login_url = rtrim($this->config['profiles_url'], '/') . '/login/';
-        $redirect_url = $profiles_login_url . '?return_to=' . rawurlencode($callback_url);
+        $redirect_url = $profiles_login_url . '?return_to=' . rawurlencode($callback_url)
+            . '&final_redirect=' . rawurlencode($final_redirect);
 
         error_log('BrokerAuth: Redirecting to Profiles login: ' . $redirect_url);
 
@@ -127,7 +160,7 @@ class BrokerAuth
         });
 
         wp_safe_redirect($redirect_url);
-        exit();
+        $this->terminate();
     }
 
     // =========================================================================
@@ -136,6 +169,14 @@ class BrokerAuth
 
     public function handle_broker_callback(): void
     {
+        // Handle no-session response from silent SSO check
+        if (isset($_GET['no_session'])) {
+            $stored_url = $this->getSessionValue('broker_sso_return_url');
+            $this->unsetSessionValue('broker_sso_return_url');
+            wp_safe_redirect($stored_url ?: home_url());
+            return;
+        }
+
         $broker_token = isset($_GET['broker_token']) ? $_GET['broker_token'] : '';
         if (empty($broker_token)) {
             error_log('BrokerAuth: broker_callback hit but no broker_token');
@@ -177,8 +218,8 @@ class BrokerAuth
         // Sync user data from Profiles
         Plugin::sync_user($user->user_login);
 
-        // Log user in
-        $this->synchronise_user($user);
+        // Log user in (pass payload so synchronise_user can read final_redirect)
+        $this->synchronise_user($user, $payload);
     }
 
     // =========================================================================
@@ -414,25 +455,212 @@ class BrokerAuth
             : home_url();
 
         wp_safe_redirect($redirect_to);
-        exit();
+        $this->terminate();
     }
 
-    public function synchronise_user(WP_User $user): void
+    public function synchronise_user(WP_User $user, array $payload = []): void
     {
         error_log('BrokerAuth: Setting up user session for: ' . $user->user_login);
         wp_set_current_user($user->ID);
         wp_set_auth_cookie($user->ID);
 
-        // Use stored redirect URL if available
         $redirect_to = home_url();
-        $stored_redirect = $this->getSessionValue('broker_redirect_to');
-        if (!empty($stored_redirect)) {
+
+        // 1. Prefer final_redirect from decrypted broker_token payload
+        if (!empty($payload['final_redirect'])) {
+            $redirect_to = wp_validate_redirect(
+                wp_sanitize_redirect($payload['final_redirect']),
+                home_url()
+            );
+            error_log('BrokerAuth: Redirecting to final_redirect from payload: ' . $redirect_to);
+        }
+        // 2. Fall back to broker_redirect_to transient (explicit login flow)
+        elseif ($stored_redirect = $this->getSessionValue('broker_redirect_to')) {
             $redirect_to = $stored_redirect;
             $this->unsetSessionValue('broker_redirect_to');
             error_log('BrokerAuth: Redirecting to stored URL: ' . $redirect_to);
         }
+        // 3. Fall back to broker_sso_return_url transient (silent SSO flow)
+        elseif ($sso_redirect = $this->getSessionValue('broker_sso_return_url')) {
+            $redirect_to = $sso_redirect;
+            $this->unsetSessionValue('broker_sso_return_url');
+            error_log('BrokerAuth: Redirecting to SSO return URL: ' . $redirect_to);
+        }
+        // 4. Final fallback: home_url() (already set above)
 
         wp_safe_redirect($redirect_to);
+        $this->terminate();
+    }
+
+    // =========================================================================
+    // Silent SSO — auto-check Profiles session on front-end page loads
+    // =========================================================================
+
+    /**
+     * Check whether this request should be excluded from silent SSO.
+     */
+    public function is_sso_excluded_request(): bool
+    {
+        // Feature flag must be enabled
+        $enabled = getenv('BROKER_SILENT_SSO_ENABLED');
+        if (empty($enabled)) {
+            error_log('BrokerAuth SSO: excluded — BROKER_SILENT_SSO_ENABLED not set');
+            return true;
+        }
+
+        // Already logged in
+        if (is_user_logged_in()) {
+            error_log('BrokerAuth SSO: excluded — user already logged in');
+            return true;
+        }
+
+        // Already checked recently
+        if (!empty($_COOKIE[self::SSO_CHECK_COOKIE])) {
+            error_log('BrokerAuth SSO: excluded — broker_sso_checked cookie present');
+            return true;
+        }
+
+        // User opted out
+        if (!empty($_COOKIE[self::SSO_OPTOUT_COOKIE])) {
+            error_log('BrokerAuth SSO: excluded — broker_sso_optout cookie present');
+            return true;
+        }
+
+        // Admin pages
+        if (is_admin()) {
+            error_log('BrokerAuth SSO: excluded — admin page');
+            return true;
+        }
+
+        // AJAX
+        if (wp_doing_ajax() || (defined('DOING_AJAX') && DOING_AJAX)) {
+            return true;
+        }
+
+        // Cron
+        if (wp_doing_cron() || (defined('DOING_CRON') && DOING_CRON)) {
+            return true;
+        }
+
+        // REST API
+        $request_uri = $_SERVER['REQUEST_URI'] ?? '';
+        $path = parse_url($request_uri, PHP_URL_PATH) ?: '';
+        if (strpos($path, '/wp-json/') !== false) {
+            return true;
+        }
+
+        // xmlrpc
+        if (strpos($path, '/xmlrpc.php') !== false) {
+            return true;
+        }
+
+        // Non-GET/HEAD requests
+        $method = strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET');
+        if (!in_array($method, ['GET', 'HEAD'], true)) {
+            return true;
+        }
+
+        // Bot user-agents
+        $ua = strtolower($_SERVER['HTTP_USER_AGENT'] ?? '');
+        if ($ua !== '') {
+            foreach (self::BOT_SIGNATURES as $bot) {
+                if (strpos($ua, $bot) !== false) {
+                    return true;
+                }
+            }
+        }
+
+        error_log('BrokerAuth SSO: not excluded — will attempt silent login');
+        return false;
+    }
+
+    /**
+     * On front-end page loads, silently check for an active Profiles session.
+     *
+     * Hooked to `template_redirect`.
+     */
+    public function maybe_silent_login(): void
+    {
+        if ($this->is_sso_excluded_request()) {
+            return;
+        }
+
+        // ?no_sso=1 opt-out: set 24-hour cookie and bail
+        if (!empty($_GET['no_sso'])) {
+            error_log('BrokerAuth SSO: no_sso=1 param — setting optout cookie');
+            $this->setSSOCookie(self::SSO_OPTOUT_COOKIE, '1', self::SSO_OPTOUT_TTL);
+            return;
+        }
+
+        // Set the SSO check cookie so we don't repeat for 30 minutes
+        $this->setSSOCookie(self::SSO_CHECK_COOKIE, '1', self::SSO_CHECK_TTL);
+
+        // Store the current URL so we can redirect back after the SSO check
+        $scheme = is_ssl() ? 'https' : 'http';
+        $current_url = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . ($_SERVER['REQUEST_URI'] ?? '/');
+        $this->setSessionValue('broker_sso_return_url', $current_url);
+
+        // Build silent login redirect URL
+        $callback_url = home_url('/broker-callback/');
+        $silent_login_url = rtrim($this->config['profiles_url'], '/') . '/broker/silent-login/'
+            . '?return_to=' . rawurlencode($callback_url)
+            . '&final_redirect=' . rawurlencode($current_url);
+
+        error_log('BrokerAuth SSO: redirecting to silent login: ' . $silent_login_url);
+        error_log('BrokerAuth SSO: stored return URL: ' . $current_url);
+
+        // Allow Profiles host in redirects
+        $profiles_host = parse_url($this->config['profiles_url'], PHP_URL_HOST);
+        add_filter('allowed_redirect_hosts', function ($hosts) use ($profiles_host) {
+            if ($profiles_host) {
+                $hosts[] = $profiles_host;
+            }
+            return $hosts;
+        });
+
+        wp_safe_redirect($silent_login_url);
+    }
+
+    /**
+     * Set an SSO-related cookie, capturing for test verification.
+     */
+    private function setSSOCookie(string $name, string $value, int $ttl): void
+    {
+        $expires = time() + $ttl;
+        $options = [
+            'expires' => $expires,
+            'path' => COOKIEPATH,
+            'domain' => COOKIE_DOMAIN,
+            'secure' => is_ssl(),
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ];
+
+        // Capture for test verification
+        if (isset($GLOBALS['_mock_setcookie_calls']) && is_array($GLOBALS['_mock_setcookie_calls'])) {
+            $GLOBALS['_mock_setcookie_calls'][] = [
+                'name' => $name,
+                'value' => $value,
+                'expires' => $expires,
+                'options' => $options,
+            ];
+        }
+
+        if (!headers_sent()) {
+            setcookie($name, $value, $options);
+        }
+        $_COOKIE[$name] = $value;
+    }
+
+    /**
+     * Halt execution after a redirect.
+     *
+     * Extracted so tests can override without killing the PHPUnit process.
+     *
+     * @codeCoverageIgnore
+     */
+    protected function terminate(): void
+    {
         exit();
     }
 
@@ -463,18 +691,20 @@ class BrokerAuth
             'samesite' => 'Lax',
         ];
 
-        if (PHP_VERSION_ID >= 70300) {
-            setcookie(self::SESSION_COOKIE_NAME, $session_id, $options);
-        } else {
-            setcookie(
-                self::SESSION_COOKIE_NAME,
-                $session_id,
-                $options['expires'],
-                $options['path'],
-                $options['domain'],
-                $options['secure'],
-                $options['httponly']
-            );
+        if (!headers_sent()) {
+            if (PHP_VERSION_ID >= 70300) {
+                setcookie(self::SESSION_COOKIE_NAME, $session_id, $options);
+            } else {
+                setcookie(
+                    self::SESSION_COOKIE_NAME,
+                    $session_id,
+                    $options['expires'],
+                    $options['path'],
+                    $options['domain'],
+                    $options['secure'],
+                    $options['httponly']
+                );
+            }
         }
 
         $_COOKIE[self::SESSION_COOKIE_NAME] = $session_id;
