@@ -41,6 +41,9 @@
         <testsuite name="BrokerAuth Tests">
             <file>BrokerAuthTest.php</file>
         </testsuite>
+        <testsuite name="Silent SSO Tests">
+            <file>SilentSSOTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

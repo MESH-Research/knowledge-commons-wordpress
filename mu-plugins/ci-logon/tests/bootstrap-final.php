@@ -422,7 +422,34 @@ if (!function_exists('is_user_logged_in')) {
      * Mock is_user_logged_in function
      */
     function is_user_logged_in() {
-        return false;
+        return $GLOBALS['_mock_is_user_logged_in'] ?? false;
+    }
+}
+
+if (!function_exists('is_admin')) {
+    /**
+     * Mock is_admin function
+     */
+    function is_admin() {
+        return $GLOBALS['_mock_is_admin'] ?? false;
+    }
+}
+
+if (!function_exists('wp_doing_ajax')) {
+    /**
+     * Mock wp_doing_ajax function
+     */
+    function wp_doing_ajax() {
+        return $GLOBALS['_mock_wp_doing_ajax'] ?? false;
+    }
+}
+
+if (!function_exists('wp_doing_cron')) {
+    /**
+     * Mock wp_doing_cron function
+     */
+    function wp_doing_cron() {
+        return $GLOBALS['_mock_wp_doing_cron'] ?? false;
     }
 }
 
@@ -710,18 +737,39 @@ if (!function_exists('update_user_meta')) {
 
 if (!function_exists('get_transient')) {
     function get_transient($transient) {
+        // Check the mock store for matching key suffix
+        $store = $GLOBALS['_mock_get_transient_store'] ?? [];
+        foreach ($store as $suffix => $value) {
+            if (str_contains($transient, $suffix)) {
+                return $value;
+            }
+        }
         return false;
     }
 }
 
 if (!function_exists('set_transient')) {
     function set_transient($transient, $value, $expiration = 0) {
+        $GLOBALS['_mock_set_transient_store'][] = [
+            'key' => $transient,
+            'value' => $value,
+            'expiration' => $expiration,
+        ];
         return true;
     }
 }
 
 if (!function_exists('delete_transient')) {
     function delete_transient($transient) {
+        // Remove from mock store
+        $store = &$GLOBALS['_mock_get_transient_store'];
+        if (is_array($store)) {
+            foreach ($store as $suffix => $value) {
+                if (str_contains($transient, $suffix)) {
+                    unset($store[$suffix]);
+                }
+            }
+        }
         return true;
     }
 }

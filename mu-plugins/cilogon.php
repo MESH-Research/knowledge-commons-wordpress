@@ -43,7 +43,7 @@ add_action('muplugins_loaded', function () {
     load_muplugin_textdomain('ci-logon', 'ci-logon/languages');
 });
 
-// Boot the plugin.
+// Boot the plugin
 add_action('muplugins_loaded', function () {
     Plugin::get_instance();
 });
