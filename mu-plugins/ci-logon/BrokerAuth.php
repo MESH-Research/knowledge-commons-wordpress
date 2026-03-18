@@ -39,20 +39,27 @@ class BrokerAuth
     private function init_hooks(): void
     {
         add_action('login_init', [$this, 'do_login_redirect_wrapper']);
-        add_action('template_redirect', [$this, 'handle_broker_callback']);
-        add_action('init', [$this, 'register_rewrite_rules']);
-        add_filter('query_vars', [$this, 'register_query_vars']);
+        add_action('init', [$this, 'maybe_handle_broker_callback']);
     }
 
-    public function register_rewrite_rules(): void
+    /**
+     * Intercept /broker-callback/ requests early in init.
+     *
+     * Uses direct URI matching instead of rewrite rules so it works
+     * immediately without flush_rewrite_rules() (MU plugins have no
+     * activation hook on deploy).
+     */
+    public function maybe_handle_broker_callback(): void
     {
-        add_rewrite_rule('^broker-callback/?$', 'index.php?broker_callback=1', 'top');
-    }
+        $request_uri = $_SERVER['REQUEST_URI'] ?? '';
+        $path = parse_url($request_uri, PHP_URL_PATH);
 
-    public function register_query_vars($vars): array
-    {
-        $vars[] = 'broker_callback';
-        return $vars;
+        if ($path !== '/broker-callback/' && $path !== '/broker-callback') {
+            return;
+        }
+
+        $this->handle_broker_callback();
+        exit();
     }
 
     // =========================================================================
@@ -129,10 +136,6 @@ class BrokerAuth
 
     public function handle_broker_callback(): void
     {
-        if (!get_query_var('broker_callback')) {
-            return;
-        }
-
         $broker_token = isset($_GET['broker_token']) ? $_GET['broker_token'] : '';
         if (empty($broker_token)) {
             error_log('BrokerAuth: broker_callback hit but no broker_token');
