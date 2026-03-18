@@ -250,7 +250,7 @@ class BrokerAuth
 
     public function verify_nonce(string $nonce): bool
     {
-        $endpoint = rtrim($this->config['profiles_url'], '/') . '/api/v1/broker/verify-nonce/';
+        $endpoint = rtrim($this->config['profiles_url'], '/') . '/broker/verify-nonce/';
         $token = $this->config['profiles_api_bearer_token'];
 
         $args = [

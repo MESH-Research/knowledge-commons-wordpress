@@ -299,7 +299,7 @@ class BrokerAuthTest extends TestCase
 
         $auth->verify_nonce('test-nonce-value');
 
-        $this->assertStringContainsString('api/v1/broker/verify-nonce/', $capturedUrl);
+        $this->assertStringContainsString('/broker/verify-nonce/', $capturedUrl);
         $this->assertSame('POST', $capturedArgs['method']);
         $body = json_decode($capturedArgs['body'], true);
         $this->assertSame('test-nonce-value', $body['nonce']);
