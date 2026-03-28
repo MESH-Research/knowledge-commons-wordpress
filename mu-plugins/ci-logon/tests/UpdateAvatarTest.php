@@ -50,7 +50,7 @@ class UpdateAvatarTest extends TestCase
     public function testMissingUsernameReturns400(): void
     {
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 
@@ -79,7 +79,7 @@ class UpdateAvatarTest extends TestCase
     {
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
         $request->set_param('username', '');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 
@@ -118,24 +118,24 @@ class UpdateAvatarTest extends TestCase
         $this->assertStringContainsString('domain', strtolower($data['error']));
     }
 
-    public function testAllowedDomainIsAccepted(): void
+    public function testAllowedProdDomainIsAccepted(): void
     {
         $this->assertTrue(
-            Plugin::is_allowed_image_domain('https://cdn.hcommons.org/media/profile_images/abc.jpg')
+            Plugin::is_allowed_image_domain('https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc.jpg')
         );
     }
 
-    public function testS3DomainIsAccepted(): void
+    public function testAllowedDevDomainIsAccepted(): void
     {
         $this->assertTrue(
-            Plugin::is_allowed_image_domain('https://knowledge-commons-profiles.s3.amazonaws.com/media/profile_images/abc.jpg')
+            Plugin::is_allowed_image_domain('https://kcommons-newprofiles-dev.s3.amazonaws.com/media/profile_images/abc.jpg')
         );
     }
 
     public function testSubdomainOfAllowedDomainIsAccepted(): void
     {
         $this->assertTrue(
-            Plugin::is_allowed_image_domain('https://sub.cdn.hcommons.org/media/profile_images/abc.jpg')
+            Plugin::is_allowed_image_domain('https://sub.kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc.jpg')
         );
     }
 
@@ -165,7 +165,7 @@ class UpdateAvatarTest extends TestCase
 
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
         $request->set_param('username', 'nonexistent');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 
@@ -195,7 +195,7 @@ class UpdateAvatarTest extends TestCase
 
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
         $request->set_param('username', 'jsmith');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 
@@ -230,7 +230,7 @@ class UpdateAvatarTest extends TestCase
 
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
         $request->set_param('username', 'jsmith');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 
@@ -277,7 +277,7 @@ class UpdateAvatarTest extends TestCase
 
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
         $request->set_param('username', 'jsmith');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 
@@ -335,7 +335,7 @@ class UpdateAvatarTest extends TestCase
 
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
         $request->set_param('username', 'jsmith');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 
@@ -384,7 +384,7 @@ class UpdateAvatarTest extends TestCase
 
         $request = new \WP_REST_Request('POST', '/idms/update-avatar');
         $request->set_param('username', 'testuser');
-        $request->set_param('image_url', 'https://cdn.hcommons.org/media/profile_images/abc123.jpg');
+        $request->set_param('image_url', 'https://kcommons-newprofiles.s3.amazonaws.com/media/profile_images/abc123.jpg');
 
         $response = Plugin::update_avatar($request);
 

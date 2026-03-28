@@ -680,8 +680,8 @@ class Plugin {
      */
     public static function is_allowed_image_domain(string $url): bool {
         $allowed_domains = apply_filters('idms_allowed_avatar_domains', [
-            'knowledge-commons-profiles.s3.amazonaws.com',
-            'cdn.hcommons.org',
+            'kcommons-newprofiles.s3.amazonaws.com',
+            'kcommons-newprofiles-dev.s3.amazonaws.com',
         ]);
 
         $host = wp_parse_url($url, PHP_URL_HOST);
