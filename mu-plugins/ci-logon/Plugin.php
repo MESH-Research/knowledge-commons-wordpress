@@ -594,4 +594,148 @@ class Plugin {
 
         return true;
     }
+
+    /**
+     * Update a user's BuddyPress avatar via API request.
+     *
+     * @param \WP_REST_Request $request The REST request containing username and image_url.
+     * @return \WP_REST_Response
+     */
+    public static function update_avatar(\WP_REST_Request $request) {
+        $username  = sanitize_user($request->get_param('username'));
+        $image_url = esc_url_raw($request->get_param('image_url'));
+
+        if (empty($username)) {
+            return new \WP_REST_Response(
+                ['success' => false, 'error' => 'Missing required field: username'],
+                400
+            );
+        }
+
+        if (empty($image_url)) {
+            return new \WP_REST_Response(
+                ['success' => false, 'error' => 'Missing required field: image_url'],
+                400
+            );
+        }
+
+        if (!self::is_allowed_image_domain($image_url)) {
+            return new \WP_REST_Response(
+                ['success' => false, 'error' => 'Image URL domain not allowed'],
+                400
+            );
+        }
+
+        $user = get_user_by('login', $username);
+        if (!$user) {
+            error_log(sprintf('CILogon Plugin: update-avatar request for non-existent user: %s', $username));
+            return new \WP_REST_Response(
+                ['success' => false, 'error' => "User not found: {$username}"],
+                404
+            );
+        }
+
+        $tmp = download_url($image_url, 10);
+        if (is_wp_error($tmp)) {
+            error_log(sprintf('CILogon Plugin: Failed to download avatar for %s: %s', $username, $tmp->get_error_message()));
+            return new \WP_REST_Response(
+                ['success' => false, 'error' => 'Failed to download image'],
+                422
+            );
+        }
+
+        $filetype = wp_check_filetype($tmp, ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg']);
+        if ($filetype['type'] !== 'image/jpeg') {
+            @unlink($tmp);
+            return new \WP_REST_Response(
+                ['success' => false, 'error' => 'Image is not a valid JPEG'],
+                422
+            );
+        }
+
+        $result = self::set_buddypress_avatar($user->ID, $tmp);
+        @unlink($tmp);
+
+        if (is_wp_error($result)) {
+            error_log(sprintf('CILogon Plugin: Failed to set avatar for %s: %s', $username, $result->get_error_message()));
+            return new \WP_REST_Response(
+                ['success' => false, 'error' => $result->get_error_message()],
+                500
+            );
+        }
+
+        error_log(sprintf('CILogon Plugin: Updated avatar for %s', $username));
+        return new \WP_REST_Response([
+            'success'    => true,
+            'avatar_url' => $result,
+            'message'    => "Avatar updated for user {$username}",
+        ], 200);
+    }
+
+    /**
+     * Check whether an image URL is from an allowed domain.
+     *
+     * @param string $url The image URL to check.
+     * @return bool
+     */
+    public static function is_allowed_image_domain(string $url): bool {
+        $allowed_domains = apply_filters('idms_allowed_avatar_domains', [
+            'knowledge-commons-profiles.s3.amazonaws.com',
+            'cdn.hcommons.org',
+        ]);
+
+        $host = wp_parse_url($url, PHP_URL_HOST);
+        if (empty($host)) {
+            return false;
+        }
+
+        foreach ($allowed_domains as $domain) {
+            if ($host === $domain || str_ends_with($host, '.' . $domain)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Set the BuddyPress avatar for a user from a temporary file.
+     *
+     * @param int    $user_id  The WordPress user ID.
+     * @param string $tmp_file Path to the temporary image file.
+     * @return string|\WP_Error The avatar URL on success, WP_Error on failure.
+     */
+    public static function set_buddypress_avatar(int $user_id, string $tmp_file) {
+        if (!function_exists('bp_core_avatar_upload_path')) {
+            return new \WP_Error('bp_missing', 'BuddyPress is not active');
+        }
+
+        $avatar_dir = bp_core_avatar_upload_path() . '/avatars/' . $user_id;
+
+        if (!is_dir($avatar_dir)) {
+            wp_mkdir_p($avatar_dir);
+        }
+
+        // Delete existing avatars
+        $existing = glob($avatar_dir . '/*');
+        if ($existing) {
+            foreach ($existing as $file) {
+                if (is_file($file)) {
+                    @unlink($file);
+                }
+            }
+        }
+
+        $full_path  = $avatar_dir . '/bpfull.jpg';
+        $thumb_path = $avatar_dir . '/bpthumb.jpg';
+
+        if (!copy($tmp_file, $full_path) || !copy($tmp_file, $thumb_path)) {
+            return new \WP_Error('copy_failed', 'Failed to save avatar files');
+        }
+
+        wp_cache_delete("bp_core_avatar_url_{$user_id}", 'bp');
+
+        $avatar_url = bp_core_avatar_url() . '/avatars/' . $user_id . '/bpfull.jpg';
+        return $avatar_url;
+    }
 }

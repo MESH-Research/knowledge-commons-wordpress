@@ -135,3 +135,13 @@ add_action('rest_api_init', function () {
         'permission_callback' => 'cilogon_verify_bearer_token',
     ]);
 });
+
+add_action('rest_api_init', function () {
+    register_rest_route('idms', '/update-avatar', [
+        'methods' => 'POST',
+        'callback' => function (WP_REST_Request $request) {
+            return Plugin::update_avatar($request);
+        },
+        'permission_callback' => 'cilogon_verify_bearer_token',
+    ]);
+});
