@@ -44,6 +44,9 @@
         <testsuite name="Silent SSO Tests">
             <file>SilentSSOTest.php</file>
         </testsuite>
+        <testsuite name="Update Avatar Tests">
+            <file>UpdateAvatarTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

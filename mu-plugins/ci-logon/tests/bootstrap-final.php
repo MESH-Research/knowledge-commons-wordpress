@@ -527,6 +527,44 @@ if (!class_exists('WP_User')) {
     }
 }
 
+// Mock WP_REST_Response class if it doesn't exist
+if (!class_exists('WP_REST_Response')) {
+    /**
+     * Mock WP_REST_Response class for testing REST API endpoints
+     */
+    class WP_REST_Response {
+        private $data;
+        private $status;
+        private $headers = [];
+
+        public function __construct($data = null, $status = 200, $headers = []) {
+            $this->data = $data;
+            $this->status = $status;
+            $this->headers = $headers;
+        }
+
+        public function get_data() {
+            return $this->data;
+        }
+
+        public function get_status() {
+            return $this->status;
+        }
+
+        public function get_headers() {
+            return $this->headers;
+        }
+
+        public function set_status($code) {
+            $this->status = $code;
+        }
+
+        public function header($key, $value, $replace = true) {
+            $this->headers[$key] = $value;
+        }
+    }
+}
+
 // Mock WP_REST_Request class if it doesn't exist
 if (!class_exists('WP_REST_Request')) {
     /**
@@ -588,7 +626,7 @@ if (!function_exists('sanitize_user')) {
      */
     function sanitize_user($username, $strict = false) {
         // Basic sanitization - remove whitespace and convert to lowercase
-        $username = trim($username);
+        $username = trim($username ?? '');
         $username = preg_replace('/\s+/', '', $username);
         return $username;
     }
@@ -770,6 +808,118 @@ if (!function_exists('delete_transient')) {
                 }
             }
         }
+        return true;
+    }
+}
+
+if (!function_exists('esc_url_raw')) {
+    /**
+     * Mock esc_url_raw function
+     */
+    function esc_url_raw($url, $protocols = null) {
+        // Basic URL sanitization for tests
+        return filter_var($url, FILTER_SANITIZE_URL);
+    }
+}
+
+if (!function_exists('wp_parse_url')) {
+    /**
+     * Mock wp_parse_url function
+     */
+    function wp_parse_url($url, $component = -1) {
+        return parse_url($url, $component);
+    }
+}
+
+if (!function_exists('download_url')) {
+    /**
+     * Mock download_url function
+     *
+     * If $GLOBALS['_mock_download_url_callback'] is set to a callable,
+     * it will be invoked with ($url, $timeout) and its return value used.
+     */
+    function download_url($url, $timeout = 300) {
+        if (isset($GLOBALS['_mock_download_url_callback']) && is_callable($GLOBALS['_mock_download_url_callback'])) {
+            return call_user_func($GLOBALS['_mock_download_url_callback'], $url, $timeout);
+        }
+        return new \WP_Error('http_request_failed', 'Download failed in test environment');
+    }
+}
+
+if (!function_exists('wp_check_filetype')) {
+    /**
+     * Mock wp_check_filetype function
+     *
+     * If $GLOBALS['_mock_wp_check_filetype_callback'] is set to a callable,
+     * it will be invoked with ($filename, $mimes) and its return value used.
+     */
+    function wp_check_filetype($filename, $mimes = null) {
+        if (isset($GLOBALS['_mock_wp_check_filetype_callback']) && is_callable($GLOBALS['_mock_wp_check_filetype_callback'])) {
+            return call_user_func($GLOBALS['_mock_wp_check_filetype_callback'], $filename, $mimes);
+        }
+        // Default: check extension
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $type_map = [
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+        ];
+        return [
+            'ext' => $ext ?: false,
+            'type' => $type_map[$ext] ?? false,
+        ];
+    }
+}
+
+if (!function_exists('bp_core_avatar_upload_path')) {
+    /**
+     * Mock bp_core_avatar_upload_path function
+     *
+     * Returns from $GLOBALS['_mock_bp_core_avatar_upload_path'] if set.
+     */
+    function bp_core_avatar_upload_path() {
+        return $GLOBALS['_mock_bp_core_avatar_upload_path'] ?? '/tmp/wp-content/uploads';
+    }
+}
+
+if (!function_exists('bp_core_avatar_url')) {
+    /**
+     * Mock bp_core_avatar_url function
+     *
+     * Returns from $GLOBALS['_mock_bp_core_avatar_url'] if set.
+     */
+    function bp_core_avatar_url() {
+        return $GLOBALS['_mock_bp_core_avatar_url'] ?? 'https://example.com/wp-content/uploads';
+    }
+}
+
+if (!function_exists('wp_mkdir_p')) {
+    /**
+     * Mock wp_mkdir_p function
+     */
+    function wp_mkdir_p($target) {
+        if (is_dir($target)) {
+            return true;
+        }
+        return @mkdir($target, 0755, true);
+    }
+}
+
+if (!function_exists('wp_cache_delete')) {
+    /**
+     * Mock wp_cache_delete function
+     */
+    function wp_cache_delete($key, $group = '') {
+        return true;
+    }
+}
+
+if (!function_exists('bp_core_delete_existing_avatar')) {
+    /**
+     * Mock bp_core_delete_existing_avatar function
+     */
+    function bp_core_delete_existing_avatar($args = array()) {
         return true;
     }
 }
