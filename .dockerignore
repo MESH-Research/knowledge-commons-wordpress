@@ -1,6 +1,11 @@
-  node_modules
-  .git
-  logs
-  tmp
-  vendor
-  
+node_modules
+.git
+logs
+tmp
+vendor
+tests/
+*.md
+.github/
+.lando.yml
+docker-compose*.yml
+docs/
