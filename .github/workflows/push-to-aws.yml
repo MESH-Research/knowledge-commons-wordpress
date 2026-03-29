@@ -12,11 +12,12 @@ name: AWS ECR Build & Push
 
 env:
   BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
 jobs:
-  build-and-push:
-    name: Build and Push
-    runs-on: ubuntu-latest
+  build-nginx:
+    name: Build and Push Nginx
+    runs-on: ubuntu-24.04-arm
     permissions:
       id-token: write
       contents: read
@@ -25,37 +26,70 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
-    
-      - name: Debug-1
-        run: echo "::debug::Checked out ${{ github.base_ref || github.ref_name }}"
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-        
+
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
         with:
           mask-password: true
 
-      - name: Debug-2
-        run: |
-          awsident=$(aws sts get-caller-identity --no-cli-pager)
-          echo "::debug::AWS Identity: $awsident"
-  
-      - name: Build images
-        id: build
-        run: |
-          docker buildx create --use
-          docker buildx build --platform linux/arm64 --load -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-nginx:${{env.BRANCH_NAME}} -f Dockerfile.nginx .
-          docker buildx build --platform linux/arm64 --load -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-app:${{env.BRANCH_NAME}} -f Dockerfile.php --target cloud .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Push images
-        id: push
-        run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-nginx:${{env.BRANCH_NAME}}
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/commons-wordpress-app:${{env.BRANCH_NAME}}
+      - name: Build and push nginx image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.nginx
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:${{ env.BRANCH_NAME }}
+          cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache
+          cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache,mode=max
+
+  build-app:
+    name: Build and Push App
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          mask-password: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push app image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.php
+          target: cloud
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/commons-wordpress-app:${{ env.BRANCH_NAME }}
+          build-args: |
+            BASE_IMAGE=${{ env.ECR_REGISTRY }}/commons-wordpress-base:latest
+          cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache
+          cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache,mode=max
