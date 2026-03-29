@@ -125,9 +125,10 @@ RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
     cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
     cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
-# --- Symlinks (fast, must run after source code copy) ---
-RUN rm -rf /app/site/web/app/plugins/* && \
-    rm -rf /app/site/web/app/themes/* && \
+# --- Symlinks for custom plugins/themes/mu-plugins ---
+# Remove only existing symlinks (not composer-installed plugins) then recreate
+RUN find /app/site/web/app/plugins/ -maxdepth 1 -type l -delete && \
+    find /app/site/web/app/themes/ -maxdepth 1 -type l -delete && \
     rm -rf /app/site/web/app/mu-plugins/* && \
     ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
     ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
