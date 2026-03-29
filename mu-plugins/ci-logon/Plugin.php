@@ -770,8 +770,14 @@ class Plugin {
             self::debug_log('set_buddypress_avatar: no existing avatar files to delete');
         }
 
-        $full_path  = $avatar_dir . '/bpfull.jpg';
-        $thumb_path = $avatar_dir . '/bpthumb.jpg';
+        // BuddyPress discovers avatars by looking for filenames containing
+        // "-bpfull" and "-bpthumb" substrings. The expected pattern is
+        // {timestamp}-bpfull.jpg and {timestamp}-bpthumb.jpg.
+        $timestamp  = time();
+        $full_name  = $timestamp . '-bpfull.jpg';
+        $thumb_name = $timestamp . '-bpthumb.jpg';
+        $full_path  = $avatar_dir . '/' . $full_name;
+        $thumb_path = $avatar_dir . '/' . $thumb_name;
 
         self::debug_log(sprintf('set_buddypress_avatar: copying tmp to full=%s and thumb=%s', $full_path, $thumb_path));
         if (!copy($tmp_file, $full_path) || !copy($tmp_file, $thumb_path)) {
@@ -783,7 +789,7 @@ class Plugin {
         self::debug_log(sprintf('set_buddypress_avatar: invalidating cache key bp_core_avatar_url_%d', $user_id));
         wp_cache_delete("bp_core_avatar_url_{$user_id}", 'bp');
 
-        $avatar_url = bp_core_avatar_url() . '/avatars/' . $user_id . '/bpfull.jpg';
+        $avatar_url = bp_core_avatar_url() . '/avatars/' . $user_id . '/' . $full_name;
         self::debug_log(sprintf('set_buddypress_avatar: done — avatar_url=%s', $avatar_url));
         return $avatar_url;
     }

@@ -290,13 +290,14 @@ class UpdateAvatarTest extends TestCase
         $this->assertArrayHasKey('avatar_url', $data);
         $this->assertStringContainsString('42', $data['avatar_url']);
 
-        // Verify avatar files were created
-        $this->assertFileExists($avatarDir . '/avatars/42/bpfull.jpg');
-        $this->assertFileExists($avatarDir . '/avatars/42/bpthumb.jpg');
+        // Verify avatar files were created with timestamp-bpfull/bpthumb pattern
+        $fullFiles = glob($avatarDir . '/avatars/42/*-bpfull.jpg');
+        $thumbFiles = glob($avatarDir . '/avatars/42/*-bpthumb.jpg');
+        $this->assertCount(1, $fullFiles, 'Expected one bpfull.jpg file');
+        $this->assertCount(1, $thumbFiles, 'Expected one bpthumb.jpg file');
 
         // Clean up
-        @unlink($avatarDir . '/avatars/42/bpfull.jpg');
-        @unlink($avatarDir . '/avatars/42/bpthumb.jpg');
+        array_map('unlink', glob($avatarDir . '/avatars/42/*'));
         @rmdir($avatarDir . '/avatars/42');
         @rmdir($avatarDir . '/avatars');
         @rmdir($avatarDir);
@@ -345,13 +346,14 @@ class UpdateAvatarTest extends TestCase
         $this->assertFileDoesNotExist($userAvatarDir . '/old-bpfull.jpg');
         $this->assertFileDoesNotExist($userAvatarDir . '/old-bpthumb.jpg');
 
-        // New files should exist
-        $this->assertFileExists($userAvatarDir . '/bpfull.jpg');
-        $this->assertFileExists($userAvatarDir . '/bpthumb.jpg');
+        // New files should exist with timestamp pattern
+        $fullFiles = glob($userAvatarDir . '/*-bpfull.jpg');
+        $thumbFiles = glob($userAvatarDir . '/*-bpthumb.jpg');
+        $this->assertCount(1, $fullFiles, 'Expected one bpfull.jpg file');
+        $this->assertCount(1, $thumbFiles, 'Expected one bpthumb.jpg file');
 
         // Clean up
-        @unlink($userAvatarDir . '/bpfull.jpg');
-        @unlink($userAvatarDir . '/bpthumb.jpg');
+        array_map('unlink', glob($userAvatarDir . '/*'));
         @rmdir($userAvatarDir);
         @rmdir($avatarDir . '/avatars');
         @rmdir($avatarDir);
@@ -391,11 +393,10 @@ class UpdateAvatarTest extends TestCase
         $this->assertEquals(200, $response->get_status());
         $data = $response->get_data();
         $this->assertStringContainsString('/avatars/99/', $data['avatar_url']);
-        $this->assertStringEndsWith('bpfull.jpg', $data['avatar_url']);
+        $this->assertMatchesRegularExpression('/-bpfull\.jpg$/', $data['avatar_url']);
 
         // Clean up
-        @unlink($avatarDir . '/avatars/99/bpfull.jpg');
-        @unlink($avatarDir . '/avatars/99/bpthumb.jpg');
+        array_map('unlink', glob($avatarDir . '/avatars/99/*'));
         @rmdir($avatarDir . '/avatars/99');
         @rmdir($avatarDir . '/avatars');
         @rmdir($avatarDir);
