@@ -89,7 +89,9 @@ jobs:
           target: cloud
           push: true
           tags: ${{ env.ECR_REGISTRY }}/commons-wordpress-app:${{ env.BRANCH_NAME }}
-          build-args: |
-            BASE_IMAGE=${{ env.ECR_REGISTRY }}/commons-wordpress-base:latest
+          # Uncomment build-args once commons-wordpress-base ECR repo exists
+          # and the Build Base Image workflow has been run at least once:
+          # build-args: |
+          #   BASE_IMAGE=${{ env.ECR_REGISTRY }}/commons-wordpress-base:latest
           cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache
           cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache,mode=max
