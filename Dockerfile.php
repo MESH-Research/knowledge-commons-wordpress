@@ -112,15 +112,6 @@ RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
 RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
     cd /app/site/web/app/plugins/cc-client && npm ci && npm run build
 
-# --- Theme npm manifests (cached unless package-lock changes) ---
-COPY --chown=www-data:www-data themes/boss-child/package.json themes/boss-child/package-lock.json /app/themes/boss-child/
-COPY --chown=www-data:www-data themes/boss-child-refresh/package.json themes/boss-child-refresh/package-lock.json /app/themes/boss-child-refresh/
-
-# --- Theme npm builds ---
-RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
-    cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
-    cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
-
 # --- Source code (changes frequently — everything above is cached) ---
 COPY --chown=www-data:www-data ./scripts /app/scripts
 COPY --chown=www-data:www-data ./site/web/*.* /app/site/web/
@@ -128,6 +119,11 @@ COPY --chown=www-data:www-data ./site/web/app/sunrise.php /app/site/web/app/sunr
 COPY --chown=www-data:www-data ./plugins /app/plugins
 COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
 COPY --chown=www-data:www-data ./themes /app/themes
+
+# --- Theme npm builds (need full source for gulpfile.js and sass sources) ---
+RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
+    cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
+    cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
 # --- Symlinks (fast, must run after source code copy) ---
 RUN rm -rf /app/site/web/app/plugins/* && \
