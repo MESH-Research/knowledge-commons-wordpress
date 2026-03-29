@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 # PHP container for running WordPress
 
+ARG BASE_IMAGE=base
+
 FROM php:8.2.26-fpm-alpine3.20 AS base
 
 WORKDIR /app
@@ -52,7 +54,6 @@ EXPOSE 9000
 
 FROM lando AS lando-efs
 
-ARG BASE_IMAGE=base
 FROM ${BASE_IMAGE} AS cloud
 
 RUN apk add npm
