@@ -602,10 +602,18 @@ class Plugin {
      * @return \WP_REST_Response
      */
     public static function update_avatar(\WP_REST_Request $request) {
-        $username  = sanitize_user($request->get_param('username'));
-        $image_url = esc_url_raw($request->get_param('image_url'));
+        self::debug_log('update-avatar: request received');
+
+        $raw_username  = $request->get_param('username');
+        $raw_image_url = $request->get_param('image_url');
+        self::debug_log(sprintf('update-avatar: raw params — username=%s, image_url=%s', var_export($raw_username, true), var_export($raw_image_url, true)));
+
+        $username  = sanitize_user($raw_username);
+        $image_url = esc_url_raw($raw_image_url);
+        self::debug_log(sprintf('update-avatar: sanitized — username="%s", image_url="%s"', $username, $image_url));
 
         if (empty($username)) {
+            self::debug_log('update-avatar: rejected — empty username');
             return new \WP_REST_Response(
                 ['success' => false, 'error' => 'Missing required field: username'],
                 400
@@ -613,39 +621,53 @@ class Plugin {
         }
 
         if (empty($image_url)) {
+            self::debug_log('update-avatar: rejected — empty image_url');
             return new \WP_REST_Response(
                 ['success' => false, 'error' => 'Missing required field: image_url'],
                 400
             );
         }
 
+        $host = wp_parse_url($image_url, PHP_URL_HOST);
+        self::debug_log(sprintf('update-avatar: checking domain whitelist for host="%s"', $host ?? ''));
         if (!self::is_allowed_image_domain($image_url)) {
+            error_log(sprintf('CILogon Plugin: update-avatar rejected domain: %s', $host ?? ''));
+            self::debug_log(sprintf('update-avatar: rejected — domain "%s" not in whitelist', $host ?? ''));
             return new \WP_REST_Response(
                 ['success' => false, 'error' => 'Image URL domain not allowed'],
                 400
             );
         }
+        self::debug_log('update-avatar: domain whitelist check passed');
 
+        self::debug_log(sprintf('update-avatar: looking up user "%s"', $username));
         $user = get_user_by('login', $username);
         if (!$user) {
             error_log(sprintf('CILogon Plugin: update-avatar request for non-existent user: %s', $username));
+            self::debug_log(sprintf('update-avatar: user "%s" not found in WordPress', $username));
             return new \WP_REST_Response(
                 ['success' => false, 'error' => "User not found: {$username}"],
                 404
             );
         }
+        self::debug_log(sprintf('update-avatar: found user "%s" (ID=%d)', $username, $user->ID));
 
+        self::debug_log(sprintf('update-avatar: downloading image from %s (timeout=10s)', $image_url));
         $tmp = download_url($image_url, 10);
         if (is_wp_error($tmp)) {
             error_log(sprintf('CILogon Plugin: Failed to download avatar for %s: %s', $username, $tmp->get_error_message()));
+            self::debug_log(sprintf('update-avatar: download failed — %s (%s)', $tmp->get_error_message(), $tmp->get_error_code()));
             return new \WP_REST_Response(
                 ['success' => false, 'error' => 'Failed to download image'],
                 422
             );
         }
+        self::debug_log(sprintf('update-avatar: image downloaded to temp file: %s (size=%d bytes)', $tmp, @filesize($tmp)));
 
         $filetype = wp_check_filetype($tmp, ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg']);
+        self::debug_log(sprintf('update-avatar: detected filetype — ext=%s, type=%s', var_export($filetype['ext'], true), var_export($filetype['type'], true)));
         if ($filetype['type'] !== 'image/jpeg') {
+            self::debug_log(sprintf('update-avatar: rejected — expected image/jpeg, got %s', var_export($filetype['type'], true)));
             @unlink($tmp);
             return new \WP_REST_Response(
                 ['success' => false, 'error' => 'Image is not a valid JPEG'],
@@ -653,11 +675,13 @@ class Plugin {
             );
         }
 
+        self::debug_log(sprintf('update-avatar: setting BuddyPress avatar for user ID=%d', $user->ID));
         $result = self::set_buddypress_avatar($user->ID, $tmp);
         @unlink($tmp);
 
         if (is_wp_error($result)) {
             error_log(sprintf('CILogon Plugin: Failed to set avatar for %s: %s', $username, $result->get_error_message()));
+            self::debug_log(sprintf('update-avatar: set_buddypress_avatar failed — %s (%s)', $result->get_error_message(), $result->get_error_code()));
             return new \WP_REST_Response(
                 ['success' => false, 'error' => $result->get_error_message()],
                 500
@@ -665,6 +689,7 @@ class Plugin {
         }
 
         error_log(sprintf('CILogon Plugin: Updated avatar for %s', $username));
+        self::debug_log(sprintf('update-avatar: success — avatar_url=%s', $result));
         return new \WP_REST_Response([
             'success'    => true,
             'avatar_url' => $result,
@@ -684,17 +709,25 @@ class Plugin {
             'kcommons-newprofiles-dev.s3.amazonaws.com',
         ]);
 
+        self::debug_log(sprintf('is_allowed_image_domain: checking url="%s"', $url));
+        self::debug_log(sprintf('is_allowed_image_domain: whitelist=[%s]', implode(', ', $allowed_domains)));
+
         $host = wp_parse_url($url, PHP_URL_HOST);
         if (empty($host)) {
+            self::debug_log('is_allowed_image_domain: could not parse host from URL');
             return false;
         }
 
+        self::debug_log(sprintf('is_allowed_image_domain: parsed host="%s"', $host));
+
         foreach ($allowed_domains as $domain) {
             if ($host === $domain || str_ends_with($host, '.' . $domain)) {
+                self::debug_log(sprintf('is_allowed_image_domain: matched against "%s"', $domain));
                 return true;
             }
         }
 
+        self::debug_log(sprintf('is_allowed_image_domain: host "%s" did not match any allowed domain', $host));
         return false;
     }
 
@@ -706,36 +739,52 @@ class Plugin {
      * @return string|\WP_Error The avatar URL on success, WP_Error on failure.
      */
     public static function set_buddypress_avatar(int $user_id, string $tmp_file) {
+        self::debug_log(sprintf('set_buddypress_avatar: starting for user_id=%d, tmp_file=%s', $user_id, $tmp_file));
+
         if (!function_exists('bp_core_avatar_upload_path')) {
+            self::debug_log('set_buddypress_avatar: BuddyPress not active — bp_core_avatar_upload_path() not found');
             return new \WP_Error('bp_missing', 'BuddyPress is not active');
         }
 
         $avatar_dir = bp_core_avatar_upload_path() . '/avatars/' . $user_id;
+        self::debug_log(sprintf('set_buddypress_avatar: avatar_dir=%s', $avatar_dir));
 
         if (!is_dir($avatar_dir)) {
+            self::debug_log(sprintf('set_buddypress_avatar: creating directory %s', $avatar_dir));
             wp_mkdir_p($avatar_dir);
+        } else {
+            self::debug_log('set_buddypress_avatar: directory already exists');
         }
 
         // Delete existing avatars
         $existing = glob($avatar_dir . '/*');
         if ($existing) {
+            self::debug_log(sprintf('set_buddypress_avatar: deleting %d existing avatar file(s)', count($existing)));
             foreach ($existing as $file) {
                 if (is_file($file)) {
+                    self::debug_log(sprintf('set_buddypress_avatar: deleting %s', basename($file)));
                     @unlink($file);
                 }
             }
+        } else {
+            self::debug_log('set_buddypress_avatar: no existing avatar files to delete');
         }
 
         $full_path  = $avatar_dir . '/bpfull.jpg';
         $thumb_path = $avatar_dir . '/bpthumb.jpg';
 
+        self::debug_log(sprintf('set_buddypress_avatar: copying tmp to full=%s and thumb=%s', $full_path, $thumb_path));
         if (!copy($tmp_file, $full_path) || !copy($tmp_file, $thumb_path)) {
+            self::debug_log('set_buddypress_avatar: copy failed');
             return new \WP_Error('copy_failed', 'Failed to save avatar files');
         }
+        self::debug_log(sprintf('set_buddypress_avatar: files written — full=%d bytes, thumb=%d bytes', @filesize($full_path), @filesize($thumb_path)));
 
+        self::debug_log(sprintf('set_buddypress_avatar: invalidating cache key bp_core_avatar_url_%d', $user_id));
         wp_cache_delete("bp_core_avatar_url_{$user_id}", 'bp');
 
         $avatar_url = bp_core_avatar_url() . '/avatars/' . $user_id . '/bpfull.jpg';
+        self::debug_log(sprintf('set_buddypress_avatar: done — avatar_url=%s', $avatar_url));
         return $avatar_url;
     }
 }
