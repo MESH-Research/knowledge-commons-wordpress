@@ -24,6 +24,7 @@ RUN apk update && \
     grpc-cpp \
     grpc-dev \
     rsync \
+    subversion \
     $PHPIZE_DEPS \
     && rm -rf /var/cache/apk/*
 
