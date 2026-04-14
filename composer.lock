@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1bcd2d623401a5c988543242177250e",
+    "content-hash": "fe2b56ab7d35f3c4d82b4f1629daaeb9",
     "packages": [
         {
             "name": "composer/installers",
@@ -3510,33 +3510,6 @@
                 "source": "https://plugins.svn.wordpress.org/mathml-block"
             },
             "time": "2026-03-23T19:23:21+00:00"
-        },
-        {
-            "name": "wp-plugin/more-privacy-options",
-            "version": "dev-trunk",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/more-privacy-options/",
-                "reference": "trunk"
-            },
-            "require": {
-                "composer/installers": "~1.0|~2.0"
-            },
-            "type": "wordpress-plugin",
-            "notification-url": "https://wp-packages.org/downloads",
-            "authors": [
-                {
-                    "name": "David Sader"
-                }
-            ],
-            "description": "Adds three more levels of privacy(visibility) to the Settings-->Reading page.",
-            "homepage": "http://wordpress.org/extend/plugins/more-privacy-options/",
-            "support": {
-                "changelog": "https://wordpress.org/plugins/more-privacy-options/#developers",
-                "issues": "https://wordpress.org/support/plugin/more-privacy-options",
-                "source": "https://plugins.svn.wordpress.org/more-privacy-options"
-            },
-            "time": "2016-08-08T21:21:00+00:00"
         },
         {
             "name": "wp-plugin/multisite-plugin-manager",
@@ -8536,7 +8509,6 @@
     "stability-flags": {
         "wp-plugin/disable-password-reset-extended": 20,
         "wp-plugin/fd-footnotes": 20,
-        "wp-plugin/more-privacy-options": 20,
         "mesh-research/cc-client": 20,
         "jumbojett/openid-connect-php": 20,
         "roave/security-advisories": 20

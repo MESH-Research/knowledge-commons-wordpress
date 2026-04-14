@@ -121,7 +121,6 @@
     "monolog/monolog": "^3.3",
     "psr/log": "^2.0",
     "wp-plugin/mailpoet": "^4.48",
-    "wp-plugin/more-privacy-options": "dev-trunk",
     "wp-plugin/password-protected": "^2.7",
     "wp-plugin/printfriendly": "^5.5",
     "wp-plugin/redux-framework": "^4.4",
