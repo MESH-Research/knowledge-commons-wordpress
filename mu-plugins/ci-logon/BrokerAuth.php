@@ -27,7 +27,7 @@ class BrokerAuth
     private const SESSION_EXPIRATION = 3600;
 
     private const SSO_CHECK_COOKIE = 'broker_sso_checked';
-    private const SSO_CHECK_TTL = 1800; // 30 minutes
+    private const SSO_CHECK_TTL = 0.1; // 10 seconds
     private const SSO_OPTOUT_COOKIE = 'broker_sso_optout';
     private const SSO_OPTOUT_TTL = 86400; // 24 hours
 
