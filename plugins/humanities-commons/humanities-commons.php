@@ -549,7 +549,12 @@ class Humanities_Commons {
 
 	public function hcommons_set_members_query( $args ) {
 
-		if ( ! bp_is_members_directory() || ( isset( $args['scope'] ) && 'society' === $args['scope'] ) ) {
+		// Key the restriction off the current network rather than the scope
+		// cookie: the cookie is not reliably in sync on the first page load
+		// (direct GET) while it is on subsequent AJAX paginated requests,
+		// which caused the directory to leak members from other networks on
+		// page 1 but scope correctly on page 2+.
+		if ( 'hc' !== self::$society_id ) {
 			$args['member_type'] = self::$society_id;
 		}
 		return $args;
