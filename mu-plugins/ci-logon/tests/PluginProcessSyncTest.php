@@ -571,6 +571,81 @@ class PluginProcessSyncTest extends TestCase
     }
 
     /**
+     * Test: HTTP 200 with profile data at the top level (new API shape)
+     *
+     * The /api/v1/members/{username}/ endpoint now returns the profile data
+     * directly at the top level (no 'data' or 'results' wrapper). The handler
+     * must unwrap this format and pass the fields through to user creation.
+     *
+     * This test discriminates between accepting and rejecting the new shape:
+     * before the fix, no user creation is attempted; after the fix the captured
+     * wp_insert_user payload contains the values from the top level of $json.
+     *
+     * @test
+     */
+    public function test_http_200_with_top_level_profile_creates_user()
+    {
+        clear_captured_wp_insert_user_data();
+
+        $code = 200;
+        $body = json_encode([
+            'username' => 'martin_eve',
+            'name' => 'Martin Paul Eve',
+            'first_name' => 'Martin Paul',
+            'last_name' => 'Eve',
+            'email' => 'martin@example.com',
+            'institutional_affiliation' => 'Birkbeck, University of London',
+            'orcid' => '0000-0002-5589-8511',
+            'memberships' => [
+                'MSU' => true,
+                'MLA' => false,
+            ],
+            'is_superadmin' => true,
+        ]);
+        $username = 'martin_eve';
+        $user = false;
+
+        Plugin::process_sync($code, $body, $username, $user);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull(
+            $captured,
+            'Top-level profile shape must be unwrapped and passed to user creation'
+        );
+        $this->assertSame('martin_eve', $captured['user_login']);
+        $this->assertSame('Martin Paul', $captured['first_name']);
+        $this->assertSame('Eve', $captured['last_name']);
+    }
+
+    /**
+     * Test: New top-level shape with no profile-identifying fields is rejected
+     *
+     * If the response has none of: data[0][profile], results, or a top-level
+     * username, the response is malformed and login must not proceed.
+     *
+     * @test
+     */
+    public function test_http_200_with_no_recognisable_profile_returns_false()
+    {
+        clear_captured_wp_insert_user_data();
+
+        $code = 200;
+        $body = json_encode([
+            'unrelated' => 'value',
+        ]);
+        $username = 'testuser';
+        $user = false;
+
+        $result = Plugin::process_sync($code, $body, $username, $user);
+
+        $this->assertFalse($result, 'Unrecognisable response shapes must prevent login');
+        $this->assertNull(
+            get_captured_wp_insert_user_data(),
+            'No user creation should be attempted for unrecognisable shapes'
+        );
+    }
+
+    /**
      * Test: Verify that process_sync does NOT call wp_set_auth_cookie on failure
      *
      * This is the critical test: ensure that failed API responses do NOT result

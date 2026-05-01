@@ -123,16 +123,22 @@ class Plugin {
             return false;
         }
 
-        // basically, if we have come from the sub endpoint, we get "data" not "results" so we need to put it in there
+        // The profiles API can return three shapes:
+        //   1. data[0][profile]  — sub endpoint (login sync)
+        //   2. results           — legacy /api/v1/members/{user}/ wrapper
+        //   3. top-level profile — current /api/v1/members/{user}/ shape
         error_log('CILogon Plugin: Testing form of API response.');
         if (isset($json["data"]) && isset($json["data"][0]["profile"])) {
             error_log('CILogon Plugin: Injecting array for login sync.');
             $results_array = $json['data'][0]['profile'];
         } elseif (isset($json['results'])) {
-            error_log('CILogon Plugin: Using standard results field.');
+            error_log('CILogon Plugin: Using legacy results field.');
             $results_array = $json['results'];
+        } elseif (isset($json['username'])) {
+            error_log('CILogon Plugin: Using top-level profile fields.');
+            $results_array = $json;
         } else {
-            error_log('CILogon Plugin: Response missing required data or results field.');
+            error_log('CILogon Plugin: Response missing required profile fields.');
             return false;
         }
 
