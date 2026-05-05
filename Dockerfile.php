@@ -93,7 +93,9 @@ COPY --chown=www-data:www-data plugins/hc-styles/composer.json plugins/hc-styles
 
 # Path-repository source for skoranda/simplesamlphp-module-idpsamlmdattributes
 # (referenced as a "type": "path" repo in composer.json — must exist before install).
-COPY --chown=www-data:www-data simplesamlphp/idpsamlmdattributes /app/simplesamlphp/idpsamlmdattributes
+# Also includes simplesamlphp/simplesamlphp, a tracked symlink to /app/vendor/simplesamlphp/simplesamlphp
+# used by nginx as the alias for the /simplesaml/ web UI.
+COPY --chown=www-data:www-data simplesamlphp /app/simplesamlphp
 
 # --- Composer install (cached when lockfiles unchanged) ---
 RUN composer self-update 2.6.6
@@ -131,10 +133,12 @@ RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
     cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
 # --- Symlinks for custom plugins/themes/mu-plugins ---
-# Remove only existing symlinks (not composer-installed plugins) then recreate
+# Remove only existing symlinks (not composer-installed plugins/mu-plugins) then recreate.
+# wp-saml-auth lands in site/web/app/mu-plugins/wp-saml-auth/ via composer's installer-paths
+# and must NOT be wiped by this step.
 RUN find /app/site/web/app/plugins/ -maxdepth 1 -type l -delete && \
     find /app/site/web/app/themes/ -maxdepth 1 -type l -delete && \
-    rm -rf /app/site/web/app/mu-plugins/* && \
+    find /app/site/web/app/mu-plugins/ -maxdepth 1 -type l -delete && \
     ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
     ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
     ln -s /app/themes/*/ /app/site/web/app/themes/
