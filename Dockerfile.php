@@ -82,6 +82,12 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
     rm -rf /usr/local/etc/php-fpm.d/www.conf && \
     ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
+# SimpleSAML's config.php points loggingdir/tempdir at these paths; they aren't
+# tracked in git (and `logs`/`tmp` are .dockerignore'd) so they must be created
+# at build time and made writable by www-data, otherwise SimpleSAML fails on init.
+RUN mkdir -p /app/config/all/simplesamlphp/log /app/config/all/simplesamlphp/tmp && \
+    chown -R www-data:www-data /app/config/all/simplesamlphp/log /app/config/all/simplesamlphp/tmp
+
 # --- Composer manifests ONLY (cached unless lockfiles change) ---
 COPY --chown=www-data:www-data composer.json composer.lock /app/
 COPY --chown=www-data:www-data scripts/cron/mailchimp/composer.json scripts/cron/mailchimp/composer.lock /app/scripts/cron/mailchimp/
