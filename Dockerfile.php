@@ -91,6 +91,10 @@ COPY --chown=www-data:www-data plugins/wp-graphql-tax-query/composer.json plugin
 COPY --chown=www-data:www-data themes/learningspace/composer.json themes/learningspace/composer.lock /app/themes/learningspace/
 COPY --chown=www-data:www-data plugins/hc-styles/composer.json plugins/hc-styles/composer.lock /app/plugins/hc-styles/
 
+# Path-repository source for skoranda/simplesamlphp-module-idpsamlmdattributes
+# (referenced as a "type": "path" repo in composer.json — must exist before install).
+COPY --chown=www-data:www-data simplesamlphp/idpsamlmdattributes /app/simplesamlphp/idpsamlmdattributes
+
 # --- Composer install (cached when lockfiles unchanged) ---
 RUN composer self-update 2.6.6
 
