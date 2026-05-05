@@ -1,4 +1,7 @@
+# syntax=docker/dockerfile:1
 # PHP container for running WordPress
+
+ARG BASE_IMAGE=base
 
 FROM php:8.2.26-fpm-alpine3.20 AS base
 
@@ -21,6 +24,7 @@ RUN apk update && \
     grpc-cpp \
     grpc-dev \
     rsync \
+    subversion \
     $PHPIZE_DEPS \
     && rm -rf /var/cache/apk/*
 
@@ -51,78 +55,87 @@ EXPOSE 9000
 
 FROM lando AS lando-efs
 
-FROM base AS cloud
+FROM ${BASE_IMAGE} AS cloud
 
 RUN apk add npm
 
-RUN mkdir -p /app && chown www-data:www-data /app
-RUN mkdir -p /app/site && chown www-data:www-data /app/site
-RUN mkdir -p /app/site/web && chown www-data:www-data /app/site/web
-COPY --chown=www-data:www-data ./scripts /app/scripts
-COPY --chown=www-data:www-data ./site/web/*.* /app/site/web/
-COPY --chown=www-data:www-data ./site/web/app/sunrise.php /app/site/web/app/sunrise.php
-COPY --chown=www-data:www-data ./plugins /app/plugins
-COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
-COPY --chown=www-data:www-data ./themes /app/themes
-COPY --chown=www-data:www-data ./site/config /app/site/config
-COPY --chown=www-data:www-data wp-cli.yml /app/
-COPY --chown=www-data:www-data ./simplesamlphp /app/simplesamlphp
-COPY --chown=www-data:www-data ./config /app/config
+# --- Directory structure (rarely changes) ---
+RUN mkdir -p /app /app/site /app/site/web \
+    /app/site/web/app/plugins \
+    /app/site/web/app/themes \
+    /app/site/web/app/mu-plugins && \
+    chown -R www-data:www-data /app
 
-COPY --chown=www-data:www-data composer.json /app/
-COPY --chown=www-data:www-data composer.lock /app/
-
-RUN rm -rf /app/site/web/app/plugins/* && \
-    rm -rf /app/site/web/app/themes/* && \
-    rm -rf /app/site/web/app/mu-plugins/* && \
-    mkdir -p /app/site/web/app/plugins && \
-    mkdir -p /app/site/web/app/themes && \
-    mkdir -p /app/site/web/app/mu-plugins && \
-    chown www-data:www-data /app/site/web/app/plugins && \
-    chown www-data:www-data /app/site/web/app/themes && \
-    chown www-data:www-data /app/site/web/app/mu-plugins && \
-    ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
-    ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
-    ln -s /app/themes/*/ /app/site/web/app/themes/
-
-#Linking uploads folders to EFS volume mounted at /media
+# --- EFS mount points ---
 RUN mkdir -p /media && \
     chown www-data:www-data /media && \
     ln -sf /media/uploads /app/site/web/app/uploads && \
     ln -sf /media/blogs.dir /app/site/web/app/blogs.dir
+
+# --- Config files (changes rarely) ---
+COPY --chown=www-data:www-data ./config /app/config
+COPY --chown=www-data:www-data wp-cli.yml /app/
+COPY --chown=www-data:www-data ./site/config /app/site/config
 
 RUN rm -rf /usr/local/etc/php/php.ini && \
     ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
     rm -rf /usr/local/etc/php-fpm.d/www.conf && \
     ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
-RUN rm -rf /app/config/all/simplesamlphp/log && \
-    rm -rf /app/config/all/simplesamlphp/tmp && \
-    mkdir -p /app/config/all/simplesamlphp/log && \
-    mkdir -p /app/config/all/simplesamlphp/tmp && \
-    chown -R www-data:www-data /app/config/all/simplesamlphp
+# --- Composer manifests ONLY (cached unless lockfiles change) ---
+COPY --chown=www-data:www-data composer.json composer.lock /app/
+COPY --chown=www-data:www-data scripts/cron/mailchimp/composer.json scripts/cron/mailchimp/composer.lock /app/scripts/cron/mailchimp/
+COPY --chown=www-data:www-data scripts/dev-scripts/content-export/composer.json scripts/dev-scripts/content-export/composer.lock /app/scripts/dev-scripts/content-export/
+COPY --chown=www-data:www-data themes/dahd-tainacan/composer.json themes/dahd-tainacan/composer.lock /app/themes/dahd-tainacan/
+COPY --chown=www-data:www-data plugins/wp-graphql-tax-query/composer.json plugins/wp-graphql-tax-query/composer.lock /app/plugins/wp-graphql-tax-query/
+COPY --chown=www-data:www-data themes/learningspace/composer.json themes/learningspace/composer.lock /app/themes/learningspace/
+COPY --chown=www-data:www-data plugins/hc-styles/composer.json plugins/hc-styles/composer.lock /app/plugins/hc-styles/
 
-RUN echo "Installing Composer dependencies..."
+# --- Composer install (cached when lockfiles unchanged) ---
 RUN composer self-update 2.6.6
 
 WORKDIR /app
 USER www-data
-RUN php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
-    cd /app/scripts/cron/mailchimp && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
-    cd /app/scripts/dev-scripts/content-export/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
-    cd /app/themes/dahd-tainacan/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
-    cd /app/plugins/wp-graphql-tax-query/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
-    cd /app/themes/learningspace/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache && \
-    cd /app/plugins/hc-styles/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader --no-cache
-RUN echo "Finished installing Composer dependencies"
+RUN --mount=type=cache,target=/home/www-data/.composer/cache,uid=82,gid=82 \
+    php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --optimize-autoloader && \
+    cd /app/scripts/cron/mailchimp && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
+    cd /app/scripts/dev-scripts/content-export/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
+    cd /app/themes/dahd-tainacan/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
+    cd /app/plugins/wp-graphql-tax-query/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
+    cd /app/themes/learningspace/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
+    cd /app/plugins/hc-styles/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader
 
-RUN cd /app/site/web/app/plugins/kcworks-on-wp && npm install @wordpress/scripts --save-dev && \
+# --- npm builds for composer-installed packages (cached with composer layer) ---
+RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
+    cd /app/site/web/app/plugins/kcworks-on-wp && npm install @wordpress/scripts --save-dev && \
     cd /app/site/web/app/plugins/kcworks-on-wp && npm ci && npm run build
 
-RUN cd /app/site/web/app/plugins/cc-client && npm ci && npm run build && \
+RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
+    cd /app/site/web/app/plugins/cc-client && npm ci && npm run build
+
+# --- Source code (changes frequently — everything above is cached) ---
+COPY --chown=www-data:www-data ./scripts /app/scripts
+COPY --chown=www-data:www-data ./site/web/*.* /app/site/web/
+COPY --chown=www-data:www-data ./site/web/app/sunrise.php /app/site/web/app/sunrise.php
+COPY --chown=www-data:www-data ./plugins /app/plugins
+COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
+COPY --chown=www-data:www-data ./themes /app/themes
+
+# --- Theme npm builds (need full source for gulpfile.js and sass sources) ---
+RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
     cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
     cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
+# --- Symlinks for custom plugins/themes/mu-plugins ---
+# Remove only existing symlinks (not composer-installed plugins) then recreate
+RUN find /app/site/web/app/plugins/ -maxdepth 1 -type l -delete && \
+    find /app/site/web/app/themes/ -maxdepth 1 -type l -delete && \
+    rm -rf /app/site/web/app/mu-plugins/* && \
+    ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
+    ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
+    ln -s /app/themes/*/ /app/site/web/app/themes/
+
+# --- Environment file permissions ---
 USER root
 RUN touch /etc/environment && \
     chown www-data:www-data /etc/environment && \
