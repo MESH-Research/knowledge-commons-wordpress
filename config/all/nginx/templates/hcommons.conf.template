@@ -30,6 +30,13 @@ server {
 }
 
 server {
+  listen [::]:80;
+  listen 80;
+  server_name clear.msu.edu;
+  return 301 https://clear.commons.msu.edu$request_uri;
+}
+
+server {
   listen [::]:80 default_server;
   listen 80 default_server;
   server_name ~^(?<sitename>[\w-]+\.)?(?<subdomain>[\w-]+)\.${DOMAIN_NAME}$ action.mla.org symposium.mla.org *.action.mla.org *.symposium.mla.org commons.msu.edu *.commons.msu.edu iteach.msu.edu *.iteach.msu.edu;
