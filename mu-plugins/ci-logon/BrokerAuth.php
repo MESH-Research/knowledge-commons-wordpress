@@ -338,13 +338,19 @@ class BrokerAuth
 
         // Create new user
         error_log('BrokerAuth: Creating new user: ' . $username);
+        // Read the real broker-token shape. The account email comes from
+        // primary_email only (never the IdP-asserted userinfo.email). The
+        // token carries no name parts; the members-API sync is authoritative
+        // for first/last name, so they are left blank here and refined on
+        // sync. display_name falls back to userinfo.name, then the username.
+        $userinfo_name = $payload['userinfo']['name'] ?? '';
         $user_data = [
             'user_login' => $username,
-            'user_email' => $payload['email'] ?? '',
+            'user_email' => $payload['primary_email'] ?? '',
             'user_pass' => wp_generate_password(32, true, true),
             'first_name' => $payload['first_name'] ?? '',
             'last_name' => $payload['last_name'] ?? '',
-            'display_name' => $payload['name'] ?? ($payload['email'] ?? $username),
+            'display_name' => $userinfo_name !== '' ? $userinfo_name : $username,
             'role' => 'subscriber',
         ];
 

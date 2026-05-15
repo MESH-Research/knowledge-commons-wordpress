@@ -84,16 +84,30 @@ class BrokerAuthTest extends TestCase
         return base64_encode($iv . $cipherRaw);
     }
 
+    /**
+     * The real broker_token shape minted by the Profiles/IDMS broker.
+     *
+     * Note: userinfo.email is deliberately a DIFFERENT address from
+     * primary_email so tests can prove the WordPress account email is
+     * sourced from primary_email and never from the IdP-asserted
+     * userinfo.email.
+     */
     private function validPayload(array $overrides = []): array
     {
         return array_merge([
             'kc_username' => 'testuser',
-            'email' => 'test@example.com',
-            'first_name' => 'Test',
-            'last_name' => 'User',
-            'name' => 'Test User',
+            'userinfo' => [
+                'sub' => 'oidc-sub-123',
+                'email' => 'idp-asserted@example.org',
+                'name' => 'Test User',
+                'idp_name' => 'Example IdP',
+            ],
+            'primary_email' => 'test@example.com',
+            'other_emails' => ['alt@example.com'],
             'nonce' => 'abc123nonce',
+            'iat' => time(),
             'exp' => time() + 300,
+            'final_redirect' => 'https://example.com/',
         ], $overrides);
     }
 
@@ -111,7 +125,8 @@ class BrokerAuthTest extends TestCase
 
         $this->assertIsArray($result);
         $this->assertSame('testuser', $result['kc_username']);
-        $this->assertSame('test@example.com', $result['email']);
+        $this->assertSame('test@example.com', $result['primary_email']);
+        $this->assertSame('Test User', $result['userinfo']['name']);
     }
 
     /** @test */
@@ -347,14 +362,122 @@ class BrokerAuthTest extends TestCase
         // Since wp_insert_user mock returns WP_Error, result should be WP_Error
         $this->assertInstanceOf(\WP_Error::class, $result);
 
-        // But verify the captured data was correct
+        // Verify the captured data matches the real broker-token shape:
+        // email from primary_email (NOT userinfo.email), display_name from
+        // userinfo.name, and first/last name left blank (the token carries
+        // neither — the members-API sync is authoritative for those).
         $captured = get_captured_wp_insert_user_data();
         $this->assertNotNull($captured, 'wp_insert_user should have been called');
         $this->assertSame('testuser', $captured['user_login']);
         $this->assertSame('test@example.com', $captured['user_email']);
-        $this->assertSame('Test', $captured['first_name']);
-        $this->assertSame('User', $captured['last_name']);
+        $this->assertSame('', $captured['first_name']);
+        $this->assertSame('', $captured['last_name']);
+        $this->assertSame('Test User', $captured['display_name']);
         $this->assertSame('subscriber', $captured['role']);
+    }
+
+    /** @test */
+    public function test_new_user_uses_primary_email_for_user_email(): void
+    {
+        clear_captured_wp_insert_user_data();
+
+        $auth = new BrokerAuth();
+        $payload = $this->validPayload(['primary_email' => 'primary-only@example.net']);
+
+        $auth->find_or_create_user($payload);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull($captured, 'wp_insert_user should have been called');
+        $this->assertSame('primary-only@example.net', $captured['user_email']);
+    }
+
+    /** @test */
+    public function test_new_user_does_not_use_userinfo_email(): void
+    {
+        clear_captured_wp_insert_user_data();
+
+        $auth = new BrokerAuth();
+        $payload = $this->validPayload([
+            'userinfo' => [
+                'sub' => 'oidc-sub-123',
+                'email' => 'idp-leak@example.org',
+                'name' => 'Test User',
+                'idp_name' => 'Example IdP',
+            ],
+        ]);
+        unset($payload['primary_email']);
+
+        $auth->find_or_create_user($payload);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull($captured, 'wp_insert_user should have been called');
+        $this->assertSame(
+            '',
+            $captured['user_email'],
+            'user_email must come from primary_email only, never userinfo.email'
+        );
+        $this->assertNotSame('idp-leak@example.org', $captured['user_email']);
+    }
+
+    /** @test */
+    public function test_new_user_with_missing_primary_email_creates_empty_email(): void
+    {
+        clear_captured_wp_insert_user_data();
+
+        $auth = new BrokerAuth();
+        $payload = $this->validPayload();
+        unset($payload['primary_email']);
+
+        $auth->find_or_create_user($payload);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull($captured, 'wp_insert_user should have been called');
+        $this->assertArrayHasKey('user_email', $captured);
+        $this->assertSame('', $captured['user_email']);
+    }
+
+    /** @test */
+    public function test_new_user_display_name_uses_userinfo_name(): void
+    {
+        clear_captured_wp_insert_user_data();
+
+        $auth = new BrokerAuth();
+        $payload = $this->validPayload([
+            'userinfo' => [
+                'sub' => 'oidc-sub-123',
+                'email' => 'idp-asserted@example.org',
+                'name' => 'Ada Lovelace',
+                'idp_name' => 'Example IdP',
+            ],
+        ]);
+
+        $auth->find_or_create_user($payload);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull($captured, 'wp_insert_user should have been called');
+        $this->assertSame('Ada Lovelace', $captured['display_name']);
+    }
+
+    /** @test */
+    public function test_new_user_display_name_falls_back_to_username_when_userinfo_name_empty(): void
+    {
+        clear_captured_wp_insert_user_data();
+
+        $auth = new BrokerAuth();
+        $payload = $this->validPayload([
+            'userinfo' => [
+                'sub' => 'oidc-sub-123',
+                'email' => 'idp-asserted@example.org',
+                'name' => '',
+                'idp_name' => 'Example IdP',
+            ],
+        ]);
+
+        $auth->find_or_create_user($payload);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull($captured, 'wp_insert_user should have been called');
+        $this->assertSame('testuser', $captured['display_name']);
     }
 
     // ========================================================================
