@@ -737,4 +737,87 @@ class PluginProcessSyncTest extends TestCase
         // User creation fails in test environment
         $this->assertFalse($result, 'User creation fails in test environment');
     }
+
+    // ========================================================================
+    // MISSING / EMPTY EMAIL TESTS
+    // ========================================================================
+
+    /**
+     * Test: A brand-new user whose broker profile has NO email key is still
+     * created, with an empty email address.
+     *
+     * The Profiles/IDMS broker may relay a profile with a missing email. New
+     * user creation must not crash on an undefined array key — it must fall
+     * back to an empty email (consistent with the broker-token path), letting
+     * a later sync fill the address in once Profiles supplies one.
+     *
+     * @test
+     */
+    public function test_new_user_with_missing_email_creates_user_with_empty_email()
+    {
+        clear_captured_wp_insert_user_data();
+
+        $code = 200;
+        $body = json_encode([
+            'username' => 'no_email_user',
+            'first_name' => 'No',
+            'last_name' => 'Email',
+            // 'email' deliberately absent
+            'memberships' => [
+                'MLA' => true,
+            ],
+        ]);
+        $username = 'no_email_user';
+        $user = false;
+
+        Plugin::process_sync($code, $body, $username, $user);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull(
+            $captured,
+            'User creation must still be attempted when email is missing'
+        );
+        $this->assertArrayHasKey('user_email', $captured);
+        $this->assertSame(
+            '',
+            $captured['user_email'],
+            'Missing email must fall back to an empty string, not null'
+        );
+        $this->assertSame('no_email_user', $captured['user_login']);
+    }
+
+    /**
+     * Test: A brand-new user whose broker profile has an EMPTY email string is
+     * created, with an empty email address.
+     *
+     * @test
+     */
+    public function test_new_user_with_empty_email_creates_user_with_empty_email()
+    {
+        clear_captured_wp_insert_user_data();
+
+        $code = 200;
+        $body = json_encode([
+            'username' => 'empty_email_user',
+            'first_name' => 'Empty',
+            'last_name' => 'Email',
+            'email' => '',
+            'memberships' => [
+                'MLA' => true,
+            ],
+        ]);
+        $username = 'empty_email_user';
+        $user = false;
+
+        Plugin::process_sync($code, $body, $username, $user);
+
+        $captured = get_captured_wp_insert_user_data();
+        $this->assertNotNull(
+            $captured,
+            'User creation must still be attempted when email is an empty string'
+        );
+        $this->assertArrayHasKey('user_email', $captured);
+        $this->assertSame('', $captured['user_email']);
+        $this->assertSame('empty_email_user', $captured['user_login']);
+    }
 }

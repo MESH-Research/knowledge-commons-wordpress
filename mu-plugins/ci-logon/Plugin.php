@@ -267,7 +267,7 @@ class Plugin {
         $user_data = array(
             'user_login' => $results_array["username"],
             'user_pass' => wp_generate_password(12, true),
-            'user_email' => $results_array["email"],
+            'user_email' => $results_array["email"] ?? '',
             'first_name' => $results_array["first_name"],
             'last_name' => $results_array["last_name"],
             'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
