@@ -27,7 +27,7 @@ class BrokerAuth
     private const SESSION_EXPIRATION = 3600;
 
     private const SSO_CHECK_COOKIE = 'broker_sso_checked';
-    private const SSO_CHECK_TTL = 3; // 3 minutes
+    private const SSO_CHECK_TTL = 120; // 2 minutes
     private const SSO_OPTOUT_COOKIE = 'broker_sso_optout';
     private const SSO_OPTOUT_TTL = 86400; // 24 hours
 
@@ -598,7 +598,7 @@ class BrokerAuth
             return;
         }
 
-        // Set the SSO check cookie so we don't repeat for 30 minutes
+        // Set the SSO check cookie so we don't repeat for 2 minutes
         $this->setSSOCookie(self::SSO_CHECK_COOKIE, '1', self::SSO_CHECK_TTL);
 
         // Store the current URL so we can redirect back after the SSO check

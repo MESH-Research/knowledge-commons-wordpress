@@ -261,9 +261,9 @@ class SilentSSOTest extends TestCase
 
         $this->assertNotNull($ssoCookie, 'broker_sso_checked cookie should be set');
         $this->assertSame('1', $ssoCookie['value']);
-        // TTL should be ~1800 seconds from now
-        $this->assertGreaterThan(time() + 1700, $ssoCookie['expires']);
-        $this->assertLessThanOrEqual(time() + 1800, $ssoCookie['expires']);
+        // TTL should be ~120 seconds (2 minutes) from now
+        $this->assertGreaterThan(time() + 110, $ssoCookie['expires']);
+        $this->assertLessThanOrEqual(time() + 120, $ssoCookie['expires']);
     }
 
     /** @test */
