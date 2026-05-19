@@ -6,9 +6,9 @@ External dependencies are managed by Composer, with `composer.json` in the proje
 
 WordPress themes and plugins are managed by Composer.
 
-To add a plugin: `lando composer require wpackagist-plugin/<plugin slug>`
+To add a plugin: `lando composer require wp-plugin/<plugin slug>`
 
-To add a theme: `lando composer require wpackagist-theme/<theme slug>`
+To add a theme: `lando composer require wp-theme/<theme slug>`
 
 ## Updating themes & plugins
 

@@ -413,7 +413,7 @@ function echo_composer_requirements( $data, $type = 'plugin' ) {
 		if ( ! $row['wp-url'] ) {
 			continue;
 		}
-		$requirement = "\"wpackagist-$type/$slug\"";
+		$requirement = "\"wp-$type/$slug\"";
 		if ( $row['version'] ) {
 			$requirement .= ": \"^{$row['version']}\"";
 		} else {

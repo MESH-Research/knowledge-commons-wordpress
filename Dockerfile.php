@@ -82,12 +82,6 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
     rm -rf /usr/local/etc/php-fpm.d/www.conf && \
     ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
-# SimpleSAML's config.php points loggingdir/tempdir at these paths; they aren't
-# tracked in git (and `logs`/`tmp` are .dockerignore'd) so they must be created
-# at build time and made writable by www-data, otherwise SimpleSAML fails on init.
-RUN mkdir -p /app/config/all/simplesamlphp/log /app/config/all/simplesamlphp/tmp && \
-    chown -R www-data:www-data /app/config/all/simplesamlphp/log /app/config/all/simplesamlphp/tmp
-
 # --- Composer manifests ONLY (cached unless lockfiles change) ---
 COPY --chown=www-data:www-data composer.json composer.lock /app/
 COPY --chown=www-data:www-data scripts/cron/mailchimp/composer.json scripts/cron/mailchimp/composer.lock /app/scripts/cron/mailchimp/
@@ -96,12 +90,6 @@ COPY --chown=www-data:www-data themes/dahd-tainacan/composer.json themes/dahd-ta
 COPY --chown=www-data:www-data plugins/wp-graphql-tax-query/composer.json plugins/wp-graphql-tax-query/composer.lock /app/plugins/wp-graphql-tax-query/
 COPY --chown=www-data:www-data themes/learningspace/composer.json themes/learningspace/composer.lock /app/themes/learningspace/
 COPY --chown=www-data:www-data plugins/hc-styles/composer.json plugins/hc-styles/composer.lock /app/plugins/hc-styles/
-
-# Path-repository source for skoranda/simplesamlphp-module-idpsamlmdattributes
-# (referenced as a "type": "path" repo in composer.json — must exist before install).
-# Also includes simplesamlphp/simplesamlphp, a tracked symlink to /app/vendor/simplesamlphp/simplesamlphp
-# used by nginx as the alias for the /simplesaml/ web UI.
-COPY --chown=www-data:www-data simplesamlphp /app/simplesamlphp
 
 # --- Composer install (cached when lockfiles unchanged) ---
 RUN composer self-update 2.6.6
@@ -139,12 +127,10 @@ RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
     cd /app/themes/boss-child-refresh && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass
 
 # --- Symlinks for custom plugins/themes/mu-plugins ---
-# Remove only existing symlinks (not composer-installed plugins/mu-plugins) then recreate.
-# wp-saml-auth lands in site/web/app/mu-plugins/wp-saml-auth/ via composer's installer-paths
-# and must NOT be wiped by this step.
+# Remove only existing symlinks (not composer-installed plugins) then recreate
 RUN find /app/site/web/app/plugins/ -maxdepth 1 -type l -delete && \
     find /app/site/web/app/themes/ -maxdepth 1 -type l -delete && \
-    find /app/site/web/app/mu-plugins/ -maxdepth 1 -type l -delete && \
+    rm -rf /app/site/web/app/mu-plugins/* && \
     ln -s /app/plugins/*/ /app/site/web/app/plugins/ && \
     ln -s /app/mu-plugins/* /app/site/web/app/mu-plugins/ && \
     ln -s /app/themes/*/ /app/site/web/app/themes/

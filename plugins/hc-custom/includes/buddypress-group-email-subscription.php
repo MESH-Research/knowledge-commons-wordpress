@@ -1314,6 +1314,9 @@ function hc_custom_bpges_add_settings_warning() {
 	}
 
 	// Check for an existing subscription setting.
+	if ( ! function_exists( 'ass_get_subscriptions_for_group' ) ) {
+		return;
+	}
 	$subs = ass_get_subscriptions_for_group( bp_get_current_group_id() );
 	foreach ( $subs as $user_id => $type ) {
 		if ( get_current_user_id() === $user_id && 'no' !== $type ) {

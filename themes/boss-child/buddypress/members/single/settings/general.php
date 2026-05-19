@@ -29,6 +29,7 @@ do_action( 'bp_before_member_settings_template' ); ?>
 	if ( false === $comanage_roles ) {
 		$comanage_roles = array();
 	}
+
 	foreach( $comanage_roles as $comanage_key => $comanage_role ) {
 		if ( ! in_array( strtolower( $comanage_key ), $memberships ) ) {
 			if ( ! $header_printed ) {
@@ -37,8 +38,7 @@ do_action( 'bp_before_member_settings_template' ); ?>
 <br>
 			<?php }
 			if ( 'Expired' == $comanage_role['status'] ) {
-				echo "<p>",$comanage_key, " membership status ", $comanage_role['status'], " effective ",
-					$comanage_role['valid_through'] , "&nbsp;&nbsp;";
+				echo "<p>",$comanage_key, " membership status ", $comanage_role['status'], "&nbsp;&nbsp;";
 
 				switch( strtolower( $comanage_key ) ) {
 
@@ -61,8 +61,7 @@ do_action( 'bp_before_member_settings_template' ); ?>
 				}
 
 			} else {
-				echo "<p>",$comanage_key, " membership status ", $comanage_role['status'], " effective from ",
-					$comanage_role['valid_from'], " through ", $comanage_role['valid_through'], "</P>";
+				echo "<p>",$comanage_key, " membership status ", $comanage_role['status'], "</p>";
 			}
 		}
 	}

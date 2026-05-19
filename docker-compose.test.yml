@@ -1,0 +1,115 @@
+x-env: &common-env
+  DB_NAME: wordpress_test
+  DB_USER: wp_test
+  DB_PASSWORD: wp_test_pass
+  DB_HOST: db
+  WP_HOME: "http://hcommons.test"
+  WP_SITEURL: "http://hcommons.test/wp"
+  WP_DOMAIN: hcommons.test
+  WP_ENV: development
+  AUTH_KEY: "test-auth-key-not-for-production"
+  SECURE_AUTH_KEY: "test-secure-auth-key-not-for-production"
+  LOGGED_IN_KEY: "test-logged-in-key-not-for-production"
+  NONCE_KEY: "test-nonce-key-not-for-production"
+  AUTH_SALT: "test-auth-salt-not-for-production"
+  SECURE_AUTH_SALT: "test-secure-auth-salt-not-for-production"
+  LOGGED_IN_SALT: "test-logged-in-salt-not-for-production"
+  NONCE_SALT: "test-nonce-salt-not-for-production"
+  PM_MAX_CHILDREN: "5"
+  PM_START_SERVERS: "2"
+  PM_MIN_SPARE_SERVERS: "1"
+  PM_MAX_SPARE_SERVERS: "3"
+  PM_MAX_REQUESTS: "500"
+  PHP_MAX_EXECUTION_TIME: "300"
+  PHP_MEMORY_LIMIT: "512M"
+  PHP_UPLOAD_MAX_FILESIZE: "25M"
+  PHP_POST_MAX_SIZE: "25M"
+  WORKS_URL: "http://works-mock.test"
+  WORKS_API_KEY: "test-works-api-key-not-for-production"
+  WORKS_KNOWLEDGE_COMMONS_INSTANCE: "knowledgecommons"
+
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress_test
+      MYSQL_USER: wp_test
+      MYSQL_PASSWORD: wp_test_pass
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    tmpfs:
+      - /var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+      target: cloud
+    entrypoint: ["/app/scripts/test-scripts/docker-test-entrypoint.sh"]
+    command: ["php-fpm"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *common-env
+      SECRET_LOGIN_KEY: e2e-test-key-change-me
+      SECRET_LOGIN_IDENTITY: gihctester
+    volumes:
+      - ./scripts/test-scripts:/app/scripts/test-scripts
+      - ./scripts/test-scripts/force-bp-config.php:/app/mu-plugins/force-bp-config.php:ro
+      - media_data:/media
+      - webroot:/app/site/web
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    networks:
+      default:
+        aliases:
+          - hcommons.test
+          - e2etestsite.hcommons.test
+    volumes:
+      - ./config/test/nginx/hcommons.conf:/etc/nginx/conf.d/hcommons.conf:ro
+      - ./config/test/nginx/hastac-org.conf:/etc/nginx/conf.d/hastac-org.conf:ro
+      - ./config/test/nginx/templates:/etc/nginx/templates:ro
+      - webroot:/app/site/web:ro
+
+  setup:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+      target: cloud
+    entrypoint: ["/bin/bash", "/app/scripts/test-scripts/setup-wp.sh"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *common-env
+    volumes:
+      - ./scripts/test-scripts:/app/scripts/test-scripts
+      - media_data:/media
+      - webroot:/app/site/web
+
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.58.2-noble
+    working_dir: /e2e
+    depends_on:
+      - nginx
+    environment:
+      SECRET_LOGIN_KEY: e2e-test-key-change-me
+    volumes:
+      - ./tests/e2e:/e2e
+    entrypoint: ["bash", "-c", "NGINX_IP=$(getent hosts hcommons.test | awk '{print $1}') && echo \"$NGINX_IP e2etestsite.hcommons.test\" >> /etc/hosts && cd /e2e && npm install && npx playwright test"]
+
+volumes:
+  media_data:
+  webroot:

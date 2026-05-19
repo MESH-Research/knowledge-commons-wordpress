@@ -78,3 +78,10 @@ cc-client/
 forked-plugins/15zine-functionality/composer.lock
 
 site
+
+# ignore test artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.phpunit.cache/

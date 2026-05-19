@@ -419,14 +419,6 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_SITE_URL::"
                 },
                 {
-                    "name": "SAML_AUTH_ADMINPASSWORD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_AUTH_ADMINPASSWORD::"
-                },
-                {
-                    "name": "SAML_SECRETSALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_SECRETSALT::"
-                },
-                {
                     "name": "SATOSA_SERVER_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SATOSA_SERVER_URL::"
                 },
@@ -437,10 +429,6 @@
                 {
                     "name": "SECURE_AUTH_SALT",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_SALT::"
-                },
-                {
-                    "name": "SIMPLESAMLPHP_CONFIG_DIR",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SIMPLESAMLPHP_CONFIG_DIR::"
                 },
                 {
                     "name": "UP_ACCOUNT_LINK_URL",
@@ -491,28 +479,8 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_REDIS_HOST::"
                 },
                 {
-                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD::"
-                },
-                {
-                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN::"
-                },
-                {
                     "name": "WP_SITEURL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SITEURL::"
-                },
-				{
-                    "name": "SIMPLESAMLPHP_METADATA_FILE",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SIMPLESAMLPHP_METADATA_FILE::"
-                },
-				{
-                    "name": "SAML_CRT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.crt-qvsDvx"
-                },
-				{
-                    "name": "SAML_PEM",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:dev/saml.pem-FNH7Dd"
                 }
             ],
             "logConfiguration": {
@@ -1001,14 +969,6 @@
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAH_SITE_URL::"
                 },
                 {
-                    "name": "SAML_AUTH_ADMINPASSWORD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_AUTH_ADMINPASSWORD::"
-                },
-                {
-                    "name": "SAML_SECRETSALT",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SAML_SECRETSALT::"
-                },
-                {
                     "name": "SATOSA_SERVER_URL",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SATOSA_SERVER_URL::"
                 },
@@ -1019,10 +979,6 @@
                 {
                     "name": "SECURE_AUTH_SALT",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SECURE_AUTH_SALT::"
-                },
-                {
-                    "name": "SIMPLESAMLPHP_CONFIG_DIR",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:SIMPLESAMLPHP_CONFIG_DIR::"
                 },
                 {
                     "name": "UP_ACCOUNT_LINK_URL",
@@ -1071,14 +1027,6 @@
                 {
                     "name": "WP_REDIS_HOST",
                     "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_REDIS_HOST::"
-                },
-                {
-                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD::"
-                },
-                {
-                    "name": "WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:staging/secrets.env-yBwEnK:WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN::"
                 },
                 {
                     "name": "WP_SITEURL",

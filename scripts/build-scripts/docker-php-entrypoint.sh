@@ -19,12 +19,6 @@ else
     echo "AWS secrets retrieval script not found. Skipping."
 fi
 
-rm -f /app/config/all/simplesamlphp/cert/saml.pem
-rm -f /app/config/all/simplesamlphp/cert/saml.crt
-mkdir -p /app/config/all/simplesamlphp/cert
-echo "$SAML_PEM" > /app/config/all/simplesamlphp/cert/saml.pem
-echo "$SAML_CRT" > /app/config/all/simplesamlphp/cert/saml.crt
-
 # Link EFS themes and plugins
 if [ -f /app/scripts/build-scripts/link-efs-themes-plugins.sh ]; then
     echo "Linking EFS themes and plugins..."

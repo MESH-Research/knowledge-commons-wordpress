@@ -27,8 +27,8 @@
       "url": "https://github.com/MESH-Research/kcworks-on-wp"
     },
     {
-      "type": "path",
-      "url": "simplesamlphp/idpsamlmdattributes"
+      "type": "vcs",
+      "url": "https://github.com/MESH-Research/hcommons-mpe-theme"
     }
   ],
   "require": {
@@ -120,9 +120,6 @@
     "wp-theme/wabi": "^1.1.0",
     "monolog/monolog": "^3.3",
     "psr/log": "^2.0",
-    "wp-plugin/wp-saml-auth": "^2.1",
-    "simplesamlphp/simplesamlphp": "^2.0.4",
-    "skoranda/simplesamlphp-module-idpsamlmdattributes": "*",
     "wp-plugin/syntaxhighlighter": "3.7.2",
     "wp-plugin/mailpoet": "^4.48",
     "wp-plugin/password-protected": "^2.7",
@@ -141,13 +138,16 @@
     "wp-plugin/feedzy-rss-feeds": "^4.4",
     "wp-plugin/zotpress": "^7.4.1",
     "php-http/guzzle7-adapter": "^1.0",
-    "predis/predis": "^3.2"
+    "predis/predis": "^3.2",
+    "jumbojett/openid-connect-php": "dev-master"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
     "roave/security-advisories": "dev-latest",
     "phpcompatibility/php-compatibility": "^9.3",
-    "aws/aws-sdk-php": "^3.273"
+    "aws/aws-sdk-php": "^3.273",
+    "phpunit/phpunit": "^9.5",
+    "mockery/mockery": "^1.4"
   },
   "config": {
     "optimize-autoloader": true,
@@ -156,7 +156,6 @@
     "allow-plugins": {
       "composer/installers": true,
       "roots/wordpress-core-installer": true,
-      "simplesamlphp/composer-module-installer": true,
       "php-http/discovery": true,
       "tbachert/spi": true
     }
@@ -165,10 +164,6 @@
   "prefer-stable": true,
   "extra": {
     "installer-paths": {
-      "site/web/app/mu-plugins/{$name}/": [
-        "type:wordpress-muplugin",
-        "wp-plugin/wp-saml-auth"
-      ],
       "site/web/app/plugins/{$name}/": [
         "type:wordpress-plugin"
       ],
@@ -181,6 +176,10 @@
   "scripts": {
     "test": [
       "phpcs"
-    ]
+    ],
+    "test:unit": "phpunit --configuration=mu-plugins/ci-logon/tests/phpunit.xml",
+    "test:unit-verbose": "phpunit --configuration=mu-plugins/ci-logon/tests/phpunit.xml -v",
+    "test:unit-coverage": "phpunit --configuration=mu-plugins/ci-logon/tests/phpunit.xml --coverage-html=mu-plugins/ci-logon/tests/coverage-report",
+    "test:unit-site": "phpunit --configuration=tests/unit/phpunit.xml"
   }
 }

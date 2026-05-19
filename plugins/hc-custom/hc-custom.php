@@ -67,6 +67,9 @@ require_once trailingslashit( __DIR__ ) . 'includes/works-update-notifications.p
  * Works Groups extension.
  */
 add_action( 'bp_init', function() {
+	if ( ! class_exists( 'BP_Group_Extension' ) ) {
+		return;
+	}
 	require_once trailingslashit( __DIR__ ) . 'includes/class-works-group-extension.php';
 	bp_register_group_extension( 'Works_Groups_Extension' );
 } );

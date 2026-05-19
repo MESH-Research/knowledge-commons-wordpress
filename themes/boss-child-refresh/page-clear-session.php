@@ -7,12 +7,8 @@ $shib_urls = [
 	getenv('MLA_IDP_URL') . '/idp/profile/Logout',
 	getenv('HC_IDP_URL') . '/idp/profile/Logout',
 	// SPs
-	getenv('REGISTRY_SP_URL') . '/Shibboleth.sso/Logout',
-	get_site_url() . '/Shibboleth.sso/Logout',
 ];
 
-setcookie( '_saml_idp', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), false, true );
-setcookie( 'stickyIdPSelection', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), true, true );
 setcookie( 'redirect_to', false, time()-3600, '/', '.' . getenv('WP_DOMAIN'), true, true );
 
 wp_clear_auth_cookie();
