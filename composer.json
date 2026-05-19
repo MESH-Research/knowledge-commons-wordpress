@@ -120,6 +120,7 @@
     "wp-theme/wabi": "^1.1.0",
     "monolog/monolog": "^3.3",
     "psr/log": "^2.0",
+    "wp-plugin/syntaxhighlighter": "3.7.2",
     "wp-plugin/mailpoet": "^4.48",
     "wp-plugin/password-protected": "^2.7",
     "wp-plugin/printfriendly": "^5.5",

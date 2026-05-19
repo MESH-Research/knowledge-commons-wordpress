@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe2b56ab7d35f3c4d82b4f1629daaeb9",
+    "content-hash": "4d9b7c59661d198a5d9a69deb7435cae",
     "packages": [
         {
             "name": "composer/installers",
@@ -3818,6 +3818,37 @@
                 "changelog": "https://wordpress.org/plugins/so-widgets-bundle/#developers",
                 "issues": "https://wordpress.org/support/plugin/so-widgets-bundle",
                 "source": "https://plugins.svn.wordpress.org/so-widgets-bundle"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/syntaxhighlighter",
+            "version": "3.7.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/syntaxhighlighter/",
+                "reference": "tags/3.7.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/syntaxhighlighter.3.7.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Alex Mills"
+                }
+            ],
+            "description": "Easily post syntax-highlighted code to your site without having to modify the code at all. As seen on WordPress.com.",
+            "homepage": "https://alex.blog/wordpress-plugins/syntaxhighlighter/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/syntaxhighlighter/#developers",
+                "issues": "https://wordpress.org/support/plugin/syntaxhighlighter",
+                "source": "https://plugins.svn.wordpress.org/syntaxhighlighter"
             },
             "time": "2026-03-23T19:23:21+00:00"
         },
