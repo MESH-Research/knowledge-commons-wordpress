@@ -727,5 +727,5 @@ location /members/ {
 
 # Member registration page redirects to new Profiles application
 location /membership/ {
-        return 301 https://profile.hcommons.org/registration/start/$request_uri;
+        return 301 https://profile.hcommons.org/registration/start/;
 }
