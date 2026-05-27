@@ -26,7 +26,7 @@ class comanageApi {
             // set variables and create Bearer token API args
 			
 			$this->url = getenv( 'PROFILES_API_URL' );
-			$this->shared_bearer_key = getenv( 'PROFILES_API_BEARER' );
+			$this->shared_bearer_key = getenv( 'PROFILES_API_BEARER_TOKEN' );
 
 			$this->api_args = [ 
 				'headers' => [ 

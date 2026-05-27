@@ -104,7 +104,7 @@ if ( defined( 'WP_CLI' ) && class_exists( 'WP_CLI' ) ) {
             return;
 
             $this->url = getenv( 'PROFILES_API_URL' );
-            $this->shared_bearer_key = getenv( 'PROFILES_API_BEARER' );
+            $this->shared_bearer_key = getenv( 'PROFILES_API_BEARER_TOKEN' );
 
             $timeout  = (int) ( $assoc_args['timeout'] ?? 15 );
 
