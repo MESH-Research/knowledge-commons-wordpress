@@ -664,11 +664,6 @@ if ($host ~* "iteach.msu.edu") {
         try_files $uri $uri/ /index.php?$args;
     }
 
-    # Profile: view, edit, change avatar, change cover image
-    location ~ ^/members/[^/]+/profile(/|$) {
-        try_files $uri $uri/ /index.php?$args;
-    }
-
     # Sites / Blogs and all sub-pages
     location ~ ^/members/[^/]+/blogs(/|$) {
         try_files $uri $uri/ /index.php?$args;
