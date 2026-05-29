@@ -166,7 +166,9 @@ class Plugin {
             error_log('CILogon Plugin: Response did not include a valid "memberships" array.');
             return false;
         }
+        error_log('CILogon Plugin: membership array is: ' . print_r($results_array["memberships"], true));
         $roles_found = self::processMemberships($results_array["memberships"]);
+        error_log('CILogon Plugin: Roles found: ' . print_r($roles_found, true));
 
         // synchronise with BuddyPress
         self::kc_sync_bp_member_types_for_username($user, $roles_found);
@@ -445,26 +447,26 @@ class Plugin {
             $current_types = $current_types ? [ $current_types ] : [];
         }
 
-        self::debug_log('Current types: ' . var_export($current_types, true));
-        self::debug_log('Desired types: ' . var_export($desired_types, true));
+        error_log('Current types: ' . var_export($current_types, true));
+        error_log('Desired types: ' . var_export($desired_types, true));
 
         // Add missing types.
         foreach ( $desired_types as $type ) {
-            self::debug_log( sprintf( 'Checking: %s for addition', $type ) );
+            error_log( sprintf( 'Checking: %s for addition', $type ) );
             if ( ! in_array( $type, $current_types, true ) ) {
                 // append = true means "add, don't overwrite existing types"
                 bp_set_member_type( $user_id, $type, true );
-                self::debug_log( sprintf( 'Added: %s', $type ) );
+                error_log( sprintf( 'Added: %s', $type ) );
             }
         }
 
         // Remove types that are no longer valid.
         foreach ( $all_known_types as $type ) {
-            self::debug_log( sprintf( 'Checking: %s for removal', $type ) );
+            error_log( sprintf( 'Checking: %s for removal', $type ) );
             if ( in_array( $type, $current_types, true ) && ! in_array( $type, $desired_types, true ) && $type != "hc") {
                 bp_remove_member_type( $user_id, $type );
                 // Alternatively: bp_set_member_type( $user_id, '' ) to clear ALL, but here we just remove one.
-                self::debug_log( sprintf( 'Removed: %s', $type ) );
+                error_log( sprintf( 'Removed: %s', $type ) );
             }
         }
 
