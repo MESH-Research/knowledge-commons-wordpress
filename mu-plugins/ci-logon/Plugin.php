@@ -170,8 +170,11 @@ class Plugin {
         $roles_found = self::processMemberships($results_array["memberships"]);
         error_log('CILogon Plugin: Roles found: ' . print_r($roles_found, true));
 
-        // synchronise with BuddyPress
-        self::kc_sync_bp_member_types_for_username($user, $roles_found);
+        // Synchronise with BuddyPress. Pass the raw membership array
+        // (e.g. MLA => '', MSU => 1) — processMemberships() wraps every
+        // entry in a non-empty status array, which would defeat the
+        // empty()-based set/remove decision.
+        self::kc_sync_bp_member_types_for_username($user, $results_array["memberships"]);
 
         // set user data
         self::setUserData($results_array, $user);
