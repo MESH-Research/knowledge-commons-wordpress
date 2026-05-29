@@ -436,43 +436,29 @@ class Plugin {
             'dhri',
         ];
 
-        // What the API says this user should have.
-        $desired_types = array_map('strtolower', array_keys(array_filter($memberships)));
-        $desired_types = array_intersect( array_map('strtolower', $desired_types), $all_known_types ); // safety
+        // The Profiles API returns uppercase keys (MLA, MSU, ...); normalise for lookup.
+        $memberships_lower = array_change_key_case( $memberships, CASE_LOWER );
 
-        // What they currently have in BuddyPress.
-        // Passing false gives all types; can be string, array, or false.
-        $current_types = bp_get_member_type( $user_id, false );
-        if ( ! is_array( $current_types ) ) {
-            $current_types = $current_types ? [ $current_types ] : [];
-        }
+        error_log( 'CILogon Plugin: normalised memberships: ' . var_export( $memberships_lower, true ) );
 
-        error_log('Current types: ' . var_export($current_types, true));
-        error_log('Desired types: ' . var_export($desired_types, true));
-
-        // Add missing types.
-        foreach ( $desired_types as $type ) {
-            error_log( sprintf( 'Checking: %s for addition', $type ) );
-            if ( ! in_array( $type, $current_types, true ) ) {
-                // append = true means "add, don't overwrite existing types"
-                bp_set_member_type( $user_id, $type, true );
-                error_log( sprintf( 'Added: %s', $type ) );
-            }
-        }
-
-        // Remove types that are no longer valid.
         foreach ( $all_known_types as $type ) {
-            error_log( sprintf( 'Checking: %s for removal', $type ) );
-            if ( in_array( $type, $current_types, true ) && ! in_array( $type, $desired_types, true ) && $type != "hc") {
+            // hc is always set at the end; never remove it.
+            if ( $type === 'hc' ) {
+                continue;
+            }
+
+            if ( ! empty( $memberships_lower[ $type ] ) ) {
+                bp_set_member_type( $user_id, $type, true );
+                error_log( sprintf( 'CILogon Plugin: set member type: %s', $type ) );
+            } else {
                 bp_remove_member_type( $user_id, $type );
-                // Alternatively: bp_set_member_type( $user_id, '' ) to clear ALL, but here we just remove one.
-                error_log( sprintf( 'Removed: %s', $type ) );
+                error_log( sprintf( 'CILogon Plugin: removed member type: %s', $type ) );
             }
         }
 
-        // always set hc
-        bp_set_member_type( $user_id, "hc", true );
-
+        // Every authenticated user gets the hc member type.
+        bp_set_member_type( $user_id, 'hc', true );
+        error_log( 'CILogon Plugin: set member type: hc' );
     }
 
     public static function sync_user($username) {

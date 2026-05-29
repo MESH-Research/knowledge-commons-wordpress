@@ -924,6 +924,59 @@ if (!function_exists('bp_core_delete_existing_avatar')) {
     }
 }
 
+// BuddyPress member-type mocks (used by MemberTypeSyncTest).
+// Captured into globals so tests can assert which types were set/removed.
+if (!function_exists('bp_set_member_type')) {
+    function bp_set_member_type($user_id, $type, $append = false) {
+        $GLOBALS['_bp_set_calls'][] = [
+            'user_id' => $user_id,
+            'type'    => $type,
+            'append'  => $append,
+        ];
+        if ($append) {
+            $existing = $GLOBALS['_bp_current_types'] ?? [];
+            if (!is_array($existing)) {
+                $existing = $existing ? [$existing] : [];
+            }
+            if (!in_array($type, $existing, true)) {
+                $existing[] = $type;
+            }
+            $GLOBALS['_bp_current_types'] = $existing;
+        } else {
+            $GLOBALS['_bp_current_types'] = [$type];
+        }
+        return true;
+    }
+}
+
+if (!function_exists('bp_remove_member_type')) {
+    function bp_remove_member_type($user_id, $type) {
+        $GLOBALS['_bp_remove_calls'][] = [
+            'user_id' => $user_id,
+            'type'    => $type,
+        ];
+        $existing = $GLOBALS['_bp_current_types'] ?? [];
+        if (!is_array($existing)) {
+            $existing = $existing ? [$existing] : [];
+        }
+        $GLOBALS['_bp_current_types'] = array_values(array_diff($existing, [$type]));
+        return true;
+    }
+}
+
+if (!function_exists('bp_get_member_type')) {
+    function bp_get_member_type($user_id, $single = true) {
+        $types = $GLOBALS['_bp_current_types'] ?? false;
+        if ($single) {
+            if (is_array($types)) {
+                return $types[0] ?? false;
+            }
+            return $types;
+        }
+        return $types;
+    }
+}
+
 // Include namespaced error_log override to suppress log output during tests
 require_once __DIR__ . '/test-error-log-override.php';
 

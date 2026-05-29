@@ -47,6 +47,9 @@
         <testsuite name="Update Avatar Tests">
             <file>UpdateAvatarTest.php</file>
         </testsuite>
+        <testsuite name="Member Type Sync Tests">
+            <file>MemberTypeSyncTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
