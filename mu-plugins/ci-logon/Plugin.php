@@ -498,7 +498,7 @@ class Plugin {
         ];
 
         // build the endpoint and add filters for overrides
-        $endpoint = trailingslashit($url . 'members') . $username;
+        $endpoint = trailingslashit($url . 'api/v1/members') . $username;
         $endpoint     = apply_filters( 'IDMS/sync_endpoint', $endpoint, $user );
         $request_args = apply_filters( 'IDMS/sync_request_args', $request_args, $user );
 
