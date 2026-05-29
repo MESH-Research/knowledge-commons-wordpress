@@ -104,6 +104,8 @@ add_action('rest_api_init', function () {
                 );
             }
             $username = sanitize_user($params["username"]);
+            error_log('Received signal to update user ' . $username);
+
             Plugin::sync_user($username);
             return ['message' => "SYNC REQUEST FOR " . $username];
         },
