@@ -12,3 +12,4 @@ The `docs` directory contains developer-oriented public documentation specific t
 - [Scripts reference](scripts.md)
 - [Working with Git subtrees](subtrees.md)
 - [Working with user content](user-content.md)
+- [CILogon `resync-all` WP-CLI command](cilogon-resync.md)

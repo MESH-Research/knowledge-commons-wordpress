@@ -50,6 +50,9 @@
         <testsuite name="Member Type Sync Tests">
             <file>MemberTypeSyncTest.php</file>
         </testsuite>
+        <testsuite name="Resync Command Tests">
+            <file>ResyncCommandTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

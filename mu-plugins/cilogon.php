@@ -37,6 +37,15 @@ if (!defined('CILOGON_DEBUG')) {
 require_once CILOGON_MU_DIR . '/Plugin.php';
 require_once CILOGON_MU_DIR . '/BrokerAuth.php';
 
+// Register the resync-all WP-CLI command.
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+    require_once CILOGON_MU_DIR . '/ResyncCommand.php';
+    WP_CLI::add_command( 'cilogon resync-all', function ( $args, $assoc_args ) {
+        $cmd = new \MeshResearch\CILogon\ResyncCommand();
+        $cmd->run( $assoc_args );
+    } );
+}
+
 // Load translations for MU plugins.
 add_action('muplugins_loaded', function () {
     // e.g., languages at: wp-content/mu-plugins/ci-logon/languages/ci-logon-xx_YY.mo
