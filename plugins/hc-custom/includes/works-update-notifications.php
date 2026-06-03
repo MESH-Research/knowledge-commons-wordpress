@@ -88,6 +88,7 @@ function send_works_update_notification( array $message ) : bool {
 			'Authorization' => 'Bearer ' . WORKS_API_KEY,
 		],
 		'body' => json_encode( $message ),
+		'timeout' => 3,
 	];
 
 	$response = wp_remote_post( $url, $args );
