@@ -228,29 +228,100 @@ class Plugin {
     {
         error_log(sprintf('CILogon Plugin: Updating user info: %s', $results_array["username"]));
 
-        $t = microtime(true);
-        $field_id = xprofile_get_field_id_from_name('Name');
-        BrokerAuth::log_step('setUserData: xprofile_get_field_id_from_name', $t);
+        // Suppress cc-client's IncrementalProfilesProvisioner during login
+        // sync. It registers on both profile_update AND wp_update_user, so it
+        // fires twice per wp_update_user call; xprofile sync + our explicit
+        // wp_update_user below therefore trigger 4 synchronous cc-search
+        // round-trips (~15s each) for ~60s of broker-callback latency. The
+        // full resync command refreshes the search index out-of-band.
+        $suppressed = self::suppress_cc_client_profile_provisioner();
 
-        $t = microtime(true);
-        xprofile_set_field_data($field_id, $user->ID, $results_array["first_name"] . " " . $results_array["last_name"]);
-        BrokerAuth::log_step('setUserData: xprofile_set_field_data', $t);
+        try {
+            $t = microtime(true);
+            $field_id = xprofile_get_field_id_from_name('Name');
+            BrokerAuth::log_step('setUserData: xprofile_get_field_id_from_name', $t);
 
-        // set other user features
-        $update_data = [
-            'ID' => $user->ID,
-            'first_name' => $results_array["first_name"],
-            'last_name' => $results_array["last_name"],
-            'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
-        ];
+            $t = microtime(true);
+            xprofile_set_field_data($field_id, $user->ID, $results_array["first_name"] . " " . $results_array["last_name"]);
+            BrokerAuth::log_step('setUserData: xprofile_set_field_data', $t);
 
-        if (!empty($results_array["email"])) {
-            $update_data['user_email'] = $results_array["email"];
+            // set other user features
+            $update_data = [
+                'ID' => $user->ID,
+                'first_name' => $results_array["first_name"],
+                'last_name' => $results_array["last_name"],
+                'display_name' => $results_array["first_name"] . " " . $results_array["last_name"],
+            ];
+
+            if (!empty($results_array["email"])) {
+                $update_data['user_email'] = $results_array["email"];
+            }
+
+            $t = microtime(true);
+            wp_update_user($update_data);
+            BrokerAuth::log_step('setUserData: wp_update_user', $t);
+        } finally {
+            self::restore_cc_client_profile_provisioner($suppressed);
+        }
+    }
+
+    /**
+     * Detach every IncrementalProfilesProvisioner callback currently
+     * registered on profile_update / wp_update_user, returning a payload
+     * suitable for restore_cc_client_profile_provisioner() to put them back.
+     *
+     * @return array<int, array{hook:string, priority:int, function:callable, accepted_args:int}>
+     */
+    private static function suppress_cc_client_profile_provisioner(): array
+    {
+        global $wp_filter;
+        $target_class = 'MeshResearch\\CCClient\\Search\\Provisioning\\IncrementalProfilesProvisioner';
+        $hooks = ['profile_update', 'wp_update_user'];
+        $to_remove = [];
+
+        foreach ($hooks as $hook) {
+            if (!isset($wp_filter[$hook]) || !($wp_filter[$hook] instanceof \WP_Hook)) {
+                continue;
+            }
+            foreach ($wp_filter[$hook]->callbacks as $priority => $callbacks) {
+                foreach ($callbacks as $cb) {
+                    if (
+                        is_array($cb['function'])
+                        && is_object($cb['function'][0])
+                        && $cb['function'][0] instanceof $target_class
+                    ) {
+                        $to_remove[] = [
+                            'hook' => $hook,
+                            'priority' => (int) $priority,
+                            'function' => $cb['function'],
+                            'accepted_args' => (int) $cb['accepted_args'],
+                        ];
+                    }
+                }
+            }
         }
 
-        $t = microtime(true);
-        wp_update_user($update_data);
-        BrokerAuth::log_step('setUserData: wp_update_user', $t);
+        foreach ($to_remove as $item) {
+            remove_action($item['hook'], $item['function'], $item['priority']);
+            error_log(sprintf(
+                'CILogon Plugin: suppressed cc-client provisioner on %s (priority %d) for sync',
+                $item['hook'],
+                $item['priority']
+            ));
+        }
+
+        return $to_remove;
+    }
+
+    /**
+     * Re-add every callback previously removed by
+     * suppress_cc_client_profile_provisioner().
+     */
+    private static function restore_cc_client_profile_provisioner(array $suppressed): void
+    {
+        foreach ($suppressed as $item) {
+            add_action($item['hook'], $item['function'], $item['priority'], $item['accepted_args']);
+        }
     }
 
     /**
