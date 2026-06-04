@@ -96,7 +96,7 @@ jobs:
 
   deploy-staging:
     name: Force Redeploy to Staging
-    if: github.ref_name == 'wordpress-cilogon'
+    if: github.ref_name == 'dev'
     needs: [build-nginx, build-app]
     runs-on: ubuntu-latest
     permissions:
