@@ -91,7 +91,10 @@ function send_works_update_notification( array $message ) : bool {
 		'timeout' => 3,
 	];
 
+	error_log( sprintf( 'Works webhook TIMING: POST %s starting (timeout arg=%ss)', $url, $args['timeout'] ) );
+	$t_http = microtime( true );
 	$response = wp_remote_post( $url, $args );
+	error_log( sprintf( 'Works webhook TIMING: POST %s returned in %.3fs', $url, microtime( true ) - $t_http ) );
 
 	if ( is_wp_error( $response ) ) {
 		trigger_error( 'Works update notification failed: ' . $response->get_error_message(), E_USER_WARNING );
