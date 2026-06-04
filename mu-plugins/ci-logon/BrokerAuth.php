@@ -23,13 +23,6 @@ class BrokerAuth
 {
     private array $config;
 
-    /**
-     * Wall-clock time (microtime float) when /broker-callback/ was entered.
-     * Used by log_step() to compute total elapsed since handler entry.
-     * Public so Plugin::sync_user() etc. can include it in their timing logs.
-     */
-    public static float $t_request_start = 0.0;
-
     private const SESSION_COOKIE_NAME = 'cilogon_auth_session_id';
     private const SESSION_EXPIRATION = 3600;
 
@@ -78,36 +71,8 @@ class BrokerAuth
             return;
         }
 
-        self::$t_request_start = microtime(true);
-        $has_token = !empty($_GET['broker_token']);
-        $no_session = isset($_GET['no_session']);
-        error_log(sprintf(
-            'BrokerAuth TIMING: ENTER /broker-callback/ has_token=%s no_session=%s uri=%s',
-            $has_token ? 'yes' : 'no',
-            $no_session ? 'yes' : 'no',
-            $request_uri
-        ));
-
         $this->handle_broker_callback();
-        self::log_step('handle_broker_callback total', self::$t_request_start);
         $this->terminate();
-    }
-
-    /**
-     * Log a single timed step. Emits step duration and total elapsed since
-     * /broker-callback/ entry (or 0 if called outside that context).
-     */
-    public static function log_step(string $step, float $step_start): void
-    {
-        $now = microtime(true);
-        $step_dur = $now - $step_start;
-        $total = self::$t_request_start > 0 ? $now - self::$t_request_start : 0.0;
-        error_log(sprintf(
-            'BrokerAuth TIMING: %s dur=%.3fs total=%.3fs',
-            $step,
-            $step_dur,
-            $total
-        ));
     }
 
     // =========================================================================
@@ -206,13 +171,9 @@ class BrokerAuth
     {
         // Handle no-session response from silent SSO check
         if (isset($_GET['no_session'])) {
-            $t = microtime(true);
             $stored_url = $this->getSessionValue('broker_sso_return_url');
             $this->unsetSessionValue('broker_sso_return_url');
-            self::log_step('no_session: session read+clear', $t);
-            $t = microtime(true);
             wp_safe_redirect($stored_url ?: home_url());
-            self::log_step('no_session: wp_safe_redirect', $t);
             return;
         }
 
@@ -224,25 +185,15 @@ class BrokerAuth
         }
 
         // Decrypt
-        $t = microtime(true);
         $payload = self::decrypt_broker_token($broker_token, $this->config['profiles_api_bearer_token']);
-        self::log_step('decrypt_broker_token', $t);
         if ($payload === null) {
             error_log('BrokerAuth: Failed to decrypt broker token');
             wp_die('Authentication error: invalid broker token.');
             return;
         }
-        error_log(sprintf(
-            'BrokerAuth TIMING: payload decoded user=%s exp=%s nonce_len=%d',
-            $payload['kc_username'] ?? '?',
-            $payload['exp'] ?? '?',
-            isset($payload['nonce']) ? strlen((string) $payload['nonce']) : 0
-        ));
 
         // Validate
-        $t = microtime(true);
         $valid = $this->validate_broker_payload($payload);
-        self::log_step('validate_broker_payload', $t);
         if (is_wp_error($valid)) {
             error_log('BrokerAuth: Payload validation failed: ' . $valid->get_error_message());
             wp_die('Authentication error: ' . esc_html($valid->get_error_message()));
@@ -250,19 +201,14 @@ class BrokerAuth
         }
 
         // Verify nonce
-        $t = microtime(true);
-        $nonce_ok = $this->verify_nonce($payload['nonce']);
-        self::log_step('verify_nonce (full method)', $t);
-        if (!$nonce_ok) {
+        if (!$this->verify_nonce($payload['nonce'])) {
             error_log('BrokerAuth: Nonce verification failed');
             wp_die('Authentication error: nonce verification failed.');
             return;
         }
 
         // Find or create user
-        $t = microtime(true);
         $user = $this->find_or_create_user($payload);
-        self::log_step('find_or_create_user (full method)', $t);
         if (is_wp_error($user)) {
             error_log('BrokerAuth: User creation failed: ' . $user->get_error_message());
             wp_die('Authentication error: ' . esc_html($user->get_error_message()));
@@ -270,14 +216,10 @@ class BrokerAuth
         }
 
         // Sync user data from Profiles
-        $t = microtime(true);
         Plugin::sync_user($user->user_login);
-        self::log_step('Plugin::sync_user (post-find_or_create call)', $t);
 
         // Log user in (pass payload so synchronise_user can read final_redirect)
-        $t = microtime(true);
         $this->synchronise_user($user, $payload);
-        self::log_step('synchronise_user (full method)', $t);
     }
 
     // =========================================================================
@@ -363,14 +305,7 @@ class BrokerAuth
             'body' => wp_json_encode(['nonce' => $nonce]),
         ];
 
-        error_log(sprintf(
-            'BrokerAuth TIMING: verify_nonce HTTP POST starting endpoint=%s timeout=%ds',
-            $endpoint,
-            $args['timeout']
-        ));
-        $t_http = microtime(true);
         $response = wp_remote_post($endpoint, $args);
-        self::log_step('verify_nonce: wp_remote_post', $t_http);
 
         if (is_wp_error($response)) {
             error_log('BrokerAuth: Nonce verify request failed: ' . $response->get_error_message());
@@ -378,15 +313,12 @@ class BrokerAuth
         }
 
         $code = (int) wp_remote_retrieve_response_code($response);
-        error_log(sprintf('BrokerAuth TIMING: verify_nonce HTTP response code=%d', $code));
         if ($code < 200 || $code >= 300) {
             error_log('BrokerAuth: Nonce verify returned HTTP ' . $code);
             return false;
         }
 
-        $t_parse = microtime(true);
         $body = json_decode(wp_remote_retrieve_body($response), true);
-        self::log_step('verify_nonce: response parse', $t_parse);
         return isset($body['valid']) && $body['valid'] === true;
     }
 
@@ -397,10 +329,7 @@ class BrokerAuth
     public function find_or_create_user(array $payload): WP_User|WP_Error
     {
         $username = $payload['kc_username'];
-
-        $t = microtime(true);
         $user = get_user_by('login', $username);
-        self::log_step('find_or_create_user: get_user_by login', $t);
 
         if ($user instanceof WP_User) {
             error_log('BrokerAuth: Found existing user: ' . $user->ID);
@@ -425,9 +354,7 @@ class BrokerAuth
             'role' => 'subscriber',
         ];
 
-        $t = microtime(true);
         $user_id = wp_insert_user($user_data);
-        self::log_step('find_or_create_user: wp_insert_user', $t);
 
         if (is_wp_error($user_id)) {
             error_log('BrokerAuth: Failed to create user: ' . $user_id->get_error_message());
@@ -435,18 +362,14 @@ class BrokerAuth
         }
 
         error_log('BrokerAuth: Created user with ID: ' . $user_id);
-        $t = microtime(true);
         $user = get_user_by('id', $user_id);
-        self::log_step('find_or_create_user: get_user_by id (post-insert)', $t);
 
         if (!$user) {
             return new WP_Error('broker_user_creation_failed', 'User created but could not be retrieved');
         }
 
         // Trigger full sync from Profiles members API
-        $t = microtime(true);
         Plugin::sync_user($user->user_login);
-        self::log_step('find_or_create_user: Plugin::sync_user (NEW USER duplicate of outer call)', $t);
 
         return $user;
     }
@@ -544,13 +467,8 @@ class BrokerAuth
     public function synchronise_user(WP_User $user, array $payload = []): void
     {
         error_log('BrokerAuth: Setting up user session for: ' . $user->user_login);
-        $t = microtime(true);
         wp_set_current_user($user->ID);
-        self::log_step('synchronise_user: wp_set_current_user', $t);
-
-        $t = microtime(true);
         wp_set_auth_cookie($user->ID);
-        self::log_step('synchronise_user: wp_set_auth_cookie', $t);
 
         $redirect_to = home_url();
 

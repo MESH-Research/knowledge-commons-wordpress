@@ -104,9 +104,7 @@ class Plugin {
         }
 
         // decode the JSON
-        $t = microtime(true);
         $json = json_decode($body, true);
-        BrokerAuth::log_step('process_sync: json_decode', $t);
         if (json_last_error() !== JSON_ERROR_NONE) {
             error_log(sprintf('CILogon Plugin: JSON decode error: %s', json_last_error_msg()));
             return false;
@@ -146,9 +144,7 @@ class Plugin {
 
         // so we have no WordPress user but a remote API user
         if (!$user) {
-            $t = microtime(true);
             $user_id = self::createNewWordPressUser($results_array);
-            BrokerAuth::log_step('process_sync: createNewWordPressUser', $t);
 
             if (is_wp_error($user_id)) {
                 error_log('CILogon Plugin: User creation failed: ' . $user_id->get_error_message());
@@ -156,9 +152,7 @@ class Plugin {
             } else {
                 // Success; $user_id is the new user's ID.
                 error_log('CILogon Plugin: User creation succeeded, ID: ' . $user_id);
-                $t = microtime(true);
                 $user = get_user_by('id', $user_id);
-                BrokerAuth::log_step('process_sync: get_user_by id (post-create)', $t);
             }
         }
 
@@ -173,28 +167,20 @@ class Plugin {
             return false;
         }
         error_log('CILogon Plugin: membership array is: ' . print_r($results_array["memberships"], true));
-        $t = microtime(true);
         $roles_found = self::processMemberships($results_array["memberships"]);
-        BrokerAuth::log_step('process_sync: processMemberships', $t);
         error_log('CILogon Plugin: Roles found: ' . print_r($roles_found, true));
 
         // Synchronise with BuddyPress. Pass the raw membership array
         // (e.g. MLA => '', MSU => 1) — processMemberships() wraps every
         // entry in a non-empty status array, which would defeat the
         // empty()-based set/remove decision.
-        $t = microtime(true);
         self::kc_sync_bp_member_types_for_username($user, $results_array["memberships"]);
-        BrokerAuth::log_step('process_sync: kc_sync_bp_member_types_for_username', $t);
 
         // set user data
-        $t = microtime(true);
         self::setUserData($results_array, $user);
-        BrokerAuth::log_step('process_sync: setUserData', $t);
 
         // set superuser status if flag exists in API response
-        $t = microtime(true);
         self::setSuperuserStatusIfFlagExistsInAPIResponse($results_array, $user);
-        BrokerAuth::log_step('process_sync: setSuperuserStatusIfFlagExistsInAPIResponse', $t);
 
         return self::$instance;
     }
@@ -207,14 +193,10 @@ class Plugin {
     public static function setSuperuserStatusIfFlagExistsInAPIResponse(mixed $results_array, \WP_User|bool $user): void
     {
         if (isset($results_array["is_superadmin"]) && $results_array["is_superadmin"]) {
-            $t = microtime(true);
             grant_super_admin($user->ID);
-            BrokerAuth::log_step('setSuperuserStatus: grant_super_admin', $t);
             error_log(sprintf('CILogon Plugin: Updating user to be SUPERADMIN: %s', $results_array["username"]));
         } else {
-            $t = microtime(true);
             revoke_super_admin($user->ID);
-            BrokerAuth::log_step('setSuperuserStatus: revoke_super_admin', $t);
             error_log(sprintf('CILogon Plugin: Updating user, NOT SUPERADMIN: %s', $results_array["username"]));
         }
     }
@@ -237,13 +219,8 @@ class Plugin {
         $suppressed = self::suppress_cc_client_profile_provisioner();
 
         try {
-            $t = microtime(true);
             $field_id = xprofile_get_field_id_from_name('Name');
-            BrokerAuth::log_step('setUserData: xprofile_get_field_id_from_name', $t);
-
-            $t = microtime(true);
             xprofile_set_field_data($field_id, $user->ID, $results_array["first_name"] . " " . $results_array["last_name"]);
-            BrokerAuth::log_step('setUserData: xprofile_set_field_data', $t);
 
             // set other user features
             $update_data = [
@@ -257,9 +234,7 @@ class Plugin {
                 $update_data['user_email'] = $results_array["email"];
             }
 
-            $t = microtime(true);
             wp_update_user($update_data);
-            BrokerAuth::log_step('setUserData: wp_update_user', $t);
         } finally {
             self::restore_cc_client_profile_provisioner($suppressed);
         }
@@ -546,33 +521,25 @@ class Plugin {
                 continue;
             }
 
-            $t = microtime(true);
             if ( ! empty( $memberships_lower[ $type ] ) ) {
                 bp_set_member_type( $user_id, $type, true );
-                BrokerAuth::log_step(sprintf('bp_set_member_type[%s]', $type), $t);
                 error_log( sprintf( 'CILogon Plugin: set member type: %s', $type ) );
             } else {
                 bp_remove_member_type( $user_id, $type );
-                BrokerAuth::log_step(sprintf('bp_remove_member_type[%s]', $type), $t);
                 error_log( sprintf( 'CILogon Plugin: removed member type: %s', $type ) );
             }
         }
 
         // Every authenticated user gets the hc member type.
-        $t = microtime(true);
         bp_set_member_type( $user_id, 'hc', true );
-        BrokerAuth::log_step('bp_set_member_type[hc]', $t);
         error_log( 'CILogon Plugin: set member type: hc' );
     }
 
     public static function sync_user($username) {
-        $t_method = microtime(true);
         error_log(sprintf( 'CILogon Plugin: Attempting sync for: %s', $username ) );
 
         // get the WordPress user
-        $t = microtime(true);
         $user = get_user_by( 'login', $username );
-        BrokerAuth::log_step('sync_user: get_user_by login', $t);
 
         // if there is no user, we may have to create one later
         if ( ! $user ) {
@@ -599,27 +566,17 @@ class Plugin {
 
         // make the request
         error_log( sprintf( 'CILogon Plugin: GET %s (timeout=%ds) …', $endpoint, $timeout ) );
-        $t_http = microtime(true);
         $res = wp_remote_get( $endpoint, $request_args );
-        BrokerAuth::log_step('sync_user: wp_remote_get', $t_http);
 
         if ( is_wp_error( $res ) ) {
             error_log( sprintf( 'CILogon Plugin: HTTP request failed: %s', $res->get_error_message() ) );
-            BrokerAuth::log_step('sync_user (full method, errored)', $t_method);
             return false;
         }
 
         // extract the response code and body
         $code = (int) wp_remote_retrieve_response_code( $res );
         $body = (string) wp_remote_retrieve_body( $res );
-        error_log(sprintf('CILogon Plugin TIMING: sync_user HTTP code=%d body_len=%d', $code, strlen($body)));
-
-        $t_proc = microtime(true);
-        $result = self::process_sync($code, $body, $username, $user);
-        BrokerAuth::log_step('sync_user: process_sync', $t_proc);
-
-        BrokerAuth::log_step('sync_user (full method)', $t_method);
-        return $result;
+        return self::process_sync($code, $body, $username, $user);
     }
 
     /**
