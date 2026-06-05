@@ -1,4 +1,11 @@
-# Build container and push to AWS ECR
+# Build container images and push to AWS ECR.
+#
+# On every push to main/production/dev/staging, builds the nginx and app
+# images in parallel and tags them with the branch name plus a unique
+# build tag (vX.Y.Z-<sha7>). On main, also computes the next semantic
+# version with commitizen, tags the image with that version (and :latest),
+# and — only after both image pushes succeed — commits and pushes the
+# version bump back to main so a failed build never strands a bump.
 
 on:
   push:
@@ -6,18 +13,86 @@ on:
       - main
       - production
       - dev
-      - wordpress-cilogon
+      - staging
 
 name: AWS ECR Build & Push
 
 env:
-  BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
   ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
+  prepare-version:
+    name: Prepare version
+    runs-on: ubuntu-24.04-arm
+    # Skip the whole workflow for bump: commits — the bump only mutates
+    # version files we already built in the run that produced it. Without
+    # this guard the workflow would recurse on every release.
+    if: ${{ !startsWith(github.event.head_commit.message, 'bump:') }}
+    outputs:
+      version: ${{ steps.compute.outputs.version }}
+      version_tag: ${{ steps.compute.outputs.version_tag }}
+      build_tag: ${{ steps.compute.outputs.build_tag }}
+      branch: ${{ steps.compute.outputs.branch }}
+      bumped: ${{ steps.bump.outputs.bumped }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up Python
+        if: github.ref_name == 'main'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compute next version with commitizen (main only)
+        id: bump
+        if: github.ref_name == 'main'
+        env:
+          COMMITIZEN_VERSION: "4.16.2"
+        run: |
+          python3 -m pip install --user "commitizen==${COMMITIZEN_VERSION}"
+          CURRENT_VERSION=$(cat VERSION | tr -d '[:space:]')
+          set +e
+          NEXT_VERSION=$("$HOME/.local/bin/cz" bump --get-next 2>/dev/null)
+          EXIT_CODE=$?
+          set -e
+          if [ "$EXIT_CODE" = "0" ] && [ -n "$NEXT_VERSION" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ]; then
+            echo "bumped=true" >> "$GITHUB_OUTPUT"
+            echo "next_version=$NEXT_VERSION" >> "$GITHUB_OUTPUT"
+            echo "Will bump $CURRENT_VERSION -> $NEXT_VERSION"
+          else
+            # Exit 21 = NoCommitsFoundError; exit 0 with same version means
+            # nothing semantic to bump (e.g. only chore: / docs: commits).
+            echo "bumped=false" >> "$GITHUB_OUTPUT"
+            echo "next_version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+            echo "No bump needed (exit=$EXIT_CODE next=$NEXT_VERSION current=$CURRENT_VERSION)"
+          fi
+
+      - name: Compute version + build tag
+        id: compute
+        run: |
+          if [ "${{ steps.bump.outputs.bumped }}" = "true" ]; then
+            VERSION="${{ steps.bump.outputs.next_version }}"
+          else
+            VERSION=$(cat VERSION | tr -d '[:space:]')
+          fi
+          SHORT_SHA="$(git rev-parse --short=7 HEAD)"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "version_tag=v${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "build_tag=v${VERSION}-${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+          echo "branch=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+
   build-nginx:
     name: Build and Push Nginx
     runs-on: ubuntu-24.04-arm
+    needs: prepare-version
     permissions:
       id-token: write
       contents: read
@@ -42,6 +117,20 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Compute image tags
+        id: tags
+        env:
+          REPO: ${{ env.ECR_REGISTRY }}/commons-wordpress-nginx
+          BRANCH: ${{ needs.prepare-version.outputs.branch }}
+          VERSION_TAG: ${{ needs.prepare-version.outputs.version_tag }}
+          BUILD_TAG: ${{ needs.prepare-version.outputs.build_tag }}
+        run: |
+          tags="${REPO}:${BRANCH},${REPO}:${BUILD_TAG}"
+          if [ "$BRANCH" = "main" ]; then
+            tags="${tags},${REPO}:${VERSION_TAG},${REPO}:latest"
+          fi
+          echo "tags=${tags}" >> "$GITHUB_OUTPUT"
 
       - name: Build and push nginx image
         uses: docker/build-push-action@v5
@@ -49,13 +138,19 @@ jobs:
           context: .
           file: Dockerfile.nginx
           push: true
-          tags: ${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:${{ env.BRANCH_NAME }}
+          tags: ${{ steps.tags.outputs.tags }}
+          build-args: |
+            APP_VERSION=${{ needs.prepare-version.outputs.version }}
+            BUILD_TAG=${{ needs.prepare-version.outputs.build_tag }}
+            GIT_SHA=${{ github.sha }}
+            APP_BRANCH=${{ needs.prepare-version.outputs.branch }}
           cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache
           cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache,mode=max
 
   build-app:
     name: Build and Push App
     runs-on: ubuntu-24.04-arm
+    needs: prepare-version
     permissions:
       id-token: write
       contents: read
@@ -80,6 +175,20 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Compute image tags
+        id: tags
+        env:
+          REPO: ${{ env.ECR_REGISTRY }}/commons-wordpress-app
+          BRANCH: ${{ needs.prepare-version.outputs.branch }}
+          VERSION_TAG: ${{ needs.prepare-version.outputs.version_tag }}
+          BUILD_TAG: ${{ needs.prepare-version.outputs.build_tag }}
+        run: |
+          tags="${REPO}:${BRANCH},${REPO}:${BUILD_TAG}"
+          if [ "$BRANCH" = "main" ]; then
+            tags="${tags},${REPO}:${VERSION_TAG},${REPO}:latest"
+          fi
+          echo "tags=${tags}" >> "$GITHUB_OUTPUT"
 
       - name: Build and push app image
         uses: docker/build-push-action@v5
@@ -88,8 +197,45 @@ jobs:
           file: Dockerfile.php
           target: cloud
           push: true
-          tags: ${{ env.ECR_REGISTRY }}/commons-wordpress-app:${{ env.BRANCH_NAME }}
+          tags: ${{ steps.tags.outputs.tags }}
           build-args: |
             BASE_IMAGE=${{ env.ECR_REGISTRY }}/commons-wordpress-base:latest
+            APP_VERSION=${{ needs.prepare-version.outputs.version }}
+            BUILD_TAG=${{ needs.prepare-version.outputs.build_tag }}
+            GIT_SHA=${{ github.sha }}
+            APP_BRANCH=${{ needs.prepare-version.outputs.branch }}
           cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache
           cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache,mode=max
+
+  push-bump:
+    name: Commit and push version bump
+    runs-on: ubuntu-24.04-arm
+    needs: [prepare-version, build-nginx, build-app]
+    # Only fires when both image builds succeeded AND prepare-version
+    # decided a bump was warranted — guarantees we never leave a stranded
+    # bump on main from a build that didn't actually produce images.
+    if: needs.prepare-version.outputs.bumped == 'true'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Bump and push
+        env:
+          COMMITIZEN_VERSION: "4.16.2"
+        run: |
+          python3 -m pip install --user "commitizen==${COMMITIZEN_VERSION}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          "$HOME/.local/bin/cz" bump --yes
+          git push origin main --tags

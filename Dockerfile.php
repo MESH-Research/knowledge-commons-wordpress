@@ -57,6 +57,15 @@ FROM lando AS lando-efs
 
 FROM ${BASE_IMAGE} AS cloud
 
+# Build-time version metadata — consumed by the late "write version.json"
+# step. Declared here so the ARGs are in scope; only the layer that uses them
+# (near the end of this stage) is invalidated when the values change, so
+# cache stays warm across builds with new versions.
+ARG APP_VERSION=dev
+ARG BUILD_TAG=dev
+ARG GIT_SHA=unknown
+ARG APP_BRANCH=unknown
+
 RUN apk add npm
 
 # --- Directory structure (rarely changes) ---
@@ -143,6 +152,14 @@ RUN touch /etc/environment && \
     touch /etc/profile && \
     chown root:www-data /etc/profile && \
     chmod 664 /etc/profile
+
+# --- Build-version manifest (last RUN so version changes don't invalidate
+#     earlier layers). Served from /app/site/web/.version.php which reads
+#     this file at request time. ---
+RUN printf '{"version":"%s","build":"%s","sha":"%s","branch":"%s"}\n' \
+        "${APP_VERSION}" "${BUILD_TAG}" "${GIT_SHA}" "${APP_BRANCH}" \
+        > /app/site/web/.version.json && \
+    chown www-data:www-data /app/site/web/.version.json
 
 ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"]
 CMD ["php-fpm"]
