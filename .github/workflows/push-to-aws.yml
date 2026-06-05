@@ -89,9 +89,21 @@ jobs:
             VERSION=$(cat VERSION | tr -d '[:space:]')
           fi
           SHORT_SHA="$(git rev-parse --short=7 HEAD)"
+          # Branch-prefix the build_tag on non-main branches so each branch
+          # gets a uniquely-named docker tag — otherwise dev / staging /
+          # production all built at the same SHA would race for the same
+          # v<version>-<sha> tag and only the last push would keep it.
+          # Main stays as v<version>-<sha> because it's the canonical owner
+          # of the release version line; the branch name is communicated
+          # via the existing :main, :v<version>, and :latest tags.
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            BUILD_TAG="v${VERSION}-${SHORT_SHA}"
+          else
+            BUILD_TAG="${GITHUB_REF_NAME}-v${VERSION}-${SHORT_SHA}"
+          fi
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "version_tag=v${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "build_tag=v${VERSION}-${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+          echo "build_tag=${BUILD_TAG}" >> "$GITHUB_OUTPUT"
           echo "branch=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
 
   build-nginx:
