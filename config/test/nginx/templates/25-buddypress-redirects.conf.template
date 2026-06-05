@@ -1,0 +1,11 @@
+# this has to be ordered after 20-buddypress.conf.template has been loaded
+
+# Member profile redirects to new Profiles application
+location /members/ {
+        return 301 https://profile.hcommons-test.org$request_uri;
+}
+
+# Member registration page redirects to new Profiles application
+location /membership/ {
+        return 301 https://profile.hcommons-test.org/registration/start/;
+}
