@@ -155,6 +155,11 @@ jobs:
           context: .
           file: Dockerfile.nginx
           push: true
+          # Disable provenance/SBOM attestations — they get pushed as
+          # separate OCI artifacts that show up as untagged images in
+          # ECR (see aws/containers-roadmap#1596).
+          provenance: false
+          sbom: false
           tags: ${{ steps.tags.outputs.tags }}
           build-args: |
             APP_VERSION=${{ needs.prepare-version.outputs.version }}
@@ -214,6 +219,11 @@ jobs:
           file: Dockerfile.php
           target: cloud
           push: true
+          # Disable provenance/SBOM attestations — they get pushed as
+          # separate OCI artifacts that show up as untagged images in
+          # ECR (see aws/containers-roadmap#1596).
+          provenance: false
+          sbom: false
           tags: ${{ steps.tags.outputs.tags }}
           build-args: |
             BASE_IMAGE=${{ env.ECR_REGISTRY }}/commons-wordpress-base:latest
