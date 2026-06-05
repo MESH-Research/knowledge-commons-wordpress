@@ -170,14 +170,15 @@ jobs:
           cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache,mode=max
 
       - name: Label nginx cache manifest
-        # Buildkit only applies :cache to the cache manifest, which ECR
-        # renders as an untagged "Other" artifact in the console. Re-put
-        # the same manifest with three build-unique identifying tags
-        # (do-not-deploy-<id>, build-cache-file-<id>, build-cache-<id>).
+        # Buildkit only applies :cache to the cache config manifest,
+        # which ECR renders as an untagged "Other" artifact in the
+        # console. Re-put the same manifest with two build-unique
+        # identifying tags (do-not-deploy-<id>, build-cache-<id>).
         # Buildkit's :cache tag is preserved untouched so cache-from
-        # continues to resolve. Cache manifests accumulate one per build
-        # — prune via an ECR lifecycle policy on the matching prefixes
-        # if storage growth becomes an issue.
+        # continues to resolve. Cache manifests accumulate one entry
+        # per build — prune via an ECR lifecycle policy on the
+        # do-not-deploy-*/build-cache-* prefixes if storage growth
+        # becomes an issue.
         env:
           REPO: commons-wordpress-nginx
           BUILD_TAG: ${{ needs.prepare-version.outputs.build_tag }}
@@ -193,7 +194,7 @@ jobs:
             --image-ids imageTag=cache \
             --query 'images[0].imageManifestMediaType' \
             --output text)
-          for tag in "do-not-deploy-${BUILD_TAG}" "build-cache-file-${BUILD_TAG}" "build-cache-${BUILD_TAG}"; do
+          for tag in "do-not-deploy-${BUILD_TAG}" "build-cache-${BUILD_TAG}"; do
             aws ecr put-image \
               --repository-name "$REPO" \
               --image-manifest "$MANIFEST" \
@@ -286,7 +287,7 @@ jobs:
             --image-ids imageTag=cache \
             --query 'images[0].imageManifestMediaType' \
             --output text)
-          for tag in "do-not-deploy-${BUILD_TAG}" "build-cache-file-${BUILD_TAG}" "build-cache-${BUILD_TAG}"; do
+          for tag in "do-not-deploy-${BUILD_TAG}" "build-cache-${BUILD_TAG}"; do
             aws ecr put-image \
               --repository-name "$REPO" \
               --image-manifest "$MANIFEST" \
