@@ -169,6 +169,41 @@ jobs:
           cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache
           cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache,mode=max
 
+      - name: Label nginx cache manifest
+        # Buildkit only applies :cache to the cache manifest, which ECR
+        # renders as an untagged "Other" artifact in the console. Re-put
+        # the same manifest with three build-unique identifying tags
+        # (do-not-deploy-<id>, build-cache-file-<id>, build-cache-<id>).
+        # Buildkit's :cache tag is preserved untouched so cache-from
+        # continues to resolve. Cache manifests accumulate one per build
+        # — prune via an ECR lifecycle policy on the matching prefixes
+        # if storage growth becomes an issue.
+        env:
+          REPO: commons-wordpress-nginx
+          BUILD_TAG: ${{ needs.prepare-version.outputs.build_tag }}
+        run: |
+          set -euo pipefail
+          MANIFEST=$(aws ecr batch-get-image \
+            --repository-name "$REPO" \
+            --image-ids imageTag=cache \
+            --query 'images[0].imageManifest' \
+            --output text)
+          MEDIA_TYPE=$(aws ecr batch-get-image \
+            --repository-name "$REPO" \
+            --image-ids imageTag=cache \
+            --query 'images[0].imageManifestMediaType' \
+            --output text)
+          for tag in "do-not-deploy-${BUILD_TAG}" "build-cache-file-${BUILD_TAG}" "build-cache-${BUILD_TAG}"; do
+            aws ecr put-image \
+              --repository-name "$REPO" \
+              --image-manifest "$MANIFEST" \
+              --image-manifest-media-type "$MEDIA_TYPE" \
+              --image-tag "$tag" \
+              >/dev/null 2>&1 \
+              && echo "  + applied tag :$tag to nginx cache" \
+              || echo "  · tag :$tag already on this manifest (no-op)"
+          done
+
   build-app:
     name: Build and Push App
     runs-on: ubuntu-24.04-arm
@@ -233,6 +268,34 @@ jobs:
             APP_BRANCH=${{ needs.prepare-version.outputs.branch }}
           cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache
           cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-app:cache,mode=max
+
+      - name: Label app cache manifest
+        # See "Label nginx cache manifest" for rationale.
+        env:
+          REPO: commons-wordpress-app
+          BUILD_TAG: ${{ needs.prepare-version.outputs.build_tag }}
+        run: |
+          set -euo pipefail
+          MANIFEST=$(aws ecr batch-get-image \
+            --repository-name "$REPO" \
+            --image-ids imageTag=cache \
+            --query 'images[0].imageManifest' \
+            --output text)
+          MEDIA_TYPE=$(aws ecr batch-get-image \
+            --repository-name "$REPO" \
+            --image-ids imageTag=cache \
+            --query 'images[0].imageManifestMediaType' \
+            --output text)
+          for tag in "do-not-deploy-${BUILD_TAG}" "build-cache-file-${BUILD_TAG}" "build-cache-${BUILD_TAG}"; do
+            aws ecr put-image \
+              --repository-name "$REPO" \
+              --image-manifest "$MANIFEST" \
+              --image-manifest-media-type "$MEDIA_TYPE" \
+              --image-tag "$tag" \
+              >/dev/null 2>&1 \
+              && echo "  + applied tag :$tag to app cache" \
+              || echo "  · tag :$tag already on this manifest (no-op)"
+          done
 
   push-bump:
     name: Commit and push version bump
