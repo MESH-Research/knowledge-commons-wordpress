@@ -14,6 +14,7 @@ on:
       - production
       - dev
       - staging
+  workflow_dispatch:
 
 name: AWS ECR Build & Push
 
@@ -28,10 +29,14 @@ jobs:
   prepare-version:
     name: Prepare version
     runs-on: ubuntu-24.04-arm
-    # Skip the whole workflow for bump: commits — the bump only mutates
-    # version files we already built in the run that produced it. Without
-    # this guard the workflow would recurse on every release.
-    if: ${{ !startsWith(github.event.head_commit.message, 'bump:') }}
+    # Skip only when main is being pushed by its own auto-generated bump
+    # commit — without this guard the bump push would recurse into another
+    # build/bump cycle. Bump: commits propagated to other branches
+    # (dev/production/staging) by ff-merge ARE a release on that environment
+    # and must still build, so the skip is scoped to main. workflow_dispatch
+    # never has a head_commit, so this expression is also safe under manual
+    # triggers.
+    if: ${{ github.event_name != 'push' || !(github.ref_name == 'main' && startsWith(github.event.head_commit.message, 'bump:')) }}
     outputs:
       version: ${{ steps.compute.outputs.version }}
       version_tag: ${{ steps.compute.outputs.version_tag }}
