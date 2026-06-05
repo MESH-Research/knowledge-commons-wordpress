@@ -8,5 +8,5 @@ server {
      return 301 https://hastac.${DOMAIN_NAME};
   }
  
-  include /etc/nginx/conf.d/hastac-redirects.conf;
+  include /etc/nginx/conf.d/40-hastac-redirects.conf;
 }

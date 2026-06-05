@@ -85,8 +85,10 @@ server {
   }
   rewrite ^/app/uploads/sites/[0-9]+/bp-attachments/([0-9]+)/(.*) https://$http_host/?p=$1&bp-attachment=$2;
 
-  include /etc/nginx/conf.d/redirects.conf;
-  include /etc/nginx/conf.d/core-works-redirects.conf;
+  include /etc/nginx/conf.d/20-buddypress.conf;
+  include /etc/nginx/conf.d/25*.conf;
+  include /etc/nginx/conf.d/30-core-works-redirects.conf;
+  include /etc/nginx/conf.d/40-redirects.conf;
 
   location /core/ {
   	return 301 https://works.hcommons.org;
