@@ -110,7 +110,7 @@ assert_not_redirected_to_profiles() {
     code="${out%%	*}"
     location="${out#*	}"
     case "$location" in
-        https://profile.*)
+        https://profile.*|https://*.profile.*)
             FAIL=$((FAIL + 1))
             echo "FAIL [$env] $host$path unexpectedly redirected to $location"
             ;;
@@ -128,21 +128,22 @@ for env in "${ENVS[@]}"; do
 
     start_nginx "$env" "$domain" || { FAIL=$((FAIL + 1)); continue; }
 
-    # Network subdomain: members directory is scoped to the network.
+    # Network subdomain: members directory is scoped to the network via a
+    # matching subdomain on the Profiles host.
     assert_redirect "$env" "stemedplus.$domain" "/members/" \
-        "https://$profile/network/stemedplus/members/"
+        "https://stemedplus.$profile/members/"
 
-    # Deeper member path keeps the full request URI after the network prefix.
+    # Deeper member path keeps the full request URI.
     assert_redirect "$env" "stemedplus.$domain" "/members/somebody/" \
-        "https://$profile/network/stemedplus/members/somebody/"
+        "https://stemedplus.$profile/members/somebody/"
 
     # Query strings survive the redirect.
     assert_redirect "$env" "stemedplus.$domain" "/members/?page=2" \
-        "https://$profile/network/stemedplus/members/?page=2"
+        "https://stemedplus.$profile/members/?page=2"
 
     # A site within a network still resolves to the network.
     assert_redirect "$env" "asite.stemedplus.$domain" "/members/" \
-        "https://$profile/network/stemedplus/members/"
+        "https://stemedplus.$profile/members/"
 
     # Bare domain (no subdomain): unscoped members directory.
     assert_redirect "$env" "$domain" "/members/" \
