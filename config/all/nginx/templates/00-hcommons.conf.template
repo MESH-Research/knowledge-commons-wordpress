@@ -91,6 +91,12 @@ server {
     deny all;
   }
 
+  # Container healthcheck endpoint
+  location = /healthz {
+      access_log off;
+      return 200 "ok";
+  }
+
   # Prevent BuddyPress docs from being accessed directly.
   location /app/uploads/bp-attachments/ {
     rewrite ^/app/uploads/bp-attachments/([0-9]+)/(.*) https://$http_x_forwarded_host/?p=$1&bp-attachment=$2 permanent;
