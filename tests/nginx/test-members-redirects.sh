@@ -41,18 +41,16 @@ site_domain() {
     esac
 }
 
-# Custom domains that live outside DOMAIN_NAME but belong to a network.
-# These mirror the entries in
+# Custom domains that live outside DOMAIN_NAME but belong to a network,
+# as host=network pairs. These mirror the entries in
 # config/<env>/nginx/templates/05-network-domain-aliases.conf.template.
-alias_domain() {
+alias_entries() {
     case "$1" in
-        production) echo "commons.msu.edu" ;;
-        dev)        echo "msucommons-dev.org" ;;
+        production) echo "commons.msu.edu=msu action.mla.org=mla symposium.mla.org=mla" ;;
+        dev)        echo "msucommons-dev.org=msu" ;;
         *)          echo "" ;;
     esac
 }
-
-ALIAS_NETWORK="msu"
 
 PASS=0
 FAIL=0
@@ -176,21 +174,33 @@ for env in "${ENVS[@]}"; do
 
     # Custom domains listed in 05-network-domain-aliases translate to
     # their network's subdomain on the Profiles host.
-    alias="$(alias_domain "$env")"
-    if [ -n "$alias" ]; then
+    for entry in $(alias_entries "$env"); do
+        alias="${entry%%=*}"
+        network="${entry##*=}"
+
         assert_redirect "$env" "$alias" "/members/" \
-            "https://$ALIAS_NETWORK.$profile/members/"
+            "https://$network.$profile/members/"
 
         assert_redirect "$env" "$alias" "/members/?page=2" \
-            "https://$ALIAS_NETWORK.$profile/members/?page=2"
+            "https://$network.$profile/members/?page=2"
 
         # Sub-sites of the custom domain resolve to the same network.
         assert_redirect "$env" "asite.$alias" "/members/" \
-            "https://$ALIAS_NETWORK.$profile/members/"
+            "https://$network.$profile/members/"
 
         # Member sub-pages on the custom domain stay in WordPress too.
         assert_not_redirected_to_profiles "$env" "$alias" \
             "/members/somebody/activity/"
+    done
+
+    if [ "$env" = "production" ]; then
+        # iteach.msu.edu is wholesale-redirected to iteach.commons.msu.edu
+        # by 40-redirects.conf.template, so it reaches the network-scoped
+        # Profiles redirect in two hops via the .commons.msu.edu alias.
+        assert_redirect "$env" "iteach.msu.edu" "/members/" \
+            "https://iteach.commons.msu.edu/members/"
+        assert_redirect "$env" "iteach.commons.msu.edu" "/members/" \
+            "https://msu.$profile/members/"
     fi
 done
 

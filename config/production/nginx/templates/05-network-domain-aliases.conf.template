@@ -2,4 +2,9 @@
 # config/all/nginx/templates/05-network-domain-aliases.conf.template
 # for the entry format.
 
+# iteach.msu.edu needs no entry: 40-redirects.conf.template redirects it
+# wholesale to iteach.commons.msu.edu, which the .commons.msu.edu entry
+# covers.
 .commons.msu.edu msu;
+.action.mla.org mla;
+.symposium.mla.org mla;
