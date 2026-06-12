@@ -1,0 +1,5 @@
+# Custom-domain -> network aliases for production. See
+# config/all/nginx/templates/05-network-domain-aliases.conf.template
+# for the entry format.
+
+.commons.msu.edu msu;

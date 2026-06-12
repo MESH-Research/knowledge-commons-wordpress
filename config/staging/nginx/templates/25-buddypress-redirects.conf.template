@@ -1,12 +1,13 @@
 # this has to be ordered after 20-buddypress.conf.template has been loaded
 
 # Member profile redirects to new Profiles application.
-# Requests on a network subdomain (captured as $subdomain in
-# 00-hcommons.conf.template) carry the network as a subdomain of the
-# Profiles host so Profiles can scope the member list to that network.
+# Requests belonging to a network (resolved by the $network_subdomain map
+# in 00-hcommons.conf.template, from either the request subdomain or a
+# custom-domain alias) carry the network as a subdomain of the Profiles
+# host so Profiles can scope the member list to that network.
 location /members/ {
-        if ($subdomain) {
-                return 301 https://$subdomain.profile.hcommons-staging.org$request_uri;
+        if ($network_subdomain) {
+                return 301 https://$network_subdomain.profile.hcommons-staging.org$request_uri;
         }
         return 301 https://profile.hcommons-staging.org$request_uri;
 }

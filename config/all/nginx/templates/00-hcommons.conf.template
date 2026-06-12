@@ -10,6 +10,18 @@ map $http_origin $allow_origin {
     default "";
 }
 
+#
+# Resolve the network a request belongs to, for the /members/ redirects to
+# the Profiles application. Hosts on their own (custom) domains are mapped
+# to a network name by the per-environment alias file; every other host
+# falls back to the subdomain captured from the server_name regex below.
+#
+map $host $network_subdomain {
+    hostnames;
+    default $subdomain;
+    include /etc/nginx/conf.d/05-network-domain-aliases.conf;
+}
+
 server {
   listen [::]:80;
   listen 80;

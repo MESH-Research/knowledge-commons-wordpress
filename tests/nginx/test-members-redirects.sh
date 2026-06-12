@@ -41,6 +41,19 @@ site_domain() {
     esac
 }
 
+# Custom domains that live outside DOMAIN_NAME but belong to a network.
+# These mirror the entries in
+# config/<env>/nginx/templates/05-network-domain-aliases.conf.template.
+alias_domain() {
+    case "$1" in
+        production) echo "commons.msu.edu" ;;
+        dev)        echo "msucommons-dev.org" ;;
+        *)          echo "" ;;
+    esac
+}
+
+ALIAS_NETWORK="msu"
+
 PASS=0
 FAIL=0
 
@@ -156,6 +169,29 @@ for env in "${ENVS[@]}"; do
     # Registration redirect is unchanged by the network scoping.
     assert_redirect "$env" "stemedplus.$domain" "/membership/" \
         "https://$profile/registration/start/"
+
+    # A foreign domain with no alias entry gets the unscoped redirect.
+    assert_redirect "$env" "unrelated-domain.org" "/members/" \
+        "https://$profile/members/"
+
+    # Custom domains listed in 05-network-domain-aliases translate to
+    # their network's subdomain on the Profiles host.
+    alias="$(alias_domain "$env")"
+    if [ -n "$alias" ]; then
+        assert_redirect "$env" "$alias" "/members/" \
+            "https://$ALIAS_NETWORK.$profile/members/"
+
+        assert_redirect "$env" "$alias" "/members/?page=2" \
+            "https://$ALIAS_NETWORK.$profile/members/?page=2"
+
+        # Sub-sites of the custom domain resolve to the same network.
+        assert_redirect "$env" "asite.$alias" "/members/" \
+            "https://$ALIAS_NETWORK.$profile/members/"
+
+        # Member sub-pages on the custom domain stay in WordPress too.
+        assert_not_redirected_to_profiles "$env" "$alias" \
+            "/members/somebody/activity/"
+    fi
 done
 
 echo
