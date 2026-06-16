@@ -1,3 +1,16 @@
+## v1.2.0 (2026-06-16)
+
+### Feat
+
+- **kcworks-on-wp**: upgrade kc-works-on-wp to latest version
+- **nginx**: alias MLA custom domains to the mla network
+- **nginx**: map custom domains to network subdomains for Profiles redirects
+- **nginx**: redirect network /members/ to network subdomain of Profiles
+- **nginx**: scope /members/ redirect to network via /network/{subdomain} path
+- **nginx**: add new routing structure
+- **wordpress-core**: initial upgrade to wordpress 7
+- **nginx**: renumber template includes and glob env overlays
+
 ## v1.1.0 (2026-06-05)
 
 ### Feat
