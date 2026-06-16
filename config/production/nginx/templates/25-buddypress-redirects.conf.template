@@ -7,12 +7,12 @@
 # host so Profiles can scope the member list to that network.
 location /members/ {
         if ($network_subdomain) {
-                return 301 https://$network_subdomain.profile.hcommons-dev.org$request_uri;
+                return 301 https://$network_subdomain.profile.hcommons.org$request_uri;
         }
-        return 301 https://profile.hcommons-dev.org$request_uri;
+        return 301 https://profile.hcommons.org$request_uri;
 }
 
 # Member registration page redirects to new Profiles application
 location /membership/ {
-        return 301 https://profile.hcommons-dev.org/registration/start/;
+        return 301 https://profile.hcommons.org/registration/start/;
 }
