@@ -10,6 +10,18 @@ map $http_origin $allow_origin {
     default "";
 }
 
+#
+# Resolve the network a request belongs to, for the /members/ redirects to
+# the Profiles application. Hosts on their own (custom) domains are mapped
+# to a network name by the per-environment alias file; every other host
+# falls back to the subdomain captured from the server_name regex below.
+#
+map $host $network_subdomain {
+    hostnames;
+    default $subdomain;
+    include /etc/nginx/conf.d/05-network-domain-aliases.conf;
+}
+
 server {
   listen [::]:80;
   listen 80;
@@ -79,14 +91,22 @@ server {
     deny all;
   }
 
+  # Container healthcheck endpoint
+  location = /healthz {
+      access_log off;
+      return 200 "ok";
+  }
+
   # Prevent BuddyPress docs from being accessed directly.
   location /app/uploads/bp-attachments/ {
     rewrite ^/app/uploads/bp-attachments/([0-9]+)/(.*) https://$http_x_forwarded_host/?p=$1&bp-attachment=$2 permanent;
   }
   rewrite ^/app/uploads/sites/[0-9]+/bp-attachments/([0-9]+)/(.*) https://$http_host/?p=$1&bp-attachment=$2;
 
-  include /etc/nginx/conf.d/redirects.conf;
-  include /etc/nginx/conf.d/core-works-redirects.conf;
+  include /etc/nginx/conf.d/20-buddypress.conf;
+  include /etc/nginx/conf.d/25*.conf;
+  include /etc/nginx/conf.d/30-core-works-redirects.conf;
+  include /etc/nginx/conf.d/40-redirects.conf;
 
   location /core/ {
   	return 301 https://works.hcommons.org;

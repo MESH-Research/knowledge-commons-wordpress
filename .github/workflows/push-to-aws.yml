@@ -14,6 +14,7 @@ on:
       - production
       - dev
       - staging
+      - test
   workflow_dispatch:
 
 name: AWS ECR Build & Push
@@ -42,6 +43,7 @@ jobs:
       version_tag: ${{ steps.compute.outputs.version_tag }}
       build_tag: ${{ steps.compute.outputs.build_tag }}
       branch: ${{ steps.compute.outputs.branch }}
+      app_env: ${{ steps.compute.outputs.app_env }}
       bumped: ${{ steps.bump.outputs.bumped }}
     steps:
       - name: Checkout
@@ -101,10 +103,20 @@ jobs:
           else
             BUILD_TAG="${GITHUB_REF_NAME}-v${VERSION}-${SHORT_SHA}"
           fi
+          # Map branch -> APP_ENV for the env-aware nginx template overlay.
+          # Known deployment branches map to their canonical env name; any
+          # other branch (including main, feature branches) is passed
+          # through verbatim — the Dockerfile gracefully skips when no
+          # matching config/<env>/nginx/templates dir exists.
+          case "${GITHUB_REF_NAME}" in
+            production|staging|dev|test) APP_ENV="${GITHUB_REF_NAME}" ;;
+            *)                           APP_ENV="${GITHUB_REF_NAME}" ;;
+          esac
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "version_tag=v${VERSION}" >> "$GITHUB_OUTPUT"
           echo "build_tag=${BUILD_TAG}" >> "$GITHUB_OUTPUT"
           echo "branch=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          echo "app_env=${APP_ENV}" >> "$GITHUB_OUTPUT"
 
   build-nginx:
     name: Build and Push Nginx
@@ -166,6 +178,7 @@ jobs:
             BUILD_TAG=${{ needs.prepare-version.outputs.build_tag }}
             GIT_SHA=${{ github.sha }}
             APP_BRANCH=${{ needs.prepare-version.outputs.branch }}
+            APP_ENV=${{ needs.prepare-version.outputs.app_env }}
           cache-from: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache
           cache-to: type=registry,ref=${{ env.ECR_REGISTRY }}/commons-wordpress-nginx:cache,mode=max
 
