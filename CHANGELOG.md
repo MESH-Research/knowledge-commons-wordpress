@@ -1,3 +1,9 @@
+## v1.2.1 (2026-06-18)
+
+### Fix
+
+- **nginx**: allow members settings/notifications sub-pages in buddypress
+
 ## v1.2.0 (2026-06-16)
 
 ### Feat
