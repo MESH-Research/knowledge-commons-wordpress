@@ -54,3 +54,8 @@
     location ~ ^/members/[^/]+/notifications(/|$) {
         try_files $uri $uri/ /index.php?$args;
     }
+
+    # Settings: notifications and all sub-pages
+    location ~ ^/members/[^/]+/settings/notifications(/|$) {
+        try_files $uri $uri/ /index.php?$args;
+    }
