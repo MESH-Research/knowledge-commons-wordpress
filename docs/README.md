@@ -13,3 +13,4 @@ The `docs` directory contains developer-oriented public documentation specific t
 - [Working with Git subtrees](subtrees.md)
 - [Working with user content](user-content.md)
 - [CILogon `resync-all` WP-CLI command](cilogon-resync.md)
+- [Reply By Email (BuddyPress group discussions)](reply-by-email.md)
