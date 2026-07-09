@@ -1,3 +1,9 @@
+## v1.3.0 (2026-07-09)
+
+### Feat
+
+- **wordpress**: update to wordpress 7.0
+
 ## v1.2.1 (2026-06-18)
 
 ### Fix
