@@ -14,7 +14,6 @@ define( 'SKIP_PLUGINS',
 		'wordpress-sparkpost',                 // Forked
 		'tainacan_old',
 		'wp-graphql',                          // Used on just one MLA site and has breaking changes
-    'bp-group-documents',                  // Forked
 	]
 );
 

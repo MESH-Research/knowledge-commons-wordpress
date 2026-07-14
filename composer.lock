@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e051a4d28b05ee423627aa5fc860c0fa",
+    "content-hash": "54945978207092c03abe2c98d09e9303",
     "packages": [
         {
             "name": "composer/installers",
@@ -2661,6 +2661,37 @@
             "time": "2026-03-23T19:23:21+00:00"
         },
         {
+            "name": "wp-plugin/bp-group-documents",
+            "version": "2.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/bp-group-documents/",
+                "reference": "tags/2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/bp-group-documents.2.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "lenasterg"
+                }
+            ],
+            "description": "BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.",
+            "homepage": "https://wordpress.org/plugins/bp-group-documents/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/bp-group-documents/#developers",
+                "issues": "https://wordpress.org/support/plugin/bp-group-documents",
+                "source": "https://plugins.svn.wordpress.org/bp-group-documents"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
             "name": "wp-plugin/bp-lotsa-feeds",
             "version": "1.0",
             "source": {
@@ -3055,7 +3086,7 @@
                 "issues": "https://wordpress.org/support/plugin/elementor",
                 "source": "https://plugins.svn.wordpress.org/elementor"
             },
-            "time": "2026-06-22T14:05:48+00:00"
+            "time": "2026-07-14T13:51:27+00:00"
         },
         {
             "name": "wp-plugin/essential-addons-for-elementor-lite",
