@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ba159f1377cc0b60dd792a5d0d7a69d",
+    "content-hash": "2ff141c12cc03b92198a17391ee28419",
     "packages": [
         {
             "name": "composer/installers",
@@ -2723,15 +2723,15 @@
         },
         {
             "name": "wp-plugin/buddypress",
-            "version": "10.6.0",
+            "version": "14.5.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/buddypress/",
-                "reference": "tags/10.6.0"
+                "reference": "tags/14.5.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/buddypress.10.6.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/buddypress.14.5.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3422,7 +3422,7 @@
                 "issues": "https://wordpress.org/support/plugin/jetpack",
                 "source": "https://plugins.svn.wordpress.org/jetpack"
             },
-            "time": "2026-07-10T11:05:39+00:00"
+            "time": "2026-07-14T12:16:12+00:00"
         },
         {
             "name": "wp-plugin/linked-open-profiles",
@@ -3484,7 +3484,7 @@
                 "issues": "https://wordpress.org/support/plugin/mailpoet",
                 "source": "https://plugins.svn.wordpress.org/mailpoet"
             },
-            "time": "2026-07-07T11:40:48+00:00"
+            "time": "2026-07-14T11:05:58+00:00"
         },
         {
             "name": "wp-plugin/mathml-block",
@@ -3580,15 +3580,15 @@
         },
         {
             "name": "wp-plugin/participants-database",
-            "version": "2.7.8.3",
+            "version": "2.7.8.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/participants-database/",
-                "reference": "tags/2.7.8.3"
+                "reference": "tags/2.7.8.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/participants-database.2.7.8.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/participants-database.2.7.8.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3607,7 +3607,7 @@
                 "issues": "https://wordpress.org/support/plugin/participants-database",
                 "source": "https://plugins.svn.wordpress.org/participants-database"
             },
-            "time": "2026-05-12T03:10:55+00:00"
+            "time": "2026-07-14T02:16:04+00:00"
         },
         {
             "name": "wp-plugin/password-protected",
@@ -5187,16 +5187,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.388.4",
+            "version": "3.388.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a4614092693b5f81b04ad7bdc9fbdc58df3dc27c"
+                "reference": "6104783c60d9134e7ceaeef03997767a547462b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a4614092693b5f81b04ad7bdc9fbdc58df3dc27c",
-                "reference": "a4614092693b5f81b04ad7bdc9fbdc58df3dc27c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6104783c60d9134e7ceaeef03997767a547462b8",
+                "reference": "6104783c60d9134e7ceaeef03997767a547462b8",
                 "shasum": ""
             },
             "require": {
@@ -5278,9 +5278,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.388.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.388.5"
             },
-            "time": "2026-07-10T18:10:31+00:00"
+            "time": "2026-07-13T18:09:02+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -6269,12 +6269,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "d162f89e37b3026c5b00680c8e64b70d3ad57024"
+                "reference": "2d4c60ceb3907269772941f01e631387c05cc1dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d162f89e37b3026c5b00680c8e64b70d3ad57024",
-                "reference": "d162f89e37b3026c5b00680c8e64b70d3ad57024",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2d4c60ceb3907269772941f01e631387c05cc1dd",
+                "reference": "2d4c60ceb3907269772941f01e631387c05cc1dd",
                 "shasum": ""
             },
             "conflict": {
@@ -6550,7 +6550,7 @@
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1-dev|>=2.5,<2.5.15",
                 "ezyang/htmlpurifier": "<=4.2",
                 "facade/ignition": "<1.16.15|>=2,<2.4.2|>=2.5,<2.5.2",
-                "facturascripts/facturascripts": "<=2025.92|>=2026,<=2026.1",
+                "facturascripts/facturascripts": "<=2026.2",
                 "fastly/magento2": "<1.2.26",
                 "feehi/cms": "<=2.1.1",
                 "feehi/feehicms": "<=2.1.1",
@@ -6710,7 +6710,7 @@
                 "kelvinmo/simplexrd": "<3.1.1",
                 "kevinpapst/kimai2": "<1.16.7",
                 "khodakhah/nodcms": "<=3.4.1",
-                "kimai/kimai": "<=2.57",
+                "kimai/kimai": "<2.59",
                 "kitodo/presentation": "<3.2.3|>=3.3,<3.3.4",
                 "klaviyo/magento2-extension": ">=1,<3",
                 "knplabs/knp-snappy": "<=1.7",
@@ -6851,7 +6851,7 @@
                 "noumo/easyii": "<=0.9",
                 "novaksolutions/infusionsoft-php-sdk": "<1",
                 "novosga/novosga": "<=2.2.12",
-                "nukeviet/nukeviet": "<4.5.02",
+                "nukeviet/nukeviet": "<4.6.00",
                 "nyholm/psr7": "<1.6.1",
                 "nystudio107/craft-seomatic": "<3.4.12",
                 "nzedb/nzedb": "<0.8",
@@ -7382,7 +7382,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-10T22:02:12+00:00"
+            "time": "2026-07-14T02:26:33+00:00"
         },
         {
             "name": "sebastian/cli-parser",
