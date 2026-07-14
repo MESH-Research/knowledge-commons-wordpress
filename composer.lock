@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ff141c12cc03b92198a17391ee28419",
+    "content-hash": "e051a4d28b05ee423627aa5fc860c0fa",
     "packages": [
         {
             "name": "composer/installers",
@@ -2754,15 +2754,15 @@
         },
         {
             "name": "wp-plugin/buddypress-docs",
-            "version": "2.2.3",
+            "version": "2.2.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/buddypress-docs/",
-                "reference": "tags/2.2.3"
+                "reference": "tags/2.2.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/buddypress-docs.2.2.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/buddypress-docs.2.2.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -2909,15 +2909,15 @@
         },
         {
             "name": "wp-plugin/commons-in-a-box",
-            "version": "1.4.0",
+            "version": "1.7.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/commons-in-a-box/",
-                "reference": "tags/1.4.0"
+                "reference": "tags/1.7.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/commons-in-a-box.1.4.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/commons-in-a-box.1.7.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
