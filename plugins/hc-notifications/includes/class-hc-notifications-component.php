@@ -80,8 +80,8 @@ class HC_Notifications_Component extends BP_Component {
 	 * @return string|array Formatted notifications.
 	 */
 	public function format_notification( $action, $item_id, $secondary_item_id, $total_items, $format ) {
-		$link = apply_filters_ref_array( "hc_notifications_${action}_link", func_get_args() );
-		$text = apply_filters_ref_array( "hc_notifications_${action}_text", func_get_args() );
+		$link = apply_filters_ref_array( "hc_notifications_{$action}_link", func_get_args() );
+		$text = apply_filters_ref_array( "hc_notifications_{$action}_text", func_get_args() );
 
 		if ( 'string' === $format ) {
 			$retval = sprintf( '<a href="%s">%s</a>', $link, $text );
