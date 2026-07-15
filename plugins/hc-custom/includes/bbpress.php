@@ -95,7 +95,7 @@ add_filter( 'bbp_get_topic_permalink', 'hcommons_fix_multinetwork_topic_permalin
  * @param string $component_name        Notification component ID.
  * @param int    $notification_id       Notification ID.
  */
-function hcommons_bbp_format_buddypress_notifications( $action, $item_id, $secondary_item_id, $total_items, $format = 'string', $component_action_name, $component_name, $notification_id ) {
+function hcommons_bbp_format_buddypress_notifications( $action, $item_id, $secondary_item_id, $total_items, $format, $component_action_name, $component_name, $notification_id ) {
 	$return = $action;
 
 	if ( function_exists( 'bbp_format_buddypress_notifications' ) ) {
