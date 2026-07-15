@@ -299,7 +299,7 @@ To view %s\'s profile: %s', 'buddypress-followers' ), $follower_name, $follower_
 
 	// Add notifications link if settings component is enabled.
 	if ( bp_is_active( 'settings' ) ) {
-		$settings_link = bp_core_get_user_domain( $r['leader_id'] ) . BP_SETTINGS_SLUG . '/notifications/';
+		$settings_link = bp_core_get_user_domain( $r['leader_id'] ) . bp_get_settings_slug() . '/notifications/';
 		$message .= sprintf( __( '
 
 ---------------------

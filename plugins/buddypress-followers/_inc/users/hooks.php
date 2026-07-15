@@ -522,7 +522,7 @@ function bp_follow_add_activity_tab() {
 	}
 ?>
 
-	<li id="activity-following"><a href="<?php echo bp_loggedin_user_domain() . BP_ACTIVITY_SLUG . '/' . BP_FOLLOWING_SLUG . '/' ?>" title="<?php esc_html_e( 'The public activity for everyone you are following on this site.', 'buddypress-followers' ) ?>"><?php printf( __( 'Following <span>%d</span>', 'buddypress-followers' ), esc_html( $count ) ) ?></a></li>
+	<li id="activity-following"><a href="<?php echo bp_loggedin_user_domain() . bp_get_activity_slug() . '/' . BP_FOLLOWING_SLUG . '/' ?>" title="<?php esc_html_e( 'The public activity for everyone you are following on this site.', 'buddypress-followers' ) ?>"><?php printf( __( 'Following <span>%d</span>', 'buddypress-followers' ), esc_html( $count ) ) ?></a></li>
 
 <?php
 }
