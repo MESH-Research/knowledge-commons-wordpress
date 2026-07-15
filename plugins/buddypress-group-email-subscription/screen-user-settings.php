@@ -90,7 +90,7 @@ function ass_add_notice_to_notifications_page() {
 					<tr>
 						<td>&nbsp;</td>
 						<td>
-							<p><?php printf( __('To change the email notification settings for your groups, go to %s and click "Change" for each group.', 'bp-ass' ), '<a href="'. bp_loggedin_user_domain() . trailingslashit( BP_GROUPS_SLUG ) . '">' . __( 'My Groups' ,'bp-ass' ) . '</a>' ); ?></p>
+							<p><?php printf( __('To change the email notification settings for your groups, go to %s and click "Change" for each group.', 'bp-ass' ), '<a href="'. bp_loggedin_user_domain() . trailingslashit( bp_get_groups_slug() ) . '">' . __( 'My Groups' ,'bp-ass' ) . '</a>' ); ?></p>
 
 							<?php if ( get_option( 'ass-global-unsubscribe-link' ) == 'yes' ) : ?>
 								<p><a href="<?php echo wp_nonce_url( add_query_arg( 'ass_unsubscribe', 'all' ), 'ass_unsubscribe_all' ); ?>"><?php _e( "Or set all your group's email options to No Email", 'bp-ass' ); ?></a></p>
