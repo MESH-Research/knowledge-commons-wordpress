@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54945978207092c03abe2c98d09e9303",
+    "content-hash": "fe8f836926290656ae02b7503846e8fe",
     "packages": [
         {
             "name": "composer/installers",
@@ -2690,6 +2690,37 @@
                 "source": "https://plugins.svn.wordpress.org/bp-group-documents"
             },
             "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/bp-groupblog",
+            "version": "1.9.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/bp-groupblog/",
+                "reference": "tags/1.9.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/bp-groupblog.1.9.4.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Boone Gorges"
+                }
+            ],
+            "description": "BuddyPress Groupblog extends the group functionality by enabling the group to have a single blog associated with it.",
+            "homepage": "https://wordpress.org/plugins/bp-groupblog/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/bp-groupblog/#developers",
+                "issues": "https://wordpress.org/support/plugin/bp-groupblog",
+                "source": "https://plugins.svn.wordpress.org/bp-groupblog"
+            },
+            "time": "2026-03-30T17:55:40+00:00"
         },
         {
             "name": "wp-plugin/bp-lotsa-feeds",
@@ -6300,12 +6331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2d4c60ceb3907269772941f01e631387c05cc1dd"
+                "reference": "8f95407ba11cb3d30d131744f7396c6ad61f2e54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2d4c60ceb3907269772941f01e631387c05cc1dd",
-                "reference": "2d4c60ceb3907269772941f01e631387c05cc1dd",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8f95407ba11cb3d30d131744f7396c6ad61f2e54",
+                "reference": "8f95407ba11cb3d30d131744f7396c6ad61f2e54",
                 "shasum": ""
             },
             "conflict": {
@@ -6446,9 +6477,9 @@
                 "concrete5/core": "<8.5.8|>=9,<9.1",
                 "contao-components/mediaelement": ">=2.14.2,<2.21.1",
                 "contao/comments-bundle": ">=2,<4.13.40|>=5.0.0.0-RC1-dev,<5.3.4",
-                "contao/contao": ">=3,<3.5.37|>=4,<4.4.56|>=4.5,<4.13.56|>=5,<5.3.38|>=5.4.0.0-RC1-dev,<5.6.1",
+                "contao/contao": ">=3,<3.5.37|>=4,<4.4.56|>=4.5,<5.3.48|>=5.4,<5.7.9",
                 "contao/core": "<3.5.39",
-                "contao/core-bundle": "<4.13.57|>=5,<5.3.42|>=5.4,<5.6.5",
+                "contao/core-bundle": "<5.3.48|>=5.4,<5.7.9",
                 "contao/listing-bundle": ">=3,<=3.5.30|>=4,<4.4.8",
                 "contao/managed-edition": "<=1.5",
                 "coreshop/core-shop": "<4.1.9|==5",
@@ -7413,7 +7444,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-14T02:26:33+00:00"
+            "time": "2026-07-14T14:50:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",
