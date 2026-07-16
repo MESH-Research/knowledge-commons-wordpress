@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e43dbc33df3efda86141432bd17e4dcd",
+    "content-hash": "be0de940c3f9d5762e76acbaf620d253",
     "packages": [
         {
             "name": "composer/installers",
@@ -587,6 +587,19 @@
                 "source": "https://github.com/jumbojett/OpenID-Connect-PHP/tree/master"
             },
             "time": "2026-04-02T18:54:51+00:00"
+        },
+        {
+            "name": "mesh-research/buddypress-followers",
+            "version": "1.3-alpha.20241204",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MESH-Research/buddypress-followers.git",
+                "reference": "2a1525fc75b63ab0634ce5ddbbfa087505bc221b"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin"
         },
         {
             "name": "mesh-research/cc-client",
