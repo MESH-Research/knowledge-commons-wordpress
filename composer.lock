@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe8f836926290656ae02b7503846e8fe",
+    "content-hash": "e43dbc33df3efda86141432bd17e4dcd",
     "packages": [
         {
             "name": "composer/installers",
@@ -2842,6 +2842,37 @@
                 "changelog": "https://wordpress.org/plugins/buddypress-docs/#developers",
                 "issues": "https://wordpress.org/support/plugin/buddypress-docs",
                 "source": "https://plugins.svn.wordpress.org/buddypress-docs"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/buddypress-group-email-subscription",
+            "version": "4.2.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/buddypress-group-email-subscription/",
+                "reference": "tags/4.2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/buddypress-group-email-subscription.4.2.4.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Boone Gorges"
+                }
+            ],
+            "description": "This powerful plugin allows users to receive email notifications of group activity. Weekly or daily digests are available.",
+            "homepage": "http://wordpress.org/extend/plugins/buddypress-group-email-subscription/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/buddypress-group-email-subscription/#developers",
+                "issues": "https://wordpress.org/support/plugin/buddypress-group-email-subscription",
+                "source": "https://plugins.svn.wordpress.org/buddypress-group-email-subscription"
             },
             "time": "2026-03-23T19:23:21+00:00"
         },

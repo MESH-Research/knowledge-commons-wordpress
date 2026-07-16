@@ -10,7 +10,6 @@
 // List of plugin slugs to skip
 define( 'SKIP_PLUGINS',
 	[
-		'buddypress-group-email-subscription', // Still don't have multinetwork compatibility fix for bpges
 		'wordpress-sparkpost',                 // Forked
 		'tainacan_old',
 		'wp-graphql',                          // Used on just one MLA site and has breaking changes

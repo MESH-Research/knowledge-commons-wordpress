@@ -53,6 +53,7 @@
     "wp-plugin/bp-mpo-activity-filter": "^1.3.2",
     "wp-plugin/buddypress": "14.5.0",
     "wp-plugin/buddypress-docs": "2.2.7",
+    "wp-plugin/buddypress-group-email-subscription": "^4.2.4",
     "wp-plugin/buddypress-restrict-group-creation": "^1.1.2",
     "wp-plugin/buddypress-sitewide-activity-widget": "^1.3.5",
     "wp-plugin/classic-editor": "^1.6",
