@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be0de940c3f9d5762e76acbaf620d253",
+    "content-hash": "35f64be4c85e0abb34514ae0e3e71eea",
     "packages": [
         {
             "name": "composer/installers",
@@ -1595,6 +1595,19 @@
                 "source": "https://github.com/php-fig/log/tree/2.0.0"
             },
             "time": "2021-07-14T16:41:46+00:00"
+        },
+        {
+            "name": "r-a-y/bp-reply-by-email",
+            "version": "1.0-RC12.20251103",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MESH-Research/bp-reply-by-email.git",
+                "reference": "97e1db15ea7615717bbb563fd92f00e6f341ac8e"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin"
         },
         {
             "name": "ralouphie/getallheaders",
