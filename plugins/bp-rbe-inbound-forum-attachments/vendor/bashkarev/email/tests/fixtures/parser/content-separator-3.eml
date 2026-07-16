@@ -1,8 +1,0 @@
-Content-Type: multipart/mixed;boundary=test
-
---test
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
--
-test

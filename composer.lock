@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35f64be4c85e0abb34514ae0e3e71eea",
+    "content-hash": "82f64f9d65c6cf1db10c6ce05185330d",
     "packages": [
+        {
+            "name": "bashkarev/email",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bashkarev/email.git",
+                "reference": "38cb11e5961f0b81e98c7e2be9e28cebd2e51846"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bashkarev/email/zipball/38cb11e5961f0b81e98c7e2be9e28cebd2e51846",
+                "reference": "38cb11e5961f0b81e98c7e2be9e28cebd2e51846",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "bashkarev\\email\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "bashkarev",
+                    "email": "dmitriy@bashkarev.com"
+                }
+            ],
+            "description": "Faster MIME Mail Parser could be used to parse emails in MIME format.",
+            "keywords": [
+                "arf",
+                "email",
+                "fbl",
+                "mail",
+                "mailparse",
+                "mime",
+                "mime-parser"
+            ],
+            "support": {
+                "issues": "https://github.com/bashkarev/email/issues",
+                "source": "https://github.com/bashkarev/email/tree/master"
+            },
+            "time": "2017-03-13T20:03:51+00:00"
+        },
         {
             "name": "composer/installers",
             "version": "v2.3.0",
@@ -1595,6 +1648,20 @@
                 "source": "https://github.com/php-fig/log/tree/2.0.0"
             },
             "time": "2021-07-14T16:41:46+00:00"
+        },
+        {
+            "name": "r-a-y/bp-rbe-inbound-forum-attachments",
+            "version": "0.1-alpha.20250728",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MESH-Research/bp-rbe-inbound-forum-attachments.git",
+                "reference": "60f960a6a55617b9b424ddab5fc066362c0973b9"
+            },
+            "require": {
+                "bashkarev/email": "~1",
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin"
         },
         {
             "name": "r-a-y/bp-reply-by-email",
