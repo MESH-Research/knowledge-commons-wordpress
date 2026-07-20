@@ -1,3 +1,9 @@
+## v1.4.0 (2026-07-20)
+
+### Feat
+
+- **wordpress**: upgrade wordpress core to 7.0.2
+
 ## v1.3.0 (2026-07-09)
 
 ### Feat
