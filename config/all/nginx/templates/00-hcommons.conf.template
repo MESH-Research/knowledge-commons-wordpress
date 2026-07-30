@@ -126,6 +126,14 @@ server {
     deny all;
   }
   
+  # Cron runs exclusively from the cron container via WP-CLI; wp-cron.php
+  # must never do work on the web-serving containers, so refuse it outright
+  # (external hits to wp-cron.php still run due events even when
+  # DISABLE_WP_CRON is set, hence this block).
+  location ~ ^(/wp)?/wp-cron\.php$ {
+    return 403;
+  }
+
   #
   # WordPress
   #
