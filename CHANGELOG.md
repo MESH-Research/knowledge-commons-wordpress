@@ -1,3 +1,9 @@
+## v1.5.1 (2026-08-10)
+
+### Fix
+
+- **cron**: adopt production's cron implementation on main
+
 ## v1.5.0 (2026-08-10)
 
 ### Feat
