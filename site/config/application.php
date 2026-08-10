@@ -152,7 +152,19 @@ Config::define('NONCE_SALT', env('NONCE_SALT'));
  * Custom Settings
  */
 Config::define('AUTOMATIC_UPDATER_DISABLED', true);
-Config::define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?: false);
+
+/*
+ * Disable WordPress's built-in loopback WP-Cron in production.
+ *
+ * The dedicated ECS cron task runs cron for every site out-of-band
+ * (scripts/cron/wp-cron-multisite.bash), so firing cron inside web PHP-FPM
+ * workers only duplicates that work and lets heavy plugin jobs (Jetpack Sync,
+ * ActivityPub, ElasticPress, BuddyPress group email digests) run in long-lived
+ * workers where their memory accumulates. Non-production environments have no
+ * dedicated cron task, so they keep loopback cron. Set the DISABLE_WP_CRON env
+ * var ("true"/"false") to override this default in any environment.
+ */
+Config::define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?? (WP_ENV === 'production'));
 
 // Disable the plugin and theme file editor in the admin
 Config::define('DISALLOW_FILE_EDIT', true);

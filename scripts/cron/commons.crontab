@@ -11,5 +11,13 @@
 # Run wp-cron for base sites once per hour
 0 * * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/all_networks_wp.bash cron event run --due-now
 
-# Run wp-cron for all sites every 3 hours
-30 */3 * * * [ "$RUN_CRON" = "true" ] && wp site list --field=url --path=/app/site/web/wp | xargs -i -n1 wp cron event run --path=/app/site/web/wp --due-now --url="{}"
+# Run wp-cron for all sites every 90 minutes.
+# Loopback WP-Cron is disabled in production (DISABLE_WP_CRON, see
+# site/config/application.php), so this external per-site runner is the only
+# thing that fires scheduled events. Each site runs in its own wp-cli process
+# so cron memory stays bounded. See scripts/cron/wp-cron-multisite.bash.
+# A 90-minute cadence can't be one cron line (the minute alternates :00/:30
+# across the hour boundary), so it is expressed as two: :00 on the 3-hour
+# marks and :30 on the offset hours -> 00:00, 01:30, 03:00, 04:30, ...
+0  0,3,6,9,12,15,18,21 * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/wp-cron-multisite.bash
+30 1,4,7,10,13,16,19,22 * * * [ "$RUN_CRON" = "true" ] && /app/scripts/cron/wp-cron-multisite.bash
