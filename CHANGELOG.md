@@ -1,3 +1,9 @@
+## v1.5.0 (2026-08-10)
+
+### Feat
+
+- **cron**: externalise per-site wp-cron and disable loopback cron in prod
+
 ## v1.4.0 (2026-07-20)
 
 ### Feat
