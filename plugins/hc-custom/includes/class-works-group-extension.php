@@ -177,7 +177,13 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 		}
 		$this->update_works_collection_data();
 		if ( $this->works_collection_id ) {
-			$success = $this->change_collection_visibility( 'public' );
+			if ( 'public' === $this->works_collection_visibility ) {
+				// Changing visibility on /api/communities requires collection
+				// owner/manager rights, so avoid the call when nothing would change.
+				$success = true;
+			} else {
+				$success = $this->change_collection_visibility( 'public' );
+			}
 		} else {
 			$success = $this->create_collection();
 		}
@@ -201,7 +207,11 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			return;
 		}
 		$this->update_works_collection_data();
-		$success = $this->change_collection_visibility( 'restricted' );
+		if ( $this->works_collection_id && 'restricted' === $this->works_collection_visibility ) {
+			$success = true;
+		} else {
+			$success = $this->change_collection_visibility( 'restricted' );
+		}
 		if ( ! $success ) {
 			trigger_error( "Works_Groups_Extension::signal_disable_works_collection, failed to hide collection for group: $this->group_id", E_USER_WARNING );
 		} else {
@@ -260,6 +270,8 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 		}
 		$this->works_collection_slug = $response_body->collection ?? $response_body->new_collection_slug ?? $this->works_collection_slug;
 		$this->works_collection_id   = $response_body->collection_id ?? $response_body->new_collection_id ?? $this->works_collection_id;
+		// Collections are requested with public visibility in the POST body above.
+		$this->works_collection_visibility = 'public';
 		$this->save_works_collection_data();
 		return true;
 	}
@@ -321,6 +333,9 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			return false;
 		}
 
+		$this->works_collection_visibility = $visibility;
+		$this->save_works_collection_data();
+
 		return true;
 	}
 
@@ -352,7 +367,7 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			}
 		}
 		
-		if ( ! $this->works_collection_slug || ! $this->works_collection_id ) {
+		if ( ! $this->works_collection_slug || ! $this->works_collection_id || ! $this->works_collection_visibility ) {
 			$endpoint = WORKS_URL . '/api/group_collections/?commons_instance=' . WORKS_KNOWLEDGE_COMMONS_INSTANCE . "&commons_group_id={$this->group_id}";
 			try {
 				$response = wp_remote_get( $endpoint, [
@@ -378,9 +393,11 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 				return;
 			}
 			
-			$this->works_collection_slug       = $collection_data['hits']['hits'][0]['slug'] ?? '';
-			$this->works_collection_id         = $collection_data['hits']['hits'][0]['id'] ?? '';
-			$this->works_collection_visibility = $collection_data['hits']['hits'][0]['access']['visibility'] ?? '';
+			$hit = $collection_data['hits']['hits'][0] ?? [];
+
+			$this->works_collection_slug       = $hit['slug'] ?? $this->works_collection_slug;
+			$this->works_collection_id         = $hit['id'] ?? $this->works_collection_id;
+			$this->works_collection_visibility = $hit['access']['visibility'] ?? $this->works_collection_visibility;
 
 			if ( $this->works_collection_slug || $this->works_collection_id ) {
 				$this->save_works_collection_data();
@@ -406,14 +423,12 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			trigger_error( 'In Works_Groups_Extension::set_works_collection_data, $group_id is not set.', E_USER_WARNING );
 			return;
 		}
-		groups_update_groupmeta(
-			$this->group_id,
-			'kcworks-collection-data',
-			[
-				'slug'       => $this->works_collection_slug,
-				'id'         => $this->works_collection_id,
-				'visibility' => $this->works_collection_visibility,
-			]
-		);
+		$collection_data = [
+			'slug'       => $this->works_collection_slug,
+			'id'         => $this->works_collection_id,
+			'visibility' => $this->works_collection_visibility,
+		];
+		groups_update_groupmeta( $this->group_id, 'kcworks-collection-data', $collection_data );
+		wp_cache_set( 'kcworks-collection-data-' . $this->group_id, $collection_data, '', 60 * 10 );
 	}
 }

@@ -329,4 +329,13 @@ if ( ! function_exists( 'wp_remote_post' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_remote_request' ) ) {
+	function wp_remote_request( $url, $args = [] ) {
+		if ( isset( $GLOBALS['_mock_wp_remote_request_callback'] ) ) {
+			return call_user_func( $GLOBALS['_mock_wp_remote_request_callback'], $url, $args );
+		}
+		return new WP_Error( 'http_request_failed', 'no mock configured' );
+	}
+}
+
 require_once __DIR__ . '/xprofile-html-fix-loader.php';

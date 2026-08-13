@@ -243,6 +243,119 @@ class WorksGroupExtensionTest extends TestCase {
 		$this->assertIsArray( $meta, 'Collection data should be persisted to groupmeta after creation.' );
 		$this->assertSame( 'new-collection', $meta['slug'] );
 		$this->assertSame( 'xyz789', $meta['id'] );
+		$this->assertSame( 'public', $meta['visibility'], 'Collections are created public; later enables must see that and not re-set visibility.' );
+	}
+
+	/**
+	 * Run a group settings save while collecting PHP errors/warnings.
+	 *
+	 * @return string[] Collected error messages (notices excluded).
+	 */
+	private function run_screen_save( Works_Groups_Extension $extension, int $group_id, bool $enable ): array {
+		if ( $enable ) {
+			$_POST['kcworks-enable'] = '1';
+		} else {
+			unset( $_POST['kcworks-enable'] );
+		}
+		$errors = [];
+		set_error_handler(
+			function ( $errno, $errstr ) use ( &$errors ) {
+				if ( E_USER_NOTICE !== $errno && E_DEPRECATED !== $errno ) {
+					$errors[] = $errstr;
+				}
+				return true;
+			}
+		);
+		try {
+			$extension->edit_screen_save( $group_id );
+		} finally {
+			restore_error_handler();
+			unset( $_POST['kcworks-enable'] );
+		}
+		return $errors;
+	}
+
+	/**
+	 * Enabling KCWorks for a group whose collection is already public must
+	 * not call the visibility-change API at all: no mocks are configured,
+	 * so any remote call would surface as a collected warning.
+	 */
+	public function test_enable_skips_visibility_change_when_already_public(): void {
+		$GLOBALS['_mock_group_meta'][31] = [
+			'kcworks-enable'          => 1,
+			'kcworks-collection-data' => [
+				'slug'       => 'already-public',
+				'id'         => 'aaa111',
+				'visibility' => 'public',
+			],
+		];
+
+		$extension = new Works_Groups_Extension( group_id: 31 );
+		$errors    = $this->run_screen_save( $extension, 31, true );
+
+		$this->assertSame( [], $errors, 'Re-enabling an already-public collection should be a no-op without warnings.' );
+	}
+
+	/**
+	 * Meta saved by earlier code versions records slug and id but no
+	 * visibility. Enabling must refresh the visibility from the search API
+	 * (which needs no special permissions) and recognise an already-public
+	 * collection as a no-op instead of attempting a visibility change.
+	 */
+	public function test_enable_refreshes_unknown_visibility_from_search_api(): void {
+		$GLOBALS['_mock_group_meta'][35] = [
+			'kcworks-enable'          => 1,
+			'kcworks-collection-data' => [
+				'slug'       => 'legacy-saved',
+				'id'         => 'ccc333',
+				'visibility' => '',
+			],
+		];
+
+		$GLOBALS['_mock_wp_remote_get_callback'] = function ( $url, $args ) {
+			return [
+				'response' => [ 'code' => 200 ],
+				'body'     => json_encode( [
+					'hits' => [
+						'hits' => [
+							[
+								'slug'   => 'legacy-saved',
+								'id'     => 'ccc333',
+								'access' => [ 'visibility' => 'public' ],
+							],
+						],
+					],
+				] ),
+			];
+		};
+
+		$extension = new Works_Groups_Extension( group_id: 35 );
+		$errors    = $this->run_screen_save( $extension, 35, true );
+
+		$this->assertSame( [], $errors, 'Unknown stored visibility should be refreshed from the search API, then treated as a no-op.' );
+		$meta = $GLOBALS['_mock_group_meta'][35]['kcworks-collection-data'];
+		$this->assertSame( 'public', $meta['visibility'], 'Refreshed visibility should be persisted.' );
+		$this->assertSame( 'legacy-saved', $meta['slug'], 'Refresh must not clobber the stored slug.' );
+	}
+
+	/**
+	 * Disabling KCWorks for a group whose collection is already restricted
+	 * must likewise skip the visibility-change API call.
+	 */
+	public function test_disable_skips_visibility_change_when_already_restricted(): void {
+		$GLOBALS['_mock_group_meta'][33] = [
+			'kcworks-enable'          => 1,
+			'kcworks-collection-data' => [
+				'slug'       => 'already-hidden',
+				'id'         => 'bbb222',
+				'visibility' => 'restricted',
+			],
+		];
+
+		$extension = new Works_Groups_Extension( group_id: 33 );
+		$errors    = $this->run_screen_save( $extension, 33, false );
+
+		$this->assertSame( [], $errors, 'Disabling an already-restricted collection should be a no-op without warnings.' );
 	}
 
 	/**
