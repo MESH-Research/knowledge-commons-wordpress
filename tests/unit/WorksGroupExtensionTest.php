@@ -178,6 +178,74 @@ class WorksGroupExtensionTest extends TestCase {
 	}
 
 	/**
+	 * Enabling KCWorks for a group with no existing collection must create
+	 * one via the API and persist the slug/id from the creation response.
+	 *
+	 * The mock reproduces the live KCWorks server: the collection route is
+	 * /api/group_collections/ and a request to the slashless URL gets a 308
+	 * redirect, across which the WordPress HTTP stack loses the
+	 * Authorization header, so the server answers 400 (CSRF token missing).
+	 * A successful creation returns commons_group_id, collection and
+	 * collection_id.
+	 */
+	public function test_enabling_kcworks_creates_collection_and_persists_slug(): void {
+		$GLOBALS['_mock_group_meta'][21] = [];
+		$_POST['kcworks-enable']         = '1';
+
+		$GLOBALS['_mock_wp_remote_get_callback'] = function ( $url, $args ) {
+			return [
+				'response' => [ 'code' => 200 ],
+				'body'     => json_encode( [ 'hits' => [ 'hits' => [] ] ] ),
+			];
+		};
+
+		$GLOBALS['_mock_wp_remote_post_callback'] = function ( $url, $args ) {
+			if ( '/api/group_collections/' !== parse_url( $url, PHP_URL_PATH ) ) {
+				return [
+					'response' => [ 'code' => 400 ],
+					'body'     => json_encode( [
+						'message' => '400 Bad Request: CSRF token missing or incorrect.',
+						'status'  => 400,
+					] ),
+				];
+			}
+			$sent = json_decode( $args['body'], true );
+			return [
+				'response' => [ 'code' => 201 ],
+				'body'     => json_encode( [
+					'commons_group_id' => $sent['commons_group_id'],
+					'collection'       => 'new-collection',
+					'collection_id'    => 'xyz789',
+				] ),
+			];
+		};
+
+		$extension = new Works_Groups_Extension( group_id: 21 );
+
+		$errors = [];
+		set_error_handler(
+			function ( $errno, $errstr ) use ( &$errors ) {
+				if ( E_USER_NOTICE !== $errno && E_DEPRECATED !== $errno ) {
+					$errors[] = $errstr;
+				}
+				return true;
+			}
+		);
+		try {
+			$extension->edit_screen_save( 21 );
+		} finally {
+			restore_error_handler();
+			unset( $_POST['kcworks-enable'] );
+		}
+
+		$this->assertSame( [], $errors, 'Creating the collection should raise no PHP warnings.' );
+		$meta = $GLOBALS['_mock_group_meta'][21]['kcworks-collection-data'] ?? null;
+		$this->assertIsArray( $meta, 'Collection data should be persisted to groupmeta after creation.' );
+		$this->assertSame( 'new-collection', $meta['slug'] );
+		$this->assertSame( 'xyz789', $meta['id'] );
+	}
+
+	/**
 	 * Groups that have not enabled KCWorks should render no subnav item
 	 * and produce no log noise.
 	 */

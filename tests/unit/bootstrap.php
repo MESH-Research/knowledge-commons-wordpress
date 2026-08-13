@@ -314,6 +314,12 @@ if ( ! function_exists( 'bp_get_current_group_id' ) ) {
 	}
 }
 
+if ( ! function_exists( 'check_admin_referer' ) ) {
+	function check_admin_referer( $action = -1, $query_arg = '_wpnonce' ) {
+		return 1;
+	}
+}
+
 if ( ! function_exists( 'wp_remote_post' ) ) {
 	function wp_remote_post( $url, $args = [] ) {
 		if ( isset( $GLOBALS['_mock_wp_remote_post_callback'] ) ) {

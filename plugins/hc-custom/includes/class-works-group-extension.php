@@ -218,7 +218,9 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			trigger_error( 'In Works_Groups_Extension::create_collection, $group_id is not set.', E_USER_WARNING );
 			return false;
 		}
-		$endpoint = WORKS_URL . '/api/group_collections';
+		// The trailing slash is required: the slashless URL is answered with a
+		// 308 redirect, and the Authorization header does not survive it.
+		$endpoint = WORKS_URL . '/api/group_collections/';
 		try {
 			$response = wp_remote_post( $endpoint, [
 				'headers' => [
@@ -248,7 +250,7 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 				500 => '500 Internal server error',
 				default => wp_remote_retrieve_response_code( $response ) . ' Unknown error',
 			};
-			trigger_error( 'Works_Groups_Extension::signal_enable_works_collection, error creating collection: ' . $message, E_USER_WARNING );
+			trigger_error( 'Works_Groups_Extension::signal_enable_works_collection, error creating collection: ' . $message . ' Response: ' . wp_remote_retrieve_body( $response ), E_USER_WARNING );
 			return false;
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
@@ -256,8 +258,8 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			trigger_error( "Works_Groups_Extension::signal_enable_works_collection group_id {$this->group_id} != commons_group_id {$response_body->commons_group_id}", E_USER_WARNING );
 			return false;
 		}
-		$this->works_collection_slug = $response_body->new_collection_slug ?? $this->works_collection_slug;
-		$this->works_collection_id = $response_body->new_collection_id ?? $this->works_collection_id;
+		$this->works_collection_slug = $response_body->collection ?? $response_body->new_collection_slug ?? $this->works_collection_slug;
+		$this->works_collection_id   = $response_body->collection_id ?? $response_body->new_collection_id ?? $this->works_collection_id;
 		$this->save_works_collection_data();
 		return true;
 	}
@@ -351,7 +353,7 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 		}
 		
 		if ( ! $this->works_collection_slug || ! $this->works_collection_id ) {
-			$endpoint = WORKS_URL . '/api/group_collections?commons_instance=' . WORKS_KNOWLEDGE_COMMONS_INSTANCE . "&commons_group_id={$this->group_id}";
+			$endpoint = WORKS_URL . '/api/group_collections/?commons_instance=' . WORKS_KNOWLEDGE_COMMONS_INSTANCE . "&commons_group_id={$this->group_id}";
 			try {
 				$response = wp_remote_get( $endpoint, [
 					'headers' => [
