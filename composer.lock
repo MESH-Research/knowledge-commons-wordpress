@@ -660,12 +660,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MESH-Research/commons-connect-client.git",
-                "reference": "8fafce490e90161700f33c7b11db2370747bc640"
+                "reference": "367f7ea3904d291c922167462e6eb24880d4e929"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MESH-Research/commons-connect-client/zipball/8fafce490e90161700f33c7b11db2370747bc640",
-                "reference": "8fafce490e90161700f33c7b11db2370747bc640",
+                "url": "https://api.github.com/repos/MESH-Research/commons-connect-client/zipball/367f7ea3904d291c922167462e6eb24880d4e929",
+                "reference": "367f7ea3904d291c922167462e6eb24880d4e929",
                 "shasum": ""
             },
             "require": {
@@ -713,7 +713,7 @@
                 "issues": "https://github.com/MESH-Research/commons-connect-client/issues",
                 "source": "https://github.com/MESH-Research/commons-connect-client/tree/main"
             },
-            "time": "2026-06-22T12:12:03+00:00"
+            "time": "2026-08-13T14:32:41+00:00"
         },
         {
             "name": "mesh-research/kcworks-on-wp",
@@ -3515,7 +3515,7 @@
                 "issues": "https://wordpress.org/support/plugin/hide-admin-bar-from-non-admins",
                 "source": "https://plugins.svn.wordpress.org/hide-admin-bar-from-non-admins"
             },
-            "time": "2026-03-23T19:23:21+00:00"
+            "time": "2026-08-13T14:36:51+00:00"
         },
         {
             "name": "wp-plugin/invite-anyone",
@@ -4103,7 +4103,7 @@
                 "issues": "https://wordpress.org/support/plugin/translatepress-multilingual",
                 "source": "https://plugins.svn.wordpress.org/translatepress-multilingual"
             },
-            "time": "2026-08-05T10:55:53+00:00"
+            "time": "2026-08-13T12:31:16+00:00"
         },
         {
             "name": "wp-plugin/woosidebars",
@@ -4227,7 +4227,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-google-maps",
                 "source": "https://plugins.svn.wordpress.org/wp-google-maps"
             },
-            "time": "2026-07-23T14:31:33+00:00"
+            "time": "2026-08-13T11:41:02+00:00"
         },
         {
             "name": "wp-plugin/wp-job-manager",
