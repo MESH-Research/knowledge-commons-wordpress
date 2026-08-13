@@ -226,6 +226,12 @@ if ( ! class_exists( 'WP_Error' ) ) {
 			$this->message = $message;
 			$this->data    = $data;
 		}
+		public function get_error_code() {
+			return $this->code;
+		}
+		public function get_error_message() {
+			return $this->message;
+		}
 	}
 }
 
@@ -259,6 +265,61 @@ if ( ! function_exists( 'get_blog_option' ) ) {
 if ( ! function_exists( 'bp_get_root_blog_id' ) ) {
 	function bp_get_root_blog_id() {
 		return $GLOBALS['_mock_root_blog_id'] ?? 1;
+	}
+}
+
+// --- Stubs for object cache / group meta / BP functions used by works-group-extension ---
+// Backing stores are $GLOBALS['_mock_wp_cache'] and $GLOBALS['_mock_group_meta'];
+// reset them in each test's setUp.
+
+if ( ! function_exists( 'wp_cache_get' ) ) {
+	function wp_cache_get( $key, $group = '' ) {
+		return $GLOBALS['_mock_wp_cache'][ $group ][ $key ] ?? false;
+	}
+}
+
+if ( ! function_exists( 'wp_cache_add' ) ) {
+	function wp_cache_add( $key, $data, $group = '', $expire = 0 ) {
+		if ( isset( $GLOBALS['_mock_wp_cache'][ $group ][ $key ] ) ) {
+			return false;
+		}
+		$GLOBALS['_mock_wp_cache'][ $group ][ $key ] = $data;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'wp_cache_set' ) ) {
+	function wp_cache_set( $key, $data, $group = '', $expire = 0 ) {
+		$GLOBALS['_mock_wp_cache'][ $group ][ $key ] = $data;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'groups_get_groupmeta' ) ) {
+	function groups_get_groupmeta( $group_id, $meta_key = '', $single = true ) {
+		return $GLOBALS['_mock_group_meta'][ $group_id ][ $meta_key ] ?? '';
+	}
+}
+
+if ( ! function_exists( 'groups_update_groupmeta' ) ) {
+	function groups_update_groupmeta( $group_id, $meta_key, $meta_value, $prev_value = '' ) {
+		$GLOBALS['_mock_group_meta'][ $group_id ][ $meta_key ] = $meta_value;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'bp_get_current_group_id' ) ) {
+	function bp_get_current_group_id() {
+		return $GLOBALS['_mock_current_group_id'] ?? 0;
+	}
+}
+
+if ( ! function_exists( 'wp_remote_post' ) ) {
+	function wp_remote_post( $url, $args = [] ) {
+		if ( isset( $GLOBALS['_mock_wp_remote_post_callback'] ) ) {
+			return call_user_func( $GLOBALS['_mock_wp_remote_post_callback'], $url, $args );
+		}
+		return new WP_Error( 'http_request_failed', 'no mock configured' );
 	}
 }
 

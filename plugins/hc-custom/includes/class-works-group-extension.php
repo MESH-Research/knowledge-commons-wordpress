@@ -332,20 +332,21 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			return;
 		}
 		
-		$collection_data = wp_cache_get( 'kcworks-collection-data-' . $this->group_id );
+		$cache_key       = 'kcworks-collection-data-' . $this->group_id;
+		$collection_data = wp_cache_get( $cache_key );
 		if ( is_array( $collection_data ) ) {
 			$this->works_collection_slug       = $collection_data['slug'] ?? '';
 			$this->works_collection_id         = $collection_data['id'] ?? '';
 			$this->works_collection_visibility = $collection_data['visibility'] ?? '';
 		}
-		
+
 		if ( ! $this->works_collection_slug || ! $this->works_collection_id ) {
 			$collection_data = groups_get_groupmeta( $this->group_id, 'kcworks-collection-data' );
 			if ( is_array( $collection_data ) ) {
-				wp_cache_add( 'kcworks-collection-data-' . $this->group_id, $collection_data, '', 60 * 10 );
-				$this->works_collection_slug       = $collection_data['slug'] ?? '';
-				$this->works_collection_id         = $collection_data['id'] ?? '';
-				$this->works_collection_visibility = $collection_data['visibility'] ?? '';
+				// Meta saved before the save/read keys were unified used prefixed keys.
+				$this->works_collection_slug       = $collection_data['slug'] ?? $collection_data['kcworks-collection-slug'] ?? '';
+				$this->works_collection_id         = $collection_data['id'] ?? $collection_data['kcworks-collection-id'] ?? '';
+				$this->works_collection_visibility = $collection_data['visibility'] ?? $collection_data['kcworks-collection-visibility'] ?? '';
 			}
 		}
 		
@@ -378,12 +379,24 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			$this->works_collection_slug       = $collection_data['hits']['hits'][0]['slug'] ?? '';
 			$this->works_collection_id         = $collection_data['hits']['hits'][0]['id'] ?? '';
 			$this->works_collection_visibility = $collection_data['hits']['hits'][0]['access']['visibility'] ?? '';
-			
-			$this->save_works_collection_data();
+
+			if ( $this->works_collection_slug || $this->works_collection_id ) {
+				$this->save_works_collection_data();
+			}
 		}
 
-		wp_cache_add( 'kcworks-collection-data-' . $group_id, $collection_data, '', 60 * 10 );
-		return;
+		if ( $this->works_collection_slug || $this->works_collection_id ) {
+			wp_cache_set(
+				$cache_key,
+				[
+					'slug'       => $this->works_collection_slug,
+					'id'         => $this->works_collection_id,
+					'visibility' => $this->works_collection_visibility,
+				],
+				'',
+				60 * 10
+			);
+		}
 	}
 
 	private function save_works_collection_data(): void {
@@ -391,13 +404,13 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			trigger_error( 'In Works_Groups_Extension::set_works_collection_data, $group_id is not set.', E_USER_WARNING );
 			return;
 		}
-		groups_update_groupmeta( 
-			$this->group_id, 
+		groups_update_groupmeta(
+			$this->group_id,
 			'kcworks-collection-data',
 			[
-				'kcworks-collection-slug'       => $this->works_collection_slug,
-				'kcworks-collection-id'         => $this->works_collection_id,
-				'kcworks-collection-visibility' => $this->works_collection_visibility,
+				'slug'       => $this->works_collection_slug,
+				'id'         => $this->works_collection_id,
+				'visibility' => $this->works_collection_visibility,
 			]
 		);
 	}
