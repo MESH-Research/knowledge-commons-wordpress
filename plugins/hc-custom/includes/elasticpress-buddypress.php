@@ -11,7 +11,7 @@
  * @param array   $keys Array of index-able private meta keys.
  * @param WP_Post $post The current post to be indexed.
  */
-function hcommons_filter_ep_prepare_meta_allowed_protected_keys( array $keys = [], WP_Post $post ) {
+function hcommons_filter_ep_prepare_meta_allowed_protected_keys( array $keys, WP_Post $post ) {
 	if ( 'humcore_deposit' === $post->post_type ) {
 		$keys = array_merge(
 			$keys, [

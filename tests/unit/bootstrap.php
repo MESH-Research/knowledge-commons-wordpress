@@ -241,4 +241,25 @@ if ( ! class_exists( 'WP_REST_Request' ) ) {
 	}
 }
 
+// --- Stubs for multisite / BuddyPress functions used by bp-group-documents-mail ---
+// Blog options are injected per-test via $GLOBALS['_mock_blog_options'][ $blog_id ].
+
+if ( ! function_exists( 'add_filter' ) ) {
+	function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
+		// no-op for unit tests
+	}
+}
+
+if ( ! function_exists( 'get_blog_option' ) ) {
+	function get_blog_option( $blog_id, $option, $default = false ) {
+		return $GLOBALS['_mock_blog_options'][ $blog_id ][ $option ] ?? $default;
+	}
+}
+
+if ( ! function_exists( 'bp_get_root_blog_id' ) ) {
+	function bp_get_root_blog_id() {
+		return $GLOBALS['_mock_root_blog_id'] ?? 1;
+	}
+}
+
 require_once __DIR__ . '/xprofile-html-fix-loader.php';

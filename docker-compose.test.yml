@@ -80,8 +80,8 @@ services:
           - hcommons.test
           - e2etestsite.hcommons.test
     volumes:
-      - ./config/test/nginx/hcommons.conf:/etc/nginx/conf.d/hcommons.conf:ro
-      - ./config/test/nginx/hastac-org.conf:/etc/nginx/conf.d/hastac-org.conf:ro
+      - ./config/test/nginx/hcommons.conf:/etc/nginx/conf.d/00-hcommons.conf:ro
+      - ./config/test/nginx/hastac-org.conf:/etc/nginx/conf.d/10-hastac-org.conf:ro
       - ./config/test/nginx/templates:/etc/nginx/templates:ro
       - webroot:/app/site/web:ro
 

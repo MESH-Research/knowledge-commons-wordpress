@@ -349,7 +349,7 @@ function hcmp_get_field( $field_name = '' ) {
  *
  * @return mixed Return value of callback.
  */
-function _hcmp_do_with_field_in_loop( $field_name = '', $callback ) {
+function _hcmp_do_with_field_in_loop( $field_name, $callback ) {
 	$args = [
 		'hide_empty_fields' => false, // Some custom field types are "empty" by design e.g. 'CORE Deposits'.
 	];
