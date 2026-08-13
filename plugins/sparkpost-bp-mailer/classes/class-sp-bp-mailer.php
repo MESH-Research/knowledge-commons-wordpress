@@ -35,7 +35,6 @@ class SP_BP_PHPMailer extends BP_PHPMailer {
 		
 			//$phpmailer = new PHPMailer( true );
 			$phpmailer = new SparkPostHTTPMailer( true );
-			error_log(print_r($phpmailer,true));
 		}
 
 
