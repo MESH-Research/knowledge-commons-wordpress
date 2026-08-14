@@ -338,4 +338,32 @@ if ( ! function_exists( 'wp_remote_request' ) ) {
 	}
 }
 
+// --- Stubs for enqueue / BuddyPress conditionals used by hc-styles ------------
+// Overridable per-test via $GLOBALS['_mock_*'] values; enqueued styles are
+// recorded in $GLOBALS['_enqueued_styles'] keyed by handle.
+
+if ( ! function_exists( 'plugins_url' ) ) {
+	function plugins_url( $path = '', $plugin = '' ) {
+		return 'https://example.org/app/plugins' . $path;
+	}
+}
+
+if ( ! function_exists( 'wp_enqueue_style' ) ) {
+	function wp_enqueue_style( $handle, $src = '', $deps = [], $ver = false, $media = 'all' ) {
+		$GLOBALS['_enqueued_styles'][ $handle ] = $src;
+	}
+}
+
+if ( ! function_exists( 'bp_is_group_create' ) ) {
+	function bp_is_group_create() {
+		return ! empty( $GLOBALS['_mock_bp_is_group_create'] );
+	}
+}
+
+if ( ! function_exists( 'bp_is_create_blog' ) ) {
+	function bp_is_create_blog() {
+		return ! empty( $GLOBALS['_mock_bp_is_create_blog'] );
+	}
+}
+
 require_once __DIR__ . '/xprofile-html-fix-loader.php';

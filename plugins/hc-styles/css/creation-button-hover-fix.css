@@ -1,0 +1,30 @@
+/**
+ * Hover/focus contrast fix for group-creation and site-creation buttons.
+ *
+ * BuddyPress legacy (bp-legacy/css/buddypress.css) sets
+ * `background: #ededed; border: 1px solid #bbb; color: #555;` on
+ * #buddypress button/submit hover. The hcommons-mpe theme overrides only the
+ * hover background (to dark green #1b5e20), so BuddyPress's grey text
+ * survives and renders at roughly 1.4:1 against the green, making labels
+ * unreadable on mouseover. Re-assert white text (7.9:1 on #1b5e20, passing
+ * WCAG AA) scoped to the creation flows.
+ *
+ * https://github.com/MESH-Research/knowledge-commons-wordpress/issues/97
+ */
+
+#buddypress #create-group-form button:hover,
+#buddypress #create-group-form button:focus,
+#buddypress #create-group-form input[type="submit"]:hover,
+#buddypress #create-group-form input[type="submit"]:focus,
+#buddypress #create-group-form input[type="button"]:hover,
+#buddypress #create-group-form input[type="button"]:focus,
+#buddypress #create-group-form .generic-button a:hover,
+#buddypress #create-group-form .generic-button a:focus,
+#buddypress #setupform button:hover,
+#buddypress #setupform button:focus,
+#buddypress #setupform input[type="submit"]:hover,
+#buddypress #setupform input[type="submit"]:focus {
+	background-color: #1b5e20;
+	border: none;
+	color: #ffffff;
+}

@@ -11,6 +11,7 @@ namespace Humanities_Commons\Plugin\HC_Styles;
 
 require_once( __DIR__ . '/vendor/autoload.php' );
 require_once( __DIR__. '/includes/buddypress-more-privacy-options.php' );
+require_once( __DIR__. '/includes/creation-button-hover-fix.php' );
 
 // initialize badges by instantiating
 $Badges = new Badges;
