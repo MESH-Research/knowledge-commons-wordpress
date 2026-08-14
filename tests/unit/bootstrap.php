@@ -252,7 +252,9 @@ if ( ! class_exists( 'WP_REST_Request' ) ) {
 
 if ( ! function_exists( 'add_filter' ) ) {
 	function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
-		// no-op for unit tests
+		// Recorded so tests can resolve captured hooks; otherwise a no-op.
+		$GLOBALS['_captured_filters'][ $hook ][] = $callback;
+		return true;
 	}
 }
 
