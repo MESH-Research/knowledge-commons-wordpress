@@ -29,11 +29,25 @@ function hc_test_reset_state() {
 		'invite_access'    => array(),
 	);
 
+	// The shared bootstrap's bp_get_current_group_id() stub reads this.
+	$GLOBALS['_mock_current_group_id'] = 0;
+
 	// Clear the group-permissions suite's mock store so its bridged stubs
 	// fall through to the hc_test state set up above.
 	$GLOBALS['_hc_mock'] = array();
 
 	BP_Invite_Anyone::$instances = array();
+}
+
+/**
+ * Set the current group for both the hc_test state and the shared
+ * bootstrap's bp_get_current_group_id() stub.
+ *
+ * @param object|null $group Group object, or null to clear.
+ */
+function hc_test_set_current_group( $group ) {
+	$GLOBALS['hc_test']['current_group'] = $group;
+	$GLOBALS['_mock_current_group_id']   = empty( $group->id ) ? 0 : (int) $group->id;
 }
 
 if ( ! function_exists( 'add_filter' ) ) {
@@ -262,3 +276,4 @@ if ( ! class_exists( 'BP_Invite_Anyone' ) ) {
 
 // Load the real hc-custom code under test.
 require_once __DIR__ . '/../../plugins/hc-custom/includes/buddypress-docs.php';
+require_once __DIR__ . '/../../plugins/hc-custom/includes/invite-anyone.php';

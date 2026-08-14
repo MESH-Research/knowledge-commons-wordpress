@@ -42,7 +42,7 @@ class GroupNavTest extends TestCase {
 		$group = $this->make_group( 5, 'Alpha Group', 'public', 'https://example.org/groups/alpha-group/docs/' );
 
 		$GLOBALS['hc_test']['is_group']      = true;
-		$GLOBALS['hc_test']['current_group'] = $group;
+		hc_test_set_current_group( $group );
 
 		$this->assertSame(
 			'https://example.org/groups/alpha-group/docs/',
@@ -55,7 +55,7 @@ class GroupNavTest extends TestCase {
 		$other   = $this->make_group( 9, 'Beta Group', 'public', 'https://example.org/groups/beta-group/docs/' );
 
 		$GLOBALS['hc_test']['is_group']      = true;
-		$GLOBALS['hc_test']['current_group'] = $current;
+		hc_test_set_current_group( $current );
 
 		$this->assertSame(
 			'https://example.org/groups/beta-group/docs/',
@@ -98,7 +98,7 @@ class GroupNavTest extends TestCase {
 		$group = $this->make_group( 5, 'Alpha Group', 'public', 'https://example.org/groups/alpha-group/docs/' );
 
 		$GLOBALS['hc_test']['is_group']      = true;
-		$GLOBALS['hc_test']['current_group'] = $group;
+		hc_test_set_current_group( $group );
 
 		$html = $this->render_tabs_template();
 
@@ -169,6 +169,54 @@ class GroupNavTest extends TestCase {
 		$html = $this->render_tabs_template();
 
 		$this->assertStringNotContainsString( '/groups/', $html );
+	}
+
+	// -------------------------------------------------------------------------
+	// Sub-problem 3: invite-anyone nav restored for existing groups.
+	// -------------------------------------------------------------------------
+
+	public function test_invite_nav_registered_when_group_allows_member_invites() {
+		$group = $this->make_group( 5, 'Alpha Group', 'hidden' );
+
+		$GLOBALS['hc_test']['is_group']            = true;
+		hc_test_set_current_group( $group );
+		$GLOBALS['hc_test']['can_send_invites'][5] = true;
+		$GLOBALS['hc_test']['invite_access'][5]    = 'anyone';
+
+		$this->assertTrue( hc_custom_restore_invite_anyone_group_nav() );
+		$this->assertCount( 1, BP_Invite_Anyone::$instances );
+		$this->assertTrue( BP_Invite_Anyone::$instances[0]->registered );
+	}
+
+	public function test_invite_nav_not_registered_outside_group_context() {
+		$GLOBALS['hc_test']['is_group'] = false;
+
+		$this->assertFalse( hc_custom_restore_invite_anyone_group_nav() );
+		$this->assertCount( 0, BP_Invite_Anyone::$instances );
+	}
+
+	public function test_invite_nav_not_registered_when_user_cannot_send_invites() {
+		$group = $this->make_group( 5, 'Alpha Group', 'hidden' );
+
+		$GLOBALS['hc_test']['is_group']            = true;
+		hc_test_set_current_group( $group );
+		$GLOBALS['hc_test']['can_send_invites'][5] = false;
+		$GLOBALS['hc_test']['invite_access'][5]    = 'anyone';
+
+		$this->assertFalse( hc_custom_restore_invite_anyone_group_nav() );
+		$this->assertCount( 0, BP_Invite_Anyone::$instances );
+	}
+
+	public function test_invite_nav_not_registered_when_access_setting_disallows() {
+		$group = $this->make_group( 5, 'Alpha Group', 'hidden' );
+
+		$GLOBALS['hc_test']['is_group']            = true;
+		hc_test_set_current_group( $group );
+		$GLOBALS['hc_test']['can_send_invites'][5] = true;
+		$GLOBALS['hc_test']['invite_access'][5]    = 'noone';
+
+		$this->assertFalse( hc_custom_restore_invite_anyone_group_nav() );
+		$this->assertCount( 0, BP_Invite_Anyone::$instances );
 	}
 
 	// -------------------------------------------------------------------------
