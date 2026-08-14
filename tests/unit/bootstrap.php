@@ -216,6 +216,21 @@ if ( ! function_exists( 'set_transient' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_script_is' ) ) {
+	function wp_script_is( $handle, $status = 'enqueued' ) {
+		if ( isset( $GLOBALS['_mock_wp_script_is_callback'] ) ) {
+			return (bool) call_user_func( $GLOBALS['_mock_wp_script_is_callback'], $handle, $status );
+		}
+		return false;
+	}
+}
+
+if ( ! function_exists( 'wp_enqueue_script' ) ) {
+	function wp_enqueue_script( $handle, $src = '', $deps = [], $ver = false, $in_footer = false ) {
+		$GLOBALS['_enqueued_scripts'][ $handle ] = compact( 'handle', 'src', 'deps', 'ver', 'in_footer' );
+	}
+}
+
 if ( ! class_exists( 'WP_Error' ) ) {
 	class WP_Error {
 		public $code;
