@@ -310,7 +310,9 @@ if ( ! function_exists( 'groups_update_groupmeta' ) ) {
 
 if ( ! function_exists( 'bp_get_current_group_id' ) ) {
 	function bp_get_current_group_id() {
-		return $GLOBALS['_mock_current_group_id'] ?? 0;
+		// Shared across suites: falls back to the _hc_mock store used by the
+		// group-permissions loader when the direct mock is not set.
+		return (int) ( $GLOBALS['_mock_current_group_id'] ?? $GLOBALS['_hc_mock']['current_group_id'] ?? 0 );
 	}
 }
 
@@ -339,3 +341,4 @@ if ( ! function_exists( 'wp_remote_request' ) ) {
 }
 
 require_once __DIR__ . '/xprofile-html-fix-loader.php';
+require_once __DIR__ . '/group-permissions-loader.php';
