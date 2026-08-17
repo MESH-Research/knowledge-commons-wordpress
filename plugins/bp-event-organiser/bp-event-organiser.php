@@ -49,6 +49,7 @@ if ( ! defined( 'BPEO_EVENTS_NEW_SLUG' ) ) {
  */
 function bpeo_include() {
 	require( BPEO_PATH . 'includes/functions.php' );
+	require( BPEO_PATH . 'includes/datepicker-scroll-fix.php' );
 	require( BPEO_PATH . 'includes/component.php' );
 	require( BPEO_PATH . 'includes/user.php' );
 
