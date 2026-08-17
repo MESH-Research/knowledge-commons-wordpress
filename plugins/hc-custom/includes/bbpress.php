@@ -285,9 +285,107 @@ function hcommons_tinymce_buttons( $buttons ) {
 add_filter( 'mce_buttons', 'hcommons_tinymce_buttons', 21 );
 
 /**
+ * Resolve the BuddyPress group IDs associated with a bbPress forum, topic or reply.
+ *
+ * @param int $post_id ID of the forum, topic or reply being checked.
+ * @return array Group IDs the post's forum is attached to.
+ */
+function hc_custom_get_group_ids_for_forum_post( $post_id ) {
+	if ( empty( $post_id ) || ! function_exists( 'bbp_get_forum_group_ids' ) ) {
+		return array();
+	}
+
+	$post = get_post( $post_id );
+	if ( empty( $post ) ) {
+		return array();
+	}
+
+	if ( bbp_get_forum_post_type() === $post->post_type ) {
+		$forum_id = $post->ID;
+	} elseif ( bbp_get_topic_post_type() === $post->post_type ) {
+		$forum_id = bbp_get_topic_forum_id( $post->ID );
+	} elseif ( bbp_get_reply_post_type() === $post->post_type ) {
+		$forum_id = bbp_get_reply_forum_id( $post->ID );
+	} else {
+		return array();
+	}
+
+	if ( empty( $forum_id ) ) {
+		return array();
+	}
+
+	return array_filter( array_map( 'intval', (array) bbp_get_forum_group_ids( $forum_id ) ) );
+}
+
+/**
+ * Restore group forum moderation capabilities for group admins and mods.
+ *
+ * bbPress's BBP_Forums_Group_Extension::map_group_forum_meta_caps() is only
+ * hooked when the extension is constructed inside a group forum request. Since
+ * BuddyPress 12 the request is parsed on 'bp_parse_query', which runs after
+ * group extensions are constructed on 'bp_init', so the stock mapping never
+ * attaches and group admins/mods lose their moderation capabilities. This
+ * reinstates the same mapping, resolving group context from the object being
+ * checked and falling back to the current group.
+ *
+ * @param array  $caps    Mapped capabilities.
+ * @param string $cap     Capability being checked.
+ * @param int    $user_id ID of the user being checked.
+ * @param array  $args    Additional args (usually the object ID).
+ * @return array Mapped capabilities.
+ */
+function hc_custom_map_group_forum_meta_caps( $caps, $cap, $user_id, $args ) {
+	$member_caps = array( 'read_forum', 'publish_replies', 'publish_topics', 'read_hidden_forums', 'read_private_forums' );
+	$mod_caps    = array( 'moderate', 'edit_topic', 'edit_reply', 'view_trash', 'edit_others_replies', 'edit_others_topics' );
+	$admin_caps  = array( 'delete_topic', 'delete_reply' );
+
+	if ( ! in_array( $cap, array_merge( $member_caps, $mod_caps, $admin_caps ), true ) ) {
+		return $caps;
+	}
+
+	// Resolve the groups attached to the forum of the object being checked.
+	$group_ids = hc_custom_get_group_ids_for_forum_post( isset( $args[0] ) ? $args[0] : 0 );
+
+	// For primitive caps checked without an object, fall back to the current group.
+	if ( empty( $group_ids ) && empty( $args[0] ) && bp_is_group() && bp_get_current_group_id() ) {
+		$group_ids = array( bp_get_current_group_id() );
+	}
+
+	if ( empty( $group_ids ) ) {
+		return $caps;
+	}
+
+	$is_member = false;
+	$is_mod    = false;
+	$is_admin  = false;
+	$is_banned = false;
+
+	foreach ( $group_ids as $group_id ) {
+		$is_member = $is_member || (bool) groups_is_user_member( $user_id, $group_id );
+		$is_mod    = $is_mod || (bool) groups_is_user_mod( $user_id, $group_id );
+		$is_admin  = $is_admin || (bool) groups_is_user_admin( $user_id, $group_id );
+		$is_banned = $is_banned || (bool) groups_is_user_banned( $user_id, $group_id );
+	}
+
+	if ( in_array( $cap, $member_caps, true ) ) {
+		if ( $is_banned ) {
+			$caps = array( 'do_not_allow' );
+		} elseif ( $is_member || $is_mod || $is_admin ) {
+			$caps = array( 'participate' );
+		}
+	} elseif ( in_array( $cap, $mod_caps, true ) && ( $is_mod || $is_admin ) ) {
+		$caps = array( 'participate' );
+	} elseif ( in_array( $cap, $admin_caps, true ) && $is_admin ) {
+		$caps = array( 'participate' );
+	}
+
+	return $caps;
+}
+add_filter( 'bbp_map_meta_caps', 'hc_custom_map_group_forum_meta_caps', 12, 4 );
+
+/**
  * Filter who can edit forum topics.
  *
- * @uses mla_is_group_committee()
  * @param  array $array Array of the links to modify.
  * @return array Modified array of items.
  */
@@ -297,15 +395,18 @@ function hcommons_topic_admin_links( $array ) {
 		return $array;
 	}
 
-	// Committee admins can edit any post in their group.
-	if ( mla_is_group_committee( bp_get_current_group_id() ) && groups_is_user_admin( get_current_user_id(), bp_get_current_group_id() ) ) {
+	$user_id  = get_current_user_id();
+	$group_id = bp_get_current_group_id();
+
+	// Group admins and mods can moderate any post in their group.
+	if ( ! empty( $group_id ) && ( groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id ) ) ) {
 		return $array;
 	}
 
 	// All other users can only edit their own posts.
 	if (
 		isset( $array['edit'] ) &&
-		get_current_user_id() !== bbp_get_topic_author_id( bbp_get_topic_id() )
+		$user_id !== bbp_get_topic_author_id( bbp_get_topic_id() )
 	) {
 		unset( $array['edit'] );
 	}
@@ -317,7 +418,6 @@ add_filter( 'bbp_topic_admin_links', 'hcommons_topic_admin_links' );
 /**
  * Filter who can edit forum replies.
  *
- * @uses mla_is_group_committee()
  * @param  array $array Array of the links to modify.
  * @return array Modified array of items.
  */
@@ -327,15 +427,18 @@ function hcommons_reply_admin_links( $array ) {
 		return $array;
 	}
 
-	// Committee admins can edit any post in their group.
-	if ( mla_is_group_committee( bp_get_current_group_id() ) && groups_is_user_admin( get_current_user_id(), bp_get_current_group_id() ) ) {
+	$user_id  = get_current_user_id();
+	$group_id = bp_get_current_group_id();
+
+	// Group admins and mods can moderate any post in their group.
+	if ( ! empty( $group_id ) && ( groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id ) ) ) {
 		return $array;
 	}
 
 	// All other users can only edit their own posts.
 	if (
 		isset( $array['edit'] ) &&
-		get_current_user_id() !== bbp_get_reply_author_id( bbp_get_reply_id() )
+		$user_id !== bbp_get_reply_author_id( bbp_get_reply_id() )
 	) {
 		unset( $array['edit'] );
 	}

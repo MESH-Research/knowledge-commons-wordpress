@@ -97,6 +97,10 @@ function hc_custom_bpeo_group_event_meta_cap( $caps, $cap, $user_id, $args ) {
 	}
 
 	// Some caps do not expect a specific event to be passed to the filter.
+	$event        = null;
+	$event_groups = array();
+	$user_groups  = array( 'groups' => array() );
+
 	$primitive_caps = array( 'read_events', 'read_private_events', 'edit_events', 'edit_others_events', 'publish_events', 'delete_events', 'delete_others_events', 'manage_event_categories', 'connect_event_to_group' );
 	if ( ! in_array( $cap, $primitive_caps ) ) {
 		$event = get_post( $args[0] );
@@ -120,7 +124,7 @@ function hc_custom_bpeo_group_event_meta_cap( $caps, $cap, $user_id, $args ) {
 				return $caps;
 			}
 
-			if ( 'private' !== $event->post_status ) {
+			if ( 'private' !== ( is_object( $event ) ? $event->post_status : null ) ) {
 				// EO uses 'read', which doesn't include non-logged-in users.
 				$caps = array( 'exist' );
 
@@ -128,8 +132,24 @@ function hc_custom_bpeo_group_event_meta_cap( $caps, $cap, $user_id, $args ) {
 				$caps = array( 'read' );
 			}
 
-			// @todo group admins / mods permissions
+			break;
+
 		case 'edit_event':
+		case 'delete_event':
+			// Group admins can edit and delete any event connected to their
+			// group; group mods can edit.
+			foreach ( $event_groups as $event_group_id ) {
+				if ( groups_is_user_admin( $user_id, $event_group_id ) ) {
+					$caps = array( 'exist' );
+					break;
+				}
+
+				if ( 'edit_event' === $cap && groups_is_user_mod( $user_id, $event_group_id ) ) {
+					$caps = array( 'exist' );
+					break;
+				}
+			}
+
 			break;
 
 		case 'connect_event_to_group':
@@ -152,6 +172,97 @@ function hc_custom_bpeo_group_event_meta_cap( $caps, $cap, $user_id, $args ) {
 	return $caps;
 }
 add_filter( 'map_meta_cap', 'hc_custom_bpeo_group_event_meta_cap', 20, 5 );
+
+/**
+ * Register the events subnav (Calendar / Upcoming / Manage / New Event) for the
+ * current group.
+ *
+ * BP Event Organiser registers this subnav from its group extension
+ * constructor, which runs on 'bp_init'. Since BuddyPress 12 the request is
+ * parsed on 'bp_parse_query', which runs later, so bp_is_group() is false at
+ * construction time and the subnav is never registered — leaving group members
+ * without the "New Event" button. This re-registers the subnav once the group
+ * context is available.
+ */
+function hc_custom_bpeo_register_group_events_subnav() {
+	if ( ! function_exists( 'bpeo_get_group_permalink' ) || ! bp_is_group() ) {
+		return;
+	}
+
+	$group = groups_get_current_group();
+	if ( empty( $group->slug ) ) {
+		return;
+	}
+
+	$parent_slug = $group->slug . '_events';
+
+	// Bail if the subnav has already been registered (e.g. fixed upstream).
+	$existing = buddypress()->groups->nav->get_secondary( array( 'parent_slug' => $parent_slug ), false );
+	if ( ! empty( $existing ) ) {
+		return;
+	}
+
+	// Routing is handled by the Events group extension screen, so the subnav
+	// items are links only and never dispatch their own screen function.
+	$default_params = array(
+		'parent_url'        => bpeo_get_group_permalink(),
+		'parent_slug'       => $parent_slug,
+		'screen_function'   => '__return_false',
+		'show_in_admin_bar' => true,
+	);
+
+	$sub_nav = array();
+
+	$sub_nav[] = array_merge(
+		array(
+			'name'            => __( 'Calendar', 'bp-event-organiser' ),
+			'slug'            => 'calendar',
+			'user_has_access' => ! empty( $group->is_user_member ),
+			'position'        => 0,
+			'link'            => bpeo_get_group_permalink(),
+		),
+		$default_params
+	);
+
+	$sub_nav[] = array_merge(
+		array(
+			'name'            => __( 'Upcoming', 'bp-event-organiser' ),
+			'slug'            => 'upcoming',
+			'user_has_access' => ! empty( $group->is_user_member ),
+			'position'        => 0,
+			'link'            => bpeo_get_group_permalink() . 'upcoming/',
+		),
+		$default_params
+	);
+
+	$sub_nav[] = array_merge(
+		array(
+			'name'            => __( 'Manage', 'bp-event-organiser' ),
+			'slug'            => 'manage',
+			'user_has_access' => (bool) groups_is_user_admin( bp_loggedin_user_id(), $group->id ),
+			'position'        => 0,
+			'link'            => trailingslashit( bp_get_group_permalink( $group ) . 'admin/' . bpeo_get_events_slug() ),
+		),
+		$default_params
+	);
+
+	if ( current_user_can( 'connect_event_to_group', $group->id ) ) {
+		$sub_nav[] = array_merge(
+			array(
+				'name'            => __( 'New Event', 'bp-event-organiser' ),
+				'slug'            => bpeo_get_events_new_slug(),
+				'user_has_access' => ! empty( $group->is_user_member ),
+				'position'        => 99,
+			),
+			$default_params
+		);
+	}
+
+	foreach ( $sub_nav as $nav ) {
+		bp_core_new_subnav_item( $nav, 'groups' );
+	}
+}
+add_action( 'bp_actions', 'hc_custom_bpeo_register_group_events_subnav', 7 );
 
 /**
  * Create activity on event save.
