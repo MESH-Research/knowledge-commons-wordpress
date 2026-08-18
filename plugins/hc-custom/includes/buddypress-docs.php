@@ -485,19 +485,29 @@ add_filter( 'bp_get_current_group_id', 'hcommons_correct_bp_get_current_group_id
  * This addresses @link
  * https://github.com/MESH-Research/knowledge-commons-wordpress/issues/118
  *
- * On /docs/create the main query is the bp_doc post-type archive, so the
- * global $post holds the first doc of the archive listing. Since
- * buddypress-docs 2.2.5, BP_Docs_Component::catch_page_load() treats
+ * Since buddypress-docs 2.2.5, BP_Docs_Component::catch_page_load() treats
  * whatever bp_docs_get_current_doc() returns at save time as the doc being
  * edited and demands the matching 'bp_docs_edit_{ID}' nonce — which the
- * create form never contained, because at render time BuddyPress theme
- * compatibility has already reset the globals to a dummy post with ID 0. The
- * result is that every create save dies in wp_nonce_ays() with "The link you
- * followed has expired."
+ * create form never contained, so the save dies in wp_nonce_ays() with "The
+ * link you followed has expired."
  *
- * A create save (no posted doc ID) has no current doc by definition, so
- * return null and let the archive's first post stop masquerading as one.
- * Renders and genuine edit saves are left untouched.
+ * A create save can be recognised in two ways:
+ *
+ * 1. No posted doc ID at all (the create form renders its hidden doc_id
+ *    field as "0").
+ * 2. A posted doc ID that refers to an 'auto-draft' placeholder. On the
+ *    create screen, the attachments script calls the bp_docs_create_dummy_doc
+ *    AJAX endpoint, which inserts an auto-draft bp_doc (associated with the
+ *    target group when creating from /docs/create/?group=...) and rewrites
+ *    the form's doc_id field with the placeholder's ID so uploads have a
+ *    parent. That placeholder is still a doc *being created* — upstream
+ *    itself treats an auto-draft doc_id as a new doc in
+ *    BP_Docs_Query::save() — so it must not masquerade as the doc being
+ *    edited, or the save handler will demand a per-doc edit nonce that no
+ *    create form ever contains.
+ *
+ * Renders and genuine edit saves (posted doc ID of a real, non-auto-draft
+ * doc) are left untouched, keeping the per-doc nonce protection for edits.
  *
  * @param WP_Post|null $current_doc The doc detected by bp_docs_get_current_doc().
  * @return WP_Post|null Null on a create save, the detected doc otherwise.
@@ -508,13 +518,26 @@ function hc_custom_bp_docs_create_save_current_doc( $current_doc ) {
 		return $current_doc;
 	}
 
-	// A posted doc ID means this is an edit save; leave it alone.
-	if ( ! empty( $_POST['doc_id'] ) || ! empty( $_POST['doc-id'] ) ) {
-		return $current_doc;
+	$posted_doc_id = 0;
+	if ( ! empty( $_POST['doc_id'] ) ) {
+		$posted_doc_id = intval( $_POST['doc_id'] );
+	} elseif ( ! empty( $_POST['doc-id'] ) ) {
+		$posted_doc_id = intval( $_POST['doc-id'] );
 	}
 
-	// A create save has no current doc.
-	return null;
+	// No posted doc ID: a create save has no current doc.
+	if ( ! $posted_doc_id ) {
+		return null;
+	}
+
+	// A posted doc ID that is still an auto-draft is the attachments
+	// placeholder for a doc being created, not a doc being edited.
+	if ( 'auto-draft' === get_post_status( $posted_doc_id ) ) {
+		return null;
+	}
+
+	// A genuine edit save; leave it alone.
+	return $current_doc;
 }
 add_filter( 'bp_docs_get_current_doc', 'hc_custom_bp_docs_create_save_current_doc', 20, 1 );
 
