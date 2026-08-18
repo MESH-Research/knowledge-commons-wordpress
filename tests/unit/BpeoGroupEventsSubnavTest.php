@@ -13,6 +13,7 @@ class BpeoGroupEventsSubnavTest extends TestCase {
 	protected function setUp(): void {
 		$GLOBALS['_hc_mock']              = array();
 		$GLOBALS['_hc_registered_subnav'] = array();
+		$GLOBALS['_mock_group_meta']      = array();
 	}
 
 	/**
@@ -58,9 +59,12 @@ class BpeoGroupEventsSubnavTest extends TestCase {
 		$this->assertSame( array(), $GLOBALS['_hc_registered_subnav'] );
 	}
 
-	public function test_member_who_can_connect_gets_new_event_item() {
+	public function test_group_member_gets_new_event_item_under_member_setting() {
+		// Default setting: any group member may connect events. The New Event
+		// button must appear based on that setting, not on WP blog caps.
 		$this->setUpCurrentGroup();
-		$GLOBALS['_hc_mock']['user_can'] = array( 'connect_event_to_group' => true );
+		$GLOBALS['_hc_mock']['current_user_id'] = 5;
+		$GLOBALS['_hc_mock']['group_members']   = array( '5:50' );
 
 		hc_custom_bpeo_register_group_events_subnav();
 
@@ -70,9 +74,11 @@ class BpeoGroupEventsSubnavTest extends TestCase {
 		$this->assertContains( 'new', $slugs );
 	}
 
-	public function test_member_who_cannot_connect_does_not_get_new_event_item() {
+	public function test_group_member_does_not_get_new_event_item_under_admin_mod_setting() {
 		$this->setUpCurrentGroup();
-		$GLOBALS['_hc_mock']['user_can'] = array( 'connect_event_to_group' => false );
+		$GLOBALS['_hc_mock']['current_user_id'] = 5;
+		$GLOBALS['_hc_mock']['group_members']   = array( '5:50' );
+		$GLOBALS['_hc_mock']['group_min_role']  = array( 50 => 'admin_mod' );
 
 		hc_custom_bpeo_register_group_events_subnav();
 
@@ -82,9 +88,65 @@ class BpeoGroupEventsSubnavTest extends TestCase {
 		$this->assertNotContains( 'new', $slugs );
 	}
 
+	public function test_group_admin_gets_new_event_item_under_admin_mod_setting() {
+		$this->setUpCurrentGroup();
+		$GLOBALS['_hc_mock']['current_user_id'] = 5;
+		$GLOBALS['_hc_mock']['group_admins']    = array( '5:50' );
+		$GLOBALS['_hc_mock']['group_min_role']  = array( 50 => 'admin_mod' );
+
+		hc_custom_bpeo_register_group_events_subnav();
+
+		$this->assertContains( 'new', $this->registeredSlugs() );
+	}
+
+	public function test_non_member_does_not_get_new_event_item() {
+		$this->setUpCurrentGroup();
+		$GLOBALS['_hc_mock']['current_user_id'] = 6;
+
+		hc_custom_bpeo_register_group_events_subnav();
+
+		$this->assertNotContains( 'new', $this->registeredSlugs() );
+	}
+
+	public function test_hidden_events_nav_suppresses_subnav_for_regular_member() {
+		// Group admins can hide nav items per group (groupmeta slug => 'hide');
+		// the events subnav must respect that setting for regular members.
+		$this->setUpCurrentGroup();
+		$GLOBALS['_hc_mock']['current_user_id']    = 5;
+		$GLOBALS['_hc_mock']['group_members']      = array( '5:50' );
+		$GLOBALS['_mock_group_meta'][50]['events'] = 'hide';
+
+		hc_custom_bpeo_register_group_events_subnav();
+
+		$this->assertSame( array(), $GLOBALS['_hc_registered_subnav'] );
+	}
+
+	public function test_hidden_events_nav_still_registers_for_group_admin() {
+		$this->setUpCurrentGroup();
+		$GLOBALS['_hc_mock']['current_user_id']    = 5;
+		$GLOBALS['_hc_mock']['group_admins']       = array( '5:50' );
+		$GLOBALS['_mock_group_meta'][50]['events'] = 'hide';
+
+		hc_custom_bpeo_register_group_events_subnav();
+
+		$this->assertNotEmpty( $GLOBALS['_hc_registered_subnav'] );
+	}
+
+	public function test_hidden_events_nav_still_registers_for_super_admin() {
+		$this->setUpCurrentGroup();
+		$GLOBALS['_hc_mock']['current_user_id']    = 7;
+		$GLOBALS['_hc_mock']['is_super_admin']     = true;
+		$GLOBALS['_mock_group_meta'][50]['events'] = 'hide';
+
+		hc_custom_bpeo_register_group_events_subnav();
+
+		$this->assertNotEmpty( $GLOBALS['_hc_registered_subnav'] );
+	}
+
 	public function test_subnav_items_registered_for_groups_component_under_events_parent() {
 		$this->setUpCurrentGroup();
-		$GLOBALS['_hc_mock']['user_can'] = array( 'connect_event_to_group' => true );
+		$GLOBALS['_hc_mock']['current_user_id'] = 5;
+		$GLOBALS['_hc_mock']['group_members']   = array( '5:50' );
 
 		hc_custom_bpeo_register_group_events_subnav();
 

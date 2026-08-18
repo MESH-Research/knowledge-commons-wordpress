@@ -278,6 +278,18 @@ if ( ! function_exists( 'mla_is_group_committee' ) ) {
 	}
 }
 
+if ( ! class_exists( 'Humanities_Commons' ) ) {
+	/**
+	 * Stub of the Humanities Commons plugin class: only the new-member
+	 * vetting check is needed by the code under test.
+	 */
+	class Humanities_Commons {
+		public static function hcommons_vet_user() {
+			return false !== _hc_mock( 'vetted_user', true );
+		}
+	}
+}
+
 // ---------------------------------------------------------------------------
 // BP Event Organiser stubs.
 // ---------------------------------------------------------------------------
