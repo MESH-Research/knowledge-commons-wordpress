@@ -112,4 +112,30 @@ test.describe.serial("Docs", () => {
     expect(bodyText).not.toContain("The link you followed has expired");
     await expect(page.locator("body")).toContainText(docTitle);
   });
+
+  test("group docs tab links back to the group", async ({
+    authenticatedPage: page,
+    capture,
+  }) => {
+    test.skip(!groupSlug, "Group was not created");
+
+    // https://github.com/MESH-Research/knowledge-commons-wordpress/issues/121
+    // The group docs tab must render inside the group's own page, so there
+    // is always a way back to the group (header title / group nav). A theme
+    // that swaps in a standalone docs template here strands the visitor.
+    await page.goto(`/groups/${groupSlug}/docs/`);
+    await page.waitForLoadState("networkidle");
+    await capture("06-group-docs-back-link");
+
+    // The docs list itself rendered...
+    await expect(page.locator("#buddypress")).toBeAttached();
+
+    // ...and at least one link leads back to the group's home page. The
+    // group's own docs tab URL (/groups/slug/docs/) must not satisfy this.
+    const backLink = page.locator(`a[href$="/groups/${groupSlug}/"]`).first();
+    await expect(backLink).toBeAttached();
+
+    // The group's name is shown as page context, not just as a tab label.
+    await expect(page.locator("body")).toContainText(groupName);
+  });
 });
