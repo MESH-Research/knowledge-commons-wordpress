@@ -517,6 +517,121 @@ function hcommons_restricted_comment_terms_doc_fallback( $terms, $term_query ) {
 add_action( 'terms_pre_query', 'hcommons_restricted_comment_terms_doc_fallback', 10, 2 );
 
 /**
+ * Get the URL of a group's Docs list.
+ *
+ * This addresses @link https://github.com/MESH-Research/knowledge-commons-wordpress/issues/101
+ *
+ * The upstream tabs-legacy.php template fails to echo the return value of
+ * esc_url( bp_get_group_url( ... ) ), leaving a relative href="docs" that
+ * resolves to /groups/{slug}/docs/docs and is then treated as a doc-slug
+ * lookup, which can land on another group's doc. This helper always returns
+ * an absolute URL for the requested group.
+ *
+ * @param object|int|null $group Group object or ID. Defaults to the current group.
+ * @return string The group's Docs URL, or an empty string if unavailable.
+ */
+function hc_custom_get_group_docs_url( $group = null ) {
+	if ( ! function_exists( 'bp_docs_get_group_docs_url' ) ) {
+		return '';
+	}
+
+	if ( ! $group && function_exists( 'groups_get_current_group' ) ) {
+		$group = groups_get_current_group();
+	}
+
+	if ( ! $group ) {
+		return '';
+	}
+
+	$url = bp_docs_get_group_docs_url( $group );
+
+	return $url ? $url : '';
+}
+
+/**
+ * Build a "back to the group's Docs" tab for a single doc.
+ *
+ * Single docs are viewed at the global /docs/{slug} URL, outside the group
+ * context, so the docs tabs offer no way back to the owning group's docs
+ * list. This helper resolves the doc's associated group so the tabs template
+ * can render a link back to it. Hidden groups are not revealed to
+ * non-members.
+ *
+ * @param int $doc_id ID of the doc.
+ * @return array|null Array with 'url' and 'label' keys, or null when the doc
+ *                    has no (visible) associated group.
+ */
+function hc_custom_get_doc_group_docs_tab( $doc_id ) {
+	if ( ! $doc_id || ! function_exists( 'bp_docs_get_associated_group_id' ) ) {
+		return null;
+	}
+
+	$group_id = (int) bp_docs_get_associated_group_id( $doc_id );
+
+	if ( ! $group_id ) {
+		return null;
+	}
+
+	$group = groups_get_group( array( 'group_id' => $group_id ) );
+
+	if ( empty( $group->id ) || empty( $group->name ) ) {
+		return null;
+	}
+
+	// Do not reveal hidden groups to non-members.
+	if ( isset( $group->status ) && 'hidden' === $group->status ) {
+		$can_moderate = function_exists( 'bp_current_user_can' ) && bp_current_user_can( 'bp_moderate' );
+
+		if ( ! $can_moderate && ! groups_is_user_member( bp_loggedin_user_id(), $group_id ) ) {
+			return null;
+		}
+	}
+
+	$url = hc_custom_get_group_docs_url( $group );
+
+	if ( ! $url ) {
+		return null;
+	}
+
+	return array(
+		'url'   => $url,
+		/* translators: %s: group name */
+		'label' => sprintf( __( "%s's Docs", 'hc-custom' ), $group->name ),
+	);
+}
+
+/**
+ * Replace the buddypress-docs legacy tabs template with a corrected copy.
+ *
+ * The hc-custom copy fixes the un-echoed group docs URL and adds a link back
+ * to the owning group's docs list when viewing a single doc. A template
+ * provided by the theme (anything outside buddypress-docs) is left alone.
+ *
+ * @param string $template_path Located template path.
+ * @param string $template      Requested template file name.
+ * @return string Template path to load.
+ */
+function hc_custom_bp_docs_tabs_template( $template_path, $template ) {
+	if ( 'tabs-legacy.php' !== $template ) {
+		return $template_path;
+	}
+
+	// Respect overrides located outside the buddypress-docs plugin.
+	if ( false === strpos( (string) $template_path, 'buddypress-docs' ) ) {
+		return $template_path;
+	}
+
+	$override = trailingslashit( __DIR__ ) . 'templates/docs/tabs-legacy.php';
+
+	if ( file_exists( $override ) ) {
+		return $override;
+	}
+
+	return $template_path;
+}
+add_filter( 'bp_docs_locate_template', 'hc_custom_bp_docs_tabs_template', 10, 2 );
+
+/**
  * Enqueue buddypress-docs js
  */
 function enqueue_buddypress_docs_js() {

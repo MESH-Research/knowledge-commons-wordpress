@@ -359,3 +359,4 @@ if ( ! function_exists( 'wp_remote_request' ) ) {
 
 require_once __DIR__ . '/xprofile-html-fix-loader.php';
 require_once __DIR__ . '/group-permissions-loader.php';
+require_once __DIR__ . '/group-nav-loader.php';

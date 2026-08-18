@@ -112,7 +112,9 @@ if ( ! function_exists( 'current_user_can' ) ) {
 
 if ( ! function_exists( 'bp_is_group' ) ) {
 	function bp_is_group() {
-		return (bool) _hc_mock( 'is_group', false );
+		// Shared across suites: falls back to the hc_test store used by the
+		// group-nav loader when no _hc_mock value is configured.
+		return (bool) _hc_mock( 'is_group', ! empty( $GLOBALS['hc_test']['is_group'] ) );
 	}
 }
 
@@ -124,7 +126,9 @@ if ( ! function_exists( 'bp_get_current_group_id' ) ) {
 
 if ( ! function_exists( 'bp_loggedin_user_id' ) ) {
 	function bp_loggedin_user_id() {
-		return (int) _hc_mock( 'current_user_id', 0 );
+		// Shared across suites: falls back to the hc_test store used by the
+		// group-nav loader when no _hc_mock value is configured.
+		return (int) _hc_mock( 'current_user_id', $GLOBALS['hc_test']['loggedin_user'] ?? 0 );
 	}
 }
 
@@ -142,7 +146,12 @@ if ( ! function_exists( 'groups_is_user_mod' ) ) {
 
 if ( ! function_exists( 'groups_is_user_member' ) ) {
 	function groups_is_user_member( $user_id, $group_id ) {
-		return in_array( "$user_id:$group_id", _hc_mock( 'group_members', array() ), true );
+		// Shared across suites: falls back to the hc_test store used by the
+		// group-nav loader when no _hc_mock value is configured.
+		if ( isset( $GLOBALS['_hc_mock']['group_members'] ) ) {
+			return in_array( "$user_id:$group_id", $GLOBALS['_hc_mock']['group_members'], true );
+		}
+		return ! empty( $GLOBALS['hc_test']['memberships'][ "$user_id:$group_id" ] );
 	}
 }
 
@@ -163,7 +172,9 @@ if ( ! function_exists( 'groups_get_user_groups' ) ) {
 
 if ( ! function_exists( 'groups_get_current_group' ) ) {
 	function groups_get_current_group() {
-		return _hc_mock( 'current_group', null );
+		// Shared across suites: falls back to the hc_test store used by the
+		// group-nav loader when no _hc_mock value is configured.
+		return _hc_mock( 'current_group', $GLOBALS['hc_test']['current_group'] ?? null );
 	}
 }
 
