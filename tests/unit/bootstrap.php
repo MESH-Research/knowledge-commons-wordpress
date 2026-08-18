@@ -348,6 +348,28 @@ if ( ! function_exists( 'wp_remote_post' ) ) {
 	}
 }
 
+if ( ! function_exists( '_e' ) ) {
+	function _e( $text, $domain = 'default' ) {
+		echo $text;
+	}
+}
+
+if ( ! function_exists( 'esc_url' ) ) {
+	function esc_url( $url ) {
+		return $url;
+	}
+}
+
+if ( ! function_exists( 'selected' ) ) {
+	function selected( $selected, $current = true, $display = true ) {
+		$result = ( (string) $selected === (string) $current ) ? " selected='selected'" : '';
+		if ( $display ) {
+			echo $result;
+		}
+		return $result;
+	}
+}
+
 if ( ! function_exists( 'wp_remote_request' ) ) {
 	function wp_remote_request( $url, $args = [] ) {
 		if ( isset( $GLOBALS['_mock_wp_remote_request_callback'] ) ) {

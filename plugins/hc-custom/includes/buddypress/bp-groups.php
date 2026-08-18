@@ -316,11 +316,28 @@ function hc_custom_get_options_nav( $parent_slug = '' ) {
 		$selected_item = bp_action_variable( 0 );
 	}
 
-	// If the nav is not defined by the parent component, look in the Members nav.
-	if ( ! isset( $bp->{$single_item_component}->nav ) ) {
-		$secondary_nav_items = $bp->members->nav->get_secondary( array( 'parent_slug' => $current_item ) );
-	} else {
-		$secondary_nav_items = $bp->{$single_item_component}->nav->get_secondary( array( 'parent_slug' => $current_item ) );
+	$secondary_nav_items = array();
+
+	// In a group, prefer the nav snapshot taken before hidden items were
+	// removed from the live nav: hidden items must stay listed here so they
+	// can be toggled back on.
+	if ( bp_is_group() ) {
+		$snapshot = groups_get_groupmeta( $group_id, 'group_nav_snapshot' );
+
+		if ( is_array( $snapshot ) && ! empty( $snapshot ) ) {
+			foreach ( $snapshot as $item ) {
+				$secondary_nav_items[] = (object) $item;
+			}
+		}
+	}
+
+	if ( empty( $secondary_nav_items ) ) {
+		// If the nav is not defined by the parent component, look in the Members nav.
+		if ( ! isset( $bp->{$single_item_component}->nav ) ) {
+			$secondary_nav_items = $bp->members->nav->get_secondary( array( 'parent_slug' => $current_item ) );
+		} else {
+			$secondary_nav_items = $bp->{$single_item_component}->nav->get_secondary( array( 'parent_slug' => $current_item ) );
+		}
 	}
 
 	if ( ! $secondary_nav_items ) {
@@ -409,17 +426,20 @@ function hc_custom_remove_group_manager_subnav_tabs() {
 
 	$group_id = bp_get_current_group_id();
 
-	// Group admins will see all tabs.
-	if ( ! $group_id || groups_is_user_admin( get_current_user_id(), $group_id ) ) {
+	if ( ! $group_id || ! isset( $bp->groups->nav ) || ! is_object( $bp->groups->nav ) ) {
 		return;
 	}
 
 	$parent_nav_slug     = bp_get_current_group_slug();
 	$secondary_nav_items = $bp->groups->nav->get_secondary( array( 'parent_slug' => $parent_nav_slug ) );
 
-	$selected_item = null;
+	if ( empty( $secondary_nav_items ) ) {
+		return;
+	}
 
-	// Remove the nav items. Not stored, just unsets it.
+	// Remove the nav items. Not stored, just unsets it. Hidden tabs are
+	// hidden for group admins too; they manage them from the settings
+	// screen, which lists items from the nav snapshot taken earlier.
 	foreach ( $secondary_nav_items as $subnav_item ) {
 		if ( 'hide' === groups_get_groupmeta( $group_id, $subnav_item->slug ) ) {
 
@@ -431,72 +451,154 @@ add_action( 'bp_actions', 'hc_custom_remove_group_manager_subnav_tabs' );
 
 
 /**
+ * Persist a snapshot of the group's secondary nav while it is available.
+ *
+ * Since BP 12 the current group is only resolved while a real group page
+ * request is parsed, so admin-ajax handlers never see the group nav. The
+ * snapshot is captured on every group page load (before hidden items are
+ * removed on bp_actions:10) and lets the landing page dropdown and the nav
+ * settings table work from groupmeta instead of the live nav.
+ */
+function hc_custom_snapshot_group_nav() {
+	global $bp;
+
+	if ( ! bp_is_group() ) {
+		return;
+	}
+
+	$group_id = bp_get_current_group_id();
+
+	if ( ! $group_id || ! isset( $bp->groups->nav ) || ! is_object( $bp->groups->nav ) ) {
+		return;
+	}
+
+	$secondary_nav_items = $bp->groups->nav->get_secondary( array( 'parent_slug' => bp_get_current_group_slug() ) );
+
+	if ( empty( $secondary_nav_items ) ) {
+		return;
+	}
+
+	$snapshot = array();
+
+	foreach ( $secondary_nav_items as $subnav_item ) {
+		$snapshot[] = array(
+			'slug'            => $subnav_item->slug,
+			'name'            => $subnav_item->name,
+			'link'            => isset( $subnav_item->link ) ? $subnav_item->link : '',
+			'screen_function' => isset( $subnav_item->screen_function ) && is_string( $subnav_item->screen_function ) ? $subnav_item->screen_function : '',
+		);
+	}
+
+	// Refresh the stored copy only when the nav has actually changed.
+	if ( $snapshot !== groups_get_groupmeta( $group_id, 'group_nav_snapshot' ) ) {
+		groups_update_groupmeta( $group_id, 'group_nav_snapshot', $snapshot );
+	}
+}
+add_action( 'bp_actions', 'hc_custom_snapshot_group_nav', 5 );
+
+/**
+ * Get the group's secondary nav items as plain arrays.
+ *
+ * Prefers the live nav when it is registered (a real group page request) and
+ * falls back to the snapshot persisted by hc_custom_snapshot_group_nav()
+ * otherwise (e.g. admin-ajax requests, where BP never sets the nav up).
+ *
+ * @param int    $group_id   The group id.
+ * @param string $group_slug The group slug.
+ * @return array[] List of items with slug, name, link and screen_function keys.
+ */
+function hc_custom_get_group_nav_items( $group_id, $group_slug ) {
+	global $bp;
+
+	if ( ! empty( $group_slug ) && isset( $bp->groups->nav ) && is_object( $bp->groups->nav ) ) {
+		$secondary_nav_items = $bp->groups->nav->get_secondary( array( 'parent_slug' => $group_slug ) );
+
+		if ( ! empty( $secondary_nav_items ) ) {
+			$items = array();
+
+			foreach ( $secondary_nav_items as $subnav_item ) {
+				$items[] = array(
+					'slug'            => $subnav_item->slug,
+					'name'            => $subnav_item->name,
+					'link'            => isset( $subnav_item->link ) ? $subnav_item->link : '',
+					'screen_function' => isset( $subnav_item->screen_function ) && is_string( $subnav_item->screen_function ) ? $subnav_item->screen_function : '',
+				);
+			}
+
+			return $items;
+		}
+	}
+
+	$snapshot = groups_get_groupmeta( $group_id, 'group_nav_snapshot' );
+
+	if ( is_array( $snapshot ) ) {
+		return array_values( $snapshot );
+	}
+
+	return array();
+}
+
+/**
+ * Build the option list for the landing page dropdown.
+ *
+ * @param int    $group_id   The group id.
+ * @param string $group_slug The group slug.
+ * @return string Concatenated option elements.
+ */
+function hc_custom_get_landing_page_options_html( $group_id, $group_slug ) {
+	$selected      = groups_get_groupmeta( $group_id, 'group_landing_page' );
+	$has_frontpage = ! empty( groups_get_groupmeta( $group_id, 'group_has_frontpage' ) );
+
+	$html = '';
+
+	foreach ( hc_custom_get_group_nav_items( $group_id, $group_slug ) as $item ) {
+		$item = (array) $item;
+		$slug = isset( $item['slug'] ) ? $item['slug'] : '';
+
+		if ( '' === $slug || 'invite-anyone' === $slug ) {
+			continue;
+		}
+
+		if ( isset( $item['screen_function'] ) && 'groups_screen_group_admin' === $item['screen_function'] ) {
+			continue;
+		}
+
+		if ( 'hide' === groups_get_groupmeta( $group_id, $slug ) ) {
+			continue;
+		}
+
+		$name = preg_replace( '/\d/', '', isset( $item['name'] ) ? $item['name'] : '' );
+
+		if ( 'Home' === $name && ! $has_frontpage ) {
+			$name = 'Activity';
+		}
+
+		$html .= '<option value="' . esc_attr( $slug ) . '"' . selected( $slug, $selected, false ) . '>' . $name . '</option>';
+	}
+
+	return $html;
+}
+
+/**
  * Allow group admin to change the default landing page.
  */
 function hc_custom_choose_landing_page() {
-	global $bp;
 
-	$group_id = ! empty( $_POST['group_id'] ) && isset( $_POST['group_id'] ) ? $_POST['group_id'] : '';
+	$group_id = ! empty( $_POST['group_id'] ) ? $_POST['group_id'] : '';
 
 	if ( empty( $group_id ) ) {
 		die( '-1' );
 	}
 
-	$parent_nav_slug = ! empty( $_POST['group_slug'] ) && isset( $_POST['group_slug'] ) ? $_POST['group_slug'] : '';
+	$parent_nav_slug = ! empty( $_POST['group_slug'] ) ? $_POST['group_slug'] : '';
 
-	$selected            = groups_get_groupmeta( $group_id, 'group_landing_page' );
-	$secondary_nav_items = $bp->groups->nav->get_secondary( array( 'parent_slug' => $parent_nav_slug ) );
-	
-	$has_frontpage = ! empty( groups_get_groupmeta( $group_id, 'group_has_frontpage' ) ) ? groups_get_groupmeta( $group_id, 'group_has_frontpage' )  : false;
-	
-	$html = '';
-
-	if ( isset( $_POST['menu_option_value'] ) && ! empty( $_POST['menu_option_value'] ) ) {
-
-		if ( isset( $_POST['menu_option_slug'] ) && ! empty( $_POST['menu_option_slug'] ) ) {
-			$menu_item = $_POST['menu_option_slug'];
-			$value     = $_POST['menu_option_value'];
-
-			groups_update_groupmeta( $group_id, $menu_item, $value );
-		}
+	// A show/hide toggle can be posted along with the refresh request; store
+	// it before building the options so the dropdown reflects it immediately.
+	if ( ! empty( $_POST['menu_option_value'] ) && ! empty( $_POST['menu_option_slug'] ) ) {
+		groups_update_groupmeta( $group_id, $_POST['menu_option_slug'], $_POST['menu_option_value'] );
 	}
 
-	foreach ( $secondary_nav_items as $subnav_item ) {
-
-		$name = preg_replace( '/\d/', '', $subnav_item->name );
-
-		if ( 'Home' === $name ) {
-			if( !$has_frontpage ) {
-			    $name = 'Activity';
-			}
-		}
-
-		if ( 'hide' === groups_get_groupmeta( $group_id, $subnav_item->slug ) ) {
-			continue;
-		}
-
-		if ( 'invite-anyone' == $subnav_item->slug ) {
-			continue;
-		}
-
-		if ( 'groups_screen_group_admin' === $subnav_item->screen_function ) {
-			continue;
-		}
-
-		if ( isset( $_POST['menu_option_value'] ) && ! empty( $_POST['menu_option_value'] ) ) {
-
-			if ( isset( $_POST['menu_option_slug'] ) && ! empty( $_POST['menu_option_slug'] ) ) {
-
-				if ( $subnav_item->slug === $_POST['menu_option_slug'] && 'hide' === $_POST['menu_option_value'] ) {
-					continue;
-				}
-			}
-		}
-
-		$html .= '<option value="' . esc_attr( $subnav_item->slug ) . '"' . selected( $subnav_item->slug, $selected ) . '>' . $name . '</option>';
-
-	}
-	echo $html;
+	echo hc_custom_get_landing_page_options_html( $group_id, $parent_nav_slug );
 
 	die();
 
@@ -507,33 +609,38 @@ add_action( 'wp_ajax_generate_menu_options_dropdown', 'hc_custom_choose_landing_
 
 
 /**
- * Grey out group navs if they are hidden.
+ * Suppress hidden group nav items when they reach the renderer.
+ *
+ * Hidden items are normally removed from the nav on bp_actions, but if one
+ * still makes it as far as bp_get_options_nav() this stops its label from
+ * being printed as unstyled text in the nav.
  *
  * @param string $string Unchanged filter string.
- * @param array  $subnav_item Array of nav item.
+ * @param object $subnav_item Nav item object.
  * @param string $selected_item Currently selected nav item.
  */
 function hc_custom_modify_nav( $string, $subnav_item, $selected_item ) {
-	global $bp;
 
-	// Site admins will see all tabs.
 	if ( ! bp_is_group() ) {
 		return $string;
 	}
 
 	$group_id = bp_get_current_group_id();
 
-	// Group admins will see all tabs.
-	if ( ! $group_id && ( ! groups_is_user_admin( get_current_user_id(), $group_id ) || ! is_super_admin() ) ) {
-
+	if ( ! $group_id ) {
 		return $string;
 	}
 
-	if ( 'hide' === groups_get_groupmeta( $group_id, $subnav_item->slug ) ) {
-		$string = '<li class="disabled-group-nav" id="' . esc_attr( $subnav_item->css_id . '-groups-li' ) . '" ' . $selected_item . '><span class="disabled-nav"> ' . $subnav_item->name . '</span></li>';
+	if ( 'hide' !== groups_get_groupmeta( $group_id, $subnav_item->slug ) ) {
+		return $string;
 	}
 
-	return $string;
+	// Site admins still see hidden tabs.
+	if ( is_super_admin() ) {
+		return $string;
+	}
+
+	return '';
 }
 
 /**
