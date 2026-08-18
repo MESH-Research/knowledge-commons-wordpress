@@ -479,6 +479,45 @@ function hcommons_correct_bp_get_current_group_id( $current_group_id, $current_g
 }
 add_filter( 'bp_get_current_group_id', 'hcommons_correct_bp_get_current_group_id', 10, 2 );
 
+/**
+ * Resolve to no current doc when a brand-new doc is being saved.
+ *
+ * This addresses @link
+ * https://github.com/MESH-Research/knowledge-commons-wordpress/issues/118
+ *
+ * On /docs/create the main query is the bp_doc post-type archive, so the
+ * global $post holds the first doc of the archive listing. Since
+ * buddypress-docs 2.2.5, BP_Docs_Component::catch_page_load() treats
+ * whatever bp_docs_get_current_doc() returns at save time as the doc being
+ * edited and demands the matching 'bp_docs_edit_{ID}' nonce — which the
+ * create form never contained, because at render time BuddyPress theme
+ * compatibility has already reset the globals to a dummy post with ID 0. The
+ * result is that every create save dies in wp_nonce_ays() with "The link you
+ * followed has expired."
+ *
+ * A create save (no posted doc ID) has no current doc by definition, so
+ * return null and let the archive's first post stop masquerading as one.
+ * Renders and genuine edit saves are left untouched.
+ *
+ * @param WP_Post|null $current_doc The doc detected by bp_docs_get_current_doc().
+ * @return WP_Post|null Null on a create save, the detected doc otherwise.
+ */
+function hc_custom_bp_docs_create_save_current_doc( $current_doc ) {
+	// Only act on doc save requests.
+	if ( empty( $_POST['doc-edit-submit'] ) && empty( $_POST['doc-edit-submit-continue'] ) ) {
+		return $current_doc;
+	}
+
+	// A posted doc ID means this is an edit save; leave it alone.
+	if ( ! empty( $_POST['doc_id'] ) || ! empty( $_POST['doc-id'] ) ) {
+		return $current_doc;
+	}
+
+	// A create save has no current doc.
+	return null;
+}
+add_filter( 'bp_docs_get_current_doc', 'hc_custom_bp_docs_create_save_current_doc', 20, 1 );
+
 function hcommons_restricted_comment_terms_doc_fallback( $terms, $term_query ) {
 	if (
 		isset( $term_query->query_vars['taxonomy'] ) && 
