@@ -17,6 +17,16 @@ if ( ! function_exists( 'bp_docs_get_post_type_name' ) ) {
 	}
 }
 
+if ( ! function_exists( 'get_post_status' ) ) {
+	/**
+	 * Status of a mocked post, driven by $GLOBALS['_hc_mock']['post_statuses'].
+	 */
+	function get_post_status( $post = null ) {
+		$post_id = is_object( $post ) ? ( $post->ID ?? 0 ) : (int) $post;
+		return $GLOBALS['_hc_mock']['post_statuses'][ $post_id ] ?? false;
+	}
+}
+
 if ( ! function_exists( '_test_apply_captured_filters' ) ) {
 	/**
 	 * Apply every callback captured for a hook, mimicking apply_filters().

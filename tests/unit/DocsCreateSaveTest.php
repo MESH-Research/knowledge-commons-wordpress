@@ -127,6 +127,73 @@ class DocsCreateSaveTest extends TestCase {
 	}
 
 	/**
+	 * A create save in a group must resolve to no current doc even though the
+	 * attachments JS has replaced the form's doc_id with the ID of the
+	 * auto-draft placeholder it created (and associated with the group) via
+	 * the bp_docs_create_dummy_doc AJAX endpoint. Treating the placeholder as
+	 * the doc being edited makes the save handler demand a per-doc edit nonce
+	 * the create form never contained.
+	 */
+	public function testGroupCreateSaveWithAutoDraftPlaceholderResolvesToNoCurrentDoc(): void {
+		$placeholder = (object) array(
+			'ID'        => 21,
+			'post_type' => 'bp_doc',
+		);
+
+		$GLOBALS['_hc_mock']['posts']         = array( 21 => $placeholder );
+		$GLOBALS['_hc_mock']['post_statuses'] = array( 21 => 'auto-draft' );
+		$GLOBALS['hc_test']['doc_groups'][21] = 7;
+
+		$_POST['doc-edit-submit'] = 'Save';
+		$_POST['doc_id']          = '21';
+
+		$this->assertNull( $this->currentDocAfterFilters( $this->accidental_doc ) );
+	}
+
+	/**
+	 * The same holds for a create save outside any group: the auto-draft
+	 * placeholder ID posted as doc_id must not surface as a current doc.
+	 */
+	public function testNoGroupCreateSaveWithAutoDraftPlaceholderResolvesToNoCurrentDoc(): void {
+		$placeholder = (object) array(
+			'ID'        => 18,
+			'post_type' => 'bp_doc',
+		);
+
+		$GLOBALS['_hc_mock']['posts']         = array( 18 => $placeholder );
+		$GLOBALS['_hc_mock']['post_statuses'] = array( 18 => 'auto-draft' );
+		$GLOBALS['hc_test']['doc_groups'][18] = 0;
+
+		$_POST['doc-edit-submit'] = 'Save';
+		$_POST['doc_id']          = '18';
+
+		$this->assertNull( $this->currentDocAfterFilters( $this->accidental_doc ) );
+	}
+
+	/**
+	 * A genuine edit save of a published doc keeps resolving to the posted
+	 * doc — the per-doc nonce protection must stay intact for real edits.
+	 */
+	public function testEditSaveOfPublishedDocKeepsResolvingToThePostedDoc(): void {
+		$edited_doc = (object) array(
+			'ID'        => 123,
+			'post_type' => 'bp_doc',
+		);
+
+		$GLOBALS['_hc_mock']['posts']          = array( 123 => $edited_doc );
+		$GLOBALS['_hc_mock']['post_statuses']  = array( 123 => 'publish' );
+		$GLOBALS['hc_test']['doc_groups'][123] = 7;
+
+		$_POST['doc-edit-submit'] = 'Save';
+		$_POST['doc_id']          = '123';
+
+		$this->assertSame(
+			$edited_doc,
+			$this->currentDocAfterFilters( $this->accidental_doc )
+		);
+	}
+
+	/**
 	 * An edit save of a doc with no associated group still resolves to no
 	 * current doc (pre-existing hc-custom behaviour, must be preserved).
 	 */
