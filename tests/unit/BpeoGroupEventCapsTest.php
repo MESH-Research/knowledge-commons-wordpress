@@ -86,12 +86,22 @@ class BpeoGroupEventCapsTest extends TestCase {
 		$this->assertSame( array( 'edit_others_events' ), $caps );
 	}
 
-	public function test_group_member_can_connect_event_to_group() {
+	public function test_group_member_can_connect_event_to_group_without_site_role() {
+		// The granted primitive must not depend on the user holding a WP role
+		// (and thus 'read') on the current site: group membership is enough.
 		$GLOBALS['_hc_mock']['group_members'] = array( '11:36' );
 
 		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'connect_event_to_group' ), 'connect_event_to_group', 11, array( 36 ) );
 
-		$this->assertSame( array( 'read' ), $caps );
+		$this->assertSame( array( 'exist' ), $caps );
+	}
+
+	public function test_group_admin_can_connect_event_to_group() {
+		$GLOBALS['_hc_mock']['group_admins'] = array( '17:41' );
+
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'connect_event_to_group' ), 'connect_event_to_group', 17, array( 41 ) );
+
+		$this->assertSame( array( 'exist' ), $caps );
 	}
 
 	public function test_non_member_cannot_connect_event_to_group() {
@@ -107,6 +117,43 @@ class BpeoGroupEventCapsTest extends TestCase {
 		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'connect_event_to_group' ), 'connect_event_to_group', 13, array( 38 ) );
 
 		$this->assertSame( array( 'connect_event_to_group' ), $caps );
+	}
+
+	public function test_banned_member_cannot_connect_event_to_group() {
+		$GLOBALS['_hc_mock']['group_members'] = array( '18:42' );
+		$GLOBALS['_hc_mock']['group_banned']  = array( '18:42' );
+
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'connect_event_to_group' ), 'connect_event_to_group', 18, array( 42 ) );
+
+		$this->assertSame( array( 'connect_event_to_group' ), $caps );
+	}
+
+	public function test_publish_events_granted_in_group_context_to_member_who_can_connect() {
+		// Publishing from a group's New Event screen must not additionally
+		// require blog-role primitives such as 'read'.
+		$GLOBALS['_hc_mock']['current_group_id'] = 43;
+		$GLOBALS['_hc_mock']['group_members']    = array( '19:43' );
+
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'exist', 'read' ), 'publish_events', 19, array() );
+
+		$this->assertSame( array( 'exist' ), $caps );
+	}
+
+	public function test_publish_events_unchanged_outside_group_context() {
+		$GLOBALS['_hc_mock']['group_members'] = array( '19:43' );
+
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'exist', 'read' ), 'publish_events', 19, array() );
+
+		$this->assertSame( array( 'exist', 'read' ), $caps );
+	}
+
+	public function test_publish_events_unchanged_in_group_where_user_cannot_connect() {
+		$GLOBALS['_hc_mock']['current_group_id'] = 44;
+		$GLOBALS['_hc_mock']['group_members']    = array( '19:43' );
+
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'exist', 'read' ), 'publish_events', 19, array() );
+
+		$this->assertSame( array( 'exist', 'read' ), $caps );
 	}
 
 	public function test_private_event_readable_by_fellow_group_member() {

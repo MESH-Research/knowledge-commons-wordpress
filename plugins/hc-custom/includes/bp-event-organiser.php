@@ -82,6 +82,66 @@ function hc_custom_bpeo_filter_query_for_bp_group( $query ) {
 add_action( 'pre_get_posts', 'hc_custom_remove_bpeo_filter_query_for_bp_group' );
 
 /**
+ * Whether a user may connect (create) events for a group.
+ *
+ * Decided by the group's "minimum member role" setting (groupmeta
+ * 'bpeo_connect_member_role': 'member' [default] or 'admin_mod') and the
+ * user's role within the group.
+ *
+ * This deliberately does not rely on WP blog capabilities. The capability
+ * chain used to map 'connect_event_to_group' to the 'read' primitive, but on
+ * this multisite users frequently hold no role on the society site they are
+ * visiting, so 'read' is missing and the check failed for everyone — even
+ * group admins — regardless of the group setting.
+ *
+ * @param int $user_id  ID of the user.
+ * @param int $group_id ID of the group.
+ * @return bool
+ */
+function hc_custom_bpeo_user_can_connect_event_to_group( $user_id, $group_id ) {
+	$user_id  = (int) $user_id;
+	$group_id = (int) $group_id;
+
+	if ( ! $user_id || ! $group_id ) {
+		return false;
+	}
+
+	if ( is_super_admin( $user_id ) ) {
+		return true;
+	}
+
+	if ( groups_is_user_banned( $user_id, $group_id ) ) {
+		return false;
+	}
+
+	if ( function_exists( 'bpeo_get_group_minimum_member_role_for_connection' ) ) {
+		$setting = bpeo_get_group_minimum_member_role_for_connection( $group_id );
+	} else {
+		$setting = groups_get_groupmeta( $group_id, 'bpeo_connect_member_role', true );
+	}
+
+	$is_admin_or_mod = groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id );
+
+	if ( 'admin_mod' === $setting ) {
+		$can_connect = $is_admin_or_mod;
+	} else {
+		// Default 'member' setting: any (non-banned) group member.
+		$can_connect = $is_admin_or_mod || (bool) groups_is_user_member( $user_id, $group_id );
+	}
+
+	// Preserve the Humanities Commons new-member vetting, which previously
+	// applied to event connection through the 'read' primitive capability.
+	if ( $can_connect
+		&& $user_id === (int) get_current_user_id()
+		&& is_callable( array( 'Humanities_Commons', 'hcommons_vet_user' ) )
+		&& ! Humanities_Commons::hcommons_vet_user() ) {
+		$can_connect = false;
+	}
+
+	return $can_connect;
+}
+
+/**
  * Modify EO capabilities for group membership. Add capabilities for private events.
  *
  * @param array  $caps    Capability array.
@@ -152,18 +212,24 @@ function hc_custom_bpeo_group_event_meta_cap( $caps, $cap, $user_id, $args ) {
 
 			break;
 
-		case 'connect_event_to_group':
-			$group_id = $args[0];
-			$setting  = bpeo_get_group_minimum_member_role_for_connection( $group_id );
-
-			if ( 'admin_mod' === $setting ) {
-				$can_connect = groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id );
-			} else {
-				$can_connect = groups_is_user_member( $user_id, $group_id );
+		case 'publish_events':
+			// Publishing from a group's New Event screen: when the group's
+			// connection setting allows this user to create events there, do
+			// not additionally require blog-role primitives such as 'read',
+			// which users without a role on the society site do not have.
+			$current_group_id = function_exists( 'bp_get_current_group_id' ) ? bp_get_current_group_id() : 0;
+			if ( $current_group_id && hc_custom_bpeo_user_can_connect_event_to_group( $user_id, $current_group_id ) ) {
+				$caps = array( 'exist' );
 			}
 
-			if ( $can_connect ) {
-				$caps = array( 'read' );
+			break;
+
+		case 'connect_event_to_group':
+			if ( hc_custom_bpeo_user_can_connect_event_to_group( $user_id, $args[0] ) ) {
+				// 'exist' rather than 'read': users are not guaranteed a WP
+				// role (and thus 'read') on the society site, and the group
+				// setting is what governs this permission.
+				$caps = array( 'exist' );
 			}
 
 			break;
@@ -171,7 +237,9 @@ function hc_custom_bpeo_group_event_meta_cap( $caps, $cap, $user_id, $args ) {
 
 	return $caps;
 }
-add_filter( 'map_meta_cap', 'hc_custom_bpeo_group_event_meta_cap', 20, 5 );
+// Priority 30 so this runs after bp-event-organiser's own filter (priority 20)
+// and its 'read'-based mapping cannot override the result.
+add_filter( 'map_meta_cap', 'hc_custom_bpeo_group_event_meta_cap', 30, 4 );
 
 /**
  * Register the events subnav (Calendar / Upcoming / Manage / New Event) for the
@@ -191,6 +259,18 @@ function hc_custom_bpeo_register_group_events_subnav() {
 
 	$group = groups_get_current_group();
 	if ( empty( $group->slug ) ) {
+		return;
+	}
+
+	$user_id        = bp_loggedin_user_id();
+	$is_group_admin = (bool) groups_is_user_admin( $user_id, $group->id );
+
+	// Respect the group's "show or hide menu items" setting for the Events
+	// tab (see hc_custom_remove_group_manager_subnav_tabs()): when the tab is
+	// hidden, do not register its subnav either. Site admins and group admins
+	// always see all tabs, matching the removal logic.
+	if ( ! is_super_admin() && ! $is_group_admin
+		&& 'hide' === groups_get_groupmeta( $group->id, bpeo_get_events_slug() ) ) {
 		return;
 	}
 
@@ -239,14 +319,17 @@ function hc_custom_bpeo_register_group_events_subnav() {
 		array(
 			'name'            => __( 'Manage', 'bp-event-organiser' ),
 			'slug'            => 'manage',
-			'user_has_access' => (bool) groups_is_user_admin( bp_loggedin_user_id(), $group->id ),
+			'user_has_access' => $is_group_admin,
 			'position'        => 0,
 			'link'            => trailingslashit( bp_get_group_permalink( $group ) . 'admin/' . bpeo_get_events_slug() ),
 		),
 		$default_params
 	);
 
-	if ( current_user_can( 'connect_event_to_group', $group->id ) ) {
+	// Gate the New Event button on the group's connection setting directly
+	// rather than on current_user_can(), whose 'read' primitive mapping fails
+	// for users without a WP role on the society site.
+	if ( hc_custom_bpeo_user_can_connect_event_to_group( $user_id, $group->id ) ) {
 		$sub_nav[] = array_merge(
 			array(
 				'name'            => __( 'New Event', 'bp-event-organiser' ),
