@@ -231,6 +231,22 @@ if ( ! function_exists( 'wp_enqueue_script' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_enqueue_style' ) ) {
+	function wp_enqueue_style( $handle, $src = '', $deps = [], $ver = false, $media = 'all' ) {
+		$GLOBALS['_enqueued_styles'][ $handle ] = compact( 'handle', 'src', 'deps', 'ver', 'media' );
+	}
+}
+
+if ( ! function_exists( 'bpeo_is_component' ) ) {
+	/**
+	 * Stub of bp-event-organiser's component check. Controlled per-test via
+	 * $GLOBALS['_mock_bpeo_is_component'].
+	 */
+	function bpeo_is_component() {
+		return ! empty( $GLOBALS['_mock_bpeo_is_component'] );
+	}
+}
+
 if ( ! class_exists( 'WP_Error' ) ) {
 	class WP_Error {
 		public $code;
