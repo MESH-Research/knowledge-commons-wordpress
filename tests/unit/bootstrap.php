@@ -163,6 +163,18 @@ if ( ! function_exists( 'add_action' ) ) {
 	}
 }
 
+if ( ! function_exists( 'add_filter' ) ) {
+	function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
+		// no-op for unit tests
+	}
+}
+
+if ( ! function_exists( 'remove_filter' ) ) {
+	function remove_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
+		// no-op for unit tests
+	}
+}
+
 if ( ! function_exists( 'register_rest_route' ) ) {
 	function register_rest_route( $namespace, $route, $args = [], $override = false ) {
 		$GLOBALS['_registered_rest_routes'][] = compact( 'namespace', 'route', 'args' );
@@ -242,3 +254,5 @@ if ( ! class_exists( 'WP_REST_Request' ) ) {
 }
 
 require_once __DIR__ . '/xprofile-html-fix-loader.php';
+require_once __DIR__ . '/bpeo-activity-loader.php';
+require_once __DIR__ . '/hc-bp-activity-loader.php';

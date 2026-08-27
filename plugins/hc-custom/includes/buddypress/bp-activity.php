@@ -19,10 +19,10 @@ function hc_custom_template_part_filter( $templates, $slug, $name ) {
 	}
 
 	if ( bp_is_group() ) {
-		$bp = buddypress();
-
 		// Get group forum IDs.
-		$forum_ids = bbp_get_group_forum_ids( $group->id );
+		$forum_ids = function_exists( 'bbp_get_group_forum_ids' )
+			? bbp_get_group_forum_ids( bp_get_current_group_id() )
+			: array();
 
 		// Bail if no forum IDs available.
 		if ( empty( $forum_ids ) ) {
