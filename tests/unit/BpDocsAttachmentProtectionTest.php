@@ -80,4 +80,75 @@ class BpDocsAttachmentProtectionTest extends TestCase {
 			mesh_bp_docs_access_decision( true, 42, true, false )
 		);
 	}
+
+	// --- Group-privacy invariant (mesh_bp_docs_read_allowed) -----------------
+
+	/**
+	 * A Doc in a private group must not be readable by a non-member, even when
+	 * the Doc's own capability check would allow it because a missing per-Doc
+	 * setting resolved to the public "anyone" default. This is the core of the
+	 * legacy/imported-Doc exposure.
+	 */
+	public function test_private_group_nonmember_denied_despite_public_default() {
+		$this->assertFalse(
+			mesh_bp_docs_read_allowed(
+				false, // not a moderator
+				true,  // Doc is in a non-public group
+				false, // not a member
+				false, // not explicitly published to "anyone"
+				true   // base cap allows (empty setting resolved to "anyone")
+			)
+		);
+	}
+
+	/**
+	 * A Doc in a private group with an explicit "group-members" setting is also
+	 * denied to a non-member (base cap already false).
+	 */
+	public function test_private_group_nonmember_denied_group_members_setting() {
+		$this->assertFalse(
+			mesh_bp_docs_read_allowed( false, true, false, false, false )
+		);
+	}
+
+	/**
+	 * A member of the private group is allowed (base cap grants it).
+	 */
+	public function test_private_group_member_allowed() {
+		$this->assertTrue(
+			mesh_bp_docs_read_allowed( false, true, true, false, true )
+		);
+	}
+
+	/**
+	 * A Doc deliberately published to "anyone" stays public even inside a
+	 * private group — the author's explicit choice is respected.
+	 */
+	public function test_explicitly_public_doc_in_private_group_allowed() {
+		$this->assertTrue(
+			mesh_bp_docs_read_allowed( false, true, false, true, true )
+		);
+	}
+
+	/**
+	 * For a Doc not in any private group, the Doc's own capability decides:
+	 * allowed when the cap grants it, denied when it does not.
+	 */
+	public function test_no_private_group_defers_to_capability() {
+		$this->assertTrue(
+			mesh_bp_docs_read_allowed( false, false, false, false, true )
+		);
+		$this->assertFalse(
+			mesh_bp_docs_read_allowed( false, false, false, false, false )
+		);
+	}
+
+	/**
+	 * A site moderator / super admin is always allowed.
+	 */
+	public function test_moderator_always_allowed() {
+		$this->assertTrue(
+			mesh_bp_docs_read_allowed( true, true, false, false, false )
+		);
+	}
 }
