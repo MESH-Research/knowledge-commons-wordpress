@@ -256,3 +256,4 @@ if ( ! class_exists( 'WP_REST_Request' ) ) {
 require_once __DIR__ . '/xprofile-html-fix-loader.php';
 require_once __DIR__ . '/bpeo-activity-loader.php';
 require_once __DIR__ . '/hc-bp-activity-loader.php';
+require_once __DIR__ . '/bp-docs-attachment-protection-loader.php';
