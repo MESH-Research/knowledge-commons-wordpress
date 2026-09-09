@@ -50,6 +50,11 @@ if ( ! function_exists( 'bp_is_settings_component' ) ) {
 
 if ( ! function_exists( 'bp_displayed_user_id' ) ) {
 	function bp_displayed_user_id() {
+		// Shared across suites: the network-group-scope tests drive this via
+		// $GLOBALS['_mock_displayed_user_id'].
+		if ( isset( $GLOBALS['_mock_displayed_user_id'] ) ) {
+			return (int) $GLOBALS['_mock_displayed_user_id'];
+		}
 		return (int) ( $GLOBALS['_hc_mock']['displayed_user_id'] ?? 0 );
 	}
 }
