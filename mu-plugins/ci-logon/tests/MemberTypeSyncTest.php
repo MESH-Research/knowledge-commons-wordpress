@@ -117,13 +117,40 @@ class MemberTypeSyncTest extends TestCase
     {
         Plugin::kc_sync_bp_member_types_for_username($this->user(), [
             'NOTREAL' => 1,
-            'STEMED+' => 1,
         ]);
 
         $set_types = $this->callTypes($GLOBALS['_bp_set_calls']);
 
         $this->assertNotContains('notreal', $set_types);
+    }
+
+    /** @test */
+    public function stemedplus_api_key_sets_stemedplus_member_type(): void
+    {
+        // The Profiles API reports STEM Ed+ membership under the key
+        // 'STEMED+', which must map to the registered slug 'stemedplus'.
+        Plugin::kc_sync_bp_member_types_for_username($this->user(), [
+            'STEMED+' => 1,
+        ]);
+
+        $set_types = $this->callTypes($GLOBALS['_bp_set_calls']);
+
+        $this->assertContains('stemedplus', $set_types);
         $this->assertNotContains('stemed+', $set_types);
+    }
+
+    /** @test */
+    public function empty_stemedplus_membership_removes_stemedplus_type(): void
+    {
+        Plugin::kc_sync_bp_member_types_for_username($this->user(), [
+            'STEMED+' => '',
+        ]);
+
+        $this->assertContains(
+            'stemedplus',
+            $this->callTypes($GLOBALS['_bp_remove_calls']),
+            'An empty STEMED+ membership must remove the stemedplus member type'
+        );
     }
 
     /** @test */
@@ -151,6 +178,7 @@ class MemberTypeSyncTest extends TestCase
         $this->assertContains('mla', $removed);
         $this->assertContains('up', $removed);
         $this->assertContains('hastac', $removed);
+        $this->assertContains('stemedplus', $removed);
 
         // hc is always set, never removed.
         $this->assertContains('hc', $set_types);
@@ -172,7 +200,7 @@ class MemberTypeSyncTest extends TestCase
 
         $removed = $this->callTypes($GLOBALS['_bp_remove_calls']);
 
-        foreach (['arlisna', 'aseees', 'hub', 'mla', 'sah', 'socsci', 'stem', 'up', 'hastac', 'dhri'] as $type) {
+        foreach (['arlisna', 'aseees', 'hub', 'mla', 'sah', 'socsci', 'stem', 'up', 'hastac', 'dhri', 'stemedplus'] as $type) {
             $this->assertContains(
                 $type,
                 $removed,
