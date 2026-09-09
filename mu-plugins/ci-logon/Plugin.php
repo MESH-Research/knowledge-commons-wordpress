@@ -505,6 +505,7 @@ class Plugin {
             'sah',
             'socsci',
             'stem',
+            'stemedplus',
             'up',
             'hastac',
             'dhri',
@@ -512,6 +513,17 @@ class Plugin {
 
         // The Profiles API returns uppercase keys (MLA, MSU, ...); normalise for lookup.
         $memberships_lower = array_change_key_case( $memberships, CASE_LOWER );
+
+        // API keys whose lowercase form differs from the registered slug.
+        $api_key_aliases = [
+            'stemed+' => 'stemedplus',
+        ];
+        foreach ( $api_key_aliases as $api_key => $slug ) {
+            if ( array_key_exists( $api_key, $memberships_lower ) ) {
+                $memberships_lower[ $slug ] = $memberships_lower[ $api_key ];
+                unset( $memberships_lower[ $api_key ] );
+            }
+        }
 
         error_log( 'CILogon Plugin: normalised memberships: ' . var_export( $memberships_lower, true ) );
 

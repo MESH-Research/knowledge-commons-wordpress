@@ -348,15 +348,27 @@ if ( defined( 'WP_CLI' ) && class_exists( 'WP_CLI' ) ) {
             'sah',
             'socsci',
             'stem',
+            'stemedplus',
             'up',
             'hastac',
             'dhri',
+        ];
+
+        // API keys whose lowercase form differs from the registered slug.
+        $api_key_aliases = [
+            'stemed+' => 'stemedplus',
         ];
 
         WP_CLI::log( sprintf( 'Getting memberships...' ) );
 
         // What the API says this user should have.
         $desired_types = array_map('strtolower', array_keys(array_filter($memberships)));
+        $desired_types = array_map(
+            static function ( $type ) use ( $api_key_aliases ) {
+                return $api_key_aliases[ $type ] ?? $type;
+            },
+            $desired_types
+        );
         $desired_types = array_intersect( array_map('strtolower', $desired_types), $all_known_types ); // safety
 
         WP_CLI::print_value( $desired_types, [ 'json' => true ] );
@@ -385,7 +397,7 @@ if ( defined( 'WP_CLI' ) && class_exists( 'WP_CLI' ) ) {
         // Remove types that are no longer valid.
         foreach ( $all_known_types as $type ) {
             WP_CLI::log( sprintf( 'Checking: %s for removal', $type ) );
-            if ( in_array( $type, $current_types, true ) && ! in_array( $type, $desired_types, true ) && !$type == "hc") {
+            if ( in_array( $type, $current_types, true ) && ! in_array( $type, $desired_types, true ) && "hc" !== $type ) {
                 bp_remove_member_type( $user_id, $type );
                 // Alternatively: bp_set_member_type( $user_id, '' ) to clear ALL, but here we just remove one.
                 WP_CLI::log( sprintf( 'Removed: %s', $type ) );
