@@ -7,6 +7,21 @@
  */
 
 /**
+ * Whether the BuddyPress Group Email Subscription plugin is loaded.
+ *
+ * This file is included unconditionally by hc-custom, but several of its
+ * callbacks run on core BuddyPress hooks (joining a group, accepting an
+ * invitation, notification settings screens) and call BPGES ass_*()
+ * functions. When BPGES is deactivated those calls fatal mid-request, so
+ * every such callback must bail through this check first.
+ *
+ * @return bool
+ */
+function hc_custom_bpges_is_active() {
+	return function_exists( 'ass_group_subscription' );
+}
+
+/**
  * Remove BPGES actions since we use crontab instead of WP cron.
  * Spark doesn't like random emails that are not on it's white list.
  * Welcome emails (on join group uses the first admin as the from email which errors out Spark.
@@ -432,6 +447,10 @@ function hc_custom_default_group_forum_subscription_settings() {
 	global $groups_template, $bp;
 	global $group_obj;
 
+	if ( ! hc_custom_bpges_is_active() ) {
+		return;
+	}
+
 	$user_id   = $bp->displayed_user->id;
 	$my_status = get_user_meta( $user_id, 'default_group_notifications', true );
 	?>
@@ -768,8 +787,9 @@ function hc_custom_member_activity_settings() {
  * General group settings.
  */
 function hc_custom_general_group_settings() {
-	// Get forum type.
-	$forums = ass_get_forum_type();
+	// Get forum type. Without BPGES the general rows still render; only the
+	// forum- and BPGES-specific rows are skipped.
+	$forums = hc_custom_bpges_is_active() ? ass_get_forum_type() : 'none';
 
 	// No forums installed? stop now!
 	if ( ! $forums ) {
@@ -1008,6 +1028,7 @@ function hc_custom_general_group_settings() {
                                   value="no" <?php checked( $notification_group_documents_upload_mod, 'no', true ); ?>/>
             </td>
         </tr>
+		<?php if ( hc_custom_bpges_is_active() ) : ?>
         <tr>
             <td></td>
             <td><?php _e( 'Receive notifications of your own posts?', 'bp-ass' ); ?></td>
@@ -1022,6 +1043,7 @@ function hc_custom_general_group_settings() {
 						?>
                         checked="checked" <?php } ?>/></td>
         </tr>
+		<?php endif; ?>
         </tbody>
     </table>
 
@@ -1034,6 +1056,10 @@ function hc_custom_general_group_settings() {
  **/
 function hc_custom_update_group_subscribe_settings() {
 	global $bp;
+
+	if ( ! hc_custom_bpges_is_active() ) {
+		return false;
+	}
 
 	if ( ! bp_is_settings_component() && ! bp_is_current_action( 'notifications' ) ) {
 		return false;
@@ -1069,6 +1095,10 @@ add_action( 'bp_actions', 'hc_custom_update_group_subscribe_settings' );
  * @param int $user_id  ID of the user who joined the group.
  **/
 function hc_custom_join_group_message( $group_id, $user_id ) {
+
+	if ( ! hc_custom_bpges_is_active() ) {
+		return;
+	}
 
 	remove_action( 'groups_join_group', 'ass_join_group_message' );
 
@@ -1216,6 +1246,10 @@ add_action( 'bp_after_group_settings_creation_step', 'hc_custom_disable_subscrip
  * @param int $group_id ID of the group the member has joined.
  */
 function hc_custom_set_notifications_on_accept_invite_or_request( $user_id, $group_id ) {
+
+	if ( ! hc_custom_bpges_is_active() ) {
+		return;
+	}
 
 	$status = get_user_meta( $user_id, 'default_group_notifications', true );
 

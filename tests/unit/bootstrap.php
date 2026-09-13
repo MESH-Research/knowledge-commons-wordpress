@@ -408,3 +408,4 @@ require_once __DIR__ . '/bpeo-activity-loader.php';
 require_once __DIR__ . '/hc-bp-activity-loader.php';
 require_once __DIR__ . '/bp-docs-attachment-protection-loader.php';
 require_once __DIR__ . '/idms-sync-loader.php';
+require_once __DIR__ . '/ges-guard-loader.php';
