@@ -115,7 +115,9 @@ services:
       SECRET_LOGIN_KEY: e2e-test-key-change-me
     volumes:
       - ./tests/e2e:/e2e
-    entrypoint: ["bash", "-c", "NGINX_IP=$(getent hosts hcommons.test | awk '{print $1}') && echo \"$NGINX_IP e2etestsite.hcommons.test\" >> /etc/hosts && cd /e2e && npm install && npx playwright test"]
+    # External asset hosts are blackholed so pages reach "load"/"networkidle"
+    # even without internet egress (fonts and analytics otherwise hang runs).
+    entrypoint: ["bash", "-c", "NGINX_IP=$(getent hosts hcommons.test | awk '{print $1}') && echo \"$NGINX_IP e2etestsite.hcommons.test\" >> /etc/hosts && echo '127.0.0.1 fonts.gstatic.com fonts.googleapis.com www.googletagmanager.com www.google-analytics.com use.typekit.net p.typekit.net' >> /etc/hosts && cd /e2e && npm install && npx playwright test"]
 
 volumes:
   media_data:

@@ -38,11 +38,14 @@ export const test = base.extend<{
 }>({
   authenticatedPage: async ({ page }, use) => {
     const loginUrl = `/wp-login.php?secret_key=${encodeURIComponent(SECRET_KEY)}`;
-    await page.goto(loginUrl);
+    // domcontentloaded: containers without internet egress never reach
+    // "load" when a page references external assets (fonts, analytics).
+    await page.goto(loginUrl, { waitUntil: "domcontentloaded" });
 
     // After successful bypass the user is redirected away from wp-login.php
     await page.waitForURL((url) => !url.pathname.includes("wp-login.php"), {
       timeout: 15000,
+      waitUntil: "domcontentloaded",
     });
 
     await use(page);
