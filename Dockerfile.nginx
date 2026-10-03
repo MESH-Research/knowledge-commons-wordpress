@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # Nginx container for running WordPress on production
 FROM nginx:stable-alpine3.19
 
@@ -8,6 +9,17 @@ RUN adduser -u 82 -D -S -G www-data www-data \
 
 COPY ./config/all/nginx/nginx.conf /etc/nginx/
 COPY ./config/all/nginx/templates /etc/nginx/templates
+
+ARG APP_ENV=production
+RUN --mount=type=bind,source=./config,target=/build-config \
+	set -e; \
+	SRC="/build-config/${APP_ENV}/nginx/templates"; \
+	if [ -d "$SRC" ] && [ -n "$(ls -A "$SRC" 2>/dev/null)" ]; then \
+		cp -a "$SRC"/. /etc/nginx/templates/; \
+		echo "Applied ${APP_ENV} nginx template overlay"; \
+	else \
+		echo "No ${APP_ENV} nginx template overlay (skipped)"; \
+	fi
 
 RUN apk update && apk add jq aws-cli
 

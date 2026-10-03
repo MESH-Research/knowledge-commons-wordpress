@@ -1,3 +1,46 @@
+## v1.5.1 (2026-08-10)
+
+### Fix
+
+- **cron**: adopt production's cron implementation on main
+
+## v1.5.0 (2026-08-10)
+
+### Feat
+
+- **cron**: externalise per-site wp-cron and disable loopback cron in prod
+
+## v1.4.0 (2026-07-20)
+
+### Feat
+
+- **wordpress**: upgrade wordpress core to 7.0.2
+
+## v1.3.0 (2026-07-09)
+
+### Feat
+
+- **wordpress**: update to wordpress 7.0
+
+## v1.2.1 (2026-06-18)
+
+### Fix
+
+- **nginx**: allow members settings/notifications sub-pages in buddypress
+
+## v1.2.0 (2026-06-16)
+
+### Feat
+
+- **kcworks-on-wp**: upgrade kc-works-on-wp to latest version
+- **nginx**: alias MLA custom domains to the mla network
+- **nginx**: map custom domains to network subdomains for Profiles redirects
+- **nginx**: redirect network /members/ to network subdomain of Profiles
+- **nginx**: scope /members/ redirect to network via /network/{subdomain} path
+- **nginx**: add new routing structure
+- **wordpress-core**: initial upgrade to wordpress 7
+- **nginx**: renumber template includes and glob env overlays
+
 ## v1.1.0 (2026-06-05)
 
 ### Feat

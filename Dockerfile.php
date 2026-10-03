@@ -161,5 +161,8 @@ RUN printf '{"version":"%s","build":"%s","sha":"%s","branch":"%s"}\n' \
         > /app/site/web/.version.json && \
     chown www-data:www-data /app/site/web/.version.json
 
+# used for health check endpoint
+RUN apk add --no-cache fcgi
+
 ENTRYPOINT ["/app/scripts/build-scripts/docker-php-entrypoint.sh"]
 CMD ["php-fpm"]

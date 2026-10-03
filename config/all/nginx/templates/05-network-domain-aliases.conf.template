@@ -1,0 +1,19 @@
+# Custom-domain -> network aliases, included into the $network_subdomain
+# map in 00-hcommons.conf.template.
+#
+# Sites that live on their own domains (rather than a subdomain of
+# DOMAIN_NAME) cannot have their network inferred from the Host header,
+# so list them here. Each entry maps a hostname to the network subdomain
+# used on the Profiles application host.
+#
+# A leading dot matches the domain itself and any subdomain of it:
+#
+#   .commons.msu.edu msu;
+#
+# sends commons.msu.edu/members/ (and asite.commons.msu.edu/members/)
+# to https://msu.profile.<instance domain>/members/.
+#
+# This file is the environment-neutral default and defines no aliases.
+# Per-environment entries live in
+# config/<env>/nginx/templates/05-network-domain-aliases.conf.template,
+# which overrides this file at image build time.
