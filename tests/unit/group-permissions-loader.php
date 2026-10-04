@@ -199,6 +199,27 @@ if ( ! class_exists( 'HC_Test_Group_Nav' ) ) {
 		public function get_secondary( $args = array(), $sort = true ) {
 			return _hc_mock( 'existing_secondary_nav', array() );
 		}
+
+		/**
+		 * Mirror BP_Core_Nav::edit_nav() for a child item: merge $args into the
+		 * matching item in the mock store and return it, or false if absent.
+		 */
+		public function edit_nav( $args = array(), $slug = '', $parent_slug = '' ) {
+			$items = _hc_mock( 'existing_secondary_nav', array() );
+			foreach ( $items as $index => $item ) {
+				$item = (object) $item;
+				if ( $item->slug !== $slug || ( $parent_slug && $item->parent_slug !== $parent_slug ) ) {
+					continue;
+				}
+				foreach ( $args as $key => $value ) {
+					$item->$key = $value;
+				}
+				$items[ $index ] = $item;
+				$GLOBALS['_hc_mock']['existing_secondary_nav'] = $items;
+				return $item;
+			}
+			return false;
+		}
 	}
 }
 
