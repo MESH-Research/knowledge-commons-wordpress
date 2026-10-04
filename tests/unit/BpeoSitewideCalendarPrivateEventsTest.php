@@ -83,6 +83,21 @@ class BpeoSitewideCalendarPrivateEventsTest extends TestCase {
 		$this->assertContains( 'publish', (array) $out['post_status'] );
 	}
 
+	public function test_unscoped_query_unchanged_for_caller_whose_role_reads_private_events() {
+		// An editor/admin is a member of groups with private events (7, 9) but
+		// is also entitled, by role, to private events outside those groups
+		// (e.g. 11). The membership-based restriction must not be applied on
+		// top of EO's 'readable' query, which already lets them see all of them.
+		$this->setUpMemberWithPrivateEvents();
+		$GLOBALS['_hc_mock']['user_can'] = array( 'read_private_events' => true );
+
+		$in  = array( 'perm' => 'readable', 'post_status' => array( 'publish', 'private' ) );
+		$out = hc_custom_bpeo_filter_calendar_query_for_member_groups( $in );
+
+		$this->assertSame( $in, $out );
+		$this->assertArrayNotHasKey( 'hc_bpeo_private_event_ids', $out );
+	}
+
 	public function test_group_scoped_query_is_left_alone() {
 		$this->setUpMemberWithPrivateEvents();
 

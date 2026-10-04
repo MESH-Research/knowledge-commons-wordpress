@@ -770,6 +770,13 @@ function hc_custom_bpeo_filter_calendar_query_for_member_groups( $query ) {
 		return $query;
 	}
 
+	// Callers whose role grants read_private_events already see every private
+	// event through EO's 'readable' query; the membership-based restriction
+	// below would only take events away from them.
+	if ( current_user_can( 'read_private_events' ) ) {
+		return $query;
+	}
+
 	$event_ids = hc_custom_bpeo_get_member_private_event_ids( get_current_user_id() );
 	if ( empty( $event_ids ) ) {
 		return $query;
