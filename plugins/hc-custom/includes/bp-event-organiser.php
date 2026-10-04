@@ -177,7 +177,10 @@ function hc_custom_bpeo_group_event_meta_cap( $caps, $cap, $user_id, $args ) {
 	}
 
 	switch ( $cap ) {
-		case 'read_private_events':
+		// 'read_private_events' is deliberately not handled here: it is a
+		// primitive cap with no event context, so group membership cannot be
+		// evaluated for it. Mapping it to 'exist' (as this once did) handed
+		// every visitor the ability to list all private events.
 		case 'read_event':
 			// we've already parsed this logic in bpeo_map_basic_meta_caps().
 			if ( 'exist' === $caps[0] ) {

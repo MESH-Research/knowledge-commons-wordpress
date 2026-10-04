@@ -178,4 +178,28 @@ class BpeoGroupEventCapsTest extends TestCase {
 
 		$this->assertSame( array( 'edit_posts' ), $caps );
 	}
+
+	public function test_read_private_events_not_granted_without_event_context() {
+		// The primitive cap carries no event, so group membership cannot be
+		// evaluated; it must keep WordPress's role-based mapping rather than
+		// being handed to everyone (which let anyone list private events).
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'read_private_events' ), 'read_private_events', 20, array() );
+
+		$this->assertSame( array( 'read_private_events' ), $caps );
+	}
+
+	public function test_read_private_events_not_granted_to_anonymous_user() {
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'read_private_events' ), 'read_private_events', 0, array() );
+
+		$this->assertSame( array( 'read_private_events' ), $caps );
+	}
+
+	public function test_private_event_not_readable_by_non_member() {
+		$this->setUpGroupEvent( 408, 45, 'private' );
+		$GLOBALS['_hc_mock']['user_groups'] = array( 21 => array( 46 ) );
+
+		$caps = hc_custom_bpeo_group_event_meta_cap( array( 'read_private_events' ), 'read_event', 21, array( 408 ) );
+
+		$this->assertSame( array( 'read_private_events' ), $caps );
+	}
 }
