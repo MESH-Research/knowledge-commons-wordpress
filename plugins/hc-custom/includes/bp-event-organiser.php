@@ -710,3 +710,108 @@ function hc_custom_bpeo_filter_calendar_event_link_for_group( $link, $event_id =
 // After bp-event-organiser's own filter (priority 10), which only works when
 // bp_is_group() is true and so is a no-op inside admin-ajax.
 add_filter( 'eventorganiser_calendar_event_link', 'hc_custom_bpeo_filter_calendar_event_link_for_group', 20, 3 );
+
+/** Sitewide calendar: members' private group events ***************************/
+
+/**
+ * IDs of private events connected to any of a user's groups.
+ *
+ * @param int $user_id User ID.
+ * @return int[]
+ */
+function hc_custom_bpeo_get_member_private_event_ids( $user_id ) {
+	$user_id = (int) $user_id;
+	if ( ! $user_id ) {
+		return array();
+	}
+
+	$user_groups = groups_get_user_groups( $user_id );
+	$group_ids   = ! empty( $user_groups['groups'] ) ? array_map( 'intval', (array) $user_groups['groups'] ) : array();
+	if ( empty( $group_ids ) ) {
+		return array();
+	}
+
+	$group_terms = array();
+	foreach ( $group_ids as $group_id ) {
+		$group_terms[] = 'group_' . $group_id;
+	}
+
+	// Same shape of query bp-event-organiser uses for a group's events.
+	$q = new WP_Query( array(
+		'post_type'      => 'event',
+		'post_status'    => 'private',
+		'fields'         => 'ids',
+		'posts_per_page' => -1,
+		'showpastevents' => true,
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'bpeo_event_group',
+				'field'    => 'name',
+				'terms'    => $group_terms,
+				'operator' => 'IN',
+			),
+		),
+	) );
+
+	return array_values( array_filter( array_map( 'intval', (array) $q->posts ) ) );
+}
+
+/**
+ * Let a logged-in member see their private groups' events on the unscoped
+ * (sitewide) calendar.
+ *
+ * @param array $query Query vars as set up by EO.
+ * @return array
+ */
+function hc_custom_bpeo_filter_calendar_query_for_member_groups( $query ) {
+	// Group-scoped (including denied) and member calendars manage their own
+	// visibility.
+	if ( isset( $query['bp_group'] ) || isset( $query['bp_displayed_user_id'] ) ) {
+		return $query;
+	}
+
+	$event_ids = hc_custom_bpeo_get_member_private_event_ids( get_current_user_id() );
+	if ( empty( $event_ids ) ) {
+		return $query;
+	}
+
+	// EO's 'readable' perm would limit private posts to the caller's own,
+	// which, now that read_private_events is no longer handed to everyone,
+	// would hide their groups' events. Admit private posts and let the
+	// posts_where restriction confine them to the visible IDs.
+	$query['hc_bpeo_private_event_ids'] = $event_ids;
+	$query['perm']                      = '';
+	$query['post_status']               = array_values( array_unique( array_merge( (array) ( $query['post_status'] ?? array( 'publish' ) ), array( 'private' ) ) ) );
+
+	return $query;
+}
+add_filter( 'eventorganiser_fullcalendar_query', 'hc_custom_bpeo_filter_calendar_query_for_member_groups', 30 );
+
+/**
+ * Keep private events other than the caller's visible ones out of the query.
+ *
+ * @param string   $where    SQL WHERE clause.
+ * @param WP_Query $wp_query The query.
+ * @return string
+ */
+function hc_custom_bpeo_restrict_private_events_where( $where, $wp_query ) {
+	$event_ids = $wp_query->get( 'hc_bpeo_private_event_ids' );
+	if ( empty( $event_ids ) ) {
+		return $where;
+	}
+
+	$event_ids = array_values( array_filter( array_map( 'intval', (array) $event_ids ) ) );
+	if ( empty( $event_ids ) ) {
+		return $where;
+	}
+
+	global $wpdb;
+	$posts   = $wpdb->posts;
+	$user_id = (int) get_current_user_id();
+	$id_list = implode( ',', $event_ids );
+
+	$where .= " AND ( {$posts}.post_status <> 'private' OR {$posts}.post_author = {$user_id} OR {$posts}.ID IN ({$id_list}) )";
+
+	return $where;
+}
+add_filter( 'posts_where', 'hc_custom_bpeo_restrict_private_events_where', 20, 2 );

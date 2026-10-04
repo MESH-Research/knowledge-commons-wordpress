@@ -365,6 +365,28 @@ if ( ! function_exists( 'bpeo_get_events_new_slug' ) ) {
 	}
 }
 
+if ( ! class_exists( 'WP_Query' ) ) {
+	/**
+	 * Minimal WP_Query stand-in: records its args and returns whatever the
+	 * per-test callback in $GLOBALS['_hc_mock']['wp_query_callback'] yields
+	 * for them (default: no posts).
+	 */
+	class WP_Query {
+		public $query_vars = array();
+		public $posts      = array();
+
+		public function __construct( $args = array() ) {
+			$this->query_vars = $args;
+			$cb               = _hc_mock( 'wp_query_callback' );
+			$this->posts      = is_callable( $cb ) ? call_user_func( $cb, $args ) : array();
+		}
+
+		public function get( $var, $default = '' ) {
+			return isset( $this->query_vars[ $var ] ) ? $this->query_vars[ $var ] : $default;
+		}
+	}
+}
+
 // ---------------------------------------------------------------------------
 // Load the real code under test.
 // ---------------------------------------------------------------------------
