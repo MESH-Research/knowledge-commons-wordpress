@@ -592,13 +592,59 @@ function hc_custom_bpeo_get_calendar_group_id( $request = null ) {
 function hc_custom_bpeo_filter_calendar_query_for_group( $query ) {
 	$group_id = hc_custom_bpeo_get_calendar_group_id();
 
-	if ( $group_id ) {
-		// Consumed by bpeo's pre_get_posts handling of 'bp_group', which turns
-		// it into a bpeo_event_group tax query.
-		$query['bp_group'] = $group_id;
+	if ( ! $group_id ) {
+		return $query;
 	}
 
+	// The admin-ajax endpoint has none of the group page's access control, so
+	// only honour the scope for groups the caller may see. A denied request
+	// gets an empty scope, which bpeo's pre_get_posts handler turns into
+	// post__in => array( 0 ), i.e. no events, rather than the unscoped calendar.
+	if ( ! hc_custom_bpeo_user_can_view_group_calendar( get_current_user_id(), $group_id ) ) {
+		$query['bp_group'] = array();
+		return $query;
+	}
+
+	// Consumed by bpeo's pre_get_posts handling of 'bp_group', which turns it
+	// into a bpeo_event_group tax query (and admits private events, which is
+	// how events in non-public groups are stored).
+	$query['bp_group'] = $group_id;
+
+	// Access has been checked against the group itself, so do not let EO's
+	// capability-based 'readable' restriction hide the group's private events
+	// from its members on top of that.
+	$query['perm'] = '';
+
 	return $query;
+}
+
+/**
+ * Whether a user may view a group's calendar.
+ *
+ * Mirrors the visibility rule bp-event-organiser applies when listing an
+ * event's connected groups: public groups are open to all; private and hidden
+ * groups to their members and to community moderators.
+ *
+ * @param int $user_id  User ID (0 for anonymous).
+ * @param int $group_id Group ID.
+ * @return bool
+ */
+function hc_custom_bpeo_user_can_view_group_calendar( $user_id, $group_id ) {
+	$group = groups_get_group( array( 'group_id' => (int) $group_id ) );
+
+	if ( empty( $group->id ) ) {
+		return false;
+	}
+
+	if ( 'public' === $group->status ) {
+		return true;
+	}
+
+	if ( current_user_can( 'bp_moderate' ) ) {
+		return true;
+	}
+
+	return (bool) groups_is_user_member( (int) $user_id, (int) $group_id );
 }
 // After bp-event-organiser's own filter (priority 10), which only works when
 // bp_is_group() is true and so is a no-op inside admin-ajax.
