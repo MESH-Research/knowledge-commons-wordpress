@@ -613,10 +613,16 @@ function hc_custom_bpeo_filter_calendar_query_for_group( $query ) {
 	// how events in non-public groups are stored).
 	$query['bp_group'] = $group_id;
 
-	// Access has been checked against the group itself, so do not let EO's
-	// capability-based 'readable' restriction hide the group's private events
-	// from its members on top of that.
-	$query['perm'] = '';
+	// Members of the group (and moderators) may see its private events, so for
+	// them do not let EO's capability-based 'readable' restriction hide those
+	// on top of the group check. Anyone else viewing a public group keeps the
+	// role/author check: an event connected to both this public group and a
+	// private group is a private post and must not leak through here.
+	if ( current_user_can( 'bp_moderate' ) || groups_is_user_member( get_current_user_id(), $group_id ) ) {
+		$query['perm'] = '';
+	} else {
+		$query['perm'] = 'readable';
+	}
 
 	return $query;
 }

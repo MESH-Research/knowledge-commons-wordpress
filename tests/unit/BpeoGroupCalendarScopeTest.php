@@ -260,6 +260,58 @@ class BpeoGroupCalendarScopeTest extends TestCase {
 		$this->assertSame( '', $query['perm'] );
 	}
 
+	public function test_anonymous_request_to_public_group_keeps_capability_restriction() {
+		// A public group's calendar is open to all, but an event connected to
+		// both this public group and a private group is a private post. Only
+		// members of the requested group (or moderators) may bypass EO's
+		// capability check; anonymous visitors must keep it.
+		$this->setUpGroup( 50, 'public' );
+		$GLOBALS['_hc_mock']['is_group'] = false;
+		$_GET['bp_group']                = '50';
+
+		$query = hc_custom_bpeo_filter_calendar_query_for_group( array( 'perm' => 'readable' ) );
+
+		$this->assertSame( 50, $query['bp_group'] );
+		$this->assertSame( 'readable', $query['perm'] );
+	}
+
+	public function test_logged_in_non_member_of_public_group_keeps_capability_restriction() {
+		$this->setUpGroup( 50, 'public' );
+		$GLOBALS['_hc_mock']['is_group']        = false;
+		$GLOBALS['_hc_mock']['current_user_id'] = 7;
+		$GLOBALS['_hc_mock']['group_members']   = array( '7:60' );
+		$_GET['bp_group']                       = '50';
+
+		$query = hc_custom_bpeo_filter_calendar_query_for_group( array( 'perm' => 'readable' ) );
+
+		$this->assertSame( 50, $query['bp_group'] );
+		$this->assertSame( 'readable', $query['perm'] );
+	}
+
+	public function test_member_of_public_group_bypasses_capability_restriction() {
+		$this->setUpGroup( 50, 'public' );
+		$GLOBALS['_hc_mock']['is_group']        = false;
+		$GLOBALS['_hc_mock']['current_user_id'] = 7;
+		$GLOBALS['_hc_mock']['group_members']   = array( '7:50' );
+		$_GET['bp_group']                       = '50';
+
+		$query = hc_custom_bpeo_filter_calendar_query_for_group( array( 'perm' => 'readable' ) );
+
+		$this->assertSame( '', $query['perm'] );
+	}
+
+	public function test_moderator_bypasses_capability_restriction_on_public_group() {
+		$this->setUpGroup( 50, 'public' );
+		$GLOBALS['_hc_mock']['is_group']        = false;
+		$GLOBALS['_hc_mock']['current_user_id'] = 7;
+		$GLOBALS['_hc_mock']['user_can']        = array( 'bp_moderate' => true );
+		$_GET['bp_group']                       = '50';
+
+		$query = hc_custom_bpeo_filter_calendar_query_for_group( array( 'perm' => 'readable' ) );
+
+		$this->assertSame( '', $query['perm'] );
+	}
+
 	public function test_denied_scope_leaves_capability_restriction_in_place() {
 		$this->setUpGroup( 50, 'private' );
 		$GLOBALS['_hc_mock']['is_group'] = false;
