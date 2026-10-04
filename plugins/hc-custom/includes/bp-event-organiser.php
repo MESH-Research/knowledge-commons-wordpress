@@ -549,3 +549,82 @@ add_filter( 'bpeo_activity_action', 'hc_custom_bpeo_activity_action_format_for_g
 
 
 
+
+/** Group calendar scoping *****************************************************/
+
+/**
+ * Resolve the group a calendar request is being built for.
+ *
+ * @param array|null $request Request vars; defaults to $_GET.
+ * @return int Group ID, or 0 when the request is not for a group.
+ */
+function hc_custom_bpeo_get_calendar_group_id( $request = null ) {
+	// On the group page itself BuddyPress knows the group.
+	if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+		return (int) bp_get_current_group_id();
+	}
+
+	// Inside the eventorganiser-fullcal admin-ajax request BuddyPress has no
+	// group context (it skips URI parsing for AJAX), so the calendar passes
+	// the group along explicitly.
+	if ( null === $request ) {
+		$request = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	}
+
+	if ( ! isset( $request['bp_group'] ) || ! is_scalar( $request['bp_group'] ) ) {
+		return 0;
+	}
+
+	$bp_group = (string) $request['bp_group'];
+	if ( '' === $bp_group || ! ctype_digit( $bp_group ) ) {
+		return 0;
+	}
+
+	return (int) $bp_group;
+}
+
+/**
+ * Restrict the Event Organiser calendar query to the current group's events.
+ *
+ * @param array $query Query vars as set up by EO.
+ * @return array
+ */
+function hc_custom_bpeo_filter_calendar_query_for_group( $query ) {
+	$group_id = hc_custom_bpeo_get_calendar_group_id();
+
+	if ( $group_id ) {
+		// Consumed by bpeo's pre_get_posts handling of 'bp_group', which turns
+		// it into a bpeo_event_group tax query.
+		$query['bp_group'] = $group_id;
+	}
+
+	return $query;
+}
+// After bp-event-organiser's own filter (priority 10), which only works when
+// bp_is_group() is true and so is a no-op inside admin-ajax.
+add_filter( 'eventorganiser_fullcalendar_query', 'hc_custom_bpeo_filter_calendar_query_for_group', 20 );
+
+/**
+ * Load the script that sends the calendar's group along with its AJAX requests.
+ *
+ * Event Organiser enqueues 'eo_front' from wp_footer only when a calendar is on
+ * the page, so this runs just before footer scripts print and piggybacks on it.
+ * Hooked to wp_print_footer_scripts rather than wp_footer because the embedded
+ * group calendar (?embedded=true) strips wp_footer actions.
+ */
+function hc_custom_bpeo_enqueue_group_calendar_script() {
+	if ( ! wp_script_is( 'eo_front', 'enqueued' ) ) {
+		return;
+	}
+
+	$js_path = 'includes/js/bpeo-group-calendar.js';
+
+	wp_enqueue_script(
+		'hc-custom-bpeo-group-calendar',
+		plugins_url( $js_path, __DIR__ ),
+		array( 'eo_front' ),
+		filemtime( trailingslashit( plugin_dir_path( __DIR__ ) ) . $js_path ),
+		true
+	);
+}
+add_action( 'wp_print_footer_scripts', 'hc_custom_bpeo_enqueue_group_calendar_script', 5 );
