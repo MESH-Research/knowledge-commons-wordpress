@@ -410,3 +410,4 @@ require_once __DIR__ . '/bp-docs-attachment-protection-loader.php';
 require_once __DIR__ . '/idms-sync-loader.php';
 require_once __DIR__ . '/ges-guard-loader.php';
 require_once __DIR__ . '/kc-basic-login-loader.php';
+require_once __DIR__ . '/groupblog-site-tab-loader.php';
