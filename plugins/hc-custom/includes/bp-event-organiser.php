@@ -720,46 +720,23 @@ add_filter( 'eventorganiser_calendar_event_link', 'hc_custom_bpeo_filter_calenda
 /** Sitewide calendar: members' private group events ***************************/
 
 /**
- * IDs of private events connected to any of a user's groups.
+ * IDs of the groups a user belongs to.
  *
  * @param int $user_id User ID.
  * @return int[]
  */
-function hc_custom_bpeo_get_member_private_event_ids( $user_id ) {
+function hc_custom_bpeo_get_member_group_ids( $user_id ) {
 	$user_id = (int) $user_id;
 	if ( ! $user_id ) {
 		return array();
 	}
 
 	$user_groups = groups_get_user_groups( $user_id );
-	$group_ids   = ! empty( $user_groups['groups'] ) ? array_map( 'intval', (array) $user_groups['groups'] ) : array();
-	if ( empty( $group_ids ) ) {
+	if ( empty( $user_groups['groups'] ) ) {
 		return array();
 	}
 
-	$group_terms = array();
-	foreach ( $group_ids as $group_id ) {
-		$group_terms[] = 'group_' . $group_id;
-	}
-
-	// Same shape of query bp-event-organiser uses for a group's events.
-	$q = new WP_Query( array(
-		'post_type'      => 'event',
-		'post_status'    => 'private',
-		'fields'         => 'ids',
-		'posts_per_page' => -1,
-		'showpastevents' => true,
-		'tax_query'      => array(
-			array(
-				'taxonomy' => 'bpeo_event_group',
-				'field'    => 'name',
-				'terms'    => $group_terms,
-				'operator' => 'IN',
-			),
-		),
-	) );
-
-	return array_values( array_filter( array_map( 'intval', (array) $q->posts ) ) );
+	return array_values( array_filter( array_map( 'intval', (array) $user_groups['groups'] ) ) );
 }
 
 /**
@@ -783,47 +760,64 @@ function hc_custom_bpeo_filter_calendar_query_for_member_groups( $query ) {
 		return $query;
 	}
 
-	$event_ids = hc_custom_bpeo_get_member_private_event_ids( get_current_user_id() );
-	if ( empty( $event_ids ) ) {
+	$group_ids = hc_custom_bpeo_get_member_group_ids( get_current_user_id() );
+	if ( empty( $group_ids ) ) {
 		return $query;
 	}
 
 	// EO's 'readable' perm would limit private posts to the caller's own,
 	// which, now that read_private_events is no longer handed to everyone,
 	// would hide their groups' events. Admit private posts and let the
-	// posts_where restriction confine them to the visible IDs.
-	$query['hc_bpeo_private_event_ids'] = $event_ids;
-	$query['perm']                      = '';
-	$query['post_status']               = array_values( array_unique( array_merge( (array) ( $query['post_status'] ?? array( 'publish' ) ), array( 'private' ) ) ) );
+	// posts_where restriction confine them to the caller's groups, inside
+	// the main query so it stays bounded by the calendar's date range.
+	$query['hc_bpeo_member_group_ids'] = $group_ids;
+	$query['perm']                     = '';
+	$query['post_status']              = array_values( array_unique( array_merge( (array) ( $query['post_status'] ?? array( 'publish' ) ), array( 'private' ) ) ) );
 
 	return $query;
 }
 add_filter( 'eventorganiser_fullcalendar_query', 'hc_custom_bpeo_filter_calendar_query_for_member_groups', 30 );
 
 /**
- * Keep private events other than the caller's visible ones out of the query.
+ * Keep private events outside the caller's groups out of the query.
+ *
+ * Expressed as a subquery on the bpeo_event_group term relationships rather
+ * than a materialised ID list, so the cost follows the main query's date
+ * range, not the groups' full event history.
  *
  * @param string   $where    SQL WHERE clause.
  * @param WP_Query $wp_query The query.
  * @return string
  */
 function hc_custom_bpeo_restrict_private_events_where( $where, $wp_query ) {
-	$event_ids = $wp_query->get( 'hc_bpeo_private_event_ids' );
-	if ( empty( $event_ids ) ) {
+	$group_ids = $wp_query->get( 'hc_bpeo_member_group_ids' );
+	if ( empty( $group_ids ) ) {
 		return $where;
 	}
 
-	$event_ids = array_values( array_filter( array_map( 'intval', (array) $event_ids ) ) );
-	if ( empty( $event_ids ) ) {
+	$group_ids = array_values( array_filter( array_map( 'intval', (array) $group_ids ) ) );
+	if ( empty( $group_ids ) ) {
 		return $where;
 	}
 
 	global $wpdb;
 	$posts   = $wpdb->posts;
 	$user_id = (int) get_current_user_id();
-	$id_list = implode( ',', $event_ids );
 
-	$where .= " AND ( {$posts}.post_status <> 'private' OR {$posts}.post_author = {$user_id} OR {$posts}.ID IN ({$id_list}) )";
+	// Term names are 'group_<id>' and built from integers only, so they need
+	// no further escaping.
+	$term_names = array();
+	foreach ( $group_ids as $group_id ) {
+		$term_names[] = "'group_{$group_id}'";
+	}
+	$term_list = implode( ',', $term_names );
+
+	$in_member_groups = "SELECT tr.object_id FROM {$wpdb->term_relationships} tr"
+		. " INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id"
+		. " INNER JOIN {$wpdb->terms} t ON t.term_id = tt.term_id"
+		. " WHERE tt.taxonomy = 'bpeo_event_group' AND t.name IN ({$term_list})";
+
+	$where .= " AND ( {$posts}.post_status <> 'private' OR {$posts}.post_author = {$user_id} OR {$posts}.ID IN ({$in_member_groups}) )";
 
 	return $where;
 }

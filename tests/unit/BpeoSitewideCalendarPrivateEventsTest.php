@@ -16,41 +16,20 @@ class BpeoSitewideCalendarPrivateEventsTest extends TestCase {
 	protected function setUp(): void {
 		$GLOBALS['_hc_mock'] = array();
 		$GLOBALS['hc_test']  = array();
-		$GLOBALS['wpdb']     = (object) array( 'posts' => 'wp_posts' );
+		$GLOBALS['wpdb']     = (object) array(
+			'posts'              => 'wp_posts',
+			'term_relationships' => 'wp_term_relationships',
+			'term_taxonomy'      => 'wp_term_taxonomy',
+			'terms'              => 'wp_terms',
+		);
 	}
 
 	/**
-	 * Log in user 3 as a member of groups 50 and 60, whose private events are
-	 * 7 and 9.
+	 * Log in user 3 as a member of groups 50 and 60.
 	 */
 	private function setUpMemberWithPrivateEvents() {
 		$GLOBALS['_hc_mock']['current_user_id'] = 3;
 		$GLOBALS['_hc_mock']['user_groups']     = array( 3 => array( 50, 60 ) );
-		$GLOBALS['_hc_mock']['wp_query_callback'] = function ( $args ) {
-			return array( 7, 9 );
-		};
-	}
-
-	// -----------------------------------------------------------------------
-	// Which private events a member may see.
-	// -----------------------------------------------------------------------
-
-	public function test_member_private_event_ids_come_from_their_groups() {
-		$this->setUpMemberWithPrivateEvents();
-
-		$this->assertSame( array( 7, 9 ), hc_custom_bpeo_get_member_private_event_ids( 3 ) );
-	}
-
-	public function test_user_in_no_groups_has_no_private_event_ids() {
-		$GLOBALS['_hc_mock']['wp_query_callback'] = function ( $args ) {
-			return array( 7, 9 );
-		};
-
-		$this->assertSame( array(), hc_custom_bpeo_get_member_private_event_ids( 4 ) );
-	}
-
-	public function test_anonymous_user_has_no_private_event_ids() {
-		$this->assertSame( array(), hc_custom_bpeo_get_member_private_event_ids( 0 ) );
 	}
 
 	// -----------------------------------------------------------------------
@@ -63,9 +42,8 @@ class BpeoSitewideCalendarPrivateEventsTest extends TestCase {
 		$this->assertSame( $in, hc_custom_bpeo_filter_calendar_query_for_member_groups( $in ) );
 	}
 
-	public function test_unscoped_query_unchanged_for_member_without_private_group_events() {
-		$GLOBALS['_hc_mock']['current_user_id'] = 3;
-		$GLOBALS['_hc_mock']['user_groups']     = array( 3 => array( 50 ) );
+	public function test_unscoped_query_unchanged_for_user_in_no_groups() {
+		$GLOBALS['_hc_mock']['current_user_id'] = 4;
 
 		$in = array( 'perm' => 'readable', 'post_status' => array( 'publish', 'private' ) );
 
@@ -77,7 +55,7 @@ class BpeoSitewideCalendarPrivateEventsTest extends TestCase {
 
 		$out = hc_custom_bpeo_filter_calendar_query_for_member_groups( array( 'perm' => 'readable', 'post_status' => array( 'publish', 'private' ) ) );
 
-		$this->assertSame( array( 7, 9 ), $out['hc_bpeo_private_event_ids'] );
+		$this->assertSame( array( 50, 60 ), $out['hc_bpeo_member_group_ids'] );
 		$this->assertSame( '', $out['perm'] );
 		$this->assertContains( 'private', (array) $out['post_status'] );
 		$this->assertContains( 'publish', (array) $out['post_status'] );
@@ -95,7 +73,7 @@ class BpeoSitewideCalendarPrivateEventsTest extends TestCase {
 		$out = hc_custom_bpeo_filter_calendar_query_for_member_groups( $in );
 
 		$this->assertSame( $in, $out );
-		$this->assertArrayNotHasKey( 'hc_bpeo_private_event_ids', $out );
+		$this->assertArrayNotHasKey( 'hc_bpeo_member_group_ids', $out );
 	}
 
 	public function test_group_scoped_query_is_left_alone() {
@@ -132,25 +110,31 @@ class BpeoSitewideCalendarPrivateEventsTest extends TestCase {
 		$this->assertSame( ' AND 1=1', hc_custom_bpeo_restrict_private_events_where( ' AND 1=1', $q ) );
 	}
 
-	public function test_where_clause_limits_private_posts_to_visible_ids_and_own_posts() {
+	public function test_where_clause_limits_private_posts_to_member_groups_and_own_posts() {
+		// The restriction must be expressed against the group connection
+		// taxonomy inside the main query, so it is bounded by that query's
+		// date range rather than by the groups' whole event history.
 		$GLOBALS['_hc_mock']['current_user_id'] = 3;
-		$q = new WP_Query( array( 'post_type' => 'event', 'hc_bpeo_private_event_ids' => array( 7, 9 ) ) );
+		$q = new WP_Query( array( 'post_type' => 'event', 'hc_bpeo_member_group_ids' => array( 50, 60 ) ) );
 
 		$where = hc_custom_bpeo_restrict_private_events_where( ' AND 1=1', $q );
 
 		$this->assertStringStartsWith( ' AND 1=1', $where );
 		$this->assertStringContainsString( "wp_posts.post_status <> 'private'", $where );
-		$this->assertStringContainsString( 'wp_posts.ID IN (7,9)', $where );
 		$this->assertStringContainsString( 'wp_posts.post_author = 3', $where );
+		$this->assertStringContainsString( "taxonomy = 'bpeo_event_group'", $where );
+		$this->assertStringContainsString( "'group_50','group_60'", $where );
+		$this->assertStringContainsString( 'wp_term_relationships', $where );
 	}
 
-	public function test_where_clause_only_ever_contains_integer_ids() {
+	public function test_where_clause_only_ever_contains_integer_group_ids() {
 		$GLOBALS['_hc_mock']['current_user_id'] = 3;
-		$q = new WP_Query( array( 'hc_bpeo_private_event_ids' => array( '7', "9) OR (1=1", 'x', 0 ) ) );
+		$q = new WP_Query( array( 'hc_bpeo_member_group_ids' => array( '50', "60) OR (1=1", 'x', 0 ) ) );
 
 		$where = hc_custom_bpeo_restrict_private_events_where( '', $q );
 
-		$this->assertStringContainsString( 'wp_posts.ID IN (7,9)', $where );
+		$this->assertStringContainsString( "'group_50','group_60'", $where );
 		$this->assertStringNotContainsString( '1=1', $where );
+		$this->assertStringNotContainsString( "'group_0'", $where );
 	}
 }
