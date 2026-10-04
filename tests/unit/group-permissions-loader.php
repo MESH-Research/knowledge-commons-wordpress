@@ -342,6 +342,13 @@ if ( ! function_exists( 'bpeo_get_group_minimum_member_role_for_connection' ) ) 
 
 if ( ! function_exists( 'bpeo_get_group_permalink' ) ) {
 	function bpeo_get_group_permalink( $group = null ) {
+		// Per-group permalinks may be configured via 'events_group_permalinks'
+		// (keyed by group ID); otherwise fall back to the single default.
+		$group_id = is_object( $group ) ? ( $group->id ?? 0 ) : (int) $group;
+		$map      = _hc_mock( 'events_group_permalinks', array() );
+		if ( $group_id && isset( $map[ $group_id ] ) ) {
+			return $map[ $group_id ];
+		}
 		return _hc_mock( 'events_group_permalink', 'https://example.org/groups/test-group/events/' );
 	}
 }

@@ -628,3 +628,36 @@ function hc_custom_bpeo_enqueue_group_calendar_script() {
 	);
 }
 add_action( 'wp_print_footer_scripts', 'hc_custom_bpeo_enqueue_group_calendar_script', 5 );
+
+/**
+ * Point calendar event links at the group's rendering of the event.
+ *
+ * @param string $link          Current event permalink.
+ * @param int    $event_id      Event post ID.
+ * @param int    $occurrence_id Occurrence ID.
+ * @return string
+ */
+function hc_custom_bpeo_filter_calendar_event_link_for_group( $link, $event_id = 0, $occurrence_id = 0 ) {
+	$group_id = hc_custom_bpeo_get_calendar_group_id();
+	$event_id = (int) $event_id;
+
+	if ( ! $group_id || ! $event_id ) {
+		return $link;
+	}
+
+	// Only events actually connected to this group have a rendering under it.
+	$event_groups = array_map( 'intval', (array) bpeo_get_event_groups( $event_id ) );
+	if ( ! in_array( $group_id, $event_groups, true ) ) {
+		return $link;
+	}
+
+	$event = get_post( $event_id );
+	if ( ! $event || empty( $event->post_name ) ) {
+		return $link;
+	}
+
+	return trailingslashit( bpeo_get_group_permalink( $group_id ) . $event->post_name );
+}
+// After bp-event-organiser's own filter (priority 10), which only works when
+// bp_is_group() is true and so is a no-op inside admin-ajax.
+add_filter( 'eventorganiser_calendar_event_link', 'hc_custom_bpeo_filter_calendar_event_link_for_group', 20, 3 );
