@@ -1,5 +1,4 @@
 {
-  "family": "commons-wordpress-prod-app",
   "containerDefinitions": [
     {
       "name": "app",
@@ -51,118 +50,6 @@
         {
           "name": "AWS_SECRET_ACCESS_KEY",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:AWS_SECRET_ACCESS_KEY::"
-        },
-        {
-          "name": "CORE_DATACITE_PROTOCOL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_PROTOCOL::"
-        },
-        {
-          "name": "CORE_DATACITE_HOST",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_HOST::"
-        },
-        {
-          "name": "CORE_DATACITE_PORT",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_PORT::"
-        },
-        {
-          "name": "CORE_DATACITE_PATH",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_PATH::"
-        },
-        {
-          "name": "CORE_DATACITE_LOGIN",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_LOGIN::"
-        },
-        {
-          "name": "CORE_DATACITE_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_PASSWORD::"
-        },
-        {
-          "name": "CORE_DATACITE_PROXY",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_PROXY::"
-        },
-        {
-          "name": "CORE_DATACITE_PREFIX",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_DATACITE_PREFIX::"
-        },
-        {
-          "name": "CORE_SOLR_PROTOCOL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_SOLR_PROTOCOL::"
-        },
-        {
-          "name": "CORE_SOLR_HOST",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_SOLR_HOST::"
-        },
-        {
-          "name": "CORE_SOLR_PORT",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_SOLR_PORT::"
-        },
-        {
-          "name": "CORE_SOLR_PATH",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_SOLR_PATH::"
-        },
-        {
-          "name": "CORE_SOLR_CORE",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_SOLR_CORE::"
-        },
-        {
-          "name": "CORE_FEDORA_PROTOCOL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_FEDORA_PROTOCOL::"
-        },
-        {
-          "name": "CORE_FEDORA_HOST",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_FEDORA_HOST::"
-        },
-        {
-          "name": "CORE_FEDORA_PORT",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_FEDORA_PORT::"
-        },
-        {
-          "name": "CORE_FEDORA_PATH",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_FEDORA_PATH::"
-        },
-        {
-          "name": "CORE_FEDORA_LOGIN",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_FEDORA_LOGIN::"
-        },
-        {
-          "name": "CORE_FEDORA_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_FEDORA_PASSWORD::"
-        },
-        {
-          "name": "CORE_OAI_PROTOCOL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_OAI_PROTOCOL::"
-        },
-        {
-          "name": "CORE_OAI_HOST",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_OAI_HOST::"
-        },
-        {
-          "name": "CORE_OAI_PORT",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_OAI_PORT::"
-        },
-        {
-          "name": "CORE_OAI_PATH",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_OAI_PATH::"
-        },
-        {
-          "name": "CORE_HUMCORE_TEMP_DIR",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_HUMCORE_TEMP_DIR::"
-        },
-        {
-          "name": "CORE_HUMCORE_NAMESPACE",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_HUMCORE_NAMESPACE::"
-        },
-        {
-          "name": "CORE_HUMCORE_COLLECTION_PID",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_HUMCORE_COLLECTION_PID::"
-        },
-        {
-          "name": "CORE_HTTP_DEBUG",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_HTTP_DEBUG::"
-        },
-        {
-          "name": "CORE_ERROR_LOG",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CORE_ERROR_LOG::"
         },
         {
           "name": "WPCOM_API_KEY",
@@ -273,10 +160,6 @@
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MSU_MAPPED_URL::"
         },
         {
-          "name": "REGISTRY_SERVER_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:REGISTRY_SERVER_URL::"
-        },
-        {
           "name": "SATOSA_SERVER_URL",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SATOSA_SERVER_URL::"
         },
@@ -353,38 +236,6 @@
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:LOGIN_PATH::"
         },
         {
-          "name": "GOOGLE_IDENTITY_PROVIDER",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:GOOGLE_IDENTITY_PROVIDER::"
-        },
-        {
-          "name": "TWITTER_IDENTITY_PROVIDER",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:TWITTER_IDENTITY_PROVIDER::"
-        },
-        {
-          "name": "HC_IDENTITY_PROVIDER",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_IDENTITY_PROVIDER::"
-        },
-        {
-          "name": "MLA_IDENTITY_PROVIDER",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MLA_IDENTITY_PROVIDER::"
-        },
-        {
-          "name": "GOOGLE_LOGIN_METHOD_SCOPE",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:GOOGLE_LOGIN_METHOD_SCOPE::"
-        },
-        {
-          "name": "TWITTER_LOGIN_METHOD_SCOPE",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:TWITTER_LOGIN_METHOD_SCOPE::"
-        },
-        {
-          "name": "HC_LOGIN_METHOD_SCOPE",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_LOGIN_METHOD_SCOPE::"
-        },
-        {
-          "name": "MLA_LOGIN_METHOD_SCOPE",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MLA_LOGIN_METHOD_SCOPE::"
-        },
-        {
           "name": "HC_ROOT_BLOG_ID",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_ROOT_BLOG_ID::"
         },
@@ -441,38 +292,6 @@
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:GLOBAL_SUPER_ADMINS::"
         },
         {
-          "name": "COMANAGE_API_USERNAME",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:COMANAGE_API_USERNAME::"
-        },
-        {
-          "name": "COMANAGE_API_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:COMANAGE_API_PASSWORD::"
-        },
-        {
-          "name": "COMANAGE_API_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:COMANAGE_API_URL::"
-        },
-        {
-          "name": "GOOGLE_IDP_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:GOOGLE_IDP_URL::"
-        },
-        {
-          "name": "TWITTER_IDP_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:TWITTER_IDP_URL::"
-        },
-        {
-          "name": "MLA_IDP_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MLA_IDP_URL::"
-        },
-        {
-          "name": "HC_IDP_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_IDP_URL::"
-        },
-        {
-          "name": "REGISTRY_SP_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:REGISTRY_SP_URL::"
-        },
-        {
           "name": "WP_CACHE_KEY_SALT",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_CACHE_KEY_SALT::"
         },
@@ -487,14 +306,6 @@
         {
           "name": "BP_RBE_SPARKPOST_WEBHOOK_TOKEN",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:BP_RBE_SPARKPOST_WEBHOOK_TOKEN::"
-        },
-        {
-          "name": "TWITTER_USERNAME",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:TWITTER_USERNAME::"
-        },
-        {
-          "name": "FACEBOOK_APP_ID",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:FACEBOOK_APP_ID::"
         },
         {
           "name": "PLUGIN_MONITOR_ALERT_EMAILS",
@@ -549,40 +360,12 @@
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_NEWSLETTER_GROUP_ID::"
         },
         {
-          "name": "IDP_ENTITY_ID",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:IDP_ENTITY_ID::"
-        },
-        {
           "name": "DISABLE_MAILCHIMP",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DISABLE_MAILCHIMP::"
         },
         {
           "name": "DOMAIN_NAME",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DOMAIN_NAME::"
-        },
-        {
-          "name": "SAML_AUTH_ADMINPASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SAML_AUTH_ADMINPASSWORD::"
-        },
-        {
-          "name": "SAML_SECRETSALT",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SAML_SECRETSALT::"
-        },
-        {
-          "name": "WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_SAML_AUTH_SIMPLESAMLPHP_PERMIT_WP_LOGIN::"
-        },
-        {
-          "name": "WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_SAML_AUTH_SIMPLESAMLPHP_AUTOLOAD::"
-        },
-        {
-          "name": "SIMPLESAMLPHP_CONFIG_DIR",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SIMPLESAMLPHP_CONFIG_DIR::"
-        },
-        {
-          "name": "SIMPLESAMLPHP_METADATA_FILE",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SIMPLESAMLPHP_METADATA_FILE::"
         },
         {
           "name": "REDIS_HOST",
@@ -759,8 +542,17 @@
           "awslogs-create-group": "true",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
-        },
-        "secretOptions": []
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "REQUEST_METHOD=GET SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping cgi-fcgi -bind -connect 127.0.0.1:9000 | grep -q pong"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 90
       },
       "systemControls": []
     },
@@ -771,10 +563,10 @@
       "links": ["app"],
       "portMappings": [
         {
-          "name": "nginx-80-tcp",
           "containerPort": 80,
           "hostPort": 80,
-          "protocol": "tcp"
+          "protocol": "tcp",
+          "name": "nginx-80-tcp"
         }
       ],
       "essential": false,
@@ -817,6 +609,482 @@
         {
           "name": "AWS_SECRET_ACCESS_KEY",
           "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:AWS_SECRET_ACCESS_KEY::"
+        },
+        {
+          "name": "WPCOM_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WPCOM_API_KEY::"
+        },
+        {
+          "name": "CBOX_AUTH_API_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CBOX_AUTH_API_URL::"
+        },
+        {
+          "name": "CBOX_AUTH_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CBOX_AUTH_API_KEY::"
+        },
+        {
+          "name": "CBOX_AUTH_API_SECRET",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CBOX_AUTH_API_SECRET::"
+        },
+        {
+          "name": "WP_DOMAIN",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_DOMAIN::"
+        },
+        {
+          "name": "WP_SITEURL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_SITEURL::"
+        },
+        {
+          "name": "WP_LOGS_DIR",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_LOGS_DIR::"
+        },
+        {
+          "name": "WP_ENV",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_ENV::"
+        },
+        {
+          "name": "WP_HOME",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_HOME::"
+        },
+        {
+          "name": "ADMIN_EMAIL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ADMIN_EMAIL::"
+        },
+        {
+          "name": "GLOBAL_SMTP_FROM",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:GLOBAL_SMTP_FROM::"
+        },
+        {
+          "name": "DB_USER",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DB_USER::"
+        },
+        {
+          "name": "DB_NAME",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DB_NAME::"
+        },
+        {
+          "name": "DB_HOST",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DB_HOST::"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DB_PASSWORD::"
+        },
+        {
+          "name": "HC_SITE_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_SITE_ID::"
+        },
+        {
+          "name": "AJS_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:AJS_SITE_URL::"
+        },
+        {
+          "name": "ARLISNA_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ARLISNA_SITE_URL::"
+        },
+        {
+          "name": "ASEEES_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ASEEES_SITE_URL::"
+        },
+        {
+          "name": "CAA_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CAA_SITE_URL::"
+        },
+        {
+          "name": "HC_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_SITE_URL::"
+        },
+        {
+          "name": "MLA_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MLA_SITE_URL::"
+        },
+        {
+          "name": "MSU_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MSU_SITE_URL::"
+        },
+        {
+          "name": "SAH_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SAH_SITE_URL::"
+        },
+        {
+          "name": "UP_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:UP_SITE_URL::"
+        },
+        {
+          "name": "HASTAC_SITE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HASTAC_SITE_URL::"
+        },
+        {
+          "name": "MSU_MAPPED_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MSU_MAPPED_URL::"
+        },
+        {
+          "name": "SATOSA_SERVER_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SATOSA_SERVER_URL::"
+        },
+        {
+          "name": "HASTAC_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HASTAC_ENROLLMENT_URL::"
+        },
+        {
+          "name": "HASTAC_OPEN_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HASTAC_OPEN_ENROLLMENT_URL::"
+        },
+        {
+          "name": "HC_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_ENROLLMENT_URL::"
+        },
+        {
+          "name": "ARLISNA_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ARLISNA_ENROLLMENT_URL::"
+        },
+        {
+          "name": "ASEEES_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ASEEES_ENROLLMENT_URL::"
+        },
+        {
+          "name": "MLA_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MLA_ENROLLMENT_URL::"
+        },
+        {
+          "name": "MSU_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MSU_ENROLLMENT_URL::"
+        },
+        {
+          "name": "SAH_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SAH_ENROLLMENT_URL::"
+        },
+        {
+          "name": "UP_ENROLLMENT_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:UP_ENROLLMENT_URL::"
+        },
+        {
+          "name": "HC_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "ARLISNA_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ARLISNA_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "ASEEES_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ASEEES_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "MLA_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MLA_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "MSU_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MSU_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "SAH_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SAH_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "UP_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:UP_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "HASTAC_ACCOUNT_LINK_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HASTAC_ACCOUNT_LINK_URL::"
+        },
+        {
+          "name": "LOGIN_PATH",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:LOGIN_PATH::"
+        },
+        {
+          "name": "HC_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HC_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "AJS_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:AJS_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "ARLISNA_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ARLISNA_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "ASEEES_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:ASEEES_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "CAA_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CAA_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "MLA_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MLA_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "MSU_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MSU_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "SAH_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SAH_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "UP_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:UP_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "HUB_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HUB_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "SOCSCI_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SOCSCI_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "STEM_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:STEM_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "HASTAC_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HASTAC_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "GLOBAL_SUPER_ADMINS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:GLOBAL_SUPER_ADMINS::"
+        },
+        {
+          "name": "WP_CACHE_KEY_SALT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_CACHE_KEY_SALT::"
+        },
+        {
+          "name": "EP_HOST",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:EP_HOST::"
+        },
+        {
+          "name": "WP_REDIS_HOST",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WP_REDIS_HOST::"
+        },
+        {
+          "name": "BP_RBE_SPARKPOST_WEBHOOK_TOKEN",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:BP_RBE_SPARKPOST_WEBHOOK_TOKEN::"
+        },
+        {
+          "name": "PLUGIN_MONITOR_ALERT_EMAILS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PLUGIN_MONITOR_ALERT_EMAILS::"
+        },
+        {
+          "name": "AUTH_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:AUTH_KEY::"
+        },
+        {
+          "name": "SECURE_AUTH_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SECURE_AUTH_KEY::"
+        },
+        {
+          "name": "LOGGED_IN_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:LOGGED_IN_KEY::"
+        },
+        {
+          "name": "NONCE_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:NONCE_KEY::"
+        },
+        {
+          "name": "AUTH_SALT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:AUTH_SALT::"
+        },
+        {
+          "name": "SECURE_AUTH_SALT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:SECURE_AUTH_SALT::"
+        },
+        {
+          "name": "LOGGED_IN_SALT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:LOGGED_IN_SALT::"
+        },
+        {
+          "name": "NONCE_SALT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:NONCE_SALT::"
+        },
+        {
+          "name": "MAILCHIMP_LIST_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_LIST_ID::"
+        },
+        {
+          "name": "MAILCHIMP_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_API_KEY::"
+        },
+        {
+          "name": "MAILCHIMP_DC",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_DC::"
+        },
+        {
+          "name": "MAILCHIMP_NEWSLETTER_GROUP_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:MAILCHIMP_NEWSLETTER_GROUP_ID::"
+        },
+        {
+          "name": "DISABLE_MAILCHIMP",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DISABLE_MAILCHIMP::"
+        },
+        {
+          "name": "DOMAIN_NAME",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DOMAIN_NAME::"
+        },
+        {
+          "name": "REDIS_HOST",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:REDIS_HOST::"
+        },
+        {
+          "name": "RUN_CRON",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:RUN_CRON::"
+        },
+        {
+          "name": "CC_SEARCH_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CC_SEARCH_KEY::"
+        },
+        {
+          "name": "CC_SEARCH_ENDPOINT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CC_SEARCH_ENDPOINT::"
+        },
+        {
+          "name": "CC_SEARCH_ADMIN_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CC_SEARCH_ADMIN_KEY::"
+        },
+        {
+          "name": "CC_INCREMENTAL_PROVISIONING_ENABLED",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CC_INCREMENTAL_PROVISIONING_ENABLED::"
+        },
+        {
+          "name": "WORKS_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WORKS_URL::"
+        },
+        {
+          "name": "WORKS_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WORKS_API_KEY::"
+        },
+        {
+          "name": "INVENIO_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:INVENIO_API_KEY::"
+        },
+        {
+          "name": "WORKS_KNOWLEDGE_COMMONS_INSTANCE",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:WORKS_KNOWLEDGE_COMMONS_INSTANCE::"
+        },
+        {
+          "name": "OTEL_EXPORTER_OTLP_ENDPOINT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:OTEL_EXPORTER_OTLP_ENDPOINT::"
+        },
+        {
+          "name": "OTEL_PHP_AUTOLOAD_ENABLED",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:OTEL_PHP_AUTOLOAD_ENABLED::"
+        },
+        {
+          "name": "OTEL_SERVICE_NAME",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:OTEL_SERVICE_NAME::"
+        },
+        {
+          "name": "OTEL_TRACES_EXPORTER",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:OTEL_TRACES_EXPORTER::"
+        },
+        {
+          "name": "OTEL_EXPORTER_OTLP_PROTOCOL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:OTEL_EXPORTER_OTLP_PROTOCOL::"
+        },
+        {
+          "name": "OTEL_PROPAGATORS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:OTEL_PROPAGATORS::"
+        },
+        {
+          "name": "KC_COMMAND_CONFIG_FILE",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:KC_COMMAND_CONFIG_FILE::"
+        },
+        {
+          "name": "KC_TEST_USERS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:KC_TEST_USERS::"
+        },
+        {
+          "name": "HUMCORE_DEPOSITS_OPEN",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:HUMCORE_DEPOSITS_OPEN::"
+        },
+        {
+          "name": "PHP_MAX_EXECUTION_TIME",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PHP_MAX_EXECUTION_TIME::"
+        },
+        {
+          "name": "PHP_MEMORY_LIMIT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PHP_MEMORY_LIMIT::"
+        },
+        {
+          "name": "PHP_UPLOAD_MAX_FILESIZE",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PHP_UPLOAD_MAX_FILESIZE::"
+        },
+        {
+          "name": "PM_MAX_CHILDREN",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PM_MAX_CHILDREN::"
+        },
+        {
+          "name": "PM_START_SERVERS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PM_START_SERVERS::"
+        },
+        {
+          "name": "PM_MIN_SPARE_SERVERS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PM_MIN_SPARE_SERVERS::"
+        },
+        {
+          "name": "PM_MAX_SPARE_SERVERS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PM_MAX_SPARE_SERVERS::"
+        },
+        {
+          "name": "PM_MAX_REQUESTS",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PM_MAX_REQUESTS::"
+        },
+        {
+          "name": "BP_RBE_DEBUG",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:BP_RBE_DEBUG::"
+        },
+        {
+          "name": "KC_404",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:KC_404::"
+        },
+        {
+          "name": "PHP_POST_MAX_SIZE",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PHP_POST_MAX_SIZE::"
+        },
+        {
+          "name": "STEMEDPLUS_ROOT_BLOG_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:STEMEDPLUS_ROOT_BLOG_ID::"
+        },
+        {
+          "name": "PROFILES_API_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PROFILES_API_URL::"
+        },
+        {
+          "name": "CILOGON_CLIENT_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CILOGON_CLIENT_ID::"
+        },
+        {
+          "name": "CILOGON_CLIENT_SECRET",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CILOGON_CLIENT_SECRET::"
+        },
+        {
+          "name": "CILOGON_PROVIDER_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CILOGON_PROVIDER_URL::"
+        },
+        {
+          "name": "CILOGON_CALLBACK_NEXT",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CILOGON_CALLBACK_NEXT::"
+        },
+        {
+          "name": "CILOGON_DEBUG",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:CILOGON_DEBUG::"
+        },
+        {
+          "name": "BROKER_SILENT_SSO_ENABLED",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:BROKER_SILENT_SSO_ENABLED::"
+        },
+        {
+          "name": "DISABLE_WP_CRON",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:DISABLE_WP_CRON::"
+        },
+        {
+          "name": "PROFILES_API_BEARER_TOKEN",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:755997884632:secret:prod/secrets.env-bX4r04:PROFILES_API_BEARER_TOKEN::"
         }
       ],
       "logConfiguration": {
@@ -826,12 +1094,19 @@
           "awslogs-create-group": "true",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
-        },
-        "secretOptions": []
+        }
+      },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "wget -q -T 4 -O /dev/null http://127.0.0.1/healthz || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
       },
       "systemControls": []
     }
   ],
+  "family": "commons-wordpress-prod-app",
   "executionRoleArn": "arn:aws:iam::755997884632:role/ecsTaskExecutionRole",
   "networkMode": "bridge",
   "volumes": [
@@ -858,11 +1133,12 @@
     }
   ],
   "placementConstraints": [],
-  "requiresCompatibilities": ["EC2"],
-  "cpu": "8192",
-  "memory": "56320",
   "runtimePlatform": {
     "cpuArchitecture": "ARM64",
     "operatingSystemFamily": "LINUX"
-  }
+  },
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "7168",
+  "memory": "28672",
+  "tags": []
 }
