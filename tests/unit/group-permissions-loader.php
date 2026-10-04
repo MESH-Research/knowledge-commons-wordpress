@@ -342,6 +342,13 @@ if ( ! function_exists( 'bpeo_get_group_minimum_member_role_for_connection' ) ) 
 
 if ( ! function_exists( 'bpeo_get_group_permalink' ) ) {
 	function bpeo_get_group_permalink( $group = null ) {
+		// Per-group permalinks may be configured via 'events_group_permalinks'
+		// (keyed by group ID); otherwise fall back to the single default.
+		$group_id = is_object( $group ) ? ( $group->id ?? 0 ) : (int) $group;
+		$map      = _hc_mock( 'events_group_permalinks', array() );
+		if ( $group_id && isset( $map[ $group_id ] ) ) {
+			return $map[ $group_id ];
+		}
 		return _hc_mock( 'events_group_permalink', 'https://example.org/groups/test-group/events/' );
 	}
 }
@@ -355,6 +362,28 @@ if ( ! function_exists( 'bpeo_get_events_slug' ) ) {
 if ( ! function_exists( 'bpeo_get_events_new_slug' ) ) {
 	function bpeo_get_events_new_slug() {
 		return 'new';
+	}
+}
+
+if ( ! class_exists( 'WP_Query' ) ) {
+	/**
+	 * Minimal WP_Query stand-in: records its args and returns whatever the
+	 * per-test callback in $GLOBALS['_hc_mock']['wp_query_callback'] yields
+	 * for them (default: no posts).
+	 */
+	class WP_Query {
+		public $query_vars = array();
+		public $posts      = array();
+
+		public function __construct( $args = array() ) {
+			$this->query_vars = $args;
+			$cb               = _hc_mock( 'wp_query_callback' );
+			$this->posts      = is_callable( $cb ) ? call_user_func( $cb, $args ) : array();
+		}
+
+		public function get( $var, $default = '' ) {
+			return isset( $this->query_vars[ $var ] ) ? $this->query_vars[ $var ] : $default;
+		}
 	}
 }
 
