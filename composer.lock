@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "079d66d14ed16144f230b6df957b5b5d",
+    "content-hash": "8c5d6a8884a27999ec1bbd263a4e1ff6",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -2880,15 +2880,15 @@
         },
         {
             "name": "wp-plugin/buddypress",
-            "version": "14.5.0",
+            "version": "14.5.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/buddypress/",
-                "reference": "tags/14.5.0"
+                "reference": "tags/14.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/buddypress.14.5.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/buddypress.14.5.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3243,7 +3243,7 @@
                 "issues": "https://wordpress.org/support/plugin/elementor",
                 "source": "https://plugins.svn.wordpress.org/elementor"
             },
-            "time": "2026-09-30T10:31:08+00:00"
+            "time": "2026-10-05T12:54:47+00:00"
         },
         {
             "name": "wp-plugin/essential-addons-for-elementor-lite",
@@ -3610,7 +3610,7 @@
                 "issues": "https://wordpress.org/support/plugin/jetpack",
                 "source": "https://plugins.svn.wordpress.org/jetpack"
             },
-            "time": "2026-09-29T17:57:06+00:00"
+            "time": "2026-10-05T16:16:49+00:00"
         },
         {
             "name": "wp-plugin/linked-open-profiles",
@@ -6360,16 +6360,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.37",
+            "version": "9.6.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "aceaa623912caf8e80bffea22fc4103a0a01565f"
+                "reference": "8b5f757e8e92071bfdbfa93943f94f84c4e31007"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/aceaa623912caf8e80bffea22fc4103a0a01565f",
-                "reference": "aceaa623912caf8e80bffea22fc4103a0a01565f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8b5f757e8e92071bfdbfa93943f94f84c4e31007",
+                "reference": "8b5f757e8e92071bfdbfa93943f94f84c4e31007",
                 "shasum": ""
             },
             "require": {
@@ -6443,7 +6443,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.37"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.38"
             },
             "funding": [
                 {
@@ -6451,7 +6451,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-09-23T09:59:59+00:00"
+            "time": "2026-10-05T05:44:26+00:00"
         },
         {
             "name": "roave/security-advisories",
