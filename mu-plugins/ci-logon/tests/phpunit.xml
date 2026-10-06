@@ -38,6 +38,9 @@
         <testsuite name="Login Bypass Tests">
             <file>LoginBypassTest.php</file>
         </testsuite>
+        <testsuite name="Basic Login Gate Tests">
+            <file>BasicLoginGateTest.php</file>
+        </testsuite>
         <testsuite name="BrokerAuth Tests">
             <file>BrokerAuthTest.php</file>
         </testsuite>

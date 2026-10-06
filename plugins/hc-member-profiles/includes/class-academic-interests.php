@@ -72,10 +72,10 @@ class Academic_Interests {
 			if ( ! empty( $interest ) ) {
 				$term = wpmn_get_term_by( 'name', $interest, 'mla_academic_interests' );
 
-				setcookie( self::$cookie_name, $term->term_taxonomy_id, null, '/' );
+				setcookie( self::$cookie_name, $term->term_taxonomy_id, 0, '/' );
 				$_COOKIE[ self::$cookie_name ] = $term->term_taxonomy_id;
 			} else {
-				setcookie( self::$cookie_name, null, null, '/' );
+				setcookie( self::$cookie_name, '', 0, '/' );
 			}
 		}
 	}

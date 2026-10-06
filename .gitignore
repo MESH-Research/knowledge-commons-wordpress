@@ -84,4 +84,5 @@ test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
-.phpunit.cache/INCIDENT.md
+.phpunit.cache/
+INCIDENT.md

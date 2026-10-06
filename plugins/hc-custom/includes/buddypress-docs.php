@@ -479,6 +479,68 @@ function hcommons_correct_bp_get_current_group_id( $current_group_id, $current_g
 }
 add_filter( 'bp_get_current_group_id', 'hcommons_correct_bp_get_current_group_id', 10, 2 );
 
+/**
+ * Resolve to no current doc when a brand-new doc is being saved.
+ *
+ * This addresses @link
+ * https://github.com/MESH-Research/knowledge-commons-wordpress/issues/118
+ *
+ * Since buddypress-docs 2.2.5, BP_Docs_Component::catch_page_load() treats
+ * whatever bp_docs_get_current_doc() returns at save time as the doc being
+ * edited and demands the matching 'bp_docs_edit_{ID}' nonce — which the
+ * create form never contained, so the save dies in wp_nonce_ays() with "The
+ * link you followed has expired."
+ *
+ * A create save can be recognised in two ways:
+ *
+ * 1. No posted doc ID at all (the create form renders its hidden doc_id
+ *    field as "0").
+ * 2. A posted doc ID that refers to an 'auto-draft' placeholder. On the
+ *    create screen, the attachments script calls the bp_docs_create_dummy_doc
+ *    AJAX endpoint, which inserts an auto-draft bp_doc (associated with the
+ *    target group when creating from /docs/create/?group=...) and rewrites
+ *    the form's doc_id field with the placeholder's ID so uploads have a
+ *    parent. That placeholder is still a doc *being created* — upstream
+ *    itself treats an auto-draft doc_id as a new doc in
+ *    BP_Docs_Query::save() — so it must not masquerade as the doc being
+ *    edited, or the save handler will demand a per-doc edit nonce that no
+ *    create form ever contains.
+ *
+ * Renders and genuine edit saves (posted doc ID of a real, non-auto-draft
+ * doc) are left untouched, keeping the per-doc nonce protection for edits.
+ *
+ * @param WP_Post|null $current_doc The doc detected by bp_docs_get_current_doc().
+ * @return WP_Post|null Null on a create save, the detected doc otherwise.
+ */
+function hc_custom_bp_docs_create_save_current_doc( $current_doc ) {
+	// Only act on doc save requests.
+	if ( empty( $_POST['doc-edit-submit'] ) && empty( $_POST['doc-edit-submit-continue'] ) ) {
+		return $current_doc;
+	}
+
+	$posted_doc_id = 0;
+	if ( ! empty( $_POST['doc_id'] ) ) {
+		$posted_doc_id = intval( $_POST['doc_id'] );
+	} elseif ( ! empty( $_POST['doc-id'] ) ) {
+		$posted_doc_id = intval( $_POST['doc-id'] );
+	}
+
+	// No posted doc ID: a create save has no current doc.
+	if ( ! $posted_doc_id ) {
+		return null;
+	}
+
+	// A posted doc ID that is still an auto-draft is the attachments
+	// placeholder for a doc being created, not a doc being edited.
+	if ( 'auto-draft' === get_post_status( $posted_doc_id ) ) {
+		return null;
+	}
+
+	// A genuine edit save; leave it alone.
+	return $current_doc;
+}
+add_filter( 'bp_docs_get_current_doc', 'hc_custom_bp_docs_create_save_current_doc', 20, 1 );
+
 function hcommons_restricted_comment_terms_doc_fallback( $terms, $term_query ) {
 	if (
 		isset( $term_query->query_vars['taxonomy'] ) && 
@@ -515,6 +577,121 @@ function hcommons_restricted_comment_terms_doc_fallback( $terms, $term_query ) {
 	return null;
 }
 add_action( 'terms_pre_query', 'hcommons_restricted_comment_terms_doc_fallback', 10, 2 );
+
+/**
+ * Get the URL of a group's Docs list.
+ *
+ * This addresses @link https://github.com/MESH-Research/knowledge-commons-wordpress/issues/101
+ *
+ * The upstream tabs-legacy.php template fails to echo the return value of
+ * esc_url( bp_get_group_url( ... ) ), leaving a relative href="docs" that
+ * resolves to /groups/{slug}/docs/docs and is then treated as a doc-slug
+ * lookup, which can land on another group's doc. This helper always returns
+ * an absolute URL for the requested group.
+ *
+ * @param object|int|null $group Group object or ID. Defaults to the current group.
+ * @return string The group's Docs URL, or an empty string if unavailable.
+ */
+function hc_custom_get_group_docs_url( $group = null ) {
+	if ( ! function_exists( 'bp_docs_get_group_docs_url' ) ) {
+		return '';
+	}
+
+	if ( ! $group && function_exists( 'groups_get_current_group' ) ) {
+		$group = groups_get_current_group();
+	}
+
+	if ( ! $group ) {
+		return '';
+	}
+
+	$url = bp_docs_get_group_docs_url( $group );
+
+	return $url ? $url : '';
+}
+
+/**
+ * Build a "back to the group's Docs" tab for a single doc.
+ *
+ * Single docs are viewed at the global /docs/{slug} URL, outside the group
+ * context, so the docs tabs offer no way back to the owning group's docs
+ * list. This helper resolves the doc's associated group so the tabs template
+ * can render a link back to it. Hidden groups are not revealed to
+ * non-members.
+ *
+ * @param int $doc_id ID of the doc.
+ * @return array|null Array with 'url' and 'label' keys, or null when the doc
+ *                    has no (visible) associated group.
+ */
+function hc_custom_get_doc_group_docs_tab( $doc_id ) {
+	if ( ! $doc_id || ! function_exists( 'bp_docs_get_associated_group_id' ) ) {
+		return null;
+	}
+
+	$group_id = (int) bp_docs_get_associated_group_id( $doc_id );
+
+	if ( ! $group_id ) {
+		return null;
+	}
+
+	$group = groups_get_group( array( 'group_id' => $group_id ) );
+
+	if ( empty( $group->id ) || empty( $group->name ) ) {
+		return null;
+	}
+
+	// Do not reveal hidden groups to non-members.
+	if ( isset( $group->status ) && 'hidden' === $group->status ) {
+		$can_moderate = function_exists( 'bp_current_user_can' ) && bp_current_user_can( 'bp_moderate' );
+
+		if ( ! $can_moderate && ! groups_is_user_member( bp_loggedin_user_id(), $group_id ) ) {
+			return null;
+		}
+	}
+
+	$url = hc_custom_get_group_docs_url( $group );
+
+	if ( ! $url ) {
+		return null;
+	}
+
+	return array(
+		'url'   => $url,
+		/* translators: %s: group name */
+		'label' => sprintf( __( "%s's Docs", 'hc-custom' ), $group->name ),
+	);
+}
+
+/**
+ * Replace the buddypress-docs legacy tabs template with a corrected copy.
+ *
+ * The hc-custom copy fixes the un-echoed group docs URL and adds a link back
+ * to the owning group's docs list when viewing a single doc. A template
+ * provided by the theme (anything outside buddypress-docs) is left alone.
+ *
+ * @param string $template_path Located template path.
+ * @param string $template      Requested template file name.
+ * @return string Template path to load.
+ */
+function hc_custom_bp_docs_tabs_template( $template_path, $template ) {
+	if ( 'tabs-legacy.php' !== $template ) {
+		return $template_path;
+	}
+
+	// Respect overrides located outside the buddypress-docs plugin.
+	if ( false === strpos( (string) $template_path, 'buddypress-docs' ) ) {
+		return $template_path;
+	}
+
+	$override = trailingslashit( __DIR__ ) . 'templates/docs/tabs-legacy.php';
+
+	if ( file_exists( $override ) ) {
+		return $override;
+	}
+
+	return $template_path;
+}
+add_filter( 'bp_docs_locate_template', 'hc_custom_bp_docs_tabs_template', 10, 2 );
 
 /**
  * Enqueue buddypress-docs js
