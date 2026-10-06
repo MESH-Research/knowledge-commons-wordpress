@@ -163,12 +163,6 @@ if ( ! function_exists( 'add_action' ) ) {
 	}
 }
 
-if ( ! function_exists( 'add_filter' ) ) {
-	function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
-		// no-op for unit tests
-	}
-}
-
 if ( ! function_exists( 'remove_filter' ) ) {
 	function remove_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
 		// no-op for unit tests
@@ -228,6 +222,37 @@ if ( ! function_exists( 'set_transient' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_script_is' ) ) {
+	function wp_script_is( $handle, $status = 'enqueued' ) {
+		if ( isset( $GLOBALS['_mock_wp_script_is_callback'] ) ) {
+			return (bool) call_user_func( $GLOBALS['_mock_wp_script_is_callback'], $handle, $status );
+		}
+		return false;
+	}
+}
+
+if ( ! function_exists( 'wp_enqueue_script' ) ) {
+	function wp_enqueue_script( $handle, $src = '', $deps = [], $ver = false, $in_footer = false ) {
+		$GLOBALS['_enqueued_scripts'][ $handle ] = compact( 'handle', 'src', 'deps', 'ver', 'in_footer' );
+	}
+}
+
+if ( ! function_exists( 'wp_enqueue_style' ) ) {
+	function wp_enqueue_style( $handle, $src = '', $deps = [], $ver = false, $media = 'all' ) {
+		$GLOBALS['_enqueued_styles'][ $handle ] = compact( 'handle', 'src', 'deps', 'ver', 'media' );
+	}
+}
+
+if ( ! function_exists( 'bpeo_is_component' ) ) {
+	/**
+	 * Stub of bp-event-organiser's component check. Controlled per-test via
+	 * $GLOBALS['_mock_bpeo_is_component'].
+	 */
+	function bpeo_is_component() {
+		return ! empty( $GLOBALS['_mock_bpeo_is_component'] );
+	}
+}
+
 if ( ! class_exists( 'WP_Error' ) ) {
 	class WP_Error {
 		public $code;
@@ -237,6 +262,12 @@ if ( ! class_exists( 'WP_Error' ) ) {
 			$this->code    = $code;
 			$this->message = $message;
 			$this->data    = $data;
+		}
+		public function get_error_code() {
+			return $this->code;
+		}
+		public function get_error_message() {
+			return $this->message;
 		}
 	}
 }
@@ -253,9 +284,131 @@ if ( ! class_exists( 'WP_REST_Request' ) ) {
 	}
 }
 
+// --- Stubs for multisite / BuddyPress functions used by bp-group-documents-mail ---
+// Blog options are injected per-test via $GLOBALS['_mock_blog_options'][ $blog_id ].
+
+if ( ! function_exists( 'add_filter' ) ) {
+	function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
+		// Recorded so tests can resolve captured hooks; otherwise a no-op.
+		$GLOBALS['_captured_filters'][ $hook ][] = $callback;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'get_blog_option' ) ) {
+	function get_blog_option( $blog_id, $option, $default = false ) {
+		return $GLOBALS['_mock_blog_options'][ $blog_id ][ $option ] ?? $default;
+	}
+}
+
+if ( ! function_exists( 'bp_get_root_blog_id' ) ) {
+	function bp_get_root_blog_id() {
+		return $GLOBALS['_mock_root_blog_id'] ?? 1;
+	}
+}
+
+// --- Stubs for object cache / group meta / BP functions used by works-group-extension ---
+// Backing stores are $GLOBALS['_mock_wp_cache'] and $GLOBALS['_mock_group_meta'];
+// reset them in each test's setUp.
+
+if ( ! function_exists( 'wp_cache_get' ) ) {
+	function wp_cache_get( $key, $group = '' ) {
+		return $GLOBALS['_mock_wp_cache'][ $group ][ $key ] ?? false;
+	}
+}
+
+if ( ! function_exists( 'wp_cache_add' ) ) {
+	function wp_cache_add( $key, $data, $group = '', $expire = 0 ) {
+		if ( isset( $GLOBALS['_mock_wp_cache'][ $group ][ $key ] ) ) {
+			return false;
+		}
+		$GLOBALS['_mock_wp_cache'][ $group ][ $key ] = $data;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'wp_cache_set' ) ) {
+	function wp_cache_set( $key, $data, $group = '', $expire = 0 ) {
+		$GLOBALS['_mock_wp_cache'][ $group ][ $key ] = $data;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'groups_get_groupmeta' ) ) {
+	function groups_get_groupmeta( $group_id, $meta_key = '', $single = true ) {
+		return $GLOBALS['_mock_group_meta'][ $group_id ][ $meta_key ] ?? '';
+	}
+}
+
+if ( ! function_exists( 'groups_update_groupmeta' ) ) {
+	function groups_update_groupmeta( $group_id, $meta_key, $meta_value, $prev_value = '' ) {
+		$GLOBALS['_mock_group_meta'][ $group_id ][ $meta_key ] = $meta_value;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'bp_get_current_group_id' ) ) {
+	function bp_get_current_group_id() {
+		// Shared across suites: falls back to the _hc_mock store used by the
+		// group-permissions loader when the direct mock is not set.
+		return (int) ( $GLOBALS['_mock_current_group_id'] ?? $GLOBALS['_hc_mock']['current_group_id'] ?? 0 );
+	}
+}
+
+if ( ! function_exists( 'check_admin_referer' ) ) {
+	function check_admin_referer( $action = -1, $query_arg = '_wpnonce' ) {
+		return 1;
+	}
+}
+
+if ( ! function_exists( 'wp_remote_post' ) ) {
+	function wp_remote_post( $url, $args = [] ) {
+		if ( isset( $GLOBALS['_mock_wp_remote_post_callback'] ) ) {
+			return call_user_func( $GLOBALS['_mock_wp_remote_post_callback'], $url, $args );
+		}
+		return new WP_Error( 'http_request_failed', 'no mock configured' );
+	}
+}
+
+if ( ! function_exists( '_e' ) ) {
+	function _e( $text, $domain = 'default' ) {
+		echo $text;
+	}
+}
+
+if ( ! function_exists( 'esc_url' ) ) {
+	function esc_url( $url ) {
+		return $url;
+	}
+}
+
+if ( ! function_exists( 'selected' ) ) {
+	function selected( $selected, $current = true, $display = true ) {
+		$result = ( (string) $selected === (string) $current ) ? " selected='selected'" : '';
+		if ( $display ) {
+			echo $result;
+		}
+		return $result;
+	}
+}
+
+if ( ! function_exists( 'wp_remote_request' ) ) {
+	function wp_remote_request( $url, $args = [] ) {
+		if ( isset( $GLOBALS['_mock_wp_remote_request_callback'] ) ) {
+			return call_user_func( $GLOBALS['_mock_wp_remote_request_callback'], $url, $args );
+		}
+		return new WP_Error( 'http_request_failed', 'no mock configured' );
+	}
+}
+
 require_once __DIR__ . '/xprofile-html-fix-loader.php';
+require_once __DIR__ . '/group-permissions-loader.php';
+require_once __DIR__ . '/group-nav-loader.php';
 require_once __DIR__ . '/bpeo-activity-loader.php';
 require_once __DIR__ . '/hc-bp-activity-loader.php';
 require_once __DIR__ . '/bp-docs-attachment-protection-loader.php';
 require_once __DIR__ . '/network-group-scope-loader.php';
 require_once __DIR__ . '/idms-sync-loader.php';
+require_once __DIR__ . '/ges-guard-loader.php';
+require_once __DIR__ . '/kc-basic-login-loader.php';
+require_once __DIR__ . '/groupblog-site-tab-loader.php';

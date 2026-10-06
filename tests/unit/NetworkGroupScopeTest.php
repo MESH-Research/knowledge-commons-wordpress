@@ -21,6 +21,10 @@ class NetworkGroupScopeTest extends TestCase {
 			$GLOBALS['_mock_bp_is_user'],
 			$GLOBALS['_mock_is_super_admin']
 		);
+		// Shared mock stores used by the other suites in this harness; reset so
+		// a user id left behind by an earlier suite cannot resolve here.
+		$GLOBALS['_hc_mock'] = array();
+		$GLOBALS['hc_test']  = array();
 		$_SERVER['REQUEST_URI']          = '/groups/';
 		Humanities_Commons::$society_id  = '';
 	}
