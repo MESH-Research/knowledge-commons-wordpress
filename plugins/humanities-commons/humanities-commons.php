@@ -36,6 +36,7 @@ require_once ( dirname( __FILE__ ) . '/class.comanage-api.php' );
 require_once ( dirname( __FILE__ ) . '/frontend-filters.php' );
 require_once ( dirname( __FILE__ ) . '/plugin-hooks.php' );
 require_once ( dirname( __FILE__ ) . '/buddypress.php' );
+require_once ( dirname( __FILE__ ) . '/network-group-scope.php' );
 require_once ( dirname( __FILE__ ) . '/cloudfront.php' );
 require_once ( dirname( __FILE__ ) . '/class-kc-ptc-command.php' );
 require_once ( dirname( __FILE__ ) . '/class-kc-command.php' );
@@ -564,31 +565,15 @@ class Humanities_Commons {
 			return $args;
 		}
 
-		if ( isset( $args['scope'] ) && $args['scope'] == 'personal' ) {
-			$args['group_type'] = '';
-			return $args;
-		}
-
 		if ( is_admin() && ! empty( $_REQUEST['page'] ) && 'bp-groups' == $_REQUEST['page'] ) {
 			$args['group_type'] = self::$society_id;
 			return $args;
 		}
 
-		if ( 'hc' === self::$society_id && empty( $args['scope'] ) && ! self::backtrace_contains( 'class', 'EP_BP_API' ) ) {
-			$args['group_type'] = '';
-		} else {
-			$args['group_type'] = self::$society_id;
-		}
-
-		// only show hc groups on /members/*/invite-anyone
-		if (
-			! is_super_admin() &&
-			( bp_is_user() && false !== strpos( $_SERVER['REQUEST_URI'], 'invite-anyone' ) )
-		) {
-			$args['group_type'] = 'hc';
-		}
-
-		return $args;
+		// Every remaining scope — including 'personal' (My Groups) and the hc
+		// network, which both used to bypass the restriction — is limited to
+		// the current network's groups.
+		return hcommons_apply_network_group_scope( $args, self::$society_id );
 	}
 
 	/**
