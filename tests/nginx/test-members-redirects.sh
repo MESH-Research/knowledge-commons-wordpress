@@ -46,7 +46,7 @@ site_domain() {
 # config/<env>/nginx/templates/05-network-domain-aliases.conf.template.
 alias_entries() {
     case "$1" in
-        production) echo "commons.msu.edu=msu action.mla.org=mla symposium.mla.org=mla" ;;
+        production) echo "commons.msu.edu=msu action.mla.org=mla symposium.mla.org=mla stemedplus.org=stemedplus" ;;
         dev)        echo "msucommons-dev.org=msu" ;;
         *)          echo "" ;;
     esac
