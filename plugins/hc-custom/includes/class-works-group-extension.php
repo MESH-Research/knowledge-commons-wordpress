@@ -177,7 +177,13 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 		}
 		$this->update_works_collection_data();
 		if ( $this->works_collection_id ) {
-			$success = $this->change_collection_visibility( 'public' );
+			if ( 'public' === $this->works_collection_visibility ) {
+				// Changing visibility on /api/communities requires collection
+				// owner/manager rights, so avoid the call when nothing would change.
+				$success = true;
+			} else {
+				$success = $this->change_collection_visibility( 'public' );
+			}
 		} else {
 			$success = $this->create_collection();
 		}
@@ -201,7 +207,11 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			return;
 		}
 		$this->update_works_collection_data();
-		$success = $this->change_collection_visibility( 'restricted' );
+		if ( $this->works_collection_id && 'restricted' === $this->works_collection_visibility ) {
+			$success = true;
+		} else {
+			$success = $this->change_collection_visibility( 'restricted' );
+		}
 		if ( ! $success ) {
 			trigger_error( "Works_Groups_Extension::signal_disable_works_collection, failed to hide collection for group: $this->group_id", E_USER_WARNING );
 		} else {
@@ -218,7 +228,9 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			trigger_error( 'In Works_Groups_Extension::create_collection, $group_id is not set.', E_USER_WARNING );
 			return false;
 		}
-		$endpoint = WORKS_URL . '/api/group_collections';
+		// The trailing slash is required: the slashless URL is answered with a
+		// 308 redirect, and the Authorization header does not survive it.
+		$endpoint = WORKS_URL . '/api/group_collections/';
 		try {
 			$response = wp_remote_post( $endpoint, [
 				'headers' => [
@@ -248,7 +260,7 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 				500 => '500 Internal server error',
 				default => wp_remote_retrieve_response_code( $response ) . ' Unknown error',
 			};
-			trigger_error( 'Works_Groups_Extension::signal_enable_works_collection, error creating collection: ' . $message, E_USER_WARNING );
+			trigger_error( 'Works_Groups_Extension::signal_enable_works_collection, error creating collection: ' . $message . ' Response: ' . wp_remote_retrieve_body( $response ), E_USER_WARNING );
 			return false;
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
@@ -256,8 +268,10 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			trigger_error( "Works_Groups_Extension::signal_enable_works_collection group_id {$this->group_id} != commons_group_id {$response_body->commons_group_id}", E_USER_WARNING );
 			return false;
 		}
-		$this->works_collection_slug = $response_body->new_collection_slug ?? $this->works_collection_slug;
-		$this->works_collection_id = $response_body->new_collection_id ?? $this->works_collection_id;
+		$this->works_collection_slug = $response_body->collection ?? $response_body->new_collection_slug ?? $this->works_collection_slug;
+		$this->works_collection_id   = $response_body->collection_id ?? $response_body->new_collection_id ?? $this->works_collection_id;
+		// Collections are requested with public visibility in the POST body above.
+		$this->works_collection_visibility = 'public';
 		$this->save_works_collection_data();
 		return true;
 	}
@@ -319,6 +333,9 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			return false;
 		}
 
+		$this->works_collection_visibility = $visibility;
+		$this->save_works_collection_data();
+
 		return true;
 	}
 
@@ -332,25 +349,26 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			return;
 		}
 		
-		$collection_data = wp_cache_get( 'kcworks-collection-data-' . $this->group_id );
+		$cache_key       = 'kcworks-collection-data-' . $this->group_id;
+		$collection_data = wp_cache_get( $cache_key );
 		if ( is_array( $collection_data ) ) {
 			$this->works_collection_slug       = $collection_data['slug'] ?? '';
 			$this->works_collection_id         = $collection_data['id'] ?? '';
 			$this->works_collection_visibility = $collection_data['visibility'] ?? '';
 		}
-		
+
 		if ( ! $this->works_collection_slug || ! $this->works_collection_id ) {
 			$collection_data = groups_get_groupmeta( $this->group_id, 'kcworks-collection-data' );
 			if ( is_array( $collection_data ) ) {
-				wp_cache_add( 'kcworks-collection-data-' . $this->group_id, $collection_data, '', 60 * 10 );
-				$this->works_collection_slug       = $collection_data['slug'] ?? '';
-				$this->works_collection_id         = $collection_data['id'] ?? '';
-				$this->works_collection_visibility = $collection_data['visibility'] ?? '';
+				// Meta saved before the save/read keys were unified used prefixed keys.
+				$this->works_collection_slug       = $collection_data['slug'] ?? $collection_data['kcworks-collection-slug'] ?? '';
+				$this->works_collection_id         = $collection_data['id'] ?? $collection_data['kcworks-collection-id'] ?? '';
+				$this->works_collection_visibility = $collection_data['visibility'] ?? $collection_data['kcworks-collection-visibility'] ?? '';
 			}
 		}
 		
-		if ( ! $this->works_collection_slug || ! $this->works_collection_id ) {
-			$endpoint = WORKS_URL . '/api/group_collections?commons_instance=' . WORKS_KNOWLEDGE_COMMONS_INSTANCE . "&commons_group_id={$this->group_id}";
+		if ( ! $this->works_collection_slug || ! $this->works_collection_id || ! $this->works_collection_visibility ) {
+			$endpoint = WORKS_URL . '/api/group_collections/?commons_instance=' . WORKS_KNOWLEDGE_COMMONS_INSTANCE . "&commons_group_id={$this->group_id}";
 			try {
 				$response = wp_remote_get( $endpoint, [
 					'headers' => [
@@ -375,15 +393,29 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 				return;
 			}
 			
-			$this->works_collection_slug       = $collection_data['hits']['hits'][0]['slug'] ?? '';
-			$this->works_collection_id         = $collection_data['hits']['hits'][0]['id'] ?? '';
-			$this->works_collection_visibility = $collection_data['hits']['hits'][0]['access']['visibility'] ?? '';
-			
-			$this->save_works_collection_data();
+			$hit = $collection_data['hits']['hits'][0] ?? [];
+
+			$this->works_collection_slug       = $hit['slug'] ?? $this->works_collection_slug;
+			$this->works_collection_id         = $hit['id'] ?? $this->works_collection_id;
+			$this->works_collection_visibility = $hit['access']['visibility'] ?? $this->works_collection_visibility;
+
+			if ( $this->works_collection_slug || $this->works_collection_id ) {
+				$this->save_works_collection_data();
+			}
 		}
 
-		wp_cache_add( 'kcworks-collection-data-' . $group_id, $collection_data, '', 60 * 10 );
-		return;
+		if ( $this->works_collection_slug || $this->works_collection_id ) {
+			wp_cache_set(
+				$cache_key,
+				[
+					'slug'       => $this->works_collection_slug,
+					'id'         => $this->works_collection_id,
+					'visibility' => $this->works_collection_visibility,
+				],
+				'',
+				60 * 10
+			);
+		}
 	}
 
 	private function save_works_collection_data(): void {
@@ -391,14 +423,12 @@ class Works_Groups_Extension extends \BP_Group_Extension {
 			trigger_error( 'In Works_Groups_Extension::set_works_collection_data, $group_id is not set.', E_USER_WARNING );
 			return;
 		}
-		groups_update_groupmeta( 
-			$this->group_id, 
-			'kcworks-collection-data',
-			[
-				'kcworks-collection-slug'       => $this->works_collection_slug,
-				'kcworks-collection-id'         => $this->works_collection_id,
-				'kcworks-collection-visibility' => $this->works_collection_visibility,
-			]
-		);
+		$collection_data = [
+			'slug'       => $this->works_collection_slug,
+			'id'         => $this->works_collection_id,
+			'visibility' => $this->works_collection_visibility,
+		];
+		groups_update_groupmeta( $this->group_id, 'kcworks-collection-data', $collection_data );
+		wp_cache_set( 'kcworks-collection-data-' . $this->group_id, $collection_data, '', 60 * 10 );
 	}
 }

@@ -97,11 +97,15 @@ server {
       return 200 "ok";
   }
 
-  # Prevent BuddyPress docs from being accessed directly.
-  location /app/uploads/bp-attachments/ {
-    rewrite ^/app/uploads/bp-attachments/([0-9]+)/(.*) https://$http_x_forwarded_host/?p=$1&bp-attachment=$2 permanent;
+  # Route BuddyPress Docs file requests through WordPress.
+  #
+  # Doc files are delivered by the application so that each Doc's own "read"
+  # permission is enforced (see mu-plugins/bp-docs-attachment-protection.php)
+  # rather than served straight from disk. A single rule covers the root blog
+  # and every /sites/<blog id>/ multisite path.
+  location ~ ^/app/uploads/(?:sites/[0-9]+/)?bp-attachments/([0-9]+)/(.+)$ {
+    return 302 https://$host/?p=$1&bp-attachment=$2;
   }
-  rewrite ^/app/uploads/sites/[0-9]+/bp-attachments/([0-9]+)/(.*) https://$http_host/?p=$1&bp-attachment=$2;
 
   include /etc/nginx/conf.d/20-buddypress.conf;
   include /etc/nginx/conf.d/25*.conf;

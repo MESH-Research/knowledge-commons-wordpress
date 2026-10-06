@@ -1,0 +1,47 @@
+/**
+ * Declutter the Event Organiser jQuery UI timepicker grid.
+ *
+ * The active theme applies a global `*, *::before, *::after { box-sizing:
+ * border-box }` reset. The timepicker stylesheet bundled with Event Organiser
+ * sizes its hour/minute cells for the default content-box model (1.2em width
+ * plus horizontal padding), so under border-box the padding swallows the
+ * width and two-digit values collide into an unreadable grid.
+ *
+ * All selectors below are scoped to the timepicker containers
+ * (#ui-timepicker-div for the popup, .ui-timepicker-inline for the inline
+ * variant), so the datepicker and other jQuery UI widgets are unaffected.
+ * The ID/extra-class scoping also outweighs the bundled rules regardless of
+ * stylesheet order.
+ */
+
+#ui-timepicker-div .ui-timepicker-table td,
+#ui-timepicker-div .ui-timepicker-table th.periods,
+.ui-timepicker-inline .ui-timepicker-table td,
+.ui-timepicker-inline .ui-timepicker-table th.periods {
+	width: auto;
+	padding: 0.15em;
+}
+
+#ui-timepicker-div .ui-timepicker-table td a,
+#ui-timepicker-div .ui-timepicker-table td span,
+.ui-timepicker-inline .ui-timepicker-table td a,
+.ui-timepicker-inline .ui-timepicker-table td span {
+	box-sizing: content-box;
+	width: 1.5em;
+	padding: 0.3em 0.35em;
+	text-align: center;
+	line-height: 1.3;
+}
+
+#ui-timepicker-div .ui-timepicker-hours,
+#ui-timepicker-div .ui-timepicker-minutes,
+.ui-timepicker-inline .ui-timepicker-hours,
+.ui-timepicker-inline .ui-timepicker-minutes {
+	padding: 0.3em 0.4em;
+	vertical-align: top;
+}
+
+#ui-timepicker-div .ui-timepicker-title,
+.ui-timepicker-inline .ui-timepicker-title {
+	padding: 0.3em 0;
+}

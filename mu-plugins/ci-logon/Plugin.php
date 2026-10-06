@@ -60,6 +60,14 @@ class Plugin {
      * Initialize the plugin
      */
     private function init() {
+        // A valid KC basic-login key short-circuits the broker auth flow for this
+        // request so the native WordPress login form is reachable while CILogon's
+        // return point is unavailable. This does not authenticate anyone — the
+        // native form still validates the user's own username and password.
+        if (self::basic_login_requested()) {
+            return;
+        }
+
         // Note: We use WordPress transients instead of PHP sessions
         // for compatibility with load balancers and object caching.
         // See CustomOpenIDConnectClient.php for session storage implementation.
@@ -72,6 +80,49 @@ class Plugin {
 
         // Hook into WordPress
         add_action('init', [$this, 'load_textdomain']);
+    }
+
+    /**
+     * Whether this request carries a valid KC basic-login key.
+     *
+     * When true, init() skips wiring up the broker auth flow so the request
+     * falls through to the native WordPress login form. This NEVER authenticates
+     * anyone — WordPress still validates username and password. The key is read
+     * from the KC_BASIC_LOGIN_KEY environment variable (feature off when unset),
+     * and matched either against the ?basic-login= query parameter or the signed
+     * session cookie set once the key has been presented.
+     *
+     * @return bool True when a valid key or session cookie is present.
+     */
+    public static function basic_login_requested(): bool {
+        $secret = (string) getenv('KC_BASIC_LOGIN_KEY');
+        if ('' === $secret) {
+            return false;
+        }
+
+        // Verification is delegated to the kc-basic-login MU plugin's tested
+        // helpers. If that plugin is absent the gate stays shut and the broker
+        // auth flow is left entirely unaffected.
+        if (!function_exists('KC\\BasicLogin\\verify_key')) {
+            return false;
+        }
+
+        $provided = isset($_GET['basic-login']) ? (string) $_GET['basic-login'] : '';
+        if (function_exists('wp_unslash')) {
+            $provided = (string) wp_unslash($provided);
+        }
+        if ('' !== $provided && \KC\BasicLogin\verify_key($provided, $secret)) {
+            return true;
+        }
+
+        $cookie = isset($_COOKIE[\KC\BasicLogin\COOKIE_NAME])
+            ? (string) $_COOKIE[\KC\BasicLogin\COOKIE_NAME]
+            : '';
+        if ('' !== $cookie && \KC\BasicLogin\validate_token($cookie, $secret, time())) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -505,6 +556,7 @@ class Plugin {
             'sah',
             'socsci',
             'stem',
+            'stemedplus',
             'up',
             'hastac',
             'dhri',
@@ -512,6 +564,17 @@ class Plugin {
 
         // The Profiles API returns uppercase keys (MLA, MSU, ...); normalise for lookup.
         $memberships_lower = array_change_key_case( $memberships, CASE_LOWER );
+
+        // API keys whose lowercase form differs from the registered slug.
+        $api_key_aliases = [
+            'stemed+' => 'stemedplus',
+        ];
+        foreach ( $api_key_aliases as $api_key => $slug ) {
+            if ( array_key_exists( $api_key, $memberships_lower ) ) {
+                $memberships_lower[ $slug ] = $memberships_lower[ $api_key ];
+                unset( $memberships_lower[ $api_key ] );
+            }
+        }
 
         error_log( 'CILogon Plugin: normalised memberships: ' . var_export( $memberships_lower, true ) );
 

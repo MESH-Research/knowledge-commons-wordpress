@@ -18,6 +18,7 @@
 require_once trailingslashit( __DIR__ ) . 'includes/buddypress/bp-core.php';
 require_once trailingslashit( __DIR__ ) . 'includes/buddypress/bp-blogs.php';
 require_once trailingslashit( __DIR__ ) . 'includes/buddypress/bp-groups.php';
+require_once trailingslashit( __DIR__ ) . 'includes/buddypress/bp-groups-cover-image.php';
 require_once trailingslashit( __DIR__ ) . 'includes/buddypress/bp-members.php';
 require_once trailingslashit( __DIR__ ) . 'includes/buddypress/bp-activity.php';
 require_once trailingslashit( __DIR__ ) . 'includes/buddypress/bp-xprofile.php';
@@ -41,6 +42,7 @@ require_once trailingslashit( __DIR__ ) . 'includes/buddypress-more-privacy-opti
 require_once trailingslashit( __DIR__ ) . 'includes/cbox-auth.php';
 require_once trailingslashit( __DIR__ ) . 'includes/elasticpress-buddypress.php';
 require_once trailingslashit( __DIR__ ) . 'includes/humcore.php';
+require_once trailingslashit( __DIR__ ) . 'includes/invite-anyone.php';
 require_once trailingslashit( __DIR__ ) . 'includes/mashsharer.php';
 require_once trailingslashit( __DIR__ ) . 'includes/siteorigin-panels.php';
 require_once trailingslashit( __DIR__ ) . 'includes/wp-to-twitter.php';
