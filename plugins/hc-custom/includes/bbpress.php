@@ -75,66 +75,6 @@ function hcommons_get_current_loop_activity_id() {
 }
 
 /**
- * Switch to the network a bbPress activity belongs to before its action string
- * is regenerated, so topic and forum lookups find their posts.
- *
- * Runs early on the bp_activity_generate_action_string filter.
- *
- * @param string $action   Action string.
- * @param object $activity Activity object.
- * @return string Unchanged action string.
- */
-function hcommons_switch_to_activity_network( $action, $activity ) {
-	global $hcommons_activity_network_switches;
-
-	if ( ! is_array( $hcommons_activity_network_switches ) ) {
-		$hcommons_activity_network_switches = array();
-	}
-
-	$switched = false;
-
-	if ( is_object( $activity ) && 'bbpress' === ( $activity->component ?? '' ) && ! empty( $activity->id ) ) {
-		$activity_blog_id = hcommons_get_activity_network_blog_id( $activity->id );
-
-		if ( $activity_blog_id && get_current_blog_id() !== $activity_blog_id ) {
-			switch_to_blog( $activity_blog_id );
-			$switched = true;
-		}
-	}
-
-	// Record whether we switched so the restore hook stays balanced even when
-	// the format callback itself switches blogs.
-	$hcommons_activity_network_switches[] = $switched;
-
-	return $action;
-}
-
-/**
- * Undo hcommons_switch_to_activity_network() after the action string is built.
- *
- * Runs late on the bp_activity_generate_action_string filter.
- *
- * @param string $action   Action string.
- * @param object $activity Activity object.
- * @return string Unchanged action string.
- */
-function hcommons_restore_from_activity_network( $action, $activity ) {
-	global $hcommons_activity_network_switches;
-
-	if ( empty( $hcommons_activity_network_switches ) ) {
-		return $action;
-	}
-
-	if ( array_pop( $hcommons_activity_network_switches ) ) {
-		restore_current_blog();
-	}
-
-	return $action;
-}
-add_filter( 'bp_activity_generate_action_string', 'hcommons_switch_to_activity_network', 1, 2 );
-add_filter( 'bp_activity_generate_action_string', 'hcommons_restore_from_activity_network', 999, 2 );
-
-/**
  * Filter topic permalinks.
  * Switch blogs to get the correct metadata for topics on other networks.
  *

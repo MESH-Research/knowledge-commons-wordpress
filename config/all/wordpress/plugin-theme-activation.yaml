@@ -6,6 +6,7 @@ default:
     - bp-rbe-new-topic
     - buddypress-group-email-subscription
     - buddypress-messages-spam-blocker
+    - bp-reply-by-email
     - buddypress-sitewide-activity-widget
     - classic-widgets
     - elementor

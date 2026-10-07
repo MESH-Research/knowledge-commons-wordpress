@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c41560a449fcc6b099af0c32604e8f78",
+    "content-hash": "8c5d6a8884a27999ec1bbd263a4e1ff6",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -1661,6 +1661,19 @@
             },
             "require": {
                 "bashkarev/email": "~1",
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin"
+        },
+        {
+            "name": "r-a-y/bp-reply-by-email",
+            "version": "1.0-RC12.20251103",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MESH-Research/bp-reply-by-email.git",
+                "reference": "97e1db15ea7615717bbb563fd92f00e6f341ac8e"
+            },
+            "require": {
                 "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-plugin"
