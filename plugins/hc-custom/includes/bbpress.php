@@ -34,6 +34,47 @@ add_filter( 'bpmfp_displayed_forum_name', 'hcommons_fix_multinetwork_forum_name'
 add_filter( 'bpmfp_added_topic_forum_name', 'hcommons_fix_multinetwork_forum_name', 10, 3 );
 
 /**
+ * Resolve the root blog ID of the network an activity belongs to.
+ *
+ * @param int $activity_id Activity ID.
+ * @return int Root blog ID, or 0 if it cannot be resolved.
+ */
+function hcommons_get_activity_network_blog_id( $activity_id ) {
+	$society_id = bp_activity_get_meta( (int) $activity_id, 'society_id', true );
+
+	if ( ! is_string( $society_id ) || '' === $society_id ) {
+		return 0;
+	}
+
+	$constant_name = strtoupper( $society_id ) . '_ROOT_BLOG_ID';
+
+	if ( ! defined( $constant_name ) ) {
+		return 0;
+	}
+
+	return (int) constant( $constant_name );
+}
+
+/**
+ * ID of the activity item currently being rendered by an activity loop.
+ *
+ * @return int Activity ID, or 0 when no loop is mid-iteration.
+ */
+function hcommons_get_current_loop_activity_id() {
+	global $activities_template;
+
+	if (
+		! is_object( $activities_template ) ||
+		empty( $activities_template->in_the_loop ) ||
+		empty( $activities_template->activity->id )
+	) {
+		return 0;
+	}
+
+	return (int) $activities_template->activity->id;
+}
+
+/**
  * Filter topic permalinks.
  * Switch blogs to get the correct metadata for topics on other networks.
  *
@@ -62,8 +103,11 @@ function hcommons_fix_multinetwork_topic_permalinks( $topic_permalink, $topic_id
 		return $topic_permalink;
 	}
 
-	$society_id       = bp_activity_get_meta( $results['activities'][0]->id, 'society_id', true );
-	$activity_blog_id = (int) constant( strtoupper( $society_id ) . '_ROOT_BLOG_ID' );
+	$activity_blog_id = hcommons_get_activity_network_blog_id( $results['activities'][0]->id );
+
+	if ( ! $activity_blog_id ) {
+		return $topic_permalink;
+	}
 
 	switch_to_blog( $activity_blog_id );
 
@@ -172,27 +216,32 @@ add_filter( 'bp_notifications_get_notifications_for_user', 'hcommons_bbp_format_
  * @return string
  */
 function hcommons_fix_multinetwork_forum_permalinks( $forum_permalink, $forum_id ) {
-	// We depend on bp_get_activity_id() to look up the network ID in activity meta.
-	if ( ! bp_get_activity_id() ) {
+	// The network is looked up from the activity item currently being rendered,
+	// so this only applies mid-loop. Forum links generated anywhere else (forum
+	// pages, action-string regeneration, loops with no items) are left alone.
+	$activity_id = hcommons_get_current_loop_activity_id();
+
+	if ( ! $activity_id ) {
 		return $forum_permalink;
 	}
 
-	if ( get_current_blog_id() !== $activity_blog_id ) {
-		$society_id       = bp_activity_get_meta( bp_get_activity_id(), 'society_id', true );
-		$activity_blog_id = (int) constant( strtoupper( $society_id ) . '_ROOT_BLOG_ID' );
+	$activity_blog_id = hcommons_get_activity_network_blog_id( $activity_id );
 
-		switch_to_blog( $activity_blog_id );
-
-		// Remove this filter so we can run the original again.
-		remove_filter( 'bbp_get_forum_permalink', 'hcommons_fix_multinetwork_forum_permalinks', 15, 2 );
-
-		$forum_permalink = bbp_get_forum_permalink( $forum_id );
-
-		restore_current_blog();
-
-		// Restore this filter.
-		add_filter( 'bbp_get_forum_permalink', 'hcommons_fix_multinetwork_forum_permalinks', 15, 2 );
+	if ( ! $activity_blog_id || get_current_blog_id() === $activity_blog_id ) {
+		return $forum_permalink;
 	}
+
+	switch_to_blog( $activity_blog_id );
+
+	// Remove this filter so we can run the original again.
+	remove_filter( 'bbp_get_forum_permalink', 'hcommons_fix_multinetwork_forum_permalinks', 15, 2 );
+
+	$forum_permalink = bbp_get_forum_permalink( $forum_id );
+
+	restore_current_blog();
+
+	// Restore this filter.
+	add_filter( 'bbp_get_forum_permalink', 'hcommons_fix_multinetwork_forum_permalinks', 15, 2 );
 
 	return $forum_permalink;
 }
