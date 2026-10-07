@@ -16,6 +16,8 @@ vendor/
 *.sql
 *.sqlite
 
+.claude
+
 # ignore uploads archive
 *.tar.gz
 
