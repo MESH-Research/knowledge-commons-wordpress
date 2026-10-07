@@ -3,7 +3,7 @@
 
 ARG BASE_IMAGE=base
 
-FROM php:8.2.26-fpm-alpine3.20 AS base
+FROM php:8.5.11-fpm-alpine3.20 AS base
 
 WORKDIR /app
 RUN chown -R www-data:www-data /app
