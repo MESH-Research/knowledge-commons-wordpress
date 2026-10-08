@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a07ccbb8572680dfad414ca72d07663",
+    "content-hash": "bb6110ab4a153b2ae04c96d0611951dd",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -1380,16 +1380,16 @@
         },
         {
             "name": "predis/predis",
-            "version": "v3.6.1",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/predis/predis.git",
-                "reference": "e2db96312ecf57a01a3477bf192d1ebc0ad7e9fb"
+                "reference": "4d91f3b08a60c3bacc2afbd8dc41724559b7626a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/predis/predis/zipball/e2db96312ecf57a01a3477bf192d1ebc0ad7e9fb",
-                "reference": "e2db96312ecf57a01a3477bf192d1ebc0ad7e9fb",
+                "url": "https://api.github.com/repos/predis/predis/zipball/4d91f3b08a60c3bacc2afbd8dc41724559b7626a",
+                "reference": "4d91f3b08a60c3bacc2afbd8dc41724559b7626a",
                 "shasum": ""
             },
             "require": {
@@ -1431,7 +1431,7 @@
             ],
             "support": {
                 "issues": "https://github.com/predis/predis/issues",
-                "source": "https://github.com/predis/predis/tree/v3.6.1"
+                "source": "https://github.com/predis/predis/tree/v3.7.0"
             },
             "funding": [
                 {
@@ -1439,7 +1439,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-17T20:41:00+00:00"
+            "time": "2026-10-08T16:46:04+00:00"
         },
         {
             "name": "psr/http-client",
@@ -1858,7 +1858,7 @@
         },
         {
             "name": "roots/wordpress",
-            "version": "7.0.6",
+            "version": "7.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/wordpress.git",
@@ -1889,7 +1889,7 @@
             ],
             "support": {
                 "issues": "https://github.com/roots/wordpress/issues",
-                "source": "https://github.com/roots/wordpress/tree/7.1.2"
+                "source": "https://github.com/roots/wordpress/tree/7.1.3"
             },
             "funding": [
                 {
@@ -1968,23 +1968,23 @@
         },
         {
             "name": "roots/wordpress-no-content",
-            "version": "7.0.6",
+            "version": "7.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress.git",
-                "reference": "7.0.6"
+                "reference": "7.0.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.w.org/release/wordpress-7.0.6-no-content.zip",
-                "reference": "7.0.6",
-                "shasum": "27b5dc5f1fd70781b3cf28b224b2e53342f4e29a"
+                "url": "https://downloads.w.org/release/wordpress-7.0.7-no-content.zip",
+                "reference": "7.0.7",
+                "shasum": "7fab0a3f03bde3fa385b7206dc22b45a01221dbb"
             },
             "require": {
                 "php": ">= 7.4"
             },
             "provide": {
-                "wordpress/core-implementation": "7.0.6"
+                "wordpress/core-implementation": "7.0.7"
             },
             "suggest": {
                 "ext-curl": "Performs remote request operations.",
@@ -2035,7 +2035,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-09-22T14:07:22+00:00"
+            "time": "2026-10-06T17:19:34+00:00"
         },
         {
             "name": "roots/wp-config",
@@ -4047,15 +4047,15 @@
         },
         {
             "name": "wp-plugin/tainacan",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/tainacan/",
-                "reference": "tags/1.3.0"
+                "reference": "tags/1.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/tainacan.1.3.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/tainacan.1.4.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4074,7 +4074,7 @@
                 "issues": "https://wordpress.org/support/plugin/tainacan",
                 "source": "https://plugins.svn.wordpress.org/tainacan"
             },
-            "time": "2026-09-03T17:00:56+00:00"
+            "time": "2026-10-07T18:38:42+00:00"
         },
         {
             "name": "wp-plugin/translatepress-multilingual",
@@ -5344,16 +5344,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.399.2",
+            "version": "3.400.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a69c0b97b8464b059c8d2e147eab6daed5d5cd25"
+                "reference": "dc874b220df5ec8861fe826b436c19f919d27328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a69c0b97b8464b059c8d2e147eab6daed5d5cd25",
-                "reference": "a69c0b97b8464b059c8d2e147eab6daed5d5cd25",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/dc874b220df5ec8861fe826b436c19f919d27328",
+                "reference": "dc874b220df5ec8861fe826b436c19f919d27328",
                 "shasum": ""
             },
             "require": {
@@ -5435,9 +5435,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.399.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.400.0"
             },
-            "time": "2026-10-06T22:19:35+00:00"
+            "time": "2026-10-08T18:13:44+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -6428,12 +6428,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "7ffb508d0fec1adae95e086e0c7e2cdf1ee5f02f"
+                "reference": "e2f95eabb82ca59bc3550d72a553e68319b748b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7ffb508d0fec1adae95e086e0c7e2cdf1ee5f02f",
-                "reference": "7ffb508d0fec1adae95e086e0c7e2cdf1ee5f02f",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e2f95eabb82ca59bc3550d72a553e68319b748b1",
+                "reference": "e2f95eabb82ca59bc3550d72a553e68319b748b1",
                 "shasum": ""
             },
             "conflict": {
@@ -6890,6 +6890,8 @@
                 "krayin/laravel-crm": "<=2.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "kumbiaphp/kumbiapp": "<=1.1.1",
+                "kunstmaan/bundles-cms": "<7.3.2",
+                "kunstmaan/media-bundle": "<7.3.2",
                 "la-haute-societe/tcpdf": "<6.2.22",
                 "laktak/hjson": "<2.3",
                 "laminas/laminas-diactoros": "<2.18.1|==2.19|==2.20|==2.21|==2.22|==2.23|>=2.24,<2.24.2|>=2.25,<2.25.2",
@@ -7570,7 +7572,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-07T17:18:05+00:00"
+            "time": "2026-10-07T22:47:26+00:00"
         },
         {
             "name": "sebastian/cli-parser",
