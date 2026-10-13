@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb6110ab4a153b2ae04c96d0611951dd",
+    "content-hash": "ae649b80f55721d54a1ef9dd6aeb0158",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -2491,12 +2491,12 @@
             "version": "v5.7.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vlucas/phpdotenv.git",
+                "url": "https://github.com/phpdotenv/phpdotenv.git",
                 "reference": "301c07936b16d88628b126b01d082ba153cf4c40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/301c07936b16d88628b126b01d082ba153cf4c40",
+                "url": "https://api.github.com/repos/phpdotenv/phpdotenv/zipball/301c07936b16d88628b126b01d082ba153cf4c40",
                 "reference": "301c07936b16d88628b126b01d082ba153cf4c40",
                 "shasum": ""
             },
@@ -2722,7 +2722,7 @@
                 "issues": "https://wordpress.org/support/plugin/beehive-analytics",
                 "source": "https://plugins.svn.wordpress.org/beehive-analytics"
             },
-            "time": "2026-05-23T07:50:47+00:00"
+            "time": "2026-10-13T11:01:41+00:00"
         },
         {
             "name": "wp-plugin/black-studio-tinymce-widget",
@@ -3243,7 +3243,7 @@
                 "issues": "https://wordpress.org/support/plugin/elementor",
                 "source": "https://plugins.svn.wordpress.org/elementor"
             },
-            "time": "2026-10-05T12:54:47+00:00"
+            "time": "2026-10-13T12:53:17+00:00"
         },
         {
             "name": "wp-plugin/essential-addons-for-elementor-lite",
@@ -3336,15 +3336,15 @@
         },
         {
             "name": "wp-plugin/feedzy-rss-feeds",
-            "version": "5.2.11",
+            "version": "5.2.12",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/5.2.11"
+                "reference": "tags/5.2.12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.5.2.11.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.5.2.12.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3363,7 +3363,7 @@
                 "issues": "https://wordpress.org/support/plugin/feedzy-rss-feeds",
                 "source": "https://plugins.svn.wordpress.org/feedzy-rss-feeds"
             },
-            "time": "2026-10-06T21:40:56+00:00"
+            "time": "2026-10-13T13:31:53+00:00"
         },
         {
             "name": "wp-plugin/formassembly-web-forms",
@@ -3583,15 +3583,15 @@
         },
         {
             "name": "wp-plugin/jetpack",
-            "version": "16.3",
+            "version": "16.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/16.3"
+                "reference": "tags/16.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.16.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.16.3.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3610,7 +3610,7 @@
                 "issues": "https://wordpress.org/support/plugin/jetpack",
                 "source": "https://plugins.svn.wordpress.org/jetpack"
             },
-            "time": "2026-10-06T21:10:33+00:00"
+            "time": "2026-10-12T20:08:20+00:00"
         },
         {
             "name": "wp-plugin/linked-open-profiles",
@@ -3645,15 +3645,15 @@
         },
         {
             "name": "wp-plugin/mailpoet",
-            "version": "5.41.0",
+            "version": "5.42.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/mailpoet/",
-                "reference": "tags/5.41.0"
+                "reference": "tags/5.42.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/mailpoet.5.41.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/mailpoet.5.42.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3672,7 +3672,7 @@
                 "issues": "https://wordpress.org/support/plugin/mailpoet",
                 "source": "https://plugins.svn.wordpress.org/mailpoet"
             },
-            "time": "2026-10-06T10:41:11+00:00"
+            "time": "2026-10-13T14:27:44+00:00"
         },
         {
             "name": "wp-plugin/mathml-block",
@@ -3923,15 +3923,15 @@
         },
         {
             "name": "wp-plugin/redux-framework",
-            "version": "4.5.15",
+            "version": "4.5.16",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redux-framework/",
-                "reference": "tags/4.5.15"
+                "reference": "tags/4.5.16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redux-framework.4.5.15.zip"
+                "url": "https://downloads.wordpress.org/plugin/redux-framework.4.5.16.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3950,7 +3950,7 @@
                 "issues": "https://wordpress.org/support/plugin/redux-framework",
                 "source": "https://plugins.svn.wordpress.org/redux-framework"
             },
-            "time": "2026-09-21T07:46:51+00:00"
+            "time": "2026-10-12T10:07:07+00:00"
         },
         {
             "name": "wp-plugin/smart-slider-3",
@@ -4078,15 +4078,15 @@
         },
         {
             "name": "wp-plugin/translatepress-multilingual",
-            "version": "3.3.7",
+            "version": "3.3.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/translatepress-multilingual/",
-                "reference": "tags/3.3.7"
+                "reference": "tags/3.3.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/translatepress-multilingual.3.3.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/translatepress-multilingual.3.3.8.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4105,7 +4105,7 @@
                 "issues": "https://wordpress.org/support/plugin/translatepress-multilingual",
                 "source": "https://plugins.svn.wordpress.org/translatepress-multilingual"
             },
-            "time": "2026-09-29T14:16:42+00:00"
+            "time": "2026-10-13T15:07:51+00:00"
         },
         {
             "name": "wp-plugin/woosidebars",
@@ -4168,6 +4168,37 @@
                 "source": "https://plugins.svn.wordpress.org/wordpress-importer"
             },
             "time": "2026-08-27T11:41:30+00:00"
+        },
+        {
+            "name": "wp-plugin/wp-accessibility",
+            "version": "2.4.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-accessibility/",
+                "reference": "tags/2.4.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-accessibility.2.4.3.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Joe Dolson"
+                }
+            ],
+            "description": "WP Accessibility fixes common accessibility issues in your WordPress site.",
+            "homepage": "https://www.joedolson.com/wp-accessibility/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-accessibility/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-accessibility",
+                "source": "https://plugins.svn.wordpress.org/wp-accessibility"
+            },
+            "time": "2026-10-12T16:04:22+00:00"
         },
         {
             "name": "wp-plugin/wp-google-maps",
@@ -4260,7 +4291,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-multi-network",
                 "source": "https://plugins.svn.wordpress.org/wp-multi-network"
             },
-            "time": "2026-10-04T06:06:56+00:00"
+            "time": "2026-10-11T22:56:24+00:00"
         },
         {
             "name": "wp-plugin/wp-piwik",
@@ -4712,7 +4743,7 @@
                 "issues": "https://wordpress.org/support/theme/responsive",
                 "source": "https://themes.svn.wordpress.org/responsive"
             },
-            "time": "2026-09-30T11:56:48+00:00"
+            "time": "2026-10-12T07:52:41+00:00"
         },
         {
             "name": "wp-theme/reykjavik",
@@ -5344,16 +5375,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.400.0",
+            "version": "3.401.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "dc874b220df5ec8861fe826b436c19f919d27328"
+                "reference": "4a1b9615de78a69d91614d45966402cc28d4dfe3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/dc874b220df5ec8861fe826b436c19f919d27328",
-                "reference": "dc874b220df5ec8861fe826b436c19f919d27328",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4a1b9615de78a69d91614d45966402cc28d4dfe3",
+                "reference": "4a1b9615de78a69d91614d45966402cc28d4dfe3",
                 "shasum": ""
             },
             "require": {
@@ -5435,9 +5466,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.400.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.0"
             },
-            "time": "2026-10-08T18:13:44+00:00"
+            "time": "2026-10-12T18:06:22+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -6428,12 +6459,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e2f95eabb82ca59bc3550d72a553e68319b748b1"
+                "reference": "7fcdbb9a0188bf16cf71a4f6a58069f3635e469e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e2f95eabb82ca59bc3550d72a553e68319b748b1",
-                "reference": "e2f95eabb82ca59bc3550d72a553e68319b748b1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7fcdbb9a0188bf16cf71a4f6a58069f3635e469e",
+                "reference": "7fcdbb9a0188bf16cf71a4f6a58069f3635e469e",
                 "shasum": ""
             },
             "conflict": {
@@ -6480,6 +6511,7 @@
                 "api-platform/hal": ">=4,<4.1.29|>=4.2,<4.2.25|>=4.3,<4.3.8",
                 "api-platform/json-api": ">=4,<4.1.29|>=4.2,<4.2.25|>=4.3,<4.3.8",
                 "appwrite/server-ce": "<=1.2.1",
+                "aptoma/twig-markdown": "<=3.4.1",
                 "arc/web": "<3",
                 "area17/twill": "<1.2.5|>=2,<2.5.3",
                 "artesaos/seotools": "<0.17.2",
@@ -6638,6 +6670,8 @@
                 "dompdf/dompdf": "<3.1.6",
                 "doublethreedigital/guest-entries": "<3.1.2",
                 "dreamfactory/df-core": "<1.0.4",
+                "drupal-pattern-lab/add-attributes-twig-extension": "<=1.0.1",
+                "drupal-pattern-lab/bem-twig-extension": "<=1.0.1",
                 "drupal-pattern-lab/unified-twig-extensions": "<=0.1",
                 "drupal/access_code": "<2.0.5",
                 "drupal/acquia_dam": "<1.1.5",
@@ -6688,7 +6722,7 @@
                 "encore/laravel-admin": "<=1.8.19",
                 "endroid/qr-code-bundle": "<3.4.2",
                 "enhavo/enhavo-app": "<=0.13.1",
-                "enshrined/svg-sanitize": "<0.22",
+                "enshrined/svg-sanitize": "<=0.22",
                 "erusev/parsedown": "<1.7.2",
                 "ether/logs": "<3.0.4",
                 "evolutioncms/evolution": "<=3.2.3",
@@ -6842,6 +6876,7 @@
                 "islandora/islandora": ">=2,<2.4.1",
                 "ivankristianto/phpwhois": "<=4.3",
                 "j0k3r/graby": "<=2.5",
+                "j0k3r/httplug-ssrf-plugin": "<=3.0.1",
                 "jackalope/jackalope-doctrine-dbal": "<1.7.4",
                 "jambagecom/div2007": "<0.10.2",
                 "james-heinrich/getid3": "<1.9.21",
@@ -7068,6 +7103,7 @@
                 "paragonie/random_compat": "<2",
                 "paragonie/sodium_compat": "<1.24.1|>=2,<2.5.1",
                 "passbolt/passbolt_api": "<4.6.2",
+                "pattern-lab/drupal-twig-components": "<=2.2",
                 "paymenter/paymenter": "<=1.5.6",
                 "paypal/adaptivepayments-sdk-php": "<=3.9.2",
                 "paypal/invoice-sdk-php": "<=3.9",
@@ -7391,7 +7427,7 @@
                 "typo3/cms-felogin": ">=4.2,<4.2.3",
                 "typo3/cms-filelist": ">=11,<11.5.51|>=12,<12.4.46|>=13,<13.4.31|>=14,<14.3.3",
                 "typo3/cms-fluid": "<4.3.4|>=4.4,<4.4.1|>=8,<8.7.23|>=9,<9.5.4",
-                "typo3/cms-form": "<10.4.57|>=11,<11.5.51|>=12,<12.4.46|>=13,<13.4.31|>=14,<14.3.5",
+                "typo3/cms-form": "<10.4.57|>=11,<11.5.51|>=12,<12.4.46|>=13,<13.4.31|>=14,<14.3.9",
                 "typo3/cms-frontend": "<4.3.9|>=4.4,<4.4.5",
                 "typo3/cms-indexed-search": ">=10,<=10.4.47|>=11,<=11.5.41|>=12,<=12.4.24|>=13,<13.4.31|>=14,<14.3.3",
                 "typo3/cms-install": "<4.1.14|>=4.2,<4.2.16|>=4.3,<4.3.9|>=4.4,<4.4.5|>=12.2,<12.4.8|==13.4.2",
@@ -7572,7 +7608,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-07T22:47:26+00:00"
+            "time": "2026-10-13T16:53:40+00:00"
         },
         {
             "name": "sebastian/cli-parser",
