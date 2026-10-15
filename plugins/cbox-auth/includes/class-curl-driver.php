@@ -18,6 +18,12 @@ use \MLA\Commons\Plugin\CustomAuth\Logger;
  */
 class CurlDriver implements HttpDriver {
 
+	/** Seconds allowed to establish the connection. */
+	const CONNECT_TIMEOUT = 5;
+
+	/** Seconds allowed for the whole request; large groups return large member lists. */
+	const REQUEST_TIMEOUT = 30;
+
 	/**
 	 * API base URL
 	 *
@@ -108,6 +114,12 @@ class CurlDriver implements HttpDriver {
 		curl_setopt( $handler, CURLOPT_FAILONERROR, false );
 		curl_setopt( $handler, CURLOPT_SSL_VERIFYPEER, true );
 		curl_setopt( $handler, CURLOPT_SSL_VERIFYHOST, 2 );
+
+		// Never let an unresponsive API hold a process indefinitely. PHP's
+		// max_execution_time counts CPU time, so time spent waiting in curl
+		// is not limited by it.
+		curl_setopt( $handler, CURLOPT_CONNECTTIMEOUT, self::CONNECT_TIMEOUT );
+		curl_setopt( $handler, CURLOPT_TIMEOUT, self::REQUEST_TIMEOUT );
 
 		// Set HTTP method.
 		if ( 'PUT' === $http_method || 'DELETE' === $http_method ) {
