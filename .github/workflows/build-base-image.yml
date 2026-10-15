@@ -19,7 +19,8 @@ env:
 jobs:
   build-base:
     name: Build and Push Base Image
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
+    environment: ${{ github.ref_name }}
     permissions:
       id-token: write
       contents: read

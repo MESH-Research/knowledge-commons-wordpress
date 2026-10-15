@@ -1,6 +1,6 @@
 {
     "require": {
-        "illuminate/view": "5.5",
+        "illuminate/view": "13.35.0",
         "jenssegers/blade": "^1.2"
 
     },
