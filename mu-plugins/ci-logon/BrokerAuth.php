@@ -507,34 +507,32 @@ class BrokerAuth
      */
     public function is_sso_excluded_request(): bool
     {
+        // This runs on every front-end request (template_redirect). The
+        // ordinary outcomes below are not logged; they are the common case.
+
         // Feature flag must be enabled
         $enabled = getenv('BROKER_SILENT_SSO_ENABLED');
         if (empty($enabled)) {
-            error_log('BrokerAuth SSO: excluded — BROKER_SILENT_SSO_ENABLED not set');
             return true;
         }
 
         // Already logged in
         if (is_user_logged_in()) {
-            error_log('BrokerAuth SSO: excluded — user already logged in');
             return true;
         }
 
         // Already checked recently
         if (!empty($_COOKIE[self::SSO_CHECK_COOKIE])) {
-            error_log('BrokerAuth SSO: excluded — broker_sso_checked cookie present');
             return true;
         }
 
         // User opted out
         if (!empty($_COOKIE[self::SSO_OPTOUT_COOKIE])) {
-            error_log('BrokerAuth SSO: excluded — broker_sso_optout cookie present');
             return true;
         }
 
         // Admin pages
         if (is_admin()) {
-            error_log('BrokerAuth SSO: excluded — admin page');
             return true;
         }
 

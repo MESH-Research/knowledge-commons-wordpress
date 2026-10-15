@@ -93,6 +93,8 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
 
 # --- Composer manifests ONLY (cached unless lockfiles change) ---
 COPY --chown=www-data:www-data composer.json composer.lock /app/
+# Patches applied to composer packages by cweagans/composer-patches.
+COPY --chown=www-data:www-data patches /app/patches/
 COPY --chown=www-data:www-data scripts/cron/mailchimp/composer.json scripts/cron/mailchimp/composer.lock /app/scripts/cron/mailchimp/
 COPY --chown=www-data:www-data scripts/dev-scripts/content-export/composer.json scripts/dev-scripts/content-export/composer.lock /app/scripts/dev-scripts/content-export/
 COPY --chown=www-data:www-data themes/dahd-tainacan/composer.json themes/dahd-tainacan/composer.lock /app/themes/dahd-tainacan/
@@ -102,6 +104,9 @@ COPY --chown=www-data:www-data plugins/hc-styles/composer.json plugins/hc-styles
 
 # --- Composer install (cached when lockfiles unchanged) ---
 RUN composer self-update 2.6.6
+
+# composer-patches applies patches with git or patch; make sure patch exists.
+RUN apk add --no-cache patch
 
 WORKDIR /app
 USER www-data

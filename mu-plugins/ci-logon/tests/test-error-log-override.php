@@ -22,8 +22,10 @@ namespace MeshResearch\CILogon;
  * @return bool Always returns true
  */
 function error_log($message, $message_type = 0, $destination = null, $headers = null) {
-    // Suppress error logs during tests
+    // Suppress error logs during tests, but record them so tests can assert
+    // on what the plugin would have logged.
     // Uncomment below to see logs during test debugging:
     // echo "[TEST LOG] $message\n";
+    $GLOBALS['_cilogon_logged'][] = (string) $message;
     return true;
 }

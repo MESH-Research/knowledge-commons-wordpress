@@ -1019,6 +1019,12 @@ class Humanities_Commons {
 	 */
 	public function hcommons_set_group_permalink( $group_permalink, $group ) {
 
+		// bp_get_group_permalink() is applied with whatever the caller had,
+		// which is sometimes false (no current group); nothing to rewrite then.
+		if ( ! is_object( $group ) || empty( $group->id ) ) {
+			return $group_permalink;
+		}
+
 		$group_id = $group->id;
 		$group_society_id = bp_groups_get_group_type( $group_id );
 

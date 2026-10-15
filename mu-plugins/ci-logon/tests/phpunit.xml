@@ -32,6 +32,9 @@
         <testsuite name="Debug Logging Tests">
             <file>DebugLoggingTest.php</file>
         </testsuite>
+        <testsuite name="Per-Request Logging Tests">
+            <file>PerRequestLoggingTest.php</file>
+        </testsuite>
         <testsuite name="Undefined Array Index Tests">
             <file>UndefinedArrayIndexTest.php</file>
         </testsuite>
