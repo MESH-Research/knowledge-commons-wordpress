@@ -492,7 +492,14 @@
                     "awslogs-stream-prefix": "ecs"
                 }
             },
-            "systemControls": []
+            "systemControls": [],
+            "linuxParameters": {
+                "capabilities": {
+                    "add": [
+                        "SYS_PTRACE"
+                    ]
+                }
+            }
         },
         {
             "name": "nginx",

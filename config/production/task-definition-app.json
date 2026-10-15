@@ -2,6 +2,11 @@
   "containerDefinitions": [
     {
       "name": "app",
+      "linuxParameters": {
+         "capabilities": {
+            "add": ["SYS_PTRACE"]
+         }
+      },
       "image": "755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-wordpress-app:production",
       "cpu": 0,
       "portMappings": [],
