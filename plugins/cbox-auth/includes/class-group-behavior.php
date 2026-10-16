@@ -20,6 +20,12 @@ use \MLA\Commons\Plugin\CustomAuth\Logger;
 class GroupBehavior extends Base {
 
 	/**
+	 * WP-Cron hook that performs a group's membership sync. Fired with the
+	 * BuddyPress group id as its single argument.
+	 */
+	const SYNC_EVENT = 'cbox_auth_sync_group_membership';
+
+	/**
 	 * BuddyPress group id
 	 *
 	 * @var int
@@ -62,7 +68,11 @@ class GroupBehavior extends Base {
 		$this->add_filter( 'bp_get_options_nav_request-membership', $this, 'hide_request_membership_tab' );
 		$this->add_filter( 'bp_get_options_nav_invite', $this, 'hide_send_invites_tab' );
 
-		$this->add_action( 'bp_before_group_body', $this, 'sync_membership_from_api' );
+		// A group page view only queues the sync; the cron container runs it.
+		// Calling the MLA API inside the visitor's request held a php-fpm
+		// worker for the API round-trip plus one database lookup per member.
+		$this->add_action( 'bp_before_group_body', $this, 'queue_membership_sync' );
+		$this->add_action( self::SYNC_EVENT, $this, 'sync_membership_from_api', 10, 1 );
 
 		$this->run();
 
@@ -85,17 +95,63 @@ class GroupBehavior extends Base {
 	}
 
 	/**
-	 * Sync group membership data from MLA API.
+	 * Queue a membership sync for the current group if one is due.
+	 *
+	 * Runs on bp_before_group_body. Costs two group meta reads and a look at
+	 * the cron schedule; never touches the API.
+	 *
+	 * @param int $group_id Group id; defaults to the group being viewed.
+	 * @return bool True when an event was queued.
 	 */
-	public function sync_membership_from_api() {
+	public function queue_membership_sync( $group_id = 0 ) {
 
-		try {
-			$mla_group = new MLAGroup( \bp_get_group_id(), $this->mla_api, $this->logger );
-			$mla_group->sync();
-		} catch ( \Exception $e ) {
-			$this->logger->addError( $e->getMessage() );
+		$group_id = (int) $group_id ?: (int) \bp_get_group_id();
+		if ( ! $group_id || ! MLAGroup::is_due( $group_id ) ) {
+			return false;
 		}
 
+		if ( \wp_next_scheduled( self::SYNC_EVENT, array( $group_id ) ) ) {
+			return false;
+		}
+
+		return true === \wp_schedule_single_event( time(), self::SYNC_EVENT, array( $group_id ) );
+
+	}
+
+	/**
+	 * Sync group membership data from MLA API.
+	 *
+	 * Runs from WP-Cron (see SYNC_EVENT) with the group id; may also be called
+	 * directly from a group context.
+	 *
+	 * @param int $group_id Group id; defaults to the group being viewed.
+	 * @return bool True when the sync ran without throwing.
+	 */
+	public function sync_membership_from_api( $group_id = 0 ) {
+
+		$group_id = (int) $group_id ?: (int) \bp_get_group_id();
+		if ( ! $group_id ) {
+			return false;
+		}
+
+		try {
+			$this->make_group( $group_id )->sync();
+			return true;
+		} catch ( \Exception $e ) {
+			$this->logger->addError( $e->getMessage() );
+			return false;
+		}
+
+	}
+
+	/**
+	 * Build the MLAGroup for a group id. Overridable for tests.
+	 *
+	 * @param int $group_id Group id.
+	 * @return MLAGroup
+	 */
+	protected function make_group( $group_id ) {
+		return new MLAGroup( $group_id, $this->mla_api, $this->logger );
 	}
 
 	/**

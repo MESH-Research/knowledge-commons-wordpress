@@ -87,10 +87,7 @@ class MLAGroup extends Base {
 			return false;
 		}
 
-		$last_updated = ( isset( $this->bp_meta['last_updated'] ) ) ? (integer) $this->bp_meta['last_updated'][0] : 0;
-		$time_since = time() - $last_updated;
-
-		if ( $time_since < $this->update_interval ) {
+		if ( ! self::is_due( $this->bp_id, time(), $this->update_interval ) ) {
 			$group_ref = $this->describe_group( $this->bp_id );
 			$this->logger->addDebug( 'Skipping: Group ' . $group_ref . ' has been recently synced.' );
 			return false;
@@ -98,6 +95,30 @@ class MLAGroup extends Base {
 
 		return true;
 
+	}
+
+	/**
+	 * Whether a group is due for a sync from the MLA API.
+	 *
+	 * Cheap enough to call on a page view: two group meta reads, no API call.
+	 * A group is due when it has an MLA API ID and was last synced at least
+	 * $interval seconds ago (or never).
+	 *
+	 * @param int      $group_id BuddyPress group id.
+	 * @param int|null $now      Current time; defaults to time().
+	 * @param int      $interval Minimum seconds between syncs.
+	 * @return bool
+	 */
+	public static function is_due( $group_id, $now = null, $interval = 3600 ) {
+		$api_id = \groups_get_groupmeta( $group_id, 'mla_api_id', true );
+		if ( empty( $api_id ) ) {
+			return false;
+		}
+
+		$last_updated = (int) \groups_get_groupmeta( $group_id, 'last_updated', true );
+		$now          = ( null === $now ) ? time() : (int) $now;
+
+		return ( $now - $last_updated ) >= (int) $interval;
 	}
 
 	/**
