@@ -60,7 +60,7 @@
                          $count = 0;
                     }
 
-                    $html = sprintf( _n( '<span class="meta-wrap"><span class="count">%1s</span> <span>member</span></span>', '<a href="' . bp_get_group_all_members_permalink() . '"<span class="meta-wrap"><span class="count">%1s</span> <span>members</span></span></a>', $count, 'boss' ), $count );
+                    $html = hc_styles_group_member_count_html( $count, bp_get_group_all_members_permalink() );
 
                     ?>
 

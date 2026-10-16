@@ -16,6 +16,8 @@ vendor/
 *.sql
 *.sqlite
 
+.claude
+
 # ignore uploads archive
 *.tar.gz
 
@@ -85,3 +87,4 @@ playwright-report/
 blob-report/
 playwright/.cache/
 .phpunit.cache/
+INCIDENT.md

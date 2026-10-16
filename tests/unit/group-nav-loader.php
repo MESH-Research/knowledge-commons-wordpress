@@ -162,6 +162,11 @@ if ( ! function_exists( 'bp_loggedin_user_id' ) ) {
 
 if ( ! function_exists( 'bp_current_user_can' ) ) {
 	function bp_current_user_can( $capability ) {
+		// Shared across suites: the network-group-scope tests drive this via
+		// $GLOBALS['_mock_current_user_can'].
+		if ( isset( $GLOBALS['_mock_current_user_can'] ) ) {
+			return ! empty( $GLOBALS['_mock_current_user_can'][ $capability ] );
+		}
 		if ( 'bp_moderate' === $capability ) {
 			return ! empty( $GLOBALS['hc_test']['can_moderate'] );
 		}

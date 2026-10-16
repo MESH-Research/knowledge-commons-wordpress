@@ -89,6 +89,11 @@ if ( ! function_exists( 'get_post' ) ) {
 
 if ( ! function_exists( 'is_super_admin' ) ) {
 	function is_super_admin( $user_id = false ) {
+		// Shared across suites: the network-group-scope tests drive this via
+		// $GLOBALS['_mock_is_super_admin'].
+		if ( isset( $GLOBALS['_mock_is_super_admin'] ) ) {
+			return ! empty( $GLOBALS['_mock_is_super_admin'] );
+		}
 		return (bool) _hc_mock( 'is_super_admin', false );
 	}
 }
@@ -126,8 +131,12 @@ if ( ! function_exists( 'bp_get_current_group_id' ) ) {
 
 if ( ! function_exists( 'bp_loggedin_user_id' ) ) {
 	function bp_loggedin_user_id() {
-		// Shared across suites: falls back to the hc_test store used by the
-		// group-nav loader when no _hc_mock value is configured.
+		// Shared across suites: the network-group-scope tests drive this via
+		// $GLOBALS['_mock_loggedin_user_id']; otherwise fall back to the hc_test
+		// store used by the group-nav loader when no _hc_mock value is configured.
+		if ( isset( $GLOBALS['_mock_loggedin_user_id'] ) ) {
+			return (int) $GLOBALS['_mock_loggedin_user_id'];
+		}
 		return (int) _hc_mock( 'current_user_id', $GLOBALS['hc_test']['loggedin_user'] ?? 0 );
 	}
 }
@@ -316,6 +325,8 @@ if ( ! class_exists( 'Humanities_Commons' ) ) {
 	 * vetting check is needed by the code under test.
 	 */
 	class Humanities_Commons {
+		public static $society_id;
+
 		public static function hcommons_vet_user() {
 			return false !== _hc_mock( 'vetted_user', true );
 		}
