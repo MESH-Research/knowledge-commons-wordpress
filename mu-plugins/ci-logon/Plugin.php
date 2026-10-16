@@ -132,10 +132,9 @@ class Plugin {
         $profiles_url = getenv('PROFILES_API_URL');
         $bearer_token = getenv('PROFILES_API_BEARER_TOKEN');
 
+        // Only the failure case is worth a log line: this runs on every request.
         if (!$profiles_url || !$bearer_token) {
             error_log('CILogon Plugin: Missing required environment variables. Please set PROFILES_API_URL and PROFILES_API_BEARER_TOKEN.');
-        } else {
-            error_log('CILogon Plugin: Configuration loaded successfully.');
         }
     }
 

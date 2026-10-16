@@ -194,7 +194,8 @@
     "wp-plugin/wp-accessibility": "^2.4.3",
     "php-http/guzzle7-adapter": "^1.0",
     "predis/predis": "^3.2",
-    "jumbojett/openid-connect-php": "dev-master"
+    "jumbojett/openid-connect-php": "dev-master",
+    "cweagans/composer-patches": "^2.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
@@ -212,7 +213,8 @@
       "composer/installers": true,
       "roots/wordpress-core-installer": true,
       "php-http/discovery": true,
-      "tbachert/spi": true
+      "tbachert/spi": true,
+      "cweagans/composer-patches": true
     }
   },
   "minimum-stability": "dev",
@@ -226,7 +228,12 @@
         "type:wordpress-theme"
       ]
     },
-    "wordpress-install-dir": "site/web/wp"
+    "wordpress-install-dir": "site/web/wp",
+    "patches": {
+      "wp-plugin/bp-lotsa-feeds": {
+        "Guard against undefined displayed user, current group and action variable (PHP 8 warnings on every non-feed request)": "patches/bp-lotsa-feeds-guard-undefined-context.patch"
+      }
+    }
   },
   "scripts": {
     "test": [

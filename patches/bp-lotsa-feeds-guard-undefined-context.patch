@@ -1,0 +1,20 @@
+--- a/bp-lotsa-feeds.php
++++ b/bp-lotsa-feeds.php
+@@ -4,7 +4,7 @@
+ 	global $bp, $wp_query, $this_bp_feed;
+ 
+ 	// Individual member activity feeds
+-	if ( $bp->current_component == $bp->activity->slug && $bp->displayed_user->id && $bp->action_variables[0] == 'feed' ) {
++	if ( ! empty( $bp->activity->slug ) && $bp->current_component == $bp->activity->slug && ! empty( $bp->displayed_user->id ) && isset( $bp->action_variables[0] ) && 'feed' == $bp->action_variables[0] ) {
+ 		switch ( $bp->current_action ) {
+ 			
+ 			// Individual member comment feed
+@@ -59,7 +59,7 @@
+ 	}
+ 	
+ 	// Group activity feeds
+-	if ( $bp->current_component == $bp->groups->slug && $bp->groups->current_group->id && $bp->action_variables[0] == 'feed' ) {
++	if ( ! empty( $bp->groups->slug ) && $bp->current_component == $bp->groups->slug && ! empty( $bp->groups->current_group->id ) && isset( $bp->action_variables[0] ) && 'feed' == $bp->action_variables[0] ) {
+ 		switch ( $bp->current_action ) {
+ 		
+ 			// Group activity updates
