@@ -223,15 +223,6 @@ function hc_custom_bp_blogs_signup_blog( $blogname = '', $blog_title = '', $erro
     echo '<input name="blog_title" type="text" id="blog_title" value="'.esc_html($blog_title, 1).'" /></p>';
     ?>
 
-    <p><strong><?php _e("Are you an instructor? Is this a course site?", 'buddyboss'); ?></strong></p>
-    <p><?php _e('Keep in mind that many domains may create ambiguity; rather than "hist101" you might include institution and semester information to avoid conflicts, such as "msuhist101s20."', 'buddyboss'); ?></p>
-    <p><strong><?php _e('Note:', 'buddyboss'); ?></strong> <?php _e('If you check off "This is a course site," below, the Learning Space theme will be activated and the site url will be prefixed with your username (e.g. hcadmin-learningspace.hcommons.org).', 'buddyboss') ?></p>
-
-    <label class="checkbox" for="is-classsite">
-    <input type="checkbox" id="is_classsite" name="is_classsite" value="1" <?php if( isset( $_POST['is_classsite'] ) || '1' == $_POST['is_classsite'] ) { ?>checked="checked"<?php } ?> />
-        <strong><?php _e( 'This is a course site' , 'buddypress'); ?></strong><br><br>
-    </label>
-
     <?php do_action( 'signup_hidden_fields' ); ?>
 
     <?php
