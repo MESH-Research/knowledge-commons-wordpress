@@ -17,11 +17,17 @@ if [ -f /app/scripts/build-scripts/link-efs-themes-plugins.sh ]; then
     source /app/scripts/build-scripts/link-efs-themes-plugins.sh
 fi
 
-# Install the crontab
-crontab -u www-data /app/scripts/cron/commons.crontab
+# Persistent object cache (Redis/Valkey) drop-in. wp-cli jobs write to the
+# database, so this container must invalidate the same cache the web tier reads.
+. "$(dirname "$0")/install-object-cache.sh"
 
-# Change to the /app directory before starting cron
-cd /app
+APP_ROOT="${APP_ROOT:-/app}"
+
+# Install the crontab
+crontab -u www-data "$APP_ROOT/scripts/cron/commons.crontab"
+
+# Change to the app directory before starting cron
+cd "$APP_ROOT"
 
 # Run crond in the foreground with logging
 exec crond -f -L /dev/stdout
