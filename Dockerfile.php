@@ -45,6 +45,13 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     yaml \
     protobuf
 
+# OPcache ships with the official image as a shared extension. Some image
+# versions load it by default, others do not; enable it only when it is not
+# already loaded (docker-php-ext-enable exits non-zero on an already-loaded
+# module). The cloud stage below repeats this because that stage is built on a
+# prebuilt base image that may predate this line.
+RUN php -m | grep -q 'Zend OPcache' || docker-php-ext-enable opcache
+
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 RUN chmod a+rx /usr/local/bin/wp
 
@@ -90,6 +97,15 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
     ln -sf /app/config/all/php/php.ini /usr/local/etc/php/php.ini && \
     rm -rf /usr/local/etc/php-fpm.d/www.conf && \
     ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# --- OPcache (effective on every deploy, independent of the base image) ---
+# The deploy workflow builds this stage FROM the prebuilt
+# commons-wordpress-base image, which is only rebuilt when Dockerfile.php
+# changes on main. Enabling here guarantees the extension is loaded on dev,
+# staging and production regardless of the base image's age. The settings
+# live in config/all/php/opcache.ini and load from conf.d after php.ini.
+RUN ( php -m | grep -q 'Zend OPcache' || docker-php-ext-enable opcache ) && \
+    ln -sf /app/config/all/php/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
 
 # --- Composer manifests ONLY (cached unless lockfiles change) ---
 COPY --chown=www-data:www-data composer.json composer.lock /app/
