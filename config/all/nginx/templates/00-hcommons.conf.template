@@ -22,6 +22,17 @@ map $host $network_subdomain {
     include /etc/nginx/conf.d/05-network-domain-aliases.conf;
 }
 
+#
+# The request path without its query string, passed to php-fpm as
+# KC_REQUEST_PATH for its access log. $uri cannot be used: after the
+# WordPress rewrite it is always /index.php. REQUEST_URI is not used because
+# it carries query strings, which can carry login keys and broker tokens.
+#
+map $request_uri $kc_request_path {
+    ~^(?<path>[^?]*) $path;
+    default $request_uri;
+}
+
 server {
   listen [::]:80;
   listen 80;
@@ -81,6 +92,7 @@ server {
   fastcgi_split_path_info ^(.+?\.php)(/.*)$;
   fastcgi_index  index.php;
   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  fastcgi_param KC_REQUEST_PATH $kc_request_path;
   fastcgi_buffers 256 128k;
   fastcgi_connect_timeout 300s;
   fastcgi_send_timeout 300s;
