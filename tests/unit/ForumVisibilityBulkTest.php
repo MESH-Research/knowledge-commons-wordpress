@@ -106,6 +106,18 @@ class ForumVisibilityBulkTest extends TestCase {
 		$this->assertSame( array( 100 ), hc_custom_compute_unreadable_forum_ids( $forums, $user ) );
 	}
 
+	public function test_inactive_user_is_also_closed_out_of_public_descendants_and_ancestors() {
+		// bbPress denies read_forum everywhere for spammed/deleted users; the
+		// bulk set is deliberately at least as strict for them.
+		$forums = array(
+			1   => $this->forum( 0, 'publish' ),
+			100 => $this->forum( 1, 'private', array( 10 ) ),
+			200 => $this->forum( 100, 'publish' ),
+		);
+		$user = $this->user( 5, array( 'is_inactive' => true, 'is_super_admin' => true, 'member_group_ids' => array( 10 ) ) );
+		$this->assertSame( array( 1, 100, 200 ), hc_custom_compute_unreadable_forum_ids( $forums, $user ) );
+	}
+
 	public function test_public_descendant_of_unreadable_forum_is_unreadable() {
 		$forums = array(
 			100 => $this->forum( 1, 'private', array( 10 ) ),
