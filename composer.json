@@ -117,7 +117,7 @@
     "wp-plugin/essential-addons-for-elementor-lite": "^6.8.5",
     "wp-plugin/event-organiser": "3.12.10",
     "wp-plugin/fd-footnotes": "dev-trunk",
-    "wp-plugin/awesome-footnotes": "3.8.5",
+    "wp-plugin/awesome-footnotes": "^4.4.0",
     "wp-plugin/gd-bbpress-attachments": "4.9.4",
     "wp-plugin/google-sitemap-generator": "^4.1.5",
     "wp-plugin/health-check": "^1.7.1",

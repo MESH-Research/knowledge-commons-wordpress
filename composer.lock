@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a870969ce12d3281051bd13dbda4f134",
+    "content-hash": "a073845a5343cb6f6b55bc9f509e82b4",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -2634,15 +2634,15 @@
         },
         {
             "name": "wp-plugin/awesome-footnotes",
-            "version": "3.8.5",
+            "version": "4.4.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/awesome-footnotes/",
-                "reference": "tags/3.8.5"
+                "reference": "tags/4.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/awesome-footnotes.3.8.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/awesome-footnotes.4.4.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
