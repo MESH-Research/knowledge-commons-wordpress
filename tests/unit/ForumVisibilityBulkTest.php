@@ -276,4 +276,33 @@ class ForumVisibilityBulkTest extends TestCase {
 		$out = hc_custom_exclude_group_forum_ids( array( 100, 300 ), 5, array( 300 ) );
 		$this->assertSame( array( 300 ), $out );
 	}
+
+	// --- subforum cache priming helpers --------------------------------------------
+
+	public function test_child_ids_cache_key_matches_bbpress_format() {
+		$expected = 'bbp_child_ids:' . md5( serialize( array( 100, 'forum', 'all' ) ) ) . ':1700000000.123';
+		$this->assertSame( $expected, hc_custom_bbp_all_subforum_ids_cache_key( 100, 'forum', '1700000000.123' ) );
+	}
+
+	public function test_children_map_groups_ids_by_parent_newest_first() {
+		$rows = array(
+			(object) array( 'ID' => 5, 'post_parent' => 1 ),
+			(object) array( 'ID' => 9, 'post_parent' => 1 ),
+			(object) array( 'ID' => 7, 'post_parent' => 2 ),
+			(object) array( 'ID' => 1, 'post_parent' => 0 ),
+		);
+		$this->assertSame( array( 1 => array( 9, 5 ), 2 => array( 7 ), 0 => array( 1 ) ), hc_custom_forum_children_map( $rows ) );
+	}
+
+	public function test_restricted_forum_closure_includes_descendants_and_ancestors() {
+		$all = array(
+			1   => array( 'parent' => 0 ),
+			10  => array( 'parent' => 1 ),
+			100 => array( 'parent' => 10 ),
+			200 => array( 'parent' => 100 ),
+			300 => array( 'parent' => 1 ),
+		);
+		$children = array( 0 => array( 1 ), 1 => array( 300, 10 ), 10 => array( 100 ), 100 => array( 200 ) );
+		$this->assertSame( array( 1, 10, 100, 200 ), hc_custom_forum_visibility_closure( array( 100 ), $all, $children ) );
+	}
 }

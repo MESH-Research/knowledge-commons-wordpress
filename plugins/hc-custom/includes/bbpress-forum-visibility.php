@@ -364,41 +364,28 @@ function hc_custom_collect_forum_visibility_data( $user_id ) {
 			bbp_get_forum_post_type()
 		) );
 
-		$all      = array();
-		$children = array();
+		$all = array();
 		foreach ( (array) $rows as $row ) {
 			$all[ (int) $row->ID ] = array(
 				'parent' => (int) $row->post_parent,
 				'status' => (string) $row->post_status,
 				'author' => (int) $row->post_author,
 			);
-			$children[ (int) $row->post_parent ][] = (int) $row->ID;
 		}
-
-		// Restricted forums plus every descendant (public ones inherit the restriction).
-		$wanted = array();
-		$queue  = $restricted;
-		while ( $queue ) {
-			$id = (int) array_shift( $queue );
-			if ( isset( $wanted[ $id ] ) || ! isset( $all[ $id ] ) ) {
-				continue;
-			}
-			$wanted[ $id ] = true;
-			if ( isset( $children[ $id ] ) ) {
-				$queue = array_merge( $queue, $children[ $id ] );
-			}
-		}
-		// Ancestors are needed so an unreadable restricted parent can close its children.
-		foreach ( array_keys( $wanted ) as $id ) {
-			$parent = $all[ $id ]['parent'];
-			while ( $parent && isset( $all[ $parent ] ) && ! isset( $wanted[ $parent ] ) ) {
-				$wanted[ $parent ] = true;
-				$parent            = $all[ $parent ]['parent'];
-			}
-		}
-
-		$ids = array_keys( $wanted );
+		$children = hc_custom_forum_children_map( $rows );
+		$ids      = hc_custom_forum_visibility_closure( $restricted, $all, $children );
 		update_meta_cache( 'post', $ids );
+
+		// Prime bbp_forum_query_all_subforum_ids() for every forum bbPress will walk.
+		if ( function_exists( 'wp_cache_get_last_changed' ) ) {
+			$last_changed = wp_cache_get_last_changed( 'bbpress_posts' );
+			foreach ( $ids as $id ) {
+				$key = hc_custom_bbp_all_subforum_ids_cache_key( $id, bbp_get_forum_post_type(), $last_changed );
+				if ( false === wp_cache_get( $key, 'bbpress_posts' ) ) {
+					wp_cache_set( $key, isset( $children[ $id ] ) ? $children[ $id ] : array(), 'bbpress_posts' );
+				}
+			}
+		}
 		$allow_mods = function_exists( 'bbp_allow_forum_mods' ) ? bbp_allow_forum_mods() : true;
 
 		foreach ( $ids as $id ) {
@@ -507,7 +494,10 @@ function hc_custom_replace_bbpress_forum_visibility_filters() {
 			}
 		}
 	}
+	// bbPress's own per-forum pass is redundant once the bulk set answers at 20.
+	remove_filter( 'bbp_get_excluded_forum_ids', 'bbp_allow_forums_of_user', 10 );
 	add_filter( 'bbp_get_excluded_forum_ids', 'hc_custom_exclude_group_forum_ids', 20 );
+	add_filter( 'bbp_get_private_forum_ids', 'hc_custom_prime_forum_visibility', 1 );
 
 	$bbp = bbpress();
 	if ( isset( $bbp->extend->buddypress->activity ) && is_object( $bbp->extend->buddypress->activity ) && method_exists( $bbp->extend->buddypress->activity, 'activity_get_where_conditions' ) ) {
@@ -522,3 +512,89 @@ foreach ( array( 'groups_join_group', 'groups_leave_group', 'groups_ban_member',
 	add_action( $hc_fv_hook, 'hc_custom_reset_forum_visibility_cache', 1, 0 );
 }
 unset( $hc_fv_hook );
+
+/**
+ * Cache key bbPress uses for bbp_forum_query_all_subforum_ids(). Reproduced so the
+ * collector can prime it from one query instead of one query per forum; a
+ * format change in bbPress simply means no priming.
+ *
+ * @param int    $forum_id     Forum ID.
+ * @param string $post_type    Forum post type.
+ * @param string $last_changed wp_cache_get_last_changed( 'bbpress_posts' ).
+ * @return string
+ */
+function hc_custom_bbp_all_subforum_ids_cache_key( $forum_id, $post_type, $last_changed ) {
+	$key = md5( serialize( array( (int) $forum_id, (string) $post_type, 'all' ) ) );
+	return "bbp_child_ids:{$key}:{$last_changed}";
+}
+
+/**
+ * Group forum IDs by parent, newest first (bbPress orders subforums by ID DESC).
+ *
+ * @param array $rows Objects with ID and post_parent.
+ * @return array parent_id => int[] child IDs.
+ */
+function hc_custom_forum_children_map( $rows ) {
+	$children = array();
+	foreach ( (array) $rows as $row ) {
+		$children[ (int) $row->post_parent ][] = (int) $row->ID;
+	}
+	foreach ( $children as &$ids ) {
+		rsort( $ids );
+	}
+	unset( $ids );
+	return $children;
+}
+
+/**
+ * Restricted forums plus every descendant and every ancestor, as sorted IDs.
+ *
+ * Descendants inherit a restriction; ancestors are needed so an unreadable
+ * restricted parent can close its children.
+ *
+ * @param int[] $restricted Restricted forum IDs.
+ * @param array $all        forum_id => array( 'parent' => int, ... ) for every forum.
+ * @param array $children   parent_id => int[] child IDs.
+ * @return int[]
+ */
+function hc_custom_forum_visibility_closure( array $restricted, array $all, array $children ) {
+	$wanted = array();
+	$queue  = array_map( 'intval', $restricted );
+	while ( $queue ) {
+		$id = array_shift( $queue );
+		if ( isset( $wanted[ $id ] ) || ! isset( $all[ $id ] ) ) {
+			continue;
+		}
+		$wanted[ $id ] = true;
+		if ( isset( $children[ $id ] ) ) {
+			$queue = array_merge( $queue, $children[ $id ] );
+		}
+	}
+	foreach ( array_keys( $wanted ) as $id ) {
+		$parent = (int) $all[ $id ]['parent'];
+		while ( $parent && isset( $all[ $parent ] ) && ! isset( $wanted[ $parent ] ) ) {
+			$wanted[ $parent ] = true;
+			$parent            = (int) $all[ $parent ]['parent'];
+		}
+	}
+	$ids = array_keys( $wanted );
+	sort( $ids );
+	return $ids;
+}
+
+/**
+ * Make sure the bulk data (and the subforum caches it primes) exist before
+ * bbPress walks the restricted forums in bbp_get_excluded_forum_ids().
+ *
+ * @param array $forum_ids Private forum IDs (passed through untouched).
+ * @return array
+ */
+function hc_custom_prime_forum_visibility( $forum_ids ) {
+	static $priming = false;
+	if ( ! $priming && function_exists( 'bbp_get_current_user_id' ) ) {
+		$priming = true;
+		hc_custom_get_unreadable_forum_ids_for_user( bbp_get_current_user_id() );
+		$priming = false;
+	}
+	return $forum_ids;
+}
