@@ -35,17 +35,46 @@ RUN git config --global --add safe.directory /app
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+# PECL-hosted extensions are installed from pinned source tarballs rather than
+# by name. A bare name makes the installer shell out to `pecl install`, which
+# fetches metadata and the tarball from pecl.php.net with no retries and a
+# ~20s cap; when that host is slow or returning 504s (as it was in Oct 2026)
+# the whole image build fails with "Package X does not have REST info xml
+# available". The owner/repo@tag form is resolved by the installer to a
+# codeload.github.com tarball, downloaded with curl --retry, and built from the
+# package.xml inside it, so the build no longer depends on pecl.php.net (the
+# installer still runs a tolerated, non-fatal `pecl channel-update`). Pinning
+# also makes the base image reproducible. Bump the tags here to upgrade.
+#
+# Two exceptions:
+# - redis: phpredis vendors liblzf as a git submodule, which GitHub's archive
+#   tarballs omit, so its package.xml fails validation. It is shallow-cloned
+#   with submodules instead and handed to the installer as a local directory.
+# - protobuf: its PECL release is generated at publish time and the GitHub repo
+#   carries no package.xml, so the PECL tarball is the only source. It is still
+#   downloaded from pecl.php.net, but with curl retries rather than the pecl
+#   client's single attempt, and unpacked into the layout the installer wants
+#   (package.xml inside the source directory, not beside it). Nothing in this
+#   repo references protobuf; drop it from this list if it is confirmed unused.
 RUN chmod +x /usr/local/bin/install-php-extensions && \
+    git clone -q -c advice.detachedHead=false --depth 1 --recurse-submodules --shallow-submodules \
+        --branch 6.3.0 https://github.com/phpredis/phpredis.git /tmp/src-phpredis && \
+    curl -fsSL --retry 5 --retry-delay 10 --retry-all-errors --connect-timeout 15 \
+        -o /tmp/protobuf.tgz https://pecl.php.net/get/protobuf-5.36.2.tgz && \
+    mkdir -p /tmp/src-protobuf && \
+    tar -xzf /tmp/protobuf.tgz -C /tmp/src-protobuf && \
+    mv /tmp/src-protobuf/package.xml /tmp/src-protobuf/protobuf-5.36.2/ && \
     install-php-extensions \
     exif \
-    imagick \
+    Imagick/imagick@3.8.1 \
     zip \
-    memcached \
-    redis \
+    php-memcached-dev/php-memcached@v3.4.0 \
+    /tmp/src-phpredis \
     mysqli \
     intl \
-    yaml \
-    protobuf
+    php/pecl-file_formats-yaml@2.3.0 \
+    /tmp/src-protobuf/protobuf-5.36.2 && \
+    rm -rf /tmp/src-phpredis /tmp/src-protobuf /tmp/protobuf.tgz
 
 # OPcache ships with the official image as a shared extension. Some image
 # versions load it by default, others do not; enable it only when it is not
