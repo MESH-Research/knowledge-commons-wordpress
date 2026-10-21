@@ -4,7 +4,7 @@
 ARG BASE_IMAGE=base
 
 # FROM php:8.5.12-fpm-alpine3.24 AS base
-FROM php:8.5.12-fpm-alpine3.24 as base
+FROM php:8.5.12-fpm-alpine3.24 AS base
 #FROM 755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-php-fpm:8.5.12-alpine AS base
 
 WORKDIR /app
