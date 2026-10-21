@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a073845a5343cb6f6b55bc9f509e82b4",
+    "content-hash": "81a3db470518c5205a5b3fd6a3079c06",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -2691,7 +2691,7 @@
                 "issues": "https://wordpress.org/support/plugin/bbpress",
                 "source": "https://plugins.svn.wordpress.org/bbpress"
             },
-            "time": "2026-10-16T03:32:06+00:00"
+            "time": "2026-10-21T04:27:17+00:00"
         },
         {
             "name": "wp-plugin/beehive-analytics",
@@ -3155,7 +3155,7 @@
                 "issues": "https://wordpress.org/support/plugin/cool-timeline",
                 "source": "https://plugins.svn.wordpress.org/cool-timeline"
             },
-            "time": "2026-10-16T07:51:04+00:00"
+            "time": "2026-10-21T06:01:39+00:00"
         },
         {
             "name": "wp-plugin/disable-password-reset-extended",
@@ -3645,15 +3645,15 @@
         },
         {
             "name": "wp-plugin/mailpoet",
-            "version": "5.42.0",
+            "version": "5.43.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/mailpoet/",
-                "reference": "tags/5.42.0"
+                "reference": "tags/5.43.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/mailpoet.5.42.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/mailpoet.5.43.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3672,7 +3672,7 @@
                 "issues": "https://wordpress.org/support/plugin/mailpoet",
                 "source": "https://plugins.svn.wordpress.org/mailpoet"
             },
-            "time": "2026-10-13T14:27:44+00:00"
+            "time": "2026-10-20T09:16:59+00:00"
         },
         {
             "name": "wp-plugin/mathml-block",
@@ -4016,15 +4016,15 @@
         },
         {
             "name": "wp-plugin/tainacan",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/tainacan/",
-                "reference": "tags/1.4.0"
+                "reference": "tags/1.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/tainacan.1.4.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/tainacan.1.4.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4043,7 +4043,7 @@
                 "issues": "https://wordpress.org/support/plugin/tainacan",
                 "source": "https://plugins.svn.wordpress.org/tainacan"
             },
-            "time": "2026-10-07T18:38:42+00:00"
+            "time": "2026-10-20T18:27:37+00:00"
         },
         {
             "name": "wp-plugin/translatepress-multilingual",
@@ -4136,7 +4136,7 @@
                 "issues": "https://wordpress.org/support/plugin/wordpress-importer",
                 "source": "https://plugins.svn.wordpress.org/wordpress-importer"
             },
-            "time": "2026-08-27T11:41:30+00:00"
+            "time": "2026-10-20T08:27:50+00:00"
         },
         {
             "name": "wp-plugin/wp-accessibility",
@@ -5344,16 +5344,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.401.3",
+            "version": "3.401.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7b8541e8a4f09cf4375eeef4de6c638dfb2dadbb"
+                "reference": "b5941e2da9fb860f06ad5046d96219c4288ab6b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7b8541e8a4f09cf4375eeef4de6c638dfb2dadbb",
-                "reference": "7b8541e8a4f09cf4375eeef4de6c638dfb2dadbb",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b5941e2da9fb860f06ad5046d96219c4288ab6b8",
+                "reference": "b5941e2da9fb860f06ad5046d96219c4288ab6b8",
                 "shasum": ""
             },
             "require": {
@@ -5435,9 +5435,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.4"
             },
-            "time": "2026-10-19T18:11:47+00:00"
+            "time": "2026-10-20T18:15:27+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -6428,12 +6428,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0f55fdd9f5b320c8f353190683bedb6380511db4"
+                "reference": "1d3860eceb9c8a3c76ade46a8ef7896a63802048"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0f55fdd9f5b320c8f353190683bedb6380511db4",
-                "reference": "0f55fdd9f5b320c8f353190683bedb6380511db4",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1d3860eceb9c8a3c76ade46a8ef7896a63802048",
+                "reference": "1d3860eceb9c8a3c76ade46a8ef7896a63802048",
                 "shasum": ""
             },
             "conflict": {
@@ -6463,6 +6463,7 @@
                 "altcha-org/altcha": "<1.3.1",
                 "alterphp/easyadmin-extension-bundle": ">=1.2,<1.2.11|>=1.3,<1.3.1",
                 "amazing/media2click": ">=1,<1.3.3",
+                "ameos/ameos_filemanager": "<3.1.3",
                 "ameos/ameos_tarteaucitron": "<1.2.23",
                 "amphp/artax": "<1.0.6|>=2,<2.0.6",
                 "amphp/http": "<=1.7.2|>=2,<=2.1",
@@ -6524,6 +6525,7 @@
                 "binarytorch/larecipe": "<2.8.1",
                 "bk2k/bootstrap-package": ">=7.1,<7.1.2|>=8,<8.0.8|>=9,<9.0.4|>=9.1,<9.1.3|>=10,<10.0.10|>=11,<11.0.3",
                 "blueimp/jquery-file-upload": "==6.4.4",
+                "blueways/bw-captcha": ">=4,<5.4.2",
                 "bmarshall511/wordpress_zero_spam": "<5.2.13",
                 "bolt/bolt": "<3.7.2",
                 "bolt/core": "<=4.2",
@@ -6550,6 +6552,7 @@
                 "cart2quote/module-quotation": ">=4.1.6,<4.4.6|>=5,<5.4.4",
                 "cartalyst/sentry": "<2.1.7",
                 "catfan/medoo": "<1.7.5",
+                "causal/fal-protect": ">=1.7.1,<1.8.2",
                 "causal/oidc": "<4",
                 "cecil/cecil": "<7.47.1",
                 "centreon/centreon": "<22.10.15",
@@ -6571,7 +6574,9 @@
                 "codeigniter4/shield": "<1.0.0.0-beta8",
                 "codiad/codiad": "<=2.8.4",
                 "codingms/additional-tca": ">=1.7,<1.15.17|>=1.16,<1.16.9",
+                "codingms/fluid-form": "<5.0.10|>=6,<6.0.6",
                 "codingms/modules": "<7.10.4|>=8,<8.1.4",
+                "codingms/shop": "<4.9.4|>=5,<5.21.1|>=6,<6.3",
                 "commerceteam/commerce": ">=0.9.6,<0.9.9",
                 "components/jquery": ">=1.0.3,<3.5",
                 "composer/composer": "<2.2.30|>=2.3,<2.10.3",
@@ -6886,7 +6891,7 @@
                 "kevinpapst/kimai2": "<1.16.7",
                 "khodakhah/nodcms": "<=3.4.1",
                 "kimai/kimai": "<2.59",
-                "kitodo/presentation": "<3.2.3|>=3.3,<3.3.4",
+                "kitodo/presentation": "<6.0.1|>=7,<7.0.2",
                 "klaviyo/magento2-extension": ">=1,<3",
                 "knplabs/knp-snappy": "<=1.7",
                 "kohana/core": "<3.3.3",
@@ -7028,6 +7033,7 @@
                 "neuron-core/neuron-ai": "<=2.8.11",
                 "nilsteampassnet/teampass": "<3.1.3.1-dev",
                 "nitsan/ns-backup": "<13.0.1",
+                "nitsan/ns-t3ai": "<14.0.2",
                 "nonfiction/nterchange": "<4.1.1",
                 "notrinos/notrinos-erp": "<=1",
                 "noumo/easyii": "<=0.9",
@@ -7200,6 +7206,7 @@
                 "serluck/phpwhois": "<=4.2.6",
                 "setasign/fpdi": "<2.6.7",
                 "sfroemken/url_redirect": "<=1.2.1",
+                "sgalinski/sg-cookie-optin": "<7.4.6|>=8,<8.1.12",
                 "sheng/yiicms": "<1.2.1",
                 "shlinkio/shlink": "<=5.0.1",
                 "shopper/cart": "<2.8",
@@ -7353,6 +7360,7 @@
                 "symphonycms/symphony-2": "<2.6.4",
                 "syssy/syssy-typo3-extension": "<3.0.6",
                 "t3/dce": "<0.11.5|>=2.2,<2.6.2",
+                "t3g/analytics": "<1.1.1",
                 "t3g/svg-sanitizer": "<1.0.3",
                 "t3s/content-consent": "<1.0.3|>=2,<2.0.2",
                 "tastyigniter/tastyigniter": "<4",
@@ -7579,7 +7587,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-19T23:20:11+00:00"
+            "time": "2026-10-20T14:42:48+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -8805,7 +8813,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.5"
+        "php": "^8.5.12"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
