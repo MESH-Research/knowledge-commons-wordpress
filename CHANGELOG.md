@@ -1,3 +1,127 @@
+## v1.6.0 (2026-10-21)
+
+### Feat
+
+- **mu-plugins**: add idms/opcache REST endpoint for cache observation
+- **docker**: enable OPcache in the php-fpm image
+- **accessibility**: add wp-accessibility plugin
+- **wordpress**: regenerate composer lock file
+- **wordpress**: version upgrade
+- **php**: change listener to all ports
+- **php**: change build version
+- **php**: further php upgrade work
+- **php**: upgrade to php 8.5
+- **php**: upgrade to php 8.5
+- **nuke**: remove insecure plugins (graphql) and associated theme builds
+- **security**: mass plugin upgrade
+- **docker**: refuse to start when static AWS credentials are present
+- **docker**: refuse to start when static AWS credentials are present
+- **buddypress**: upgrade to 14.5.2
+- **wordpress**: upgrade core
+- **hc-custom**: show members their private groups' events sitewide
+- **auth**: bypass CILogon broker flow when basic-login key present
+- **auth**: add key-gated native login fallback for admins
+- **hc-custom**: disable group cover image uploads
+- **wordpress**: upgrade wordpress to 7.0.3
+- **bp-rbe-inbound-forum-attachments**: replace local fork with MESH-tracked upstream
+- **bp-reply-by-email**: replace local fork with MESH-tracked upstream via composer
+- **buddypress-followers**: replace local fork with MESH-tracked upstream via composer
+- **buddypress-group-email-subscription**: replace local fork with upstream 4.2.4
+- **bp-groupblog**: replace local fork with upstream 1.9.4
+- **bp-group-documents**: replace local fork with upstream 2.1
+- **buddypress**: upgrade commons-in-a-box and buddypress-docs for BP 14
+- **buddypress**: upgrade buddypress to 14.5.0
+- **wordpress**: upgrade wordpress core to 7.0.2
+- **wordpress**: upgrade wordpress core to 7.0.1
+- **cc-client**: upgrade cc-client to avoid lengthy timeouts
+- **wordpress**: upgrade wordpress core to wordpress 7.0.6
+- **wordpress**: upgrade wordpress core to 7.0.2
+- **wordpress**: upgrade to wordpress 7.0
+
+### Fix
+
+- **docker**: install PECL extensions from pinned sources, not pecl.php.net
+- **footnotes**: upgrade awesome footnotes plugin
+- **bbPress**: upgrade to latest version (security)
+- **groups**: stop percent-encoded group slugs breaking the groups directory
+- **php**: correct image name
+- **hc-custom**: switch to activity network when regenerating bbPress actions
+- **hc-custom**: guard multinetwork forum permalinks outside activity loops
+- **nginx**: restore stemedplus.org network alias for members redirects
+- **nginx**: restore stemedplus.org network alias for members redirects
+- **repo**: separate .phpunit.cache and INCIDENT.md gitignore entries
+- **hc-custom**: keep private-post checks for non-members on public groups
+- **hc-custom**: keep full private-event access for roles that have it
+- **hc-custom**: stop granting read_private_events to everyone
+- **hc-custom**: check group access before scoping the calendar
+- **hc-custom**: link group calendar events to the group's event page
+- **hc-custom**: scope group events calendar to the current group
+- **groups**: point group Site tab at the group site and allow its redirect host
+- **groups**: stop fatal on join/invite-accept when BPGES is inactive
+- **auth**: sync STEM Ed+ memberships to the stemedplus member type
+- **docs**: enforce group privacy for Docs regardless of per-Doc settings
+- **docs**: strengthen Docs access-control enforcement
+- **activity**: prevent PHP 8 fatal in group activity streams for logged-in users
+- **hc-custom**: gate group event creation on the group connection setting
+- **hc-custom**: restore group nav show/hide and landing page settings
+- **bp-event-organiser**: declutter group event timepicker grid
+- **hc-custom**: stop group doc creation demanding the placeholder's edit nonce
+- **hc-custom**: stop create-doc saves demanding a per-doc edit nonce
+- **hc-custom**: restore send invites tab for existing groups on BuddyPress 12+
+- **hc-custom**: link group docs tabs to the current group and add single-doc back-nav
+- **hc-custom**: restore group events subnav and admin event management
+- **hc-custom**: restore group admin forum moderation caps and links
+- **bp-event-organiser**: stop date picker jumping page to top
+- **lock**: update cc-client
+- **sparkpost-bp-mailer**: remove debug logging that dumped mailer credentials
+- **hc-custom**: skip no-op kcworks visibility changes lacking permission
+- **hc-custom**: use trailing-slash kcworks endpoint and parse real create response
+- **hc-custom**: resolve kcworks collection lookup warnings in group nav
+- **cron**: run wp-cron solely from the cron container, hourly, for all sites
+- **hc-notifications**: use {$var} instead of deprecated ${var} interpolation
+- **hc-member-profiles**: silence PHP 8.x param and setcookie deprecations
+- **hc-custom**: silence PHP 8.0 optional-before-required param deprecations
+- **buddypress-followers**: use slug functions instead of removed BP_*_SLUG constants
+- **bp-group-email-subscription**: use slug functions instead of removed BP_*_SLUG constants
+- **bp-group-documents**: name the correct network in upload mail subjects
+- **test**: correct nginx conf mount paths in e2e compose file
+- **nginx**: map stemedplus.org to its network for members redirects
+- **auth**: sync STEM Ed+ memberships to the stemedplus member type
+- **groups**: scope group directory counts and listings to current network
+- **docs**: enforce group privacy for Docs regardless of per-Doc settings
+- **docs**: strengthen Docs access-control enforcement
+- **activity**: prevent PHP 8 fatal in group activity streams for logged-in users
+- **cron**: run wp-cron solely from the cron container, hourly, for all sites
+
+### Refactor
+
+- **mu-plugins**: centralize multi-network mail-subject fixes and add GES handler
+
+### Perf
+
+- **hc-custom**: restrict members' private events in SQL, not by ID list
+
+## v1.5.1 (2026-08-10)
+
+### Fix
+
+- **cron**: adopt production's cron implementation on main
+
+## v1.5.0 (2026-08-10)
+
+### Feat
+
+- **cron**: externalise per-site wp-cron and disable loopback cron in prod
+
+## v1.4.0 (2026-07-20)
+
+## v1.3.0 (2026-07-09)
+
+### Feat
+
+- **wordpress**: upgrade wordpress core to 7.0.2
+- **wordpress**: update to wordpress 7.0
+
 ## v1.2.1 (2026-06-18)
 
 ### Fix
