@@ -3,7 +3,7 @@
 
 ARG BASE_IMAGE=base
 
-FROM php:8.2.26-fpm-alpine3.20 AS base
+FROM php:8.5.11-fpm-alpine3.24 AS base
 
 WORKDIR /app
 RUN chown -R www-data:www-data /app
@@ -44,6 +44,13 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     intl \
     yaml \
     protobuf
+
+# OPcache ships with the official image as a shared extension. Some image
+# versions load it by default, others do not; enable it only when it is not
+# already loaded (docker-php-ext-enable exits non-zero on an already-loaded
+# module). The cloud stage below repeats this because that stage is built on a
+# prebuilt base image that may predate this line.
+RUN php -m | grep -q 'Zend OPcache' || docker-php-ext-enable opcache
 
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 RUN chmod a+rx /usr/local/bin/wp
@@ -91,13 +98,22 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
     rm -rf /usr/local/etc/php-fpm.d/www.conf && \
     ln -sf /app/config/all/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
+# --- OPcache (effective on every deploy, independent of the base image) ---
+# The deploy workflow builds this stage FROM the prebuilt
+# commons-wordpress-base image, which is only rebuilt when Dockerfile.php
+# changes on main. Enabling here guarantees the extension is loaded on dev,
+# staging and production regardless of the base image's age. The settings
+# live in config/all/php/opcache.ini and load from conf.d after php.ini.
+RUN ( php -m | grep -q 'Zend OPcache' || docker-php-ext-enable opcache ) && \
+    ln -sf /app/config/all/php/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
+
 # --- Composer manifests ONLY (cached unless lockfiles change) ---
 COPY --chown=www-data:www-data composer.json composer.lock /app/
 COPY --chown=www-data:www-data scripts/cron/mailchimp/composer.json scripts/cron/mailchimp/composer.lock /app/scripts/cron/mailchimp/
 COPY --chown=www-data:www-data scripts/dev-scripts/content-export/composer.json scripts/dev-scripts/content-export/composer.lock /app/scripts/dev-scripts/content-export/
 COPY --chown=www-data:www-data themes/dahd-tainacan/composer.json themes/dahd-tainacan/composer.lock /app/themes/dahd-tainacan/
-COPY --chown=www-data:www-data plugins/wp-graphql-tax-query/composer.json plugins/wp-graphql-tax-query/composer.lock /app/plugins/wp-graphql-tax-query/
-COPY --chown=www-data:www-data themes/learningspace/composer.json themes/learningspace/composer.lock /app/themes/learningspace/
+# COPY --chown=www-data:www-data plugins/wp-graphql-tax-query/composer.json plugins/wp-graphql-tax-query/composer.lock /app/plugins/wp-graphql-tax-query/
+# COPY --chown=www-data:www-data themes/learningspace/composer.json themes/learningspace/composer.lock /app/themes/learningspace/
 COPY --chown=www-data:www-data plugins/hc-styles/composer.json plugins/hc-styles/composer.lock /app/plugins/hc-styles/
 
 # --- Composer install (cached when lockfiles unchanged) ---
@@ -110,8 +126,8 @@ RUN --mount=type=cache,target=/home/www-data/.composer/cache,uid=82,gid=82 \
     cd /app/scripts/cron/mailchimp && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
     cd /app/scripts/dev-scripts/content-export/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
     cd /app/themes/dahd-tainacan/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
-    cd /app/plugins/wp-graphql-tax-query/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
-    cd /app/themes/learningspace/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
+#    cd /app/plugins/wp-graphql-tax-query/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
+#    cd /app/themes/learningspace/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader && \
     cd /app/plugins/hc-styles/ && php -d default_socket_timeout=30000 $(which composer) install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader
 
 # --- npm builds for composer-installed packages (cached with composer layer) ---

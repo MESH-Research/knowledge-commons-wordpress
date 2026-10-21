@@ -1,27 +1,3 @@
-## v1.5.1 (2026-08-10)
-
-### Fix
-
-- **cron**: adopt production's cron implementation on main
-
-## v1.5.0 (2026-08-10)
-
-### Feat
-
-- **cron**: externalise per-site wp-cron and disable loopback cron in prod
-
-## v1.4.0 (2026-07-20)
-
-### Feat
-
-- **wordpress**: upgrade wordpress core to 7.0.2
-
-## v1.3.0 (2026-07-09)
-
-### Feat
-
-- **wordpress**: update to wordpress 7.0
-
 ## v1.2.1 (2026-06-18)
 
 ### Fix
