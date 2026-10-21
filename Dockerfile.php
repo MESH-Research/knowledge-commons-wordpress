@@ -3,9 +3,19 @@
 
 ARG BASE_IMAGE=base
 
+# Base image: Alpine edge + PHP 8.5.12 built from Alpine's own php85 aport
+# (community/php85), not the docker-library "php" image. The layout therefore
+# follows Alpine packaging, which the rest of this file has to respect:
+#   binaries      /usr/bin/php85 (+ /usr/bin/php), /usr/sbin/php-fpm85 (+ php-fpm)
+#   config        /etc/php85/php.ini, /etc/php85/conf.d/, /etc/php85/php-fpm.d/
+#   extensions    /usr/lib/php85/modules/, one apk package per extension
+# There are no docker-php-ext-* helpers and no /usr/local/etc/php, so the
+# compatibility symlinks below map the docker-library paths onto /etc/php85.
+# The image already ships: bcmath ctype curl dom exif fileinfo gd iconv intl
+# mbstring mysqli mysqlnd openssl pcntl pdo pdo_mysql phar posix session
+# simplexml sockets sodium tokenizer xml xmlreader xmlwriter zip.
 # FROM php:8.5.12-fpm-alpine3.24 AS base
-FROM php:8.5.12-fpm-alpine3.24 AS base
-#FROM 755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-php-fpm:8.5.12-alpine AS base
+FROM 755997884632.dkr.ecr.us-east-1.amazonaws.com/commons-php-fpm:8.5.12-alpine AS base
 
 WORKDIR /app
 RUN chown -R www-data:www-data /app
@@ -27,32 +37,54 @@ RUN apk update && \
     grpc-dev \
     rsync \
     subversion \
-    $PHPIZE_DEPS \
+    autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c \
     && rm -rf /var/cache/apk/*
 
 RUN git config --global --add safe.directory /app
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions \
-    exif \
-    imagick \
-    zip \
-    memcached \
-    redis \
-    mysqli \
-    intl \
-    yaml \
-    protobuf
+# PECL extensions come from Alpine's php85-pecl-* packages. They depend on
+# php85-common with no version pin, so they install against the locally built
+# 8.5.12 even while edge still carries 8.5.11 (php85-dev does pin the version,
+# which is why compiling from source is not an option here). Nothing is
+# fetched from pecl.php.net, whose outages broke the previous install path.
+# exif, zip, mysqli and intl are already in the base image.
+#
+# ImageMagick's format support is split into delegate packages on Alpine; the
+# set below matches what the docker-library build linked in (PDF via
+# ghostscript, HEIC, JPEG XL, RAW, SVG) plus the web formats WordPress needs.
+RUN apk add --no-cache \
+    php85-pecl-imagick \
+    php85-pecl-memcached \
+    php85-pecl-redis \
+    php85-pecl-yaml \
+    php85-pecl-protobuf \
+    imagemagick-jpeg \
+    imagemagick-webp \
+    imagemagick-tiff \
+    imagemagick-svg \
+    imagemagick-pdf \
+    imagemagick-heic \
+    imagemagick-jxl \
+    imagemagick-raw \
+    && rm -rf /var/cache/apk/*
 
-# OPcache ships with the official image as a shared extension. Some image
-# versions load it by default, others do not; enable it only when it is not
-# already loaded (docker-php-ext-enable exits non-zero on an already-loaded
-# module). The cloud stage below repeats this because that stage is built on a
-# prebuilt base image that may predate this line.
-RUN php -m | grep -q 'Zend OPcache' || docker-php-ext-enable opcache
+# Map the docker-library paths used by the rest of this file, the build
+# scripts and the test entrypoint onto the Alpine layout, then prove that
+# every extension this site relies on actually loads. OPcache is compiled into
+# PHP 8.5 unconditionally (RFC "Make OPcache a non-optional part of PHP"), so
+# it needs no enabling step; the check still guards against a base image
+# built without it.
+RUN mkdir -p /usr/local/etc && \
+    ln -sfn /etc/php85 /usr/local/etc/php && \
+    ln -sfn /etc/php85/php-fpm.d /usr/local/etc/php-fpm.d && \
+    command -v php >/dev/null && \
+    command -v php-fpm >/dev/null && \
+    php -m | grep -q 'Zend OPcache' && \
+    for ext in exif zip mysqli intl imagick memcached redis yaml protobuf; do \
+        php -m | grep -qix "$ext" || { echo "PHP extension '$ext' is not loaded" >&2; exit 1; }; \
+    done
 
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 RUN chmod a+rx /usr/local/bin/wp
@@ -102,11 +134,11 @@ RUN rm -rf /usr/local/etc/php/php.ini && \
 
 # --- OPcache (effective on every deploy, independent of the base image) ---
 # The deploy workflow builds this stage FROM the prebuilt
-# commons-wordpress-base image, which is only rebuilt when Dockerfile.php
-# changes on main. Enabling here guarantees the extension is loaded on dev,
-# staging and production regardless of the base image's age. The settings
-# live in config/all/php/opcache.ini and load from conf.d after php.ini.
-RUN ( php -m | grep -q 'Zend OPcache' || docker-php-ext-enable opcache ) && \
+# commons-wordpress-base image. OPcache is compiled into PHP 8.5, so there is
+# nothing to enable; the check guards against a base image without it. The
+# settings live in config/all/php/opcache.ini and load from conf.d after
+# php.ini (/usr/local/etc/php is a symlink to /etc/php85 on this base).
+RUN php -m | grep -q 'Zend OPcache' && \
     ln -sf /app/config/all/php/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
 
 # --- Composer manifests ONLY (cached unless lockfiles change) ---
