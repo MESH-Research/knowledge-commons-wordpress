@@ -399,33 +399,6 @@ if ( ! class_exists( 'WP_Query' ) ) {
 }
 
 // ---------------------------------------------------------------------------
-// Event Organiser stubs.
-// ---------------------------------------------------------------------------
-
-if ( ! function_exists( 'eo_get_blog_timezone' ) ) {
-	function eo_get_blog_timezone() {
-		return new DateTimeZone( _hc_mock( 'blog_timezone', 'UTC' ) );
-	}
-}
-
-if ( ! function_exists( 'eventorganiser_is_event_query' ) ) {
-	function eventorganiser_is_event_query( $query, $exclusive = false ) {
-		$post_types = $query->get( 'post_type' );
-		return 'event' === $post_types || array( 'event' ) === $post_types;
-	}
-}
-
-if ( ! function_exists( '_eventorganiser_update_event_dates_cache' ) ) {
-	/**
-	 * Stand-in for the plugin's own filter so the hc-custom swap sees it as
-	 * present. Never meant to run in tests.
-	 */
-	function _eventorganiser_update_event_dates_cache( $events, $query ) {
-		return $events;
-	}
-}
-
-// ---------------------------------------------------------------------------
 // Load the real code under test.
 // ---------------------------------------------------------------------------
 
