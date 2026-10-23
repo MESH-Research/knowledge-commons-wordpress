@@ -411,7 +411,12 @@ if ( ! function_exists( 'eo_get_blog_timezone' ) ) {
 if ( ! function_exists( 'eventorganiser_is_event_query' ) ) {
 	function eventorganiser_is_event_query( $query, $exclusive = false ) {
 		$post_types = $query->get( 'post_type' );
-		return 'event' === $post_types || array( 'event' ) === $post_types;
+		if ( 'event' === $post_types || array( 'event' ) === $post_types ) {
+			return true;
+		}
+		// Non-exclusive match: a category archive when 'category' is attached
+		// to the event post type (see eo_is_event_taxonomy()).
+		return ! $exclusive && empty( $post_types ) && '' !== $query->get( 'category_name' );
 	}
 }
 
