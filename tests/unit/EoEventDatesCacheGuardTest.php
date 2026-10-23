@@ -8,6 +8,9 @@
  * plugin's own filter builds a DateTime from those and throws, which turns a
  * single orphaned event into a fatal error for every listing it appears in.
  * The replacement must skip such rows and otherwise behave like the original.
+ *
+ * It lives in mu-plugins/event-organiser-dates-guard.php so that it loads on
+ * every site of every network, including sites where hc-custom is not active.
  */
 
 use PHPUnit\Framework\TestCase;
