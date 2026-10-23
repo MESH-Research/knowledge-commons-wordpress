@@ -130,6 +130,21 @@ class EoEventDatesCacheGuardTest extends TestCase {
 		$this->assertSame( array(), hc_custom_eo_update_event_dates_cache( array(), $this->eventQuery() ) );
 	}
 
+	public function test_ordinary_post_on_category_archive_shared_with_events_is_skipped() {
+		// The production trigger: when the 'category' taxonomy is attached to
+		// the event post type, a category archive counts as a (non-exclusive)
+		// event query, but the plugin's SELECT/JOIN filters only apply to
+		// exclusive ones. Rows are then plain WP_Post objects whose magic
+		// getters answer '' for the occurrence columns.
+		$post   = new EoGuardTestFakeWpPost( 21 );
+		$events = array( $post );
+
+		$out = hc_custom_eo_update_event_dates_cache( $events, new WP_Query( array( 'post_type' => '', 'category_name' => 'digital-publishing' ) ) );
+
+		$this->assertSame( $events, $out );
+		$this->assertFalse( $this->cached( 21 ) );
+	}
+
 	public function test_event_without_joined_date_columns_is_skipped() {
 		// e.g. a query with fields => 'ids' or one where the join did not apply.
 		$bare   = (object) array( 'ID' => 12 );
@@ -139,5 +154,26 @@ class EoEventDatesCacheGuardTest extends TestCase {
 
 		$this->assertSame( $events, $out );
 		$this->assertFalse( $this->cached( 12 ) );
+	}
+}
+
+/**
+ * Mirrors WP_Post's magic property handling: unknown properties read as post
+ * meta, which for a missing key is '' and does not count as set.
+ */
+class EoGuardTestFakeWpPost {
+	public $ID;
+	public $post_type = 'post';
+
+	public function __construct( $id ) {
+		$this->ID = $id;
+	}
+
+	public function __isset( $key ) {
+		return false;
+	}
+
+	public function __get( $key ) {
+		return '';
 	}
 }
