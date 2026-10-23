@@ -165,7 +165,12 @@ if ( ! function_exists( 'add_action' ) ) {
 
 if ( ! function_exists( 'remove_filter' ) ) {
 	function remove_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
-		// no-op for unit tests
+		// Recorded so tests can observe hook rewiring; otherwise a no-op.
+		$GLOBALS['_removed_filters'][ $hook ][] = array(
+			'callback' => $callback,
+			'priority' => $priority,
+		);
+		return true;
 	}
 }
 
