@@ -2,9 +2,9 @@ The Commons WordPress site runs on [Elastic Container Service](https://aws.amazo
 
 ## Build Process
 
-When a commit is pushed to the `main` or `production` branch, GitHub Actions runs the build process. The build process is defined in `.github/workflows/push-to-aws.yml`. Images on ECR are tagged according to the branch that triggered the build (ie. `main` or `production`). 
+When a commit is pushed to the `main`, `production`, `dev`, `staging` or `test` branch, GitHub Actions runs the build process defined in `.github/workflows/push-to-aws.yml`. Images on ECR are tagged with the branch name and a unique build tag (`v<version>-<sha7>`, prefixed with the branch name outside `main`); on `main` they are also tagged `v<version>` and `latest`, and commitizen bumps `VERSION` and `CHANGELOG.md` once both images have been pushed. The PHP base image that the app image is built from is produced separately by `.github/workflows/build-base-image.yml`.
 
-To manually build without pushing to GitHub, run the `push-to-aws.sh` script in the root of the repository with the desired tag as an argument. Eg. `./push-to-aws.sh main`.
+To run the same build on your own machine, use `kcb.py` in the root of the repository. `uv run kcb.py build` produces the images with exactly the tags CI would apply, `uv run kcb.py push` pushes them to ECR, and `uv run kcb.py release` runs the whole workflow in order. See the [local build tool reference](local-build-tool.md).
 
 ## Deployment Process
 
@@ -23,3 +23,5 @@ Currently the deployment process is manual. To deploy a new build, follow these 
 9. Change the 'Desired count' to 1 and click `Update`.
 
 (The details are slightly different for development.)
+
+The equivalent of steps 7 to 9 from the command line, once the images are in ECR, is `uv run kcb.py deploy --cluster <cluster> --service <service>`, which runs `aws ecs update-service --force-new-deployment`.
