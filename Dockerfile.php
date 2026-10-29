@@ -209,6 +209,12 @@ RUN touch /etc/environment && \
     chown root:www-data /etc/profile && \
     chmod 664 /etc/profile
 
+# --- Branch-specific extra PHP extensions (root; see extra-plugins/README.md) ---
+# extra-plugins/<branch>/php-extensions lists core extensions that branch's
+# extra plugins need. Installed here, after the extras composer step, so the
+# shared base image is untouched and other branches are unaffected.
+RUN sh /app/scripts/build-scripts/install-extra-php-extensions.sh "${APP_BRANCH}" /app
+
 # --- Build-version manifest (last RUN so version changes don't invalidate
 #     earlier layers). Served from /app/site/web/.version.php which reads
 #     this file at request time. ---
