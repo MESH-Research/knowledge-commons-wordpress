@@ -1,3 +1,9 @@
+## v1.7.2 (2026-10-29)
+
+### Fix
+
+- **php**: pin main to PHP 8.5.12 so the shared base image matches production
+
 ## v1.7.1 (2026-10-29)
 
 ### Fix
