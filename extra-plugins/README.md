@@ -16,6 +16,15 @@ branch being built (the `APP_BRANCH` build argument) and installs
 live on every branch: promoting a change from dev to production never carries
 dev-only plugins with it, because production builds skip `extra-plugins/dev/`.
 
+## Extra PHP extensions
+
+A branch can also list PHP core extensions it needs in
+`extra-plugins/<branch>/php-extensions`, one per line (`#` comments allowed).
+The build installs them with `docker-php-ext-install` for that branch only, so
+a plugin that needs, say, `pdo_mysql` can get it on dev without changing the
+shared base image. Only extensions bundled with the PHP source are supported;
+PECL extensions belong in the base stage of `Dockerfile.php`.
+
 ## Adding a plugin to a branch
 
     cd extra-plugins/dev
