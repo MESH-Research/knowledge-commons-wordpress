@@ -177,6 +177,17 @@ COPY --chown=www-data:www-data ./plugins /app/plugins
 COPY --chown=www-data:www-data ./mu-plugins /app/mu-plugins
 COPY --chown=www-data:www-data ./themes /app/themes
 
+# --- Branch-specific extra plugins (dev-only plugins etc.) ---
+# extra-plugins/<branch>/ is a self-contained composer project whose
+# installer-paths point back into site/web/app/. The manifests live on every
+# branch; only the one matching APP_BRANCH is installed, so promoting a change
+# between branches never carries another branch's plugins with it. Kept as a
+# separate layer so the main composer layer above stays cache-shared across
+# branches. See extra-plugins/README.md.
+COPY --chown=www-data:www-data ./extra-plugins /app/extra-plugins
+RUN --mount=type=cache,target=/home/www-data/.composer/cache,uid=82,gid=82 \
+    sh /app/scripts/build-scripts/install-extra-plugins.sh "${APP_BRANCH}" /app
+
 # --- Theme npm builds (need full source for gulpfile.js and sass sources) ---
 RUN --mount=type=cache,target=/home/www-data/.npm,uid=82,gid=82 \
     cd /app/themes/boss-child && npm ci && npm install gulp && node node_modules/gulp-cli/bin/gulp sass && \
