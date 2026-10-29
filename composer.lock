@@ -269,16 +269,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.16.0",
+            "version": "7.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ffb62ec787050ae4fa9449cdd6b80335db69bda2"
+                "reference": "81755d989b3007ca7f88a069857553cd08e7dc2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ffb62ec787050ae4fa9449cdd6b80335db69bda2",
-                "reference": "ffb62ec787050ae4fa9449cdd6b80335db69bda2",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/81755d989b3007ca7f88a069857553cd08e7dc2e",
+                "reference": "81755d989b3007ca7f88a069857553cd08e7dc2e",
                 "shasum": ""
             },
             "require": {
@@ -377,7 +377,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.16.0"
+                "source": "https://github.com/guzzle/guzzle/tree/7.16.1"
             },
             "funding": [
                 {
@@ -393,7 +393,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-18T13:38:36+00:00"
+            "time": "2026-10-25T21:35:21+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -2319,16 +2319,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.43.0",
+            "version": "v1.43.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72"
+                "reference": "122889ed24dc000165bcbfd77ec412f15cbdfc6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/122889ed24dc000165bcbfd77ec412f15cbdfc6a",
+                "reference": "122889ed24dc000165bcbfd77ec412f15cbdfc6a",
                 "shasum": ""
             },
             "require": {
@@ -2380,7 +2380,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.3"
             },
             "funding": [
                 {
@@ -2400,7 +2400,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-24T15:19:04+00:00"
+            "time": "2026-10-28T09:35:49+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -2488,16 +2488,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v5.7.0",
+            "version": "v5.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpdotenv/phpdotenv.git",
-                "reference": "301c07936b16d88628b126b01d082ba153cf4c40"
+                "reference": "96149103e62ac67e915f6d2ef59b72dee2e011e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpdotenv/phpdotenv/zipball/301c07936b16d88628b126b01d082ba153cf4c40",
-                "reference": "301c07936b16d88628b126b01d082ba153cf4c40",
+                "url": "https://api.github.com/repos/phpdotenv/phpdotenv/zipball/96149103e62ac67e915f6d2ef59b72dee2e011e0",
+                "reference": "96149103e62ac67e915f6d2ef59b72dee2e011e0",
                 "shasum": ""
             },
             "require": {
@@ -2524,7 +2524,7 @@
                     "forward-command": false
                 },
                 "branch-alias": {
-                    "dev-master": "5.6-dev"
+                    "dev-master": "5.8-dev"
                 }
             },
             "autoload": {
@@ -2555,8 +2555,8 @@
                 "environment"
             ],
             "support": {
-                "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v5.7.0"
+                "issues": "https://github.com/phpdotenv/phpdotenv/issues",
+                "source": "https://github.com/phpdotenv/phpdotenv/tree/v5.8.0"
             },
             "funding": [
                 {
@@ -2568,7 +2568,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-24T18:07:49+00:00"
+            "time": "2026-10-25T16:26:19+00:00"
         },
         {
             "name": "wp-plugin/activitypub",
@@ -2630,19 +2630,19 @@
                 "issues": "https://wordpress.org/support/plugin/akismet",
                 "source": "https://plugins.svn.wordpress.org/akismet"
             },
-            "time": "2026-08-21T02:56:34+00:00"
+            "time": "2026-10-28T01:25:50+00:00"
         },
         {
             "name": "wp-plugin/bbpress",
-            "version": "2.6.20",
+            "version": "2.6.21",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/bbpress/",
-                "reference": "tags/2.6.20"
+                "reference": "tags/2.6.21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/bbpress.2.6.20.zip"
+                "url": "https://downloads.wordpress.org/plugin/bbpress.2.6.21.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -2661,7 +2661,7 @@
                 "issues": "https://wordpress.org/support/plugin/bbpress",
                 "source": "https://plugins.svn.wordpress.org/bbpress"
             },
-            "time": "2026-10-21T04:27:17+00:00"
+            "time": "2026-10-27T22:06:31+00:00"
         },
         {
             "name": "wp-plugin/beehive-analytics",
@@ -2877,7 +2877,7 @@
                 "issues": "https://wordpress.org/support/plugin/buddypress",
                 "source": "https://plugins.svn.wordpress.org/buddypress"
             },
-            "time": "2026-10-22T19:21:34+00:00"
+            "time": "2026-10-23T13:51:58+00:00"
         },
         {
             "name": "wp-plugin/buddypress-docs",
@@ -3125,7 +3125,7 @@
                 "issues": "https://wordpress.org/support/plugin/cool-timeline",
                 "source": "https://plugins.svn.wordpress.org/cool-timeline"
             },
-            "time": "2026-10-21T06:01:39+00:00"
+            "time": "2026-10-28T13:08:17+00:00"
         },
         {
             "name": "wp-plugin/disable-password-reset-extended",
@@ -3213,19 +3213,19 @@
                 "issues": "https://wordpress.org/support/plugin/elementor",
                 "source": "https://plugins.svn.wordpress.org/elementor"
             },
-            "time": "2026-10-13T12:53:17+00:00"
+            "time": "2026-10-26T18:54:34+00:00"
         },
         {
             "name": "wp-plugin/essential-addons-for-elementor-lite",
-            "version": "6.8.7",
+            "version": "6.8.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/6.8.7"
+                "reference": "tags/6.8.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.6.8.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.6.8.8.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3244,7 +3244,7 @@
                 "issues": "https://wordpress.org/support/plugin/essential-addons-for-elementor-lite",
                 "source": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite"
             },
-            "time": "2026-10-19T13:08:18+00:00"
+            "time": "2026-10-28T11:31:24+00:00"
         },
         {
             "name": "wp-plugin/event-organiser",
@@ -3275,7 +3275,7 @@
                 "issues": "https://wordpress.org/support/plugin/event-organiser",
                 "source": "https://plugins.svn.wordpress.org/event-organiser"
             },
-            "time": "2026-06-28T18:30:49+00:00"
+            "time": "2026-10-25T19:08:55+00:00"
         },
         {
             "name": "wp-plugin/fd-footnotes",
@@ -3388,14 +3388,14 @@
                     "name": "Milan Petrovic"
                 }
             ],
-            "description": "Implement attachments upload to the topics and replies in bbPress plugin through a media library and add additional forum-based controls.",
+            "description": "Implement attachment upload to the topics and replies in bbPress plugin through a media library and add additional forum-based controls.",
             "homepage": "https://www.dev4press.com/plugins/gd-bbpress-attachments/",
             "support": {
                 "changelog": "https://wordpress.org/plugins/gd-bbpress-attachments/#developers",
                 "issues": "https://wordpress.org/support/plugin/gd-bbpress-attachments",
                 "source": "https://plugins.svn.wordpress.org/gd-bbpress-attachments"
             },
-            "time": "2026-04-12T17:00:58+00:00"
+            "time": "2026-10-25T15:26:20+00:00"
         },
         {
             "name": "wp-plugin/google-sitemap-generator",
@@ -3573,14 +3573,14 @@
                     "name": "Automattic"
                 }
             ],
-            "description": "Improve your WP security with powerful one-click tools like backup, WAF, and malware scan. Includes free tools like stats, CDN and social sharing.",
+            "description": "Connect ChatGPT, Claude, or another AI agent to your site. Plus backup, malware scan, firewall, stats, CDN, and SEO tools in one plugin.",
             "homepage": "https://jetpack.com",
             "support": {
                 "changelog": "https://wordpress.org/plugins/jetpack/#developers",
                 "issues": "https://wordpress.org/support/plugin/jetpack",
                 "source": "https://plugins.svn.wordpress.org/jetpack"
             },
-            "time": "2026-10-19T21:13:15+00:00"
+            "time": "2026-10-28T20:41:41+00:00"
         },
         {
             "name": "wp-plugin/linked-open-profiles",
@@ -3615,15 +3615,15 @@
         },
         {
             "name": "wp-plugin/mailpoet",
-            "version": "5.43.0",
+            "version": "5.44.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/mailpoet/",
-                "reference": "tags/5.43.0"
+                "reference": "tags/5.44.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/mailpoet.5.43.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/mailpoet.5.44.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3642,7 +3642,7 @@
                 "issues": "https://wordpress.org/support/plugin/mailpoet",
                 "source": "https://plugins.svn.wordpress.org/mailpoet"
             },
-            "time": "2026-10-20T09:16:59+00:00"
+            "time": "2026-10-27T12:04:03+00:00"
         },
         {
             "name": "wp-plugin/mathml-block",
@@ -3707,15 +3707,15 @@
         },
         {
             "name": "wp-plugin/ninja-forms",
-            "version": "3.15.6",
+            "version": "3.15.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.15.6"
+                "reference": "tags/3.15.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.15.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.15.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3734,19 +3734,19 @@
                 "issues": "https://wordpress.org/support/plugin/ninja-forms",
                 "source": "https://plugins.svn.wordpress.org/ninja-forms"
             },
-            "time": "2026-10-15T18:42:34+00:00"
+            "time": "2026-10-26T13:11:10+00:00"
         },
         {
             "name": "wp-plugin/password-protected",
-            "version": "2.8.4",
+            "version": "2.8.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/password-protected/",
-                "reference": "tags/2.8.4"
+                "reference": "tags/2.8.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/password-protected.2.8.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/password-protected.2.8.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3759,13 +3759,13 @@
                 }
             ],
             "description": "Protect your WordPress site, pages, posts, WooCommerce products, and categories with single or multiple passwords.",
-            "homepage": "https://wordpress.org/plugins/password-protected/",
+            "homepage": "https://passwordprotectedwp.com/",
             "support": {
                 "changelog": "https://wordpress.org/plugins/password-protected/#developers",
                 "issues": "https://wordpress.org/support/plugin/password-protected",
                 "source": "https://plugins.svn.wordpress.org/password-protected"
             },
-            "time": "2026-07-30T05:56:19+00:00"
+            "time": "2026-10-26T14:37:19+00:00"
         },
         {
             "name": "wp-plugin/pressforward",
@@ -3893,15 +3893,15 @@
         },
         {
             "name": "wp-plugin/smart-slider-3",
-            "version": "3.5.1.39",
+            "version": "3.5.1.40",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/smart-slider-3/",
-                "reference": "tags/3.5.1.39"
+                "reference": "tags/3.5.1.40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/smart-slider-3.3.5.1.39.zip"
+                "url": "https://downloads.wordpress.org/plugin/smart-slider-3.3.5.1.40.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3920,7 +3920,7 @@
                 "issues": "https://wordpress.org/support/plugin/smart-slider-3",
                 "source": "https://plugins.svn.wordpress.org/smart-slider-3"
             },
-            "time": "2026-08-25T07:16:45+00:00"
+            "time": "2026-10-28T07:31:23+00:00"
         },
         {
             "name": "wp-plugin/so-widgets-bundle",
@@ -4110,15 +4110,15 @@
         },
         {
             "name": "wp-plugin/wp-accessibility",
-            "version": "2.4.4",
+            "version": "2.4.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-accessibility/",
-                "reference": "tags/2.4.4"
+                "reference": "tags/2.4.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-accessibility.2.4.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-accessibility.2.4.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4137,7 +4137,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-accessibility",
                 "source": "https://plugins.svn.wordpress.org/wp-accessibility"
             },
-            "time": "2026-10-18T18:16:31+00:00"
+            "time": "2026-10-25T15:51:57+00:00"
         },
         {
             "name": "wp-plugin/wp-google-maps",
@@ -4172,15 +4172,15 @@
         },
         {
             "name": "wp-plugin/wp-job-manager",
-            "version": "2.4.8",
+            "version": "2.4.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-job-manager/",
-                "reference": "tags/2.4.8"
+                "reference": "tags/2.4.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-job-manager.2.4.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-job-manager.2.4.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4199,7 +4199,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-job-manager",
                 "source": "https://plugins.svn.wordpress.org/wp-job-manager"
             },
-            "time": "2026-10-07T04:41:49+00:00"
+            "time": "2026-10-28T01:20:06+00:00"
         },
         {
             "name": "wp-plugin/wp-multi-network",
@@ -4265,15 +4265,15 @@
         },
         {
             "name": "wp-plugin/zotpress",
-            "version": "7.4.4",
+            "version": "7.4.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/zotpress/",
-                "reference": "tags/7.4.4"
+                "reference": "tags/7.4.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/zotpress.7.4.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/zotpress.7.4.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4292,7 +4292,7 @@
                 "issues": "https://wordpress.org/support/plugin/zotpress",
                 "source": "https://plugins.svn.wordpress.org/zotpress"
             },
-            "time": "2026-08-08T11:35:46+00:00"
+            "time": "2026-10-25T15:21:45+00:00"
         },
         {
             "name": "wp-theme/astra",
@@ -4318,7 +4318,7 @@
                 "issues": "https://wordpress.org/support/theme/astra",
                 "source": "https://themes.svn.wordpress.org/astra"
             },
-            "time": "2026-10-15T06:52:47+00:00"
+            "time": "2026-10-29T07:08:28+00:00"
         },
         {
             "name": "wp-theme/blockbase",
@@ -4530,15 +4530,15 @@
         },
         {
             "name": "wp-theme/oceanwp",
-            "version": "4.2.7",
+            "version": "4.2.8",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/oceanwp/",
-                "reference": "4.2.7"
+                "reference": "4.2.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/oceanwp.4.2.7.zip"
+                "url": "https://downloads.wordpress.org/theme/oceanwp.4.2.8.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4552,7 +4552,7 @@
                 "issues": "https://wordpress.org/support/theme/oceanwp",
                 "source": "https://themes.svn.wordpress.org/oceanwp"
             },
-            "time": "2026-10-06T07:39:39+00:00"
+            "time": "2026-10-26T10:25:39+00:00"
         },
         {
             "name": "wp-theme/portfolio-press",
@@ -5072,7 +5072,7 @@
                 "issues": "https://wordpress.org/support/theme/twentytwenty",
                 "source": "https://themes.svn.wordpress.org/twentytwenty"
             },
-            "time": "2026-08-19T16:41:43+00:00"
+            "time": "2026-10-28T22:21:43+00:00"
         },
         {
             "name": "wp-theme/twentytwentyfive",
@@ -5314,16 +5314,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.402.0",
+            "version": "3.402.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "661f6a54f2a63ac5137390c291535c74cfe6019e"
+                "reference": "2546b13cd027c2f47578210817add6fb77b0667e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/661f6a54f2a63ac5137390c291535c74cfe6019e",
-                "reference": "661f6a54f2a63ac5137390c291535c74cfe6019e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2546b13cd027c2f47578210817add6fb77b0667e",
+                "reference": "2546b13cd027c2f47578210817add6fb77b0667e",
                 "shasum": ""
             },
             "require": {
@@ -5405,9 +5405,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.402.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.402.3"
             },
-            "time": "2026-10-22T18:09:05+00:00"
+            "time": "2026-10-28T18:06:54+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -6398,12 +6398,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "02ec6ff16e002cc53135c7b1549df9625019f6ff"
+                "reference": "eeb812c0368526077282bb18ec790cb222121246"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/02ec6ff16e002cc53135c7b1549df9625019f6ff",
-                "reference": "02ec6ff16e002cc53135c7b1549df9625019f6ff",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/eeb812c0368526077282bb18ec790cb222121246",
+                "reference": "eeb812c0368526077282bb18ec790cb222121246",
                 "shasum": ""
             },
             "conflict": {
@@ -6902,7 +6902,7 @@
                 "litesaml/lightsaml": ">=6,<6.0.1",
                 "livehelperchat/livehelperchat": "<=3.91",
                 "livewire-filemanager/filemanager": "<=1.0.4",
-                "livewire/livewire": "<2.12.7|>=3.0.0.0-beta1,<=3.8.2|>=4.0.0.0-beta1,<=4.3.3",
+                "livewire/livewire": "<2.12.7|>=3.0.0.0-beta1,<=3.8.2|>=4.0.0.0-beta1,<4.4.8",
                 "livewire/volt": "<1.7",
                 "lms/routes": "<2.1.1",
                 "localizationteam/l10nmgr": "<7.4|>=8,<8.7|>=9,<9.2",
@@ -7083,12 +7083,12 @@
                 "phpoffice/common": "<0.2.9",
                 "phpoffice/math": "<=0.2",
                 "phpoffice/phpexcel": "<=1.8.2",
-                "phpoffice/phpspreadsheet": "<=1.30.5|>=2,<=2.1.17|>=2.2,<=2.4.6|>=3,<=3.10.6|>=4,<=5.8",
+                "phpoffice/phpspreadsheet": "<=1.30.6|>=2,<=2.1.18|>=2.2,<=2.4.7|>=3,<=3.10.7|>=4,<=5.9",
                 "phppgadmin/phppgadmin": "<=7.13",
                 "phpseclib/phpseclib": "<3.0.57|>=4,<4.0.1",
                 "phpservermon/phpservermon": "<3.6",
                 "phpsysinfo/phpsysinfo": "<=3.4.5",
-                "phpunit/phpunit": "<8.5.52|>=9,<9.6.33|>=10,<10.5.62|>=11,<11.5.50|>=12,<12.5.8|>=12.5.21,<12.5.22|>=13.1.5,<13.1.6",
+                "phpunit/phpunit": "<8.5.52|>=9,<9.6.33|>=10,<10.5.62|>=11,<11.5.50|>=12,<12.5.8|>=12.5.21,<12.5.22|>=13.1.5,<13.1.6|>=13.4,<13.4.4",
                 "phpwhois/phpwhois": "<=4.2.5",
                 "phpxmlrpc/extras": "<0.6.1",
                 "phpxmlrpc/phpxmlrpc": "<4.9.2",
@@ -7271,7 +7271,7 @@
                 "sylius/mollie-plugin": "<2.2.8|>=3,<3.2.4|>=3.3,<3.3.1",
                 "sylius/paypal-plugin": "<1.6.2|>=1.7,<1.7.2|>=2,<2.0.2",
                 "sylius/resource-bundle": ">=1,<1.3.14|>=1.4,<1.4.7|>=1.5,<1.5.2|>=1.6,<1.6.4",
-                "sylius/sylius": "<1.9.12|>=1.10,<1.10.16|>=1.11,<1.11.17|>=1.12,<=1.12.22|>=1.13,<=1.13.14|>=1.14,<=1.14.17|>=2,<2.0.18|>=2.1,<2.1.15|>=2.2,<2.2.6",
+                "sylius/sylius": "<1.14.21|>=2,<2.1.17|>=2.2,<2.2.12|>=2.3,<2.3.2",
                 "symbiote/silverstripe-advancedworkflow": "<6.4.5|>=7,<7.1.3|>=7.2,<7.2.1",
                 "symbiote/silverstripe-multivaluefield": ">=3,<3.1",
                 "symbiote/silverstripe-queuedjobs": ">=3,<3.0.2|>=3.1,<3.1.4|>=4,<4.0.7|>=4.1,<4.1.2|>=4.2,<4.2.4|>=4.3,<4.3.3|>=4.4,<4.4.3|>=4.5,<4.5.1|>=4.6,<4.6.4",
@@ -7297,7 +7297,7 @@
                 "symfony/mailomat-mailer": ">=7.2,<7.4.13|>=8,<8.0.13",
                 "symfony/mailtrap-mailer": ">=7.2,<7.4.12|>=8,<8.0.12",
                 "symfony/maker-bundle": ">=1.27,<1.29.2|>=1.30,<1.31.1",
-                "symfony/mime": "<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
+                "symfony/mime": "<5.4.55|>=6,<6.4.49|>=7,<7.4.22|>=8,<8.1.10",
                 "symfony/monolog-bridge": "<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/phpunit-bridge": ">=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
                 "symfony/polyfill": ">=1,<1.10|>=1.17.1,<1.38.1",
@@ -7314,7 +7314,7 @@
                 "symfony/security-guard": ">=2.8,<3.4.48|>=4,<4.4.23|>=5,<5.2.8",
                 "symfony/security-http": "<5.4.53|>=6,<6.4.41|>=7,<7.4.13|>=8,<8.0.13",
                 "symfony/serializer": ">=2,<2.0.11|>=4.1,<4.4.35|>=5,<5.3.12",
-                "symfony/symfony": "<5.4.54|>=6,<6.4.48|>=7,<7.4.21|>=8,<8.1.9",
+                "symfony/symfony": "<5.4.55|>=6,<6.4.49|>=7,<7.4.22|>=8,<8.1.10",
                 "symfony/translation": ">=2,<2.0.17",
                 "symfony/twig-bridge": ">=2,<4.4.51|>=5,<5.4.31|>=6,<6.3.8|>=6.4.24,<6.4.40",
                 "symfony/twilio-notifier": ">=6.4,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
@@ -7346,7 +7346,7 @@
                 "thorsten/phpmyfaq": "<4.2.0.0-alpha",
                 "tikiwiki/tiki-manager": "<=17.1",
                 "timber/timber": ">=0.16.6,<1.23.1|>=1.24,<1.24.1|>=2,<2.1",
-                "tinymce/tinymce": "<7.9.3|>=8,<8.5.1",
+                "tinymce/tinymce": "<7.9.3|==7.9.3|>=8,<8.9.3",
                 "tinymighty/wiki-seo": "<1.2.2",
                 "titon/framework": "<9.9.99",
                 "tltneon/lgsl": "<7",
@@ -7558,7 +7558,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-21T18:24:49+00:00"
+            "time": "2026-10-28T22:14:24+00:00"
         },
         {
             "name": "sebastian/cli-parser",
