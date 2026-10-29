@@ -1,0 +1,40 @@
+{
+  "name": "mesh-research/knowledge-commons-extra-plugins-dev",
+  "type": "project",
+  "license": "MIT",
+  "description": "Extra WordPress plugins installed on dev builds only. See extra-plugins/README.md.",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://repo.wp-packages.org",
+      "only": [
+        "wp-plugin/*",
+        "wp-theme/*"
+      ]
+    }
+  ],
+  "require": {
+    "composer/installers": "^2.2",
+    "wp-plugin/prime-mover": "^2.2.2"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "process-timeout": 3600,
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "installer-paths": {
+      "../../site/web/app/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "../../site/web/app/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    }
+  }
+}
