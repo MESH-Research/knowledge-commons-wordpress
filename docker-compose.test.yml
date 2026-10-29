@@ -30,7 +30,7 @@ x-env: &common-env
 
 services:
   db:
-    image: mariadb:10.11
+    image: mariadb:13.0.2
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wordpress_test
