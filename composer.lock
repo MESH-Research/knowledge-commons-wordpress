@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d9b7c59661d198a5d9a69deb7435cae",
+    "content-hash": "58410430256905ccf416e5e761db1df9",
     "packages": [
         {
             "name": "composer/installers",
@@ -3665,6 +3665,37 @@
                 "source": "https://plugins.svn.wordpress.org/pressforward"
             },
             "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/prime-mover",
+            "version": "2.2.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/prime-mover/",
+                "reference": "tags/2.2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/prime-mover.2.2.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Codexonics"
+                }
+            ],
+            "description": "The simplest all-around plugin to migrate WordPress and do backups. These support multisite backup/migration or cloning a WP site/multisite subsite.",
+            "homepage": "https://codexonics.com/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/prime-mover/#developers",
+                "issues": "https://wordpress.org/support/plugin/prime-mover",
+                "source": "https://plugins.svn.wordpress.org/prime-mover"
+            },
+            "time": "2026-10-19T00:40:33+00:00"
         },
         {
             "name": "wp-plugin/printfriendly",

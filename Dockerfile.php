@@ -43,7 +43,8 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     mysqli \
     intl \
     yaml \
-    protobuf
+    protobuf \
+    pdo_mysql
 
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 RUN chmod a+rx /usr/local/bin/wp

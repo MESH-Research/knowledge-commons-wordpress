@@ -74,6 +74,7 @@
     "wp-plugin/multisite-plugin-manager": "^3.1.6",
     "wp-plugin/ninja-forms": "^3.6.16",
     "wp-plugin/participants-database": "^2.1.5",
+    "wp-plugin/prime-mover": "2.2.2",
     "wp-plugin/pressforward": "^5.8.0",
     "wp-plugin/redis-cache": "^2.0.26",
     "wp-plugin/so-widgets-bundle": "^1.36.0",
