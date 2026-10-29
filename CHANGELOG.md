@@ -1,3 +1,9 @@
+## v1.7.1 (2026-10-29)
+
+### Fix
+
+- **extra-plugins**: regenerate lock files for composer and extras
+
 ## v1.7.0 (2026-10-29)
 
 ### Feat
