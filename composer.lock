@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a073845a5343cb6f6b55bc9f509e82b4",
+    "content-hash": "81a3db470518c5205a5b3fd6a3079c06",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -8814,7 +8814,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.5"
+        "php": "^8.5.12"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
