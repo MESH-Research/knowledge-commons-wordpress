@@ -1,3 +1,9 @@
+## v1.7.0 (2026-10-29)
+
+### Feat
+
+- **build**: install branch-specific extra composer plugins, Prime Mover on dev
+
 ## v1.6.1 (2026-10-27)
 
 ## v1.6.0 (2026-10-21)
