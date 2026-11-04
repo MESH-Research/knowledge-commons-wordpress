@@ -79,6 +79,30 @@ if ( ! function_exists( 'invite_anyone_get_invitations_by_invited_email' ) ) {
 	}
 }
 
+if ( ! function_exists( 'bp_is_current_component' ) ) {
+	function bp_is_current_component( $component ) {
+		return ( $GLOBALS['_mock_current_component'] ?? '' ) === $component;
+	}
+}
+
+if ( ! function_exists( 'plugin_dir_path' ) ) {
+	function plugin_dir_path( $file ) {
+		return trailingslashit( dirname( $file ) );
+	}
+}
+
+if ( ! function_exists( 'plugins_url' ) ) {
+	function plugins_url( $path = '', $plugin = '' ) {
+		$base = 'http://example.test/app/plugins';
+		// Mirrors WordPress: the folder of the plugin file/dir given, so a
+		// call with __DIR__ from hc-custom/includes resolves to hc-custom/.
+		if ( '' !== $plugin ) {
+			$base .= '/' . basename( dirname( $plugin ) );
+		}
+		return $base . '/' . ltrim( $path, '/' );
+	}
+}
+
 if ( ! function_exists( 'esc_attr__' ) ) {
 	function esc_attr__( $text, $domain = 'default' ) {
 		return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' );

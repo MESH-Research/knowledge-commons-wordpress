@@ -421,3 +421,32 @@ function hc_custom_invite_anyone_filter_content( $content ) {
 	);
 }
 add_filter( 'the_content', 'hc_custom_invite_anyone_filter_content' );
+
+/**
+ * Style the member Send Invites / Sent Invites screens like the other
+ * BuddyPress Nouveau forms.
+ *
+ * Invite Anyone's own stylesheet is printed last and fixes the form to the
+ * plugin's 2010-era layout; this sheet is scoped to the plugin's component so
+ * it does not touch anything else.
+ *
+ * @return bool True if the stylesheet was enqueued.
+ */
+function hc_custom_invite_anyone_enqueue_styles() {
+	if ( ! function_exists( 'bp_is_current_component' ) || ! bp_is_current_component( 'invite-anyone' ) ) {
+		return false;
+	}
+
+	$css_path = 'includes/css/invite-anyone.css';
+	$css_file = trailingslashit( plugin_dir_path( __DIR__ ) ) . $css_path;
+
+	wp_enqueue_style(
+		'hc-custom-invite-anyone',
+		plugins_url( $css_path, __DIR__ ),
+		array(),
+		file_exists( $css_file ) ? (string) filemtime( $css_file ) : '1'
+	);
+
+	return true;
+}
+add_action( 'wp_enqueue_scripts', 'hc_custom_invite_anyone_enqueue_styles', 20 );
