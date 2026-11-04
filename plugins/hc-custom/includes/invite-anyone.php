@@ -184,3 +184,240 @@ function hc_custom_maybe_process_email_invitations() {
 	return true;
 }
 add_action( 'bp_init', 'hc_custom_maybe_process_email_invitations', 20 );
+
+/**
+ * Interpret an Invite Anyone email link landing on the membership page.
+ *
+ * The plugin's accept and opt-out links carry ?iaaction=…&email=…. They used
+ * to land on the BuddyPress register page; on the Commons they land on the
+ * network's /membership/ page, where none of the plugin's handling runs.
+ *
+ * @param array $get Query arguments (normally $_GET).
+ * @return array{action: ?string, email: ?string} Recognised action and a valid
+ *                                                 email address, or nulls.
+ */
+function hc_custom_invite_anyone_request( $get ) {
+	$none = array(
+		'action' => null,
+		'email'  => null,
+	);
+
+	if ( ! is_array( $get ) || empty( $get['iaaction'] ) || empty( $get['email'] ) ) {
+		return $none;
+	}
+
+	$action = urldecode( (string) $get['iaaction'] );
+	if ( ! in_array( $action, array( 'accept-invitation', 'opt-out' ), true ) ) {
+		return $none;
+	}
+
+	// A "+" in the address reaches PHP as a space when the link was not encoded.
+	$email = str_replace( ' ', '+', trim( urldecode( (string) $get['email'] ) ) );
+	if ( ! is_email( $email ) ) {
+		return $none;
+	}
+
+	return array(
+		'action' => $action,
+		'email'  => $email,
+	);
+}
+
+/**
+ * Record an opt-out submitted from the membership page.
+ *
+ * @param array $post Submitted form data (normally $_POST).
+ * @return string|null 'done', 'bad_nonce', 'bad_email', or null when nothing was submitted.
+ */
+function hc_custom_handle_invite_opt_out( $post ) {
+	if ( ! is_array( $post ) || empty( $post['hc_ia_opt_out'] ) ) {
+		return null;
+	}
+
+	$nonce = isset( $post['_wpnonce'] ) ? (string) $post['_wpnonce'] : '';
+	if ( '' === $nonce || ! wp_verify_nonce( $nonce, 'invite_anyone_opt_out' ) ) {
+		return 'bad_nonce';
+	}
+
+	$email = isset( $post['opt_out_email'] ) ? trim( wp_unslash( (string) $post['opt_out_email'] ) ) : '';
+	$email = str_replace( ' ', '+', $email );
+	if ( ! is_email( $email ) ) {
+		return 'bad_email';
+	}
+
+	invite_anyone_mark_as_opt_out( $email );
+
+	return 'done';
+}
+
+/**
+ * Opt-out confirmation form, or the result of a submission.
+ *
+ * @param string      $email  Address from the email link.
+ * @param string|null $status Result of hc_custom_handle_invite_opt_out().
+ * @return string HTML.
+ */
+function hc_custom_invite_opt_out_markup( $email, $status = null ) {
+	$site = get_bloginfo( 'name' );
+
+	if ( 'done' === $status ) {
+		return '<div class="hc-invite-opt-out bp-feedback success"><p>' . sprintf(
+			/* translators: 1: email address, 2: site name */
+			esc_html__( '%1$s will not receive any further invitations from %2$s.', 'hc-custom' ),
+			'<strong>' . esc_html( $email ) . '</strong>',
+			esc_html( $site )
+		) . '</p></div>';
+	}
+
+	$html = '<div class="hc-invite-opt-out">';
+
+	$html .= '<p>' . sprintf(
+		/* translators: %s: site name */
+		esc_html__( 'To opt out of future invitations to %s, confirm your email address below.', 'hc-custom' ),
+		esc_html( $site )
+	) . '</p>';
+
+	if ( 'bad_nonce' === $status ) {
+		$html .= '<p class="bp-feedback error">' . esc_html__( 'That request could not be verified. Please try again.', 'hc-custom' ) . '</p>';
+	} elseif ( 'bad_email' === $status ) {
+		$html .= '<p class="bp-feedback error">' . esc_html__( 'Please enter a valid email address.', 'hc-custom' ) . '</p>';
+	}
+
+	$html .= '<form method="post" class="standard-form">';
+	$html .= '<label for="opt_out_email">' . esc_html__( 'Email address', 'hc-custom' ) . '</label>';
+	$html .= '<input type="email" name="opt_out_email" id="opt_out_email" value="' . esc_attr( $email ) . '" required />';
+	$html .= '<p class="submit"><input type="submit" name="hc_ia_opt_out" value="' . esc_attr__( 'Opt Out', 'hc-custom' ) . '" /></p>';
+	$html .= wp_nonce_field( 'invite_anyone_opt_out', '_wpnonce', false, false );
+	$html .= '</form></div>';
+
+	return $html;
+}
+
+/**
+ * Notice telling an invitee who invited them and how to accept.
+ *
+ * @param string $email   Invited address.
+ * @param array  $invites Pending invitation posts for that address.
+ * @return string HTML, empty when there is nothing to accept.
+ */
+function hc_custom_invite_accept_markup( $email, array $invites ) {
+	if ( empty( $invites ) ) {
+		return '';
+	}
+
+	$names = array();
+	foreach ( $invites as $invite ) {
+		$name = bp_core_get_user_displayname( (int) $invite->post_author );
+		if ( '' !== (string) $name ) {
+			$names[ $name ] = true;
+		}
+	}
+	$names = array_keys( $names );
+
+	$site = get_bloginfo( 'name' );
+
+	$html  = '<div class="hc-invite-accept bp-feedback info"><p>';
+	$html .= sprintf(
+		/* translators: 1: inviter name(s), 2: site name */
+		esc_html__( '%1$s invited you to join %2$s.', 'hc-custom' ),
+		'<strong>' . esc_html( implode( ', ', $names ) ) . '</strong>',
+		esc_html( $site )
+	);
+	$html .= ' ' . sprintf(
+		/* translators: %s: email address */
+		esc_html__( 'Register below using %s; once your account is set up you will receive invitations to the groups you were invited to.', 'hc-custom' ),
+		'<strong>' . esc_html( $email ) . '</strong>'
+	);
+	$html .= '</p></div>';
+
+	return $html;
+}
+
+/**
+ * Membership page content with the invitation notice or opt-out form prepended.
+ *
+ * @param string      $content Page content.
+ * @param array       $request Parsed request, see hc_custom_invite_anyone_request().
+ * @param string|null $status  Opt-out submission status.
+ * @return string
+ */
+function hc_custom_invite_anyone_membership_content( $content, array $request, $status = null ) {
+	if ( empty( $request['action'] ) || empty( $request['email'] ) ) {
+		return $content;
+	}
+
+	if ( 'opt-out' === $request['action'] ) {
+		return hc_custom_invite_opt_out_markup( $request['email'], $status ) . $content;
+	}
+
+	$notice = hc_custom_invite_accept_markup(
+		$request['email'],
+		hc_custom_pending_email_invitations( $request['email'] )
+	);
+
+	return $notice . $content;
+}
+
+/**
+ * Remember the opt-out status between template_redirect and the_content.
+ *
+ * @param string|null $status Status to store, or null to read.
+ * @return string|null
+ */
+function hc_custom_invite_anyone_opt_out_status( $status = null ) {
+	static $stored = null;
+
+	if ( null !== $status ) {
+		$stored = $status;
+	}
+
+	return $stored;
+}
+
+/**
+ * Whether the current request is for a network's membership page.
+ *
+ * @return bool
+ */
+function hc_custom_is_membership_page() {
+	return is_page_template( 'membership-template.php' ) || is_page( 'membership' );
+}
+
+/**
+ * template_redirect: process an opt-out submission on the membership page.
+ */
+function hc_custom_invite_anyone_handle_opt_out_request() {
+	if ( ! hc_custom_is_membership_page() || ! function_exists( 'invite_anyone_mark_as_opt_out' ) ) {
+		return;
+	}
+
+	$request = hc_custom_invite_anyone_request( $_GET ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( 'opt-out' !== $request['action'] ) {
+		return;
+	}
+
+	$status = hc_custom_handle_invite_opt_out( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+	if ( null !== $status ) {
+		hc_custom_invite_anyone_opt_out_status( $status );
+	}
+}
+add_action( 'template_redirect', 'hc_custom_invite_anyone_handle_opt_out_request' );
+
+/**
+ * the_content: show the invitation notice or opt-out form on the membership page.
+ *
+ * @param string $content Page content.
+ * @return string
+ */
+function hc_custom_invite_anyone_filter_content( $content ) {
+	if ( ! hc_custom_is_membership_page() || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	return hc_custom_invite_anyone_membership_content(
+		$content,
+		hc_custom_invite_anyone_request( $_GET ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		hc_custom_invite_anyone_opt_out_status()
+	);
+}
+add_filter( 'the_content', 'hc_custom_invite_anyone_filter_content' );

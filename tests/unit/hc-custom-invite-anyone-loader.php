@@ -79,4 +79,75 @@ if ( ! function_exists( 'invite_anyone_get_invitations_by_invited_email' ) ) {
 	}
 }
 
+if ( ! function_exists( 'esc_attr__' ) ) {
+	function esc_attr__( $text, $domain = 'default' ) {
+		return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' );
+	}
+}
+
+if ( ! function_exists( 'is_email' ) ) {
+	function is_email( $email ) {
+		return false !== filter_var( $email, FILTER_VALIDATE_EMAIL ) ? $email : false;
+	}
+}
+
+if ( ! function_exists( 'wp_verify_nonce' ) ) {
+	function wp_verify_nonce( $nonce, $action = -1 ) {
+		return in_array( $nonce, (array) ( $GLOBALS['_mock_valid_nonces'][ $action ] ?? array() ), true ) ? 1 : false;
+	}
+}
+
+if ( ! function_exists( 'wp_nonce_field' ) ) {
+	function wp_nonce_field( $action = -1, $name = '_wpnonce', $referer = true, $display = true ) {
+		$field = '<input type="hidden" name="' . $name . '" value="nonce-for-' . $action . '" />';
+		if ( $display ) {
+			echo $field;
+		}
+		return $field;
+	}
+}
+
+if ( ! function_exists( 'get_bloginfo' ) ) {
+	function get_bloginfo( $show = '' ) {
+		return $GLOBALS['_mock_bloginfo'][ $show ] ?? 'Test Commons';
+	}
+}
+
+if ( ! function_exists( 'bp_core_get_user_displayname' ) ) {
+	function bp_core_get_user_displayname( $user_id ) {
+		return $GLOBALS['_mock_user_names'][ $user_id ] ?? '';
+	}
+}
+
+if ( ! function_exists( 'is_page_template' ) ) {
+	function is_page_template( $template = '' ) {
+		return ! empty( $GLOBALS['_mock_is_membership_page'] );
+	}
+}
+
+if ( ! function_exists( 'is_page' ) ) {
+	function is_page( $page = '' ) {
+		return ! empty( $GLOBALS['_mock_is_membership_page'] );
+	}
+}
+
+if ( ! function_exists( 'in_the_loop' ) ) {
+	function in_the_loop() {
+		return true;
+	}
+}
+
+if ( ! function_exists( 'is_main_query' ) ) {
+	function is_main_query() {
+		return true;
+	}
+}
+
+if ( ! function_exists( 'invite_anyone_mark_as_opt_out' ) ) {
+	function invite_anyone_mark_as_opt_out( $email ) {
+		$GLOBALS['_mock_opted_out'][] = $email;
+		return true;
+	}
+}
+
 require_once dirname( __DIR__, 2 ) . '/plugins/hc-custom/includes/invite-anyone.php';
