@@ -37,6 +37,7 @@ require_once ( dirname( __FILE__ ) . '/frontend-filters.php' );
 require_once ( dirname( __FILE__ ) . '/plugin-hooks.php' );
 require_once ( dirname( __FILE__ ) . '/buddypress.php' );
 require_once ( dirname( __FILE__ ) . '/network-group-scope.php' );
+require_once ( dirname( __FILE__ ) . '/signup-page.php' );
 require_once ( dirname( __FILE__ ) . '/cloudfront.php' );
 require_once ( dirname( __FILE__ ) . '/class-kc-ptc-command.php' );
 require_once ( dirname( __FILE__ ) . '/class-kc-command.php' );
@@ -75,7 +76,7 @@ class Humanities_Commons {
 		self::$main_site = get_site_by_path( self::$main_network->domain, self::$main_network->path );
 		self::$society_id = get_network_option( '', 'society_id' );
 
-		add_filter( 'bp_get_signup_page', function() { return '/membership/'; } );
+		add_filter( 'bp_get_signup_page', 'hcommons_signup_page_url' );
 		add_filter( 'bp_get_taxonomy_term_site_id', array( $this, 'hcommons_filter_bp_taxonomy_storage_site' ), 10, 2 );
 		add_filter( 'wpmn_get_taxonomy_term_site_id', array( $this, 'hcommons_filter_hc_taxonomy_storage_site' ), 10, 2 );
 		add_action( 'bp_after_has_members_parse_args', array( $this, 'hcommons_set_members_query' ) );

@@ -419,3 +419,5 @@ require_once __DIR__ . '/ges-guard-loader.php';
 require_once __DIR__ . '/kc-basic-login-loader.php';
 require_once __DIR__ . '/groupblog-site-tab-loader.php';
 require_once __DIR__ . '/multinetwork-permalinks-loader.php';
+require_once __DIR__ . '/signup-page-loader.php';
+require_once __DIR__ . '/hc-custom-invite-anyone-loader.php';

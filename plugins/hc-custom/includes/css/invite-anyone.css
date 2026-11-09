@@ -1,0 +1,219 @@
+/*
+ * Invite Anyone member screens (Send Invites / Sent Invites), styled to match
+ * the BuddyPress Nouveau forms used on the other member screens.
+ *
+ * Invite Anyone's by-email-css.css is printed after every other stylesheet and
+ * pins the form to fixed widths, bold block labels, a floated two-column group
+ * list and sprite icons on the sub-nav. Everything here is scoped under
+ * .buddypress-wrap so it outranks those rules without !important.
+ */
+
+/* Sub-nav: the plugin's sprite icons do not belong next to Nouveau's tabs. */
+.buddypress-wrap #subnav #invite-new-members::before,
+.buddypress-wrap #subnav #sent-invites::before {
+	content: none;
+	display: none;
+	margin: 0;
+}
+
+/* Intro text. */
+.buddypress-wrap #welcome-message,
+.buddypress-wrap #sent-invites-intro {
+	font-size: inherit;
+	margin: 0 0 1em;
+}
+
+/* The numbered steps become ordinary stacked fields. */
+.buddypress-wrap #invite-anyone-steps {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.buddypress-wrap #invite-anyone-steps > li {
+	margin: 0 0 1.5em;
+	padding: 0;
+}
+
+.buddypress-wrap #invite-anyone-steps > li:last-child {
+	margin-bottom: 0;
+}
+
+/* Labels and legends as Nouveau's .standard-form draws them. */
+.buddypress-wrap #invite-anyone-steps label,
+.buddypress-wrap #invite-anyone-steps legend,
+.buddypress-wrap #invite-anyone-steps strong {
+	display: block;
+	font-size: inherit;
+	font-weight: 600;
+	margin: 0 0 5px;
+	width: auto;
+}
+
+.buddypress-wrap #invite-anyone-steps fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.buddypress-wrap #invite-anyone-steps p {
+	font-weight: 400;
+	margin: 0 0 5px;
+}
+
+.buddypress-wrap #invite-anyone-by-email .description,
+.buddypress-wrap #invite-anyone-steps p.description {
+	color: #737373;
+	font-size: inherit;
+	font-style: normal;
+	margin: 0 0 5px;
+}
+
+/* Fields: full width, Nouveau sizing. */
+.buddypress-wrap #invite-anyone-by-email #invite-anyone-email-fields,
+.buddypress-wrap #invite-anyone-by-email .invite-anyone-email-field {
+	margin: 0;
+	width: 100%;
+}
+
+.buddypress-wrap #invite-anyone-by-email textarea,
+.buddypress-wrap #invite-anyone-by-email textarea.invite-anyone-email-addresses,
+.buddypress-wrap #invite-anyone-by-email #invite-anyone-custom-subject,
+.buddypress-wrap #invite-anyone-by-email #invite-anyone-custom-message {
+	background-color: #fafafa;
+	border: 1px solid #d6d6d6;
+	border-radius: 0;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: inherit;
+	height: 120px;
+	margin: 0;
+	max-width: 100%;
+	padding: 0.5em;
+	resize: vertical;
+	width: 100%;
+}
+
+.buddypress-wrap #invite-anyone-by-email #invite-anyone-custom-subject {
+	height: auto;
+	min-height: 2.5em;
+}
+
+.buddypress-wrap #invite-anyone-by-email textarea:focus {
+	background-color: #fff;
+	box-shadow: 0 0 8px #eaeaea;
+	outline: 0;
+}
+
+/* Group checklist: one row per group, avatar beside the name. */
+.buddypress-wrap #invite-anyone-group-list {
+	list-style: none;
+	margin: 0;
+	overflow: visible;
+	padding: 0;
+	width: auto;
+}
+
+.buddypress-wrap #invite-anyone-group-list li {
+	align-items: center;
+	display: flex;
+	float: none;
+	font-size: inherit;
+	gap: 0.5em;
+	height: auto;
+	margin: 0 0 0.5em;
+	min-height: 0;
+	width: auto;
+}
+
+.buddypress-wrap #invite-anyone-group-list li input[type="checkbox"] {
+	flex: 0 0 auto;
+	float: none;
+	margin: 0;
+	width: auto;
+}
+
+.buddypress-wrap #invite-anyone-group-list li label {
+	align-items: center;
+	display: flex;
+	flex: 1 1 auto;
+	float: none;
+	font-weight: 400;
+	gap: 0.5em;
+	margin: 0;
+	min-width: 0;
+	width: auto;
+}
+
+.buddypress-wrap #invite-anyone-group-list li label img {
+	border-radius: 2px;
+	flex: 0 0 auto;
+	float: none;
+	height: 32px;
+	margin: 0;
+	width: 32px;
+}
+
+.buddypress-wrap #invite-anyone-group-list li label span {
+	line-height: inherit;
+	overflow-wrap: anywhere;
+}
+
+/* Submit row. */
+.buddypress-wrap #invite-anyone-by-email .submit,
+.buddypress-wrap .invite-new-members .submit {
+	clear: both;
+	padding: 15px 0 0;
+}
+
+/* Validation errors use Nouveau's feedback look. */
+.buddypress-wrap #invite-anyone-steps div.invite-anyone-error p,
+.buddypress-wrap div.invite-anyone-error p {
+	background: #fdeded;
+	border: 0;
+	border-left: 4px solid #b71717;
+	border-radius: 0;
+	color: #333;
+	display: block;
+	font-size: inherit;
+	margin: 0 0 1em;
+	padding: 0.75em 1em;
+}
+
+/* Sent Invites table. */
+.buddypress-wrap table.invite-anyone-sent-invites {
+	border-collapse: collapse;
+	margin: 1em 0;
+	width: 100%;
+}
+
+.buddypress-wrap table.invite-anyone-sent-invites th,
+.buddypress-wrap table.invite-anyone-sent-invites td {
+	border-bottom: 1px solid #eaeaea;
+	padding: 0.5em;
+	text-align: left;
+	vertical-align: top;
+}
+
+.buddypress-wrap table.invite-anyone-sent-invites thead tr {
+	border-bottom: 2px solid #ccc;
+}
+
+.buddypress-wrap table.invite-anyone-sent-invites tbody tr {
+	border: 0;
+}
+
+.buddypress-wrap table.invite-anyone-sent-invites tr.over {
+	background: #fafafa;
+}
+
+.buddypress-wrap ul#invite-anyone-clear-links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: auto;
+}
+
+.buddypress-wrap .ia-pagination {
+	font-size: inherit;
+}
