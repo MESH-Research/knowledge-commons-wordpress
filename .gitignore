@@ -81,6 +81,12 @@ forked-plugins/15zine-functionality/composer.lock
 
 site
 
+# ignore python tooling caches (kcb.py)
+__pycache__/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
 # ignore test artifacts
 test-results/
 playwright-report/
