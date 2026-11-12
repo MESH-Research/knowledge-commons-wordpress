@@ -392,6 +392,13 @@ function hc_custom_map_group_forum_meta_caps( $caps, $cap, $user_id, $args ) {
 		return $caps;
 	}
 
+	// Anonymous visitors hold no group role, so there is nothing to grant.
+	// Skipping the membership lookups matters: bbPress 2.6.19 checks these caps
+	// for every private and hidden forum while building activity streams.
+	if ( empty( $user_id ) ) {
+		return $caps;
+	}
+
 	// Resolve the groups attached to the forum of the object being checked.
 	$group_ids = hc_custom_get_group_ids_for_forum_post( isset( $args[0] ) ? $args[0] : 0 );
 
@@ -431,6 +438,46 @@ function hc_custom_map_group_forum_meta_caps( $caps, $cap, $user_id, $args ) {
 	return $caps;
 }
 add_filter( 'bbp_map_meta_caps', 'hc_custom_map_group_forum_meta_caps', 12, 4 );
+
+/**
+ * Deny anonymous visitors `read_forum` on restricted forums before any group
+ * membership lookup runs.
+ *
+ * bbPress 2.6.19 checks `read_forum` for every private and hidden forum when it
+ * builds activity streams and forum queries (`bbp_allow_forums_of_user`,
+ * `BBP_Forums_Group_Extension::exclude_group_forum_ids`). For a logged-out
+ * visitor each check otherwise reaches the group extension's
+ * `map_group_forum_read_meta_caps`, which looks up moderator status and group
+ * membership for user 0. Those lookups cannot grant anything to an anonymous
+ * visitor but cost several milliseconds each, and on the hub there are ~700
+ * restricted forums and three passes per request.
+ *
+ * A private or hidden forum, or one beneath a restricted ancestor, is never
+ * readable anonymously, so the answer is known without consulting groups.
+ * Runs after bbPress's own mappers (priority 10), which would otherwise
+ * overwrite the result, and before the group extension (priority 20), which
+ * preserves an existing hard denial.
+ *
+ * @param array  $caps    Mapped capabilities.
+ * @param string $cap     Capability being checked.
+ * @param int    $user_id ID of the user being checked.
+ * @param array  $args    Additional args (usually the forum ID).
+ * @return array Mapped capabilities.
+ */
+function hc_custom_deny_anonymous_restricted_forum_caps( $caps, $cap, $user_id, $args ) {
+	if ( ! empty( $user_id ) || 'read_forum' !== $cap || empty( $args[0] ) ) {
+		return $caps;
+	}
+
+	$forum_id = bbp_get_forum_id( $args[0] );
+
+	if ( ! empty( $forum_id ) && bbp_is_forum_restricted( $forum_id, true ) ) {
+		return array( 'do_not_allow' );
+	}
+
+	return $caps;
+}
+add_filter( 'bbp_map_meta_caps', 'hc_custom_deny_anonymous_restricted_forum_caps', 11, 4 );
 
 /**
  * Filter who can edit forum topics.
