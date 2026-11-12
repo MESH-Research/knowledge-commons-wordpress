@@ -1,0 +1,35 @@
+# Python tooling for this repository: the kcb.py local build tool and its
+# tests. The WordPress application's own version lives in VERSION and is
+# managed by commitizen through .cz.toml, not through this file.
+[project]
+name = "knowledge-commons-wordpress-tools"
+version = "0.1.0"
+description = "Local stand-in for the Knowledge Commons WordPress image build, test and push pipeline"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "click>=8.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/kcbuild"]
+pythonpath = ["."]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 80
+include = ["kcb.py", "kcbuild/**/*.py", "tests/kcbuild/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "PL"]
+ignore = ["PLR0913", "PLR2004"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
