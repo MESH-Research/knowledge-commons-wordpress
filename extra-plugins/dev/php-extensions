@@ -1,0 +1,5 @@
+# PHP core extensions installed into dev builds only (one per line).
+# Installed with docker-php-ext-install by scripts/build-scripts/install-extra-php-extensions.sh.
+
+# Prime Mover refuses to activate without PDO MySQL.
+pdo_mysql
