@@ -10,6 +10,8 @@ The `docs` directory contains developer-oriented public documentation specific t
 - [Using Composer](composer.md)
 - [Developer guidelines](developer-guidelines.md)
 - [Scripts reference](scripts.md)
+- [Build and deploy](build-and-deploy.md)
+- [Local build tool (`kcb.py`)](local-build-tool.md)
 - [Working with Git subtrees](subtrees.md)
 - [Working with user content](user-content.md)
 - [CILogon `resync-all` WP-CLI command](cilogon-resync.md)
