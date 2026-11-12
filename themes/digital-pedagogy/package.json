@@ -12,7 +12,7 @@
     "fstream": ">=1.0.12",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
-    "jquery": "^3.5.0",
+    "jquery": "^4.0.0",
     "jump.js": "1.0.2",
     "normalize.css": "^8.0.1",
     "popper.js": "^1.16.0",
@@ -29,11 +29,11 @@
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",
     "react-spinners": "^0.9.0",
-    "serialize-javascript": "^5.0.1",
-    "uuid": "^3.3.3"
+    "serialize-javascript": "^7.1.4",
+    "uuid": "^14.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
+    "@babel/core": "^8.0.9",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
@@ -58,8 +58,8 @@
     "jest": "^24.9.0",
     "live-server": "^1.2.1",
     "mini-css-extract-plugin": "^0.6.0",
-    "node-fetch": "^2.6.1",
-    "node-sass": "^4.14.1",
+    "node-fetch": "^3.3.2",
+    "node-sass": "^9.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "postcss-scss": "^2.0.0",
@@ -71,7 +71,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1",
+    "webpack-dev-server": "^6.1.0",
     "webpack-shell-plugin": "^0.5.0"
   },
   "overrides": {
