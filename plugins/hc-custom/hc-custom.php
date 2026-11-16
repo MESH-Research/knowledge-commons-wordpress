@@ -30,6 +30,7 @@ require_once trailingslashit( __DIR__ ) . 'includes/buddypress/buddypress-functi
  */
 require_once trailingslashit( __DIR__ ) . 'includes/avatar-privacy.php';
 require_once trailingslashit( __DIR__ ) . 'includes/bbpress.php';
+require_once trailingslashit( __DIR__ ) . 'includes/bbpress-forum-visibility.php';
 require_once trailingslashit( __DIR__ ) . 'includes/bbp-live-preview.php';
 require_once trailingslashit( __DIR__ ) . 'includes/buddypress-docs.php';
 require_once trailingslashit( __DIR__ ) . 'includes/bp-groupblog.php';

@@ -49,6 +49,12 @@ services:
       context: .
       dockerfile: Dockerfile.php
       target: cloud
+      args:
+        # Branch whose extra-plugins/<branch>/ project is installed (see
+        # extra-plugins/README.md). Defaults to dev so local builds match a
+        # dev deployment; override with APP_BRANCH=production etc. to mimic
+        # another branch.
+        APP_BRANCH: ${APP_BRANCH:-dev}
     entrypoint: ["/app/scripts/test-scripts/docker-test-entrypoint.sh"]
     command: ["php-fpm"]
     depends_on:
@@ -95,6 +101,12 @@ services:
       context: .
       dockerfile: Dockerfile.php
       target: cloud
+      args:
+        # Branch whose extra-plugins/<branch>/ project is installed (see
+        # extra-plugins/README.md). Defaults to dev so local builds match a
+        # dev deployment; override with APP_BRANCH=production etc. to mimic
+        # another branch.
+        APP_BRANCH: ${APP_BRANCH:-dev}
     entrypoint: ["/bin/bash", "/app/scripts/test-scripts/setup-wp.sh"]
     depends_on:
       db:

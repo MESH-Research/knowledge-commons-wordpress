@@ -85,10 +85,14 @@ jobs:
       - name: Compute version + build tag
         id: compute
         run: |
+          # main: the VERSION file, or the version commitizen is about to
+          # bump to. Other branches never receive main's bump commits, so
+          # their VERSION file goes stale; they report the highest released
+          # v* tag instead. See scripts/build-scripts/resolve-build-version.sh.
           if [ "${{ steps.bump.outputs.bumped }}" = "true" ]; then
-            VERSION="${{ steps.bump.outputs.next_version }}"
+            VERSION=$(sh scripts/build-scripts/resolve-build-version.sh "${GITHUB_REF_NAME}" "${{ steps.bump.outputs.next_version }}")
           else
-            VERSION=$(cat VERSION | tr -d '[:space:]')
+            VERSION=$(sh scripts/build-scripts/resolve-build-version.sh "${GITHUB_REF_NAME}")
           fi
           SHORT_SHA="$(git rev-parse --short=7 HEAD)"
           # Branch-prefix the build_tag on non-main branches so each branch

@@ -31,6 +31,10 @@
       "url": "https://github.com/MESH-Research/hcommons-mpe-theme"
     },
     {
+      "type": "vcs",
+      "url": "https://github.com/MESH-Research/commons-domain-mapping"
+    },
+    {
       "type": "package",
       "package": {
         "name": "r-a-y/bp-reply-by-email",
@@ -81,7 +85,7 @@
     }
   ],
   "require": {
-    "php": "^8.5",
+    "php": "^8.5.12",
     "composer/installers": "^2.2",
     "vlucas/phpdotenv": "^5.5",
     "oscarotero/env": "^2.1",
@@ -91,12 +95,13 @@
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
     "mesh-research/buddypress-followers": "1.3-alpha.20241204",
+    "mesh-research/commons-domain-mapping": "^1.1",
     "r-a-y/bp-reply-by-email": "1.0-RC12.20251103",
     "r-a-y/bp-rbe-inbound-forum-attachments": "0.1-alpha.20250728",
     "wp-theme/twentytwentythree": "1.1",
     "wp-plugin/activitypub": "^9.3.1",
     "wp-plugin/akismet": "5.1",
-    "wp-plugin/bbpress": "^2.6.9",
+    "wp-plugin/bbpress": "^2.6.20",
     "wp-plugin/beehive-analytics": "3.4.6",
     "wp-plugin/black-studio-tinymce-widget": "^2.7",
     "wp-plugin/bp-group-documents": "^2.1",
@@ -117,7 +122,6 @@
     "wp-plugin/essential-addons-for-elementor-lite": "^6.8.5",
     "wp-plugin/event-organiser": "3.12.10",
     "wp-plugin/fd-footnotes": "dev-trunk",
-    "wp-plugin/awesome-footnotes": "3.8.5",
     "wp-plugin/gd-bbpress-attachments": "4.9.4",
     "wp-plugin/google-sitemap-generator": "^4.1.5",
     "wp-plugin/health-check": "^1.7.1",
@@ -128,7 +132,6 @@
     "wp-plugin/mathml-block": "^1.2.1",
     "wp-plugin/multisite-plugin-manager": "^3.1.6",
     "wp-plugin/ninja-forms": "^3.6.16",
-    "wp-plugin/participants-database": "^2.1.5",
     "wp-plugin/pressforward": "^5.8.0",
     "wp-plugin/redis-cache": "^2.0.26",
     "wp-plugin/so-widgets-bundle": "^1.36.0",
