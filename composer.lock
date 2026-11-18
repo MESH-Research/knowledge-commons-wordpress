@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1b63017463db684dae5b3b97795e354",
+    "content-hash": "72253bda26413eeafe00af83d1e6cc16",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -3807,15 +3807,15 @@
         },
         {
             "name": "wp-plugin/password-protected",
-            "version": "2.8.6",
+            "version": "2.8.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/password-protected/",
-                "reference": "tags/2.8.6"
+                "reference": "tags/2.8.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/password-protected.2.8.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/password-protected.2.8.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -3834,7 +3834,7 @@
                 "issues": "https://wordpress.org/support/plugin/password-protected",
                 "source": "https://plugins.svn.wordpress.org/password-protected"
             },
-            "time": "2026-10-30T13:03:00+00:00"
+            "time": "2026-11-18T12:45:19+00:00"
         },
         {
             "name": "wp-plugin/pressforward",
@@ -3897,37 +3897,6 @@
                 "source": "https://plugins.svn.wordpress.org/printfriendly"
             },
             "time": "2026-11-16T00:21:45+00:00"
-        },
-        {
-            "name": "wp-plugin/redis-cache",
-            "version": "2.8.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/redis-cache/",
-                "reference": "tags/2.8.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.8.0.zip"
-            },
-            "require": {
-                "composer/installers": "~1.0|~2.0"
-            },
-            "type": "wordpress-plugin",
-            "notification-url": "https://wp-packages.org/downloads",
-            "authors": [
-                {
-                    "name": "Till Krüss"
-                }
-            ],
-            "description": "A persistent object cache backend powered by Redis®¹. Supports Predis, PhpRedis, Relay, replication, sentinels, clustering and WP-CLI.",
-            "homepage": "https://wordpress.org/plugins/redis-cache/",
-            "support": {
-                "changelog": "https://wordpress.org/plugins/redis-cache/#developers",
-                "issues": "https://wordpress.org/support/plugin/redis-cache",
-                "source": "https://plugins.svn.wordpress.org/redis-cache"
-            },
-            "time": "2026-09-29T13:03:58+00:00"
         },
         {
             "name": "wp-plugin/redux-framework",
