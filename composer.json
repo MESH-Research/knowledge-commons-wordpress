@@ -133,7 +133,6 @@
     "wp-plugin/multisite-plugin-manager": "^3.1.6",
     "wp-plugin/ninja-forms": "^3.6.16",
     "wp-plugin/pressforward": "^5.8.0",
-    "wp-plugin/redis-cache": "^2.0.26",
     "wp-plugin/so-widgets-bundle": "^1.36.0",
     "wp-plugin/wordpress-importer": "^0.8",
     "wp-plugin/wp-piwik": "^1.0.27",
