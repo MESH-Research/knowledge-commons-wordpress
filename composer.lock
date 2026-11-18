@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72253bda26413eeafe00af83d1e6cc16",
+    "content-hash": "73fa96b0525c61d4ada15d70b94c8097",
     "packages": [
         {
             "name": "bashkarev/email",
@@ -977,16 +977,16 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54"
+                "reference": "ceed38ba49d98b85808edfc4f04750ff61eb9739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54",
-                "reference": "5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/ceed38ba49d98b85808edfc4f04750ff61eb9739",
+                "reference": "ceed38ba49d98b85808edfc4f04750ff61eb9739",
                 "shasum": ""
             },
             "require": {
@@ -1042,7 +1042,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2026-11-06T20:31:19+00:00"
+            "time": "2026-11-18T13:55:22+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3834,7 +3834,7 @@
                 "issues": "https://wordpress.org/support/plugin/password-protected",
                 "source": "https://plugins.svn.wordpress.org/password-protected"
             },
-            "time": "2026-11-18T12:45:19+00:00"
+            "time": "2026-11-18T12:55:20+00:00"
         },
         {
             "name": "wp-plugin/pressforward",
@@ -4021,6 +4021,37 @@
                 "source": "https://plugins.svn.wordpress.org/so-widgets-bundle"
             },
             "time": "2026-10-31T10:21:43+00:00"
+        },
+        {
+            "name": "wp-plugin/staatic",
+            "version": "1.15.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/staatic/",
+                "reference": "tags/1.15.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/staatic.1.15.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Team Staatic"
+                }
+            ],
+            "description": "Use WordPress as your CMS, then publish a fast, lower-exposure static version of your site.",
+            "homepage": "https://staatic.com/wordpress",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/staatic/#developers",
+                "issues": "https://wordpress.org/support/plugin/staatic",
+                "source": "https://plugins.svn.wordpress.org/staatic"
+            },
+            "time": "2026-11-03T08:37:38+00:00"
         },
         {
             "name": "wp-plugin/syntaxhighlighter",
@@ -4210,15 +4241,15 @@
         },
         {
             "name": "wp-plugin/wp-google-maps",
-            "version": "10.2.00",
+            "version": "10.2.01",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-google-maps/",
-                "reference": "tags/10.2.00"
+                "reference": "tags/10.2.01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-google-maps.10.2.00.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-google-maps.10.2.01.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -4237,7 +4268,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-google-maps",
                 "source": "https://plugins.svn.wordpress.org/wp-google-maps"
             },
-            "time": "2026-11-16T14:42:25+00:00"
+            "time": "2026-11-18T13:14:17+00:00"
         },
         {
             "name": "wp-plugin/wp-job-manager",

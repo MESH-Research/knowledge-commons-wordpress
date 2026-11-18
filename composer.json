@@ -137,6 +137,7 @@
     "wp-plugin/multisite-plugin-manager": "^3.1.6",
     "wp-plugin/ninja-forms": "^3.6.16",
     "wp-plugin/pressforward": "^5.8.0",
+    "wp-plugin/staatic": "1.15.1",
     "wp-plugin/simply-static": "3.8.27",
     "wp-plugin/so-widgets-bundle": "^1.36.0",
     "wp-plugin/wordpress-importer": "^0.8",
