@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Nginx container for running WordPress on production
-FROM nginx:stable-alpine3.19
+    FROM nginx:1.30.7-alpine
 
 # Ensure that important users and groups have consistent IDs across all containers.
 # 82 is the standard uid/gid for "www-data" on php-fpm Alpine.
